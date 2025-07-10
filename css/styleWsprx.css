@@ -1,0 +1,139 @@
+.dete {
+    font-family: tahoma, arial, trebuchet;
+    font-size: 11px;
+    font-weight: normal;
+    line-height: 10px;
+    height: 13px;
+}
+
+.dets {
+    font-family: tahoma, arial, trebuchet;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 10px;
+    height: 13px;
+}
+
+.bote {
+    font-family: tahoma, arial, trebuchet;
+    font-size: 11px;
+    color: #333333;
+    border: 1px #666666 solid;
+    background-color: #f2f2f2;
+    font-weight: normal;
+    line-height: 11px;
+    cursor: pointer;
+}
+
+.rojo {
+    font-family: tahoma, arial, trebuchet;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 11px;
+    color: #ff0000;
+    text-decoration: underline
+}
+
+.gray {
+    background-color: #dddddd;
+}
+
+.narrow {
+    font-family: Roboto Condensed;
+    font-size: 13px;
+}
+
+A:link {
+    text-decoration: none;
+    color: #064A80;
+}
+
+A:hover {
+    color: #000000;
+    text-decoration: underline;
+    background: lightblue;
+    border: 0;
+}
+
+A:active {
+    text-decoration: none;
+    color: #064A80;
+    background: lightblue;
+    border: 0;
+}
+
+A:visited {
+    text-decoration: none;
+    color: #000000;
+}
+
+hr {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+tr:hover {
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+td:hover {
+    background-color: #f2f2f2;
+}
+
+.chartbutton {
+    font-size: 12px;
+    line-height: 12px;
+    font-family: Arial Narrow;
+    font-style: italic;
+    background-color: transparent;
+    color: navy;
+    border-style: outset;
+    border-width: 3px;
+    border-radius: 15px;
+    border-color: orange;
+    box-shadow: 2px 2px 2px #999;
+}
+
+.chartbutton:hover {
+    font-size: 12px;
+    line-height: 12px;
+    font-style: italic;
+    border-style: outset;
+    background-color: transparent;
+    border-width: 3px;
+    border-radius: 15px;
+    border-color: orange;
+    box-shadow: 2px 2px 2px #999;
+    color: red;
+}
+
+.button {
+    font-size: 12px;
+    line-height: 12px;
+    font-family: Arial bold;
+    font-style: normal;
+    background-color: transparent;
+    border-style: outset;
+    border-width: 3px;
+    border-color: orange;
+    box-shadow: 2px 2px 2px #999;
+    padding: 1px 3px 1px 3px;
+}
+
+body {
+    margin: 0;
+    background-color:#f2f2f2;
+}
+
+img [src="http://maps.gstatic.com/mapfiles/api-3/images/google_gray.svg"] {
+    display: none !important
+}
+
+img [src="http://maps.gstatic.com/mapfiles/transparent.png"] {
+    display: none !important
+}
+
+.gm-style-iw button {
+    height: 27px !important;
+}

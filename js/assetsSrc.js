@@ -51,5 +51,7 @@ var imageSrcUrl = {
   "yo3icttracker": "https://i.postimg.cc/L61c6FPt/yo3icttracker.gif",
   "zachtek": "https://i.postimg.cc/v8kRsZ48/zachtek.gif",
   "zachtekplus": "https://i.postimg.cc/6pxD8bVD/zachtekplus.jpg",
-  "zl1rs": "https://i.postimg.cc/y8h2chvW/zl1rs.jpg"
+  "zl1rs": "https://i.postimg.cc/y8h2chvW/zl1rs.jpg",
+  "amsatlogo": "https://i.postimg.cc/MGTVxcbP/amsatlogo.gif",
+  "world": "https://i.postimg.cc/q75n7k1k/world.png"
 }
