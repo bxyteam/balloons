@@ -27,15 +27,20 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src="js/beacon.js"></script> 
-    <script src="js/indexWsprx.js"></script> 
+    <script src="js/assetsSrc.js"></script>
+    <script src="js/datos.js"></script>
+    <script src="js/balloonLinkMenu.js"></script>
+    <script src="js/balloonTrackerX.js"></script>
+    <!-- <script src="js/indexWsprx.js"></script>  -->
 
 </head>
-<body onload="loadMapState();carga()">
+<!-- <body onload="loadMapState();carga()"> -->
+<body>
   <script type="text/javascript" src="js/suncalc.js"></script>  
   
   <form name="formu" id="formu" style="margin-bottom:0;margin-top:0;padding-top:0px;padding-bottom:0px;">
    <!-- <%=balloonsurl%> -->
-   <center><span style='font-family:Arial Narrow,Tahoma,Arial;font-size:10px;font-stretch:condensed;font-weight:normal;line-height:11px;white-space:nowrap;'><center>Flights  
+   <div id="balloonsurl"></div>
 
    <input type=hidden id="callsign" name="callsign">
    <input type=hidden id="tracker" name="tracker">
@@ -72,7 +77,7 @@
   </div>
 
   <div id="map_canvas" style="border:0;height:0;width:0;margin-right: auto; margin-left: auto;background-color:#213468;"></div>
-  <div id="legend" style="visibility:hidden;position:absolute;left:240px;top:500px;width:530px;height:20px;color:#FFFFFF;font-family:Tahoma, Arial;font-size:13px;line-height:15px;font-weight:bold;text-shadow: 1px 1px #000000;cursor:pointer;" onclick="window.open('http://amsat.org.ar', '_blank')" title="Go to http://amsat.org.ar"><center><span style='font-size:14px;'>&copy;</span>&nbsp;​<img src='amsatlogon.gif' style="vertical-align: middle;" width="18px">&nbsp;73, LU7AA, <u>AMSAT Argentina</u>&nbsp;&nbsp;<a href="http://geosistemas.com.ar" style="color:#EEffff;" target="_blank" title="Go to Geosistemas.com.ar"><u>Geosistemas.com.ar</u></a>&nbsp;TKS!&nbsp;</center></div><div id="aprsfi" style="font-size:11px;font-family:Tahoma,Arial;line-height:9px;font-weight:bold;color:#ffffff;text-shadow: 0px 0px #000000;text-align:center;"></div>
+  <div id="legend" style="visibility:hidden;position:absolute;left:240px;top:500px;width:530px;height:20px;color:#FFFFFF;font-family:Tahoma, Arial;font-size:13px;line-height:15px;font-weight:bold;text-shadow: 1px 1px #000000;cursor:pointer;" onclick="window.open('http:\/\/amsat.org.ar', '_blank')" title="Go to http://amsat.org.ar"><center><span style='font-size:14px;'>&copy;</span>&nbsp;​<img src='https://i.postimg.cc/jdxfRtm9/amsatlogon.gif' style="vertical-align: middle;" width="18px">&nbsp;73, LU7AA, <u>AMSAT Argentina</u>&nbsp;&nbsp;<a href="http://geosistemas.com.ar" style="color:#EEffff;" target="_blank" title="Go to Geosistemas.com.ar"><u>Geosistemas.com.ar</u></a>&nbsp;TKS!&nbsp;</center></div><div id="aprsfi" style="font-size:11px;font-family:Tahoma,Arial;line-height:9px;font-weight:bold;color:#ffffff;text-shadow: 0px 0px #000000;text-align:center;"></div>
   <div id="chart_div" style="position:absolute;top:30px;left:210px;width:1078px;height:514px;visibility:hidden;"></div>
   <div id="sacar" onclick="cerrar()" style="position:absolute;color:#ffffff;font-family:Tahoma;"></div>
   <center>
@@ -87,7 +92,7 @@
 </div>
 <div id="rutina" title=' CLick for Callsign Data&#13Use from wsprlive.net:&#13NORMAL = 3,000 reports&#13FULL = 20,000 rep. & slow' style="position:absolute;top:50px;left:90px;width:40px;height:17px;visibility:hidden;color:#ffffff;font-size:15px;line-height:13px;font-family:Arial;align-content:center;text-shadow: 1px 1px #000000;cursor:pointer;white-space:nowrap;"></div>
 <div id="iconos" style="position:absolute;top:110px;left:146px;width:35px !important;height:300px;visibility:hidden;color:#ffffff;font-size:15px;line-height:13px;font-family:'Arial Narrow' !important;font-weight:normal;align-content:center;text-shadow: 1px 1px #000000;">
-    <img alt="UPDATE" title="UPDATE" style="cursor:pointer;" onclick="setid()" src="refresh.gif" onmouseover="this.src='refresh1.gif'" width=21px style="width:21px;" onmouseout="this.src='refresh.gif'"/>
+    <img alt="UPDATE" title="UPDATE" style="cursor:pointer;" onclick="setid()" src="https://i.postimg.cc/ZqxZYt17/refresh.gif" onmouseover="this.src='refresh1.gif'" width=21px style="width:21px;" onmouseout="this.src='refresh.gif'"/>
     <br style='height:3px;'> %=Prox% <br style="line-height:1px;" /><br style="line-height:4px;">
     <a onclick="gohide()" href="#" title="Show/Hide&#13 SPOTTERS" alt="Show/Hide&#13 SPOTTERS" style="color:#ffffff;font-size:15px;line-height:12px;font-family:Arial Narrow;align-content:center;text-shadow: 2px 2px #000000;text-align:center;">
         <span id=hide name=hide style="text-align:center;font-family:Arial Narrow;font-size:11px;line-height:9px;font-weight:bold;text-align:center;white-space:nowrap;">HideSpots</span>
@@ -102,7 +107,7 @@
     <a href="#" onclick="gowinds1()" title="12Km Winds" style="color:#ffffff;font-size:14px;line-height:11px;font-family:Arial Narrow;align-content:center;text-shadow: 2px 2px #000000;">12 Km<br style='line-height:1px;'>Winds<br style='line-height:1px;'>~~~~~</a>
     <br style="line-height:1px;">
     <img alt="AIRCRAFT" title="AIRCRAFT" style="cursor:pointer;" onclick="goplanes()" src="https://i.postimg.cc/kgtgmHJz/plane.gif" onmouseover="this.src='plane1.gif'" onmouseout="this.src='https:\/\/i.postimg.cc/kgtgmHJz/plane.gif'"/><br />
-    <img alt="SHIPS" title="SHIPS" style="cursor:pointer;" onclick="goships()" src="ship.gif" onmouseover="this.src='ship1.gif'" onmouseout="this.src='ship.gif'"/><br style="line-height:5px;"><br style="line-height:3px;">
+    <img alt="SHIPS" title="SHIPS" style="cursor:pointer;" onclick="goships()" src="https://i.postimg.cc/j58bN6qy/ship.gif" onmouseover="this.src='https:\/\/i.postimg.cc/j58bN6qy/ship.gif'" onmouseout="this.src='https:\/\/i.postimg.cc/j58bN6qy/ship.gif'"/><br style="line-height:5px;"><br style="line-height:3px;">
     <a href="https://www.ready.noaa.gov/READY_balloon.php" title="HySplit" alt="HySplit" target="_blank" style="color:#ffffff;font-size:15px;line-height:20px;font-family:Arial Narrow;align-content:center;text-shadow: 2px 2px #000000;">NOAA</a>
     <br style="line-height:1px;">
     <a href="#" onclick="showprop()" title="Propagation" alt="Propagation" style="color:#ffffff;font-size:15px;line-height:20px;font-family:Arial Narrow;align-content:center;text-shadow: 2px 2px #000000;">PROP</a>    

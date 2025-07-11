@@ -1,4 +1,4 @@
- var popupwin1 = null; var nrolinea;
+ var popupwin1 = null; var nrolinea; var nuevo = "";
     var popupwin = null;
     imm = [imageSrcUrl["picolu1esy"], imageSrcUrl["picolu4bmg"], imageSrcUrl["lu1esyp"], imageSrcUrl["picove3kcl"], imageSrcUrl["picove3ocl"], imageSrcUrl["w5kub"], imageSrcUrl["w5kub1"], imageSrcUrl["picowb8elk"], imageSrcUrl["g0upl"], imageSrcUrl["qrplabs"], imageSrcUrl["qrplabsnew"], imageSrcUrl["zachtek"], imageSrcUrl["zachtekplus"], imageSrcUrl["yo3ict"], imageSrcUrl["qrplabsold"], imageSrcUrl["ta2mun"], imageSrcUrl["yo3icttracker"], imageSrcUrl["dg4nob"], imageSrcUrl["tucutracker"], imageSrcUrl["raspilora"], imageSrcUrl["dl6ow"], imageSrcUrl["traquito"], imageSrcUrl["ag6ns"], imageSrcUrl["kc3lbr"], imageSrcUrl["k9yo"], imageSrcUrl["zl1rs"], imageSrcUrl["lu7aabuoy"], imageSrcUrl["kq6rs"], imageSrcUrl["ab5ss"], imageSrcUrl["n0mpm"], ""];
     function gqs(nombre) {
@@ -45,14 +45,22 @@
         document.getElementById("fotos").innerHTML = document.getElementById("fotos").innerHTML + "</td></tr></table>"
     }
     function verimagen() {
-        
-        queimagen = document.getElementById("globero").src
-        qm = queimagen.split("/")
-        queim = qm[qm.length - 1];
-        for (i = 0; i < imm.length; i++) { if (queim == imm[i] && i < imm.length) { nuevo = imm[i + 1]; break; } }
-        if (nuevo == "") { nuevo = imm[0]; }
-        document.getElementById("globero").src = "images/" + nuevo;
-        //+ queimagen.replace(queim, nuevo);
+       try {
+           queimagen = document.getElementById("globero").src
+           //qm = queimagen.split("/")
+           //queim = qm[qm.length - 1];
+           for (i = 0; i < imm.length; i++) { 
+              if (queimagen == imm[i] && i < imm.length) { 
+                nuevo = imm[i + 1]; 
+                break; 
+              } 
+           }
+           if (nuevo == "") { nuevo = imm[0]; }
+           document.getElementById("globero").src = nuevo;    
+       } catch (error) {
+           document.getElementById("globero").src = imm[0];   
+         } 
+       
     }
     function ver(what) {
         if (popupwin) { popupwin.close(); }
