@@ -39,51 +39,22 @@
   <script type="text/javascript" src="js/suncalc.js"></script>  
   
   <form name="formu" id="formu" style="margin-bottom:0;margin-top:0;padding-top:0px;padding-bottom:0px;">
-   <!-- <%=balloonsurl%> -->
-   <div id="balloonsurl"></div>
+      <div id="balloonsurl"></div>
 
    <input type=hidden id="callsign" name="callsign">
    <input type=hidden id="tracker" name="tracker">
   
-   <div id="calink" name="calink" style="position:absolute;top:30px;left:53px;width:72px;border:0;height:0;width:0;margin-right: 0; margin-left: 0;background-color:#213468;text-align:center;visibility:hidden;">
-    <!-- <%=calink%> -->
-   </div>
+   <div id="calink" name="calink" style="position:absolute;top:65px;left:53px;width:80px;border:0;height:0;margin-right: 0; margin-left: 0;background-color:#213468;text-align:center;visibility:hidden;"></div>
 
-   <div id="chdiv" name="chdiv" style="position:absolute;top:30px;left:1218px;width:140px;border:0;height:0;width:0;background-color:#313468;text-align:center;z-index:3;font-size:15px;font-weight:bold;line-height:14px;visibility:hidden;opacity:0.8">
-     <center>
-       &nbsp;&nbsp;<i>Charts</i><br />
-     <!-- <%if request("tracker")="zachtek1" then ocultar = " style='visibility:hidden;line-height:1px;height:1px !important;' "%> -->
-    
-      <br /><a href="#" id="0" onclick="drawChart(0)" class='chartbutton'>&nbsp;&nbsp;Height mtrs&nbsp;</a><br />
-      <br /><a href="#" id="1" onclick="drawChart(1)" class='chartbutton'>&nbsp;&nbsp;Height Feet&nbsp;&nbsp;</a>%if Request("tracker")!="zachtek1" then %<br />%end if %
-      <br /><a href="#" id="2" onclick="drawChart(2)" data-ocultar='%=ocultar%' class='chartbutton'">&nbsp;&nbsp;Solar Volts&nbsp;&nbsp;&nbsp;</a><br />
-      <br /><a href="#" id="3" onclick="drawChart(3)" class='chartbutton' title='Solar Elev.° at&#13Balloon height'>&nbsp;&nbsp;&nbsp;Solar Elev.&nbsp;&nbsp;&nbsp;</a><br /> 
-      <br /><a href="#" id="4" onclick="drawChart(4)" class='chartbutton'>&nbsp;Speed Km/h&nbsp;&nbsp;</a><br /> 
-      <br /><a href="#" id="15" onclick="drawChart(12)" class='chartbutton'>&nbsp;Speed Knots&nbsp;&nbsp;</a><br /> 
-      <br /><a href="#" id="5" onclick="drawChart(5)" class='chartbutton'>&nbsp;&nbsp;&nbsp;Asc. / Desc.&nbsp;&nbsp;</a><br />
-      <br /><a href="#" id="6" onclick="drawChart(6)" data-ocultar='%=ocultar%' class='chartbutton'>&nbsp;&nbsp;Temperat. °C&nbsp;</a> %if Request("tracker")<>"zachtek1" then % <br /> %end if %
-      <br /><a href="#" id="11" onclick="drawChart(11)" data-ocultar='%=ocultar%' class='chartbutton'>&nbsp;&nbsp;Temperat. °F&nbsp;&nbsp;</a> %if Request("tracker")!="zachtek1" then %<br />%end if %     
-      <br /><a href="#" id="7" onclick="drawChart(7)" class='chartbutton'>&nbsp;&nbsp;&nbsp;SNR dB Lvl&nbsp;&nbsp;&nbsp;</a><br /> 
-      <br /><a href="#" id="8" onclick="drawChart(8)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;MULTIPLE&nbsp;&nbsp;&nbsp;&nbsp;</a><br />
-      <br /><a href="#" id="9" onclick="drawChart(9)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Longitude&nbsp;&nbsp;&nbsp;&nbsp</a><br />     
-      <br /><a href="#" id="10" onclick="drawChart(10)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Frequency&nbsp;&nbsp;&nbsp;&nbsp</a><br />  
-      <br style="line-height:14px;" /><a href="#" id="12" onclick="drawKm(12)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Distance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a><br />
-      <br /><a href="#" id="13" onclick="solarflux()" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;Solar Flux&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</a><br /> 
-      <br style="line-height:11px;" /><a href="#" id="14" onclick="drawChart(14)" title="Go to Map"><img src="https://i.postimg.cc/GpGtk56G/map.png" width="76px" class='chartbutton' /></a><br />
-      <br style="line-height:2px;" /><i style="font-size:11px;line-height:10px;">&nbsp;&nbsp;A graph is worth a<br />&nbsp;&nbsp;thousand numbers<br />&nbsp;Drag chart to Zoom<br />right click unzooms</i><br style="line-height:11px;" />
-      <a href='https://www.paypal.me/AMSATARGENTINA/' title=' Please help keep site active, if possible&#13&#xbb; Donate to Amsat Argentina, Thanks! &#xab;' target='_blank' style='text-decoration:none;'><br style="line-height:1px;" /><img src="https://i.postimg.cc/QtqMzW8M/pen.gif"/></a>    
-     <br /><span style="font-size:11px;">&nbsp;Limit YYYYMMDD<br />&nbsp;&nbsp;<input type="text" size=8 onchange="checkdate();setid();" placeholder="YYYYMMDD" title="Set date limit&#13  for reports" maxlength="8" name="limit" id="limit" style="font-family: fixedsys, consolas, monospace;font-weight:bold;font-size:14px;line-height:10px;background-image:url(https://i.postimg.cc/cLY0j8TN/rayas3.gif);width:71px;" /></span>
-   </center>
-  </div>
+   <div id="chdiv" name="chdiv" style="position:absolute;top:65px;left:1218px;border:0;height:0;background-color:#313468;text-align:center;z-index:3;font-size:15px;font-weight:bold;line-height:14px;visibility:hidden;opacity:0.8"></div>
 
-  <div id="map_canvas" style="border:0;height:0;width:0;margin-right: auto; margin-left: auto;background-color:#213468;"></div>
-  <div id="legend" style="visibility:hidden;position:absolute;left:240px;top:500px;width:530px;height:20px;color:#FFFFFF;font-family:Tahoma, Arial;font-size:13px;line-height:15px;font-weight:bold;text-shadow: 1px 1px #000000;cursor:pointer;" onclick="window.open('http:\/\/amsat.org.ar', '_blank')" title="Go to http://amsat.org.ar"><center><span style='font-size:14px;'>&copy;</span>&nbsp;​<img src='https://i.postimg.cc/jdxfRtm9/amsatlogon.gif' style="vertical-align: middle;" width="18px">&nbsp;73, LU7AA, <u>AMSAT Argentina</u>&nbsp;&nbsp;<a href="http://geosistemas.com.ar" style="color:#EEffff;" target="_blank" title="Go to Geosistemas.com.ar"><u>Geosistemas.com.ar</u></a>&nbsp;TKS!&nbsp;</center></div><div id="aprsfi" style="font-size:11px;font-family:Tahoma,Arial;line-height:9px;font-weight:bold;color:#ffffff;text-shadow: 0px 0px #000000;text-align:center;"></div>
-  <div id="chart_div" style="position:absolute;top:30px;left:210px;width:1078px;height:514px;visibility:hidden;"></div>
-  <div id="sacar" onclick="cerrar()" style="position:absolute;color:#ffffff;font-family:Tahoma;"></div>
-  <center>
-    <table id="tableMap" cellpadding=0 cellspacing=0 border=0></table>
- 
-  </center> 
+   <div id="map_canvas" style="border:0;height:0;width:0;margin-right: auto; margin-left: auto;background-color:#213468;"></div>
+   <div id="legend" style="visibility:hidden;position:absolute;left:240px;top:500px;width:530px;height:20px;color:#FFFFFF;font-family:Tahoma, Arial;font-size:13px;line-height:15px;font-weight:bold;text-shadow: 1px 1px #000000;cursor:pointer;" onclick="window.open('http:\/\/amsat.org.ar', '_blank')" title="Go to http://amsat.org.ar"><center><span style='font-size:14px;'>&copy;</span>&nbsp;​<img src='https://i.postimg.cc/jdxfRtm9/amsatlogon.gif' style="vertical-align: middle;" width="18px">&nbsp;73, LU7AA, <u>AMSAT Argentina</u>&nbsp;&nbsp;<a href="http://geosistemas.com.ar" style="color:#EEffff;" target="_blank" title="Go to Geosistemas.com.ar"><u>Geosistemas.com.ar</u></a>&nbsp;TKS!&nbsp;</center></div><div id="aprsfi" style="font-size:11px;font-family:Tahoma,Arial;line-height:9px;font-weight:bold;color:#ffffff;text-shadow: 0px 0px #000000;text-align:center;"></div>
+  
+   <div id="chart_div" style="position:absolute;top:30px;left:210px;width:1078px;height:514px;visibility:hidden;"></div>
+   <div id="sacar" onclick="cerrar()" style="position:absolute;color:#ffffff;font-family:Tahoma;"></div>
+  
+   <center><table id="tableMap" cellpadding=0 cellspacing=0 border=0></table></center> 
 
 </form>  
 
