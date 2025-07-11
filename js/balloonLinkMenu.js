@@ -134,7 +134,7 @@ class BalloonLinkMenu {
                 let tooltip = `${launchdate1} ${decodeURIComponent(comentarios).replace(/"/g, "''")}`;
                 tooltip = tooltip.replace(/&#13/g, " ");
 
-                const link = `<a title="${tooltip}" style="cursor:pointer;" onclick="this.style.color='#ff0000'; formu.other.value='${ballooncall}'; logactivity('${linea}'); gourl('${linea}')">${tok1}${ballooncall}</u></a>`;
+                const link = `<a title="${tooltip}" style="cursor:pointer;" onclick="this.style.color='#ff0000'; formu.callsign.value='${ballooncall}'; logactivity('${linea}'); gourl('${linea}')">${tok1}${ballooncall}</u></a>`;
                 balloonsurl += link + "<br>";
 
                 // Set comentariosballoon
@@ -301,8 +301,12 @@ class BalloonLinkMenu {
             <br /><a href="#" id="13" onclick="solarflux()" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;Solar Flux&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</a><br /> 
             <br style="line-height:11px;" /><a href="#" id="14" onclick="drawChart(14)" title="Go to Map"><img src="https://i.postimg.cc/GpGtk56G/map.png" width="76px" class='chartbutton' /></a><br />
             <br style="line-height:2px;" /><i style="font-size:11px;line-height:10px;">&nbsp;&nbsp;A graph is worth a<br />&nbsp;&nbsp;thousand numbers<br />&nbsp;Drag chart to Zoom<br />right click unzooms</i><br style="line-height:11px;" />
-            <a href='https://www.paypal.me/AMSATARGENTINA/' title=' Please help keep site active, if possible&#13&#xbb; Donate to Amsat Argentina, Thanks! &#xab;' target='_blank' style='text-decoration:none;'><br style="line-height:1px;" /><img src="https://i.postimg.cc/QtqMzW8M/pen.gif"/></a>    
-            <br /><span style="font-size:11px;">&nbsp;Limit YYYYMMDD<br />&nbsp;&nbsp;<input type="text" size=8 onchange="checkdate();setid();" placeholder="YYYYMMDD" title="Set date limit&#13  for reports" maxlength="8" name="limit" id="limit" style="font-family: fixedsys, consolas, monospace;font-weight:bold;font-size:14px;line-height:10px;background-image:url(https://i.postimg.cc/cLY0j8TN/rayas3.gif);width:71px;" /></span>
+            <a href='https://www.paypal.me/AMSATARGENTINA/' title=' Please help keep site active, if possible&#13&#xbb; Donate to Amsat Argentina, Thanks! &#xab;' target='_blank' style='text-decoration:none;'><br style="line-height:1px;" />
+              <img src="https://i.postimg.cc/QtqMzW8M/pen.gif"/>
+            </a><br />
+            <span style="font-size:11px;">&nbsp;Limit YYYYMMDD<br />&nbsp;&nbsp;
+              <input type="text" size=8 onchange="checkdate();setid();" placeholder="YYYYMMDD" title="Set date limit&#13  for reports" maxlength="8" name="limit" id="limit" style="font-family: fixedsys, consolas, monospace;font-weight:bold;font-size:14px;line-height:10px;background-image:url(https://i.postimg.cc/cLY0j8TN/rayas3.gif);width:71px;" />
+            </span>
         </center>`;
     }
 

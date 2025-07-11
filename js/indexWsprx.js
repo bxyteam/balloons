@@ -1,5 +1,33 @@
-var saveglobo; var saveestaciones; var velest; var hide = false; var TZD = "<%=TZDiff%>" / 60 / 24; Kmrecorridos = 0;
-    var txt = ""; var hide = false; var saveglobo; var saveestaciones; var velest; var meterfeet = 0; var prevaltutext;
+// ?other=ab9lm&banda=20m&balloonid=17&timeslot=2&detail=&launch=20240206000000&SSID=11&tracker=qrplabs&qrpid=346&repito=on&qp=&telen=&comments=
+
+//window.queryParameters = Object.fromEntries([...new URLSearchParams(window.location.search)].map(([k, v]) => [k, encodeURIComponent(v)]));
+
+function getParamSafe(key, defaultValue = '', encode = false) {
+  const params = new URLSearchParams(window.location.search);
+  const value = params.get(key.toLowerCase());
+  if (value === null || value.trim() === '') return defaultValue;
+  return encode ? encodeURIComponent(value) : value.trim();
+}
+
+var querySearchParams = {
+ other: getParamSafe('other'),          
+ banda: getParamSafe('banda', 'All'),   
+ balloonid: getParamSafe('balloonid'),  
+ timeslot: getParamSafe('timeslot'),    
+ tracker: getParamSafe('tracker'),       
+ qrpid: getParamSafe('qrpid'),           
+ qp: getParamSafe('qp'),                 
+ detail: getParamSafe('detail'),         
+ telen: getParamSafe('telen'),           
+ SSID: getParamSafe('SSID'),      
+ launch: getParamSafe('launch'),   
+ comments: getParamSafe('comments', '', true),       
+}
+
+var saveglobo; var saveestaciones; var velest; var hide = false; 
+//var TZD = "<%=TZDiff%>" / 60 / 24; Kmrecorridos = 0;
+var TZD = 0.125 / 60 / 24; Kmrecorridos = 0;
+var txt = ""; var hide = false; var saveglobo; var saveestaciones; var velest; var meterfeet = 0; var prevaltutext;
 function handleErr(msg, url, l)
 {
 txt = "There was an error on this page.\n\n";
@@ -7,7 +35,12 @@ txt += "Error: " + msg + "\n";
 txt += "URL: " + url + "\n";
 txt += "Line: " + l + "\n\n";
 txt += "Click OK to continue.\n\n"//;alert(txt)
-if (url.substring(0, 12) == "https://maps" || msg.substring(11, 20) == "document." || txt.indexOf("properties of null")>-1 ) { } else { document.location.reload(); }
+if (url.substring(0, 12) == "https://maps" || msg.substring(11, 20) == "document." || txt.indexOf("properties of null")>-1 ) { 
+    alert(txt);
+} else { 
+  //  document.location.reload();
+  alert(txt); 
+}
 return true;
 }
 function checkdate()
@@ -142,7 +175,9 @@ function setlaunch()
     if (gqs("SSID")) { querystring = querystring + "&SSID=" + gqs("SSID") } else { querystring = querystring + "&SSID=" };
     querystring = querystring + "&launch=" + newdatetime;
     if (gqs("tracker")) { querystring = querystring + "&tracker=" + gqs("tracker") } else { querystring = querystring + "&tracker=" };
-    document.location.url = querystring; document.location.href = querystring;
+
+    // FIXME: this doesn't work
+    //document.location.url = querystring; document.location.href = querystring;
 }
 function settracker()
 {
@@ -164,7 +199,9 @@ function settracker()
     if (gqs("SSID")) { querystring = querystring + "&SSID=" + gqs("SSID") } else { querystring = querystring + "&SSID=" };
     if (gqs("launch")) { querystring = querystring + "&launch=" + gqs("launch") } else { querystring = querystring + "&launch=" };
     querystring = querystring + "&tracker=" + newtracker;
-document.location.url = querystring; document.location.href = querystring;
+ 
+    // FIXME: this doesn't work
+//document.location.url = querystring; document.location.href = querystring;
 }
 ssidchange = false;
 var newssid;
@@ -288,7 +325,20 @@ var sunarray = Create2DArray(371, 2);
 var balloonarray = Create2DArray(371, 2);
 var balloonCoords = new Array();
 var radian = 57.29577951308;
-var launchdate = "<%=launchdate%>";
+//var launchdate = "<%=launchdate%>";
+
+var launchdate;
+if (querySearchParams.launch) {
+  const launchd = querySearchParams.launch
+  launchdate = `${launchd.substring(0,4)}-${launchd.substring(4,6)}-${launchd.substring(6,8)} ${launchd.substring(8,10)}:${launchd.substring(10,12)}:${launchd.substring(12,14)}`;
+} else {
+  const now = new Date();
+  const fe = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000); // 7 days ago
+  const pad = (n) => String(n).padStart(2, '0');
+  launchdate = `${fe.getFullYear()}-${pad(fe.getMonth() + 1)}-${pad(fe.getDate())} 00:00:00`;
+}
+
+
 //var SSID = "11";
 var dt = new Date(); dt.setDate(dt.getDate() - 7); //setear fecha lanzamiento 7 dias antes de fecha actual
 var lanzamiento = new Date(dt.getFullYear() + "-" + ("00" + (dt.getMonth() * 1 + 1)).slice(-2) + "-" + ("00" + dt.getDate()).slice(-2) + "T" + ("00" + dt.getHours()).slice(-2) + ":" + ("00" + dt.getMinutes()).slice(-2) + ":" + ("00" + dt.getSeconds()).slice(-2) + "Z"); // Entrar fecha/hora en GMT pero sin la Z
@@ -410,6 +460,7 @@ function redate(valor){
 //
 function loadMapState() { 
     var gotCookieString=getCookie("myMapCookie");
+    console.log("gotCookieString:", gotCookieString);
     var splitStr = gotCookieString.split("_");
     var savedMapLat = parseFloat(splitStr[0]);
     var savedMapLng = parseFloat(splitStr[1]);
@@ -2299,7 +2350,9 @@ function setid() {
     if (gqs("qp") && gqs("qp") == "on") { querystring = querystring + "&qp=on"; };
     if (formu.limit.value != "") { querystring = querystring + "&limit=" + formu.limit.value } else { };
     //if (formu.qp && formu.qp.checked == true) { querystring = querystring + "&qp=on" } else { querystring = querystring + "" };
-    document.location.url = querystring; sleep(100); document.location.href = querystring; sleep(100);// document.location.href = querystring;
+    
+    // FIXME: No funciona el reload 
+    //document.location.url = querystring; sleep(100); document.location.href = querystring; sleep(100);// document.location.href = querystring;
 //    document.location.reload();
 }
 function solarflux() {
@@ -2317,4 +2370,5 @@ function solarflux() {
     for (g = 0; g < 14; g++) { document.getElementById(g).style.backgroundColor = "transparent" }
     document.getElementById(13).style.backgroundColor = "orange" 
 }
-google.load("visualization", "1", { packages: ["corechart"] });
+
+//google.load("visualization", "1", { packages: ["corechart"] });

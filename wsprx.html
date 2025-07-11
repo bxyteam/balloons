@@ -30,16 +30,19 @@
     <script src="js/assetsSrc.js"></script>
     <script src="js/datos.js"></script>
     <script src="js/balloonLinkMenu.js"></script>
-    <script src="js/balloonTrackerX.js"></script>
-    <!-- <script src="js/indexWsprx.js"></script>  -->
+    <script src="js/balloonTrackerx.js"></script>
+    <script src="js/balloonLaunchedWsprx.js"></script>
+    <script src="js/indexWsprx.js"></script>
 
 </head>
+<body onload="carga()">
 <!-- <body onload="loadMapState();carga()"> -->
-<body>
+<!-- <body> -->
   <script type="text/javascript" src="js/suncalc.js"></script>  
   
   <form name="formu" id="formu" style="margin-bottom:0;margin-top:0;padding-top:0px;padding-bottom:0px;">
-      <div id="balloonsurl"></div>
+    
+   <div id="balloonsurl"></div>
 
    <input type=hidden id="callsign" name="callsign">
    <input type=hidden id="tracker" name="tracker">
@@ -58,12 +61,13 @@
 
 </form>  
 
+<!-- Set visibility to hidden -->
 <div id="lineadianoche" style="visibility:hidden;position:absolute;width:150px;height:20px;color:#FFA000;font-family:Tahoma, Arial;font-size:15px;line-height:16px;font-weight:bold;">
     <center>Day / Night<br>Change Line</center>
 </div>
-<div id="rutina" title=' CLick for Callsign Data&#13Use from wsprlive.net:&#13NORMAL = 3,000 reports&#13FULL = 20,000 rep. & slow' style="position:absolute;top:50px;left:90px;width:40px;height:17px;visibility:hidden;color:#ffffff;font-size:15px;line-height:13px;font-family:Arial;align-content:center;text-shadow: 1px 1px #000000;cursor:pointer;white-space:nowrap;"></div>
-<div id="iconos" style="position:absolute;top:110px;left:146px;width:35px !important;height:300px;visibility:hidden;color:#ffffff;font-size:15px;line-height:13px;font-family:'Arial Narrow' !important;font-weight:normal;align-content:center;text-shadow: 1px 1px #000000;">
-    <img alt="UPDATE" title="UPDATE" style="cursor:pointer;" onclick="setid()" src="https://i.postimg.cc/ZqxZYt17/refresh.gif" onmouseover="this.src='refresh1.gif'" width=21px style="width:21px;" onmouseout="this.src='refresh.gif'"/>
+<div id="rutina" title=' Click for Callsign Data&#13Use from wsprlive.net:&#13NORMAL = 3,000 reports&#13FULL = 20,000 rep. & slow' style="position:absolute;top:50px;left:90px;width:40px;height:17px;visibility:hidden;color:#ffffff;font-size:15px;line-height:13px;font-family:Arial;align-content:center;text-shadow: 1px 1px #000000;cursor:pointer;white-space:nowrap;"></div>
+<div id="iconos" style="position:absolute;top:110px;left:146px;width:35px !important;height:300px;visibility:visible;color:#ffffff;font-size:15px;line-height:13px;font-family:'Arial Narrow' !important;font-weight:normal;align-content:center;text-shadow: 1px 1px #000000;">
+    <img alt="UPDATE" title="UPDATE" style="cursor:pointer;" onclick="setid()" src="https://i.postimg.cc/ZqxZYt17/refresh.gif" onmouseover="this.src='https:\/\/i.postimg.cc/zXzctd5Y/refresh1.gif'" width=21px style="width:21px;" onmouseout="this.src='https:\/\/i.postimg.cc/ZqxZYt17/refresh.gif'"/>
     <br style='height:3px;'> %=Prox% <br style="line-height:1px;" /><br style="line-height:4px;">
     <a onclick="gohide()" href="#" title="Show/Hide&#13 SPOTTERS" alt="Show/Hide&#13 SPOTTERS" style="color:#ffffff;font-size:15px;line-height:12px;font-family:Arial Narrow;align-content:center;text-shadow: 2px 2px #000000;text-align:center;">
         <span id=hide name=hide style="text-align:center;font-family:Arial Narrow;font-size:11px;line-height:9px;font-weight:bold;text-align:center;white-space:nowrap;">HideSpots</span>
@@ -73,7 +77,7 @@
         <span id=hidet name=hidet style="text-align:center;font-family:Arial Narrow;font-size:11px;line-height:9px;font-weight:bold;text-align:center;white-space:nowrap;">HideTrack</span>
     </a>
     <br />
-    <img alt="Surface WINDS&#13& CLOUD Tops" title="Surface WINDS&#13& CLOUD Tops" style="cursor:pointer;" onclick="gowinds()" src="https://i.postimg.cc/Ss1BjyVr/wind.gif" onmouseover="this.src='wind1.gif'" onmouseout="this.src='wind.gif'"/>
+    <img alt="Surface WINDS&#13& CLOUD Tops" title="Surface WINDS&#13& CLOUD Tops" style="cursor:pointer;" onclick="gowinds()" src="https://i.postimg.cc/Ss1BjyVr/wind.gif" onmouseover="this.src='https:\/\/i.postimg.cc/XNcPkRRg/wind1.gif'" onmouseout="this.src='https:\/\/i.postimg.cc/Ss1BjyVr/wind.gif'"/>
     <br style="line-height:2px;"><br style="line-height:4px;">
     <a href="#" onclick="gowinds1()" title="12Km Winds" style="color:#ffffff;font-size:14px;line-height:11px;font-family:Arial Narrow;align-content:center;text-shadow: 2px 2px #000000;">12 Km<br style='line-height:1px;'>Winds<br style='line-height:1px;'>~~~~~</a>
     <br style="line-height:1px;">
