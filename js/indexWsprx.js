@@ -2062,8 +2062,6 @@ function ponermapa(locator, licencia) {
       limitek = beacon1.length - 1;
     }
 
-    console.log("limitek ", limitek);
-
     for (k = 0; k < limitek; k++) {
       distancia =
         crsdist(
@@ -3445,10 +3443,12 @@ function drawChart(meterfeet) {
     pattern: "MMM-dd HH:mm",
   });
   formatter.format(data4, 0);
-  document.getElementById("chart_div").style.left =
-    document.getElementById("map_canvas").offsetLeft + 74;
-  document.getElementById("chart_div").style.top =
-    document.getElementById("map_canvas").offsetTop;
+  let mapCanvas = document.getElementById("map_canvas").getBoundingClientRect();
+  document.getElementById("chart_div").style.left = `${mapCanvas.left}px`;
+  document.getElementById("chart_div").style.top = `0px`;
+  document.getElementById("chart_div").style.height = `${mapCanvas.height}px`;
+  document.getElementById("chart_div").style.width = `${mapCanvas.width}px`;
+
   if (meterfeet == 0) {
     var options = {
       explorer: {
@@ -3460,6 +3460,7 @@ function drawChart(meterfeet) {
       },
       backgroundColor: "#f2f2f2",
       width: window.width,
+      height: window.height,
       bottom: 0,
       smoothLine: true,
       lineWidth: 2,
