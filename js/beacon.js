@@ -1,4 +1,6 @@
-window.beacon1 = [
+
+
+window.matriz = [
     [
         "2025-07-08 23:00:00z",
         "DI08WK",
@@ -13591,6 +13593,7 @@ window.beacon1 = [
     ]
 ];
 
+/*
 window.dista = [
     [
         0,
@@ -13766,4 +13769,11966 @@ window.dista = [
         0,
         0
     ]
-]
+];
+
+var locations = [
+    [
+        "FH74UU",
+        "AB9LM<br>APRS: <a href=http://aprs.fi?call=AB9LM-11&timerange=604800&tail=604800&mt=hybrid title='See in APRS&#13If uploaded' target=_blank><u style='line-height:13px;color:green;'>AB9LM-11</u></a><br>Jul-13 20:00z<br>Local: 17:00<br>Power: 20 mW<br>Locator: FH74UU<br>Alt.: 12840&nbsp;m.&nbsp;&nbsp;<br>Alt.: 42125 feet<br>Temperat: 16&deg;C<br>Bat/Sol: 4.8Volts<br>GPS-Sats: 4-8<br>Tracker: qrplabs<br>LU8MIL -23 <br><a href=# onclick =\"gowinds1()\" style=\"color: #3333ff;line-height:13px;overflow:hidden;font-weight:bold;white-space:nowrap;cursor:pointer;\"><u>Click for Winds</u></a><br><span style='font-size:18px;'>&#9651;</span>d: 27.2 Km<br>Ascent: 0 m/s<br>Course: 82.8&deg;<br>V:&nbsp;40.8&nbsp;Km/h<br><span style='color:green;font-size:13px;line-height:13px;'><span style='color:green;font-size:12px;line-height:12px;'>Sun Elev:40.1&deg;</span>&#x25BC;</span><br>From Feb-6 00:00z<br><i>Estimated 27.4 laps</i><br>@Avg. Latitude: 33°<br>Travel: 523d 18h 40'<br>&nbsp;&nbsp;&nbsp;For: 1063221 Km. ~<br>By: 182988 Km<br><i>On this map</i><br>Avg.V.: 84.6 Km/h"
+    ],
+    [
+        "FF57nd",
+        "LU8MIL<br>Jul-13 20:00z<br>2122 Km<br>@ FH85<br>SNR:-23"
+    ],
+    [
+        "GH64cg",
+        "LU3DJ<br>Jul-13 18:40z<br>2640 Km<br>SNR:-20"
+    ],
+    [
+        "GG56tv",
+        "PY2GN<br>Jul-13 18:00z<br>1939 Km<br>SNR:-26"
+    ],
+    [
+        "GH64cg",
+        "PT2FHC<br>Jul-13 17:20z<br>1847 Km<br>SNR:-27"
+    ],
+    [
+        "DN31uo",
+        "KD7EFG-1<br>Jul-12 13:20z<br>6717 Km<br>SNR:-25"
+    ],
+    [
+        "FJ08bn",
+        "HP1COO<br>Jul-11 21:50z<br>1932 Km<br>SNR:-29"
+    ],
+    [
+        "FN30lu",
+        "WA2TP<br>Jul-11 12:20z<br>5695 Km<br>SNR:-26"
+    ],
+    [
+        "DM13ie",
+        "W1CK<br>Jul-09 17:40z<br>4980 Km<br>SNR:-26"
+    ],
+    [
+        "CM87tj",
+        "KFS/O<br>Jul-08 18:40z<br>4218 Km<br>SNR:-24"
+    ],
+    [
+        "CM87wi",
+        "W6EXT<br>Jul-08 17:50z<br>4218 Km<br>SNR:-21"
+    ],
+    [
+        "QG62lr",
+        "VK4EMM<br>Jul-06 22:20z<br>5835 Km<br>SNR:-26"
+    ],
+    [
+        "RF72no",
+        "ZL1KFM<br>Jul-06 21:40z<br>4393 Km<br>SNR:-21"
+    ],
+    [
+        "PF95ht",
+        "VK5ARG<br>Jul-06 20:30z<br>7122 Km<br>SNR:-29"
+    ],
+    [
+        "QG62lr",
+        "VK4DL/SDR1<br>Jul-05 23:20z<br>4734 Km<br>SNR:-24"
+    ],
+    [
+        "RF72no",
+        "VK5KJP/1<br>Jul-05 22:00z<br>5666 Km<br>SNR:-14"
+    ],
+    [
+        "RE68mx",
+        "ZL2005SWL<br>Jul-05 21:50z<br>3319 Km<br>SNR:-28"
+    ],
+    [
+        "OF88bc",
+        "VK6PVL<br>Jul-04 04:40z<br>392 Km<br>SNR:-21"
+    ],
+    [
+        "PF95ht",
+        "VK6XT<br>Jul-04 01:50z<br>2935 Km<br>SNR:-3"
+    ],
+    [
+        "QF13xa",
+        "VK3CMZ<br>Jul-04 01:30z<br>3395 Km<br>SNR:-15"
+    ],
+    [
+        "LG79sc",
+        "F61695<br>Jul-03 08:40z<br>1392 Km<br>SNR:-23"
+    ],
+    [
+        "LG78qs",
+        "FR5DN<br>Jul-02 06:30z<br>1128 Km<br>SNR:-13"
+    ],
+    [
+        "KG25xj",
+        "A2NEW<br>Jul-01 15:50z<br>102 Km<br>SNR:-8"
+    ],
+    [
+        "KG25xj",
+        "ZS5SAM<br>Jul-01 15:40z<br>1121 Km<br>SNR:-11"
+    ],
+    [
+        "KF16fa",
+        "ZS1Q<br>Jul-01 14:50z<br>1188 Km<br>SNR:-27"
+    ],
+    [
+        "KG43ol",
+        "ZS6WBT<br>Jul-01 11:40z<br>1005 Km<br>SNR:-22"
+    ],
+    [
+        "JG87ql",
+        "V51RS<br>Jul-01 10:00z<br>276 Km<br>SNR:-17"
+    ],
+    [
+        "JG87ql",
+        "ZD7GB<br>Jun-30 13:40z<br>1902 Km<br>SNR:3"
+    ],
+    [
+        "KG43ev",
+        "ZS6EMS<br>Jun-30 12:00z<br>2601 Km<br>SNR:0"
+    ],
+    [
+        "KO38ig",
+        "ES5TVI<br>Jun-27 03:50z<br>6626 Km<br>SNR:-24"
+    ],
+    [
+        "OK03fu",
+        "HS0ZQS<br>Jun-23 05:00z<br>270 Km<br>SNR:-25"
+    ],
+    [
+        "PL02gs",
+        "N0HAQ<br>Jun-22 08:40z<br>1837 Km<br>SNR:-25"
+    ],
+    [
+        "OL72LL",
+        "VR25C-75<br>Jun-22 07:10z<br>1398 Km<br>SNR:-27"
+    ],
+    [
+        "PL05vc",
+        "BM2KVV<br>Jun-22 07:00z<br>2096 Km<br>SNR:-25"
+    ],
+    [
+        "PL02gs",
+        "BV7AU<br>Jun-21 07:50z<br>1446 Km<br>SNR:-24"
+    ],
+    [
+        "PL05vc",
+        "BV5ON<br>Jun-21 02:10z<br>1499 Km<br>SNR:-25"
+    ],
+    [
+        "PL05vc",
+        "BM7GUP<br>Jun-21 01:40z<br>1499 Km<br>SNR:-17"
+    ],
+    [
+        "QE38lr",
+        "BG5DMW<br>Jun-20 09:50z<br>7194 Km<br>SNR:-24"
+    ],
+    [
+        "PM74ec",
+        "JA5NVN<br>Jun-20 07:10z<br>1776 Km<br>SNR:-16"
+    ],
+    [
+        "PM74bi",
+        "JA5FFO<br>Jun-20 06:10z<br>1689 Km<br>SNR:-22"
+    ],
+    [
+        "PM95wt",
+        "JH1ARY/2<br>Jun-20 02:30z<br>1851 Km<br>SNR:-23"
+    ],
+    [
+        "PM96sa",
+        "JP1ODJ/SDR<br>Jun-19 22:20z<br>1635 Km<br>SNR:-26"
+    ],
+    [
+        "QN12ei",
+        "JJ8NTM<br>Jun-19 05:50z<br>1534 Km<br>SNR:-26"
+    ],
+    [
+        "PM74bi",
+        "BY1HT<br>Jun-19 02:50z<br>1038 Km<br>SNR:-24"
+    ],
+    [
+        "JO10os",
+        "OE9XRV<br>Jun-17 23:10z<br>6057 Km<br>SNR:-20"
+    ],
+    [
+        "JO10os",
+        "ON5KQ<br>Jun-17 04:20z<br>4935 Km<br>SNR:-22"
+    ],
+    [
+        "JO10os",
+        "OE3GBB<br>Jun-17 03:50z<br>4799 Km<br>SNR:-21"
+    ],
+    [
+        "KO85nt",
+        "UA3245SWL<br>Jun-16 12:50z<br>1071 Km<br>SNR:-25"
+    ],
+    [
+        "JN58oe",
+        "DK8FT<br>Jun-16 12:40z<br>2500 Km<br>SNR:-19"
+    ],
+    [
+        "KM56vo",
+        "TA4/G8SCU<br>Jun-16 11:20z<br>1178 Km<br>SNR:-24"
+    ],
+    [
+        "JO33lc",
+        "PD0OHW<br>Jun-16 06:20z<br>3109 Km<br>SNR:-19"
+    ],
+    [
+        "JO31ai",
+        "PE0MJX<br>Jun-15 14:50z<br>2630 Km<br>SNR:-20"
+    ],
+    [
+        "JO10os",
+        "I4AWX<br>Jun-15 14:40z<br>2630 Km<br>SNR:-18"
+    ],
+    [
+        "JN61nl",
+        "F6KGL<br>Jun-15 14:20z<br>2478 Km<br>SNR:-18"
+    ],
+    [
+        "KM17km",
+        "SV3CIX<br>Jun-15 13:50z<br>1156 Km<br>SNR:-26"
+    ],
+    [
+        "JN61nl",
+        "I0UVN<br>Jun-15 13:10z<br>1345 Km<br>SNR:-20"
+    ],
+    [
+        "JO10os",
+        "HB9GZW<br>Jun-15 12:30z<br>2562 Km<br>SNR:-9"
+    ],
+    [
+        "JN89ef",
+        "OK2IP<br>Jun-15 10:40z<br>2326 Km<br>SNR:-17"
+    ],
+    [
+        "JN48ps",
+        "DD5XX<br>Jun-15 10:20z<br>2278 Km<br>SNR:-20"
+    ],
+    [
+        "KM17tw",
+        "SV1SYM<br>Jun-15 07:50z<br>1577 Km<br>SNR:-15"
+    ],
+    [
+        "IL38bo",
+        "EA8BFK<br>Jun-14 15:50z<br>1643 Km<br>SNR:-18"
+    ],
+    [
+        "IL38bp",
+        "EA8/DF4UE<br>Jun-14 13:50z<br>1643 Km<br>SNR:-20"
+    ],
+    [
+        "IN71pn",
+        "EA1FAQ<br>Jun-14 13:10z<br>1543 Km<br>SNR:-19"
+    ],
+    [
+        "JN47bj",
+        "HB9TMC<br>Jun-14 08:20z<br>2354 Km<br>SNR:-14"
+    ],
+    [
+        "IN71pn",
+        "EA7CL<br>Jun-13 10:50z<br>1723 Km<br>SNR:-20"
+    ],
+    [
+        "JO22lf",
+        "G8LZI/3<br>Jun-12 20:20z<br>3414 Km<br>SNR:-15"
+    ],
+    [
+        "JO22lf",
+        "PA2W<br>Jun-12 20:00z<br>3712 Km<br>SNR:-13"
+    ],
+    [
+        "JO40oe",
+        "DK4RW/1<br>Jun-12 15:50z<br>3930 Km<br>SNR:-9"
+    ],
+    [
+        "IL38bp",
+        "KQ2Y<br>Jun-12 12:20z<br>3856 Km<br>SNR:-14"
+    ],
+    [
+        "IL38bo",
+        "EA8/EA4DBS<br>Jun-12 10:30z<br>3691 Km<br>SNR:-17"
+    ],
+    [
+        "IO77vo",
+        "GM0UDL<br>Jun-11 19:50z<br>5096 Km<br>SNR:-21"
+    ],
+    [
+        "IO77vo",
+        "N2HQI<br>Jun-11 18:50z<br>5201 Km<br>SNR:-15"
+    ],
+    [
+        "EM72gl",
+        "W4HOD<br>Jun-11 14:00z<br>3555 Km<br>SNR:-22"
+    ],
+    [
+        "FM06be",
+        "WD4ELG<br>Jun-11 13:40z<br>3166 Km<br>SNR:-22"
+    ],
+    [
+        "FM18cr",
+        "K1RA-PI<br>Jun-11 12:20z<br>3114 Km<br>SNR:-24"
+    ],
+    [
+        "FN31jg",
+        "N2YCH-1<br>Jun-11 12:10z<br>2940 Km<br>SNR:-21"
+    ],
+    [
+        "IL38bo",
+        "N8HKU<br>Jun-10 19:10z<br>3683 Km<br>SNR:-20"
+    ],
+    [
+        "EM95mn",
+        "W3OA<br>Jun-10 18:00z<br>3062 Km<br>SNR:-26"
+    ],
+    [
+        "IO83ib",
+        "GW2HFR<br>Jun-10 16:40z<br>4990 Km<br>SNR:-22"
+    ],
+    [
+        "FN20kk",
+        "WZ7I<br>Jun-10 15:00z<br>2706 Km<br>SNR:-20"
+    ],
+    [
+        "EM72gl",
+        "AE5AU<br>Jun-10 12:50z<br>4229 Km<br>SNR:-18"
+    ],
+    [
+        "EN43jt",
+        "WA9FIO<br>Jun-10 12:20z<br>4163 Km<br>SNR:-18"
+    ],
+    [
+        "IL38bo",
+        "KM4RK<br>Jun-10 12:00z<br>3539 Km<br>SNR:-14"
+    ],
+    [
+        "IL38bo",
+        "KD9KHZ<br>Jun-10 11:50z<br>4163 Km<br>SNR:-14"
+    ],
+    [
+        "JO31LL",
+        "DK8EY<br>Jun-09 18:50z<br>4522 Km<br>SNR:-16"
+    ],
+    [
+        "JO21lq",
+        "HB9VQQ/RS<br>Jun-09 18:40z<br>4563 Km<br>SNR:-13"
+    ],
+    [
+        "JO40ba",
+        "HB9VQQ/KS<br>Jun-09 18:30z<br>4563 Km<br>SNR:-13"
+    ],
+    [
+        "JO40oe",
+        "M0UNI<br>Jun-09 18:20z<br>4598 Km<br>SNR:-19"
+    ],
+    [
+        "JO21lq",
+        "GM0DHD<br>Jun-09 18:00z<br>4522 Km<br>SNR:-14"
+    ],
+    [
+        "IO83ib",
+        "K4WBT<br>Jun-09 12:00z<br>3753 Km<br>SNR:-20"
+    ],
+    [
+        "JN48ps",
+        "WA9WTK<br>Jun-09 08:30z<br>4237 Km<br>SNR:-18"
+    ],
+    [
+        "FN42et",
+        "KM3T-3<br>Jun-09 08:00z<br>3230 Km<br>SNR:-17"
+    ],
+    [
+        "JO40oe",
+        "DL3EL<br>Jun-08 20:20z<br>3961 Km<br>SNR:-15"
+    ],
+    [
+        "KO29hg",
+        "CT1ANO<br>Jun-08 18:20z<br>6311 Km<br>SNR:-16"
+    ],
+    [
+        "JO40oe",
+        "DL0PF<br>Jun-08 18:10z<br>6311 Km<br>SNR:-12"
+    ],
+    [
+        "KO29hg",
+        "G7NSJ<br>Jun-08 18:00z<br>6311 Km<br>SNR:-14"
+    ],
+    [
+        "JO65di",
+        "OZ2JBR<br>Jun-08 16:50z<br>4151 Km<br>SNR:-11"
+    ],
+    [
+        "KO07wn",
+        "YL1VA<br>Jun-07 19:10z<br>3612 Km<br>SNR:-13"
+    ],
+    [
+        "KO07wn",
+        "MW0KEC<br>Jun-07 18:40z<br>3612 Km<br>SNR:-9"
+    ],
+    [
+        "JP40fj",
+        "SA6BSS/HL<br>Jun-07 17:00z<br>3068 Km<br>SNR:-4"
+    ],
+    [
+        "JO40oe",
+        "HB9FID<br>Jun-07 16:50z<br>2596 Km<br>SNR:-5"
+    ],
+    [
+        "JP40fj",
+        "PA3CJP<br>Jun-07 16:40z<br>2905 Km<br>SNR:-8"
+    ],
+    [
+        "JP40fj",
+        "G4SDL<br>Jun-07 16:30z<br>3068 Km<br>SNR:-9"
+    ],
+    [
+        "JO10os",
+        "DJ6DK<br>Jun-07 16:10z<br>2627 Km<br>SNR:-10"
+    ],
+    [
+        "JO40oe",
+        "LA1ZM<br>Jun-07 15:00z<br>2706 Km<br>SNR:-12"
+    ],
+    [
+        "JO42LL",
+        "DL1DAF<br>Jun-07 14:30z<br>2706 Km<br>SNR:-6"
+    ],
+    [
+        "JO40oe",
+        "K1OF<br>Jun-07 12:00z<br>4239 Km<br>SNR:-18"
+    ],
+    [
+        "JO42LL",
+        "VE3CWM<br>Jun-07 11:30z<br>4287 Km<br>SNR:-10"
+    ],
+    [
+        "JO33sn",
+        "EB1TR<br>Jun-07 11:20z<br>4225 Km<br>SNR:-8"
+    ],
+    [
+        "IO90ir",
+        "G4ZFQ<br>Jun-07 05:50z<br>1764 Km<br>SNR:-21"
+    ],
+    [
+        "KO07wn",
+        "EI6JJB<br>Jun-06 22:00z<br>3832 Km<br>SNR:-12"
+    ],
+    [
+        "JO42jr",
+        "DF8OE<br>Jun-06 20:50z<br>2833 Km<br>SNR:-12"
+    ],
+    [
+        "JN49cm",
+        "DK6UG<br>Jun-06 19:20z<br>2974 Km<br>SNR:-23"
+    ],
+    [
+        "JN59LL",
+        "DK8AF<br>Jun-06 17:00z<br>3271 Km<br>SNR:-14"
+    ],
+    [
+        "IP05es",
+        "TF4WD-2<br>Jun-06 16:10z<br>2933 Km<br>SNR:-20"
+    ],
+    [
+        "IO93cu",
+        "G8ORM<br>Jun-06 15:50z<br>2453 Km<br>SNR:-12"
+    ],
+    [
+        "HP85fp",
+        "TF4M<br>Jun-06 12:40z<br>2009 Km<br>SNR:-17"
+    ],
+    [
+        "FN42fq",
+        "N8VIM<br>Jun-06 10:00z<br>2308 Km<br>SNR:-26"
+    ],
+    [
+        "FN54nh",
+        "VA3XA<br>Jun-06 09:50z<br>2469 Km<br>SNR:-24"
+    ],
+    [
+        "JO10os",
+        "N8ZRY<br>Jun-05 19:40z<br>4578 Km<br>SNR:-7"
+    ],
+    [
+        "JO40oe",
+        "AJ1Z<br>Jun-05 19:30z<br>4618 Km<br>SNR:-6"
+    ],
+    [
+        "JO40oe",
+        "N2FLO<br>Jun-05 19:20z<br>4618 Km<br>SNR:-8"
+    ],
+    [
+        "IO83ib",
+        "KC2CDY<br>Jun-05 19:10z<br>3703 Km<br>SNR:-5"
+    ],
+    [
+        "IO77vo",
+        "VE3NM<br>Jun-05 18:50z<br>3591 Km<br>SNR:-4"
+    ],
+    [
+        "FN42et",
+        "KK1D<br>Jun-05 17:30z<br>1903 Km<br>SNR:-8"
+    ],
+    [
+        "FN42et",
+        "N3EYQ<br>Jun-05 17:00z<br>1802 Km<br>SNR:-9"
+    ],
+    [
+        "FN84ip",
+        "VA1TTY<br>Jun-05 15:30z<br>2863 Km<br>SNR:-7"
+    ],
+    [
+        "FN42fq",
+        "K3FZ<br>Jun-05 14:30z<br>2093 Km<br>SNR:-7"
+    ],
+    [
+        "FN54nh",
+        "N8LI/1<br>Jun-05 13:20z<br>2093 Km<br>SNR:-10"
+    ],
+    [
+        "FN84ip",
+        "AA1BS<br>Jun-05 12:30z<br>1962 Km<br>SNR:-9"
+    ],
+    [
+        "FN31jg",
+        "KI4KEB<br>Jun-05 10:40z<br>2046 Km<br>SNR:-16"
+    ],
+    [
+        "FN84ip",
+        "N2IRY<br>Jun-04 20:00z<br>1911 Km<br>SNR:-9"
+    ],
+    [
+        "FN84ip",
+        "WA4DT<br>Jun-04 19:40z<br>2113 Km<br>SNR:-9"
+    ],
+    [
+        "FN54nh",
+        "N2DED<br>Jun-04 18:40z<br>2165 Km<br>SNR:-9"
+    ],
+    [
+        "FN41fl",
+        "KR4CSE<br>Jun-04 18:30z<br>2165 Km<br>SNR:-9"
+    ],
+    [
+        "FN31pg",
+        "K4NLC<br>Jun-04 18:10z<br>1472 Km<br>SNR:-6"
+    ],
+    [
+        "FN54nh",
+        "KR4LO<br>Jun-04 16:10z<br>1976 Km<br>SNR:-20"
+    ],
+    [
+        "FN54nh",
+        "K3ZV<br>Jun-04 15:50z<br>2320 Km<br>SNR:-16"
+    ],
+    [
+        "FN84ip",
+        "AB4WL<br>Jun-04 13:50z<br>1852 Km<br>SNR:-9"
+    ],
+    [
+        "FN43fe",
+        "AB1BZ<br>Jun-03 23:00z<br>498 Km<br>SNR:-3"
+    ],
+    [
+        "FN42kk",
+        "AC1IM<br>Jun-03 22:10z<br>981 Km<br>SNR:-6"
+    ],
+    [
+        "FN43fe",
+        "VE2DPF<br>Jun-03 22:00z<br>752 Km<br>SNR:-1"
+    ],
+    [
+        "FN54nh",
+        "KC2STA1<br>Jun-03 19:50z<br>934 Km<br>SNR:-6"
+    ],
+    [
+        "FN54nh",
+        "KC2STA4<br>Jun-03 19:40z<br>1207 Km<br>SNR:-2"
+    ],
+    [
+        "FN42et",
+        "W7STF<br>Jun-03 18:40z<br>1030 Km<br>SNR:-6"
+    ],
+    [
+        "FN20kk",
+        "W4KEL<br>Jun-03 16:20z<br>1231 Km<br>SNR:-17"
+    ],
+    [
+        "FN21wa",
+        "KC2G<br>Jun-03 16:10z<br>1253 Km<br>SNR:-23"
+    ],
+    [
+        "FN30lu",
+        "KX4O<br>Jun-03 14:30z<br>1333 Km<br>SNR:-21"
+    ],
+    [
+        "EN19gu",
+        "VE4KRK<br>Jun-03 01:10z<br>233 Km<br>SNR:-28"
+    ],
+    [
+        "EN16ov",
+        "VE6JY<br>Jun-03 01:00z<br>1427 Km<br>SNR:-18"
+    ],
+    [
+        "EN16ov",
+        "AC0G/ND<br>Jun-03 00:40z<br>147 Km<br>SNR:-13"
+    ],
+    [
+        "FN12qp",
+        "N4XWC<br>Jun-02 22:40z<br>2313 Km<br>SNR:8"
+    ],
+    [
+        "FN12qp",
+        "W7EL/L<br>Jun-02 22:10z<br>2248 Km<br>SNR:0"
+    ],
+    [
+        "EN74gc",
+        "KX4AZ/T<br>Jun-02 21:20z<br>1849 Km<br>SNR:-7"
+    ],
+    [
+        "FN12qp",
+        "N6TDM<br>Jun-02 20:50z<br>1968 Km<br>SNR:-16"
+    ],
+    [
+        "EN74gc",
+        "KG0D<br>Jun-02 20:20z<br>1912 Km<br>SNR:-20"
+    ],
+    [
+        "EN74gc",
+        "K6VZK<br>Jun-02 19:40z<br>1912 Km<br>SNR:-19"
+    ],
+    [
+        "EM28sq",
+        "KI7E<br>Jun-02 19:30z<br>1660 Km<br>SNR:-15"
+    ],
+    [
+        "DN84ha",
+        "N0KAM<br>Jun-02 19:00z<br>1803 Km<br>SNR:-23"
+    ],
+    [
+        "EM47bg",
+        "VA7PP<br>Jun-02 16:50z<br>1618 Km<br>SNR:-14"
+    ],
+    [
+        "EN74gc",
+        "N6RY<br>Jun-02 16:30z<br>1729 Km<br>SNR:-16"
+    ],
+    [
+        "EM72LL",
+        "AK0SK<br>Jun-02 16:20z<br>2273 Km<br>SNR:-21"
+    ],
+    [
+        "EM47bg",
+        "N4RVE<br>Jun-02 15:10z<br>1432 Km<br>SNR:-20"
+    ],
+    [
+        "CM98iq",
+        "KP4MD<br>Jun-02 01:20z<br>197 Km<br>SNR:-22"
+    ],
+    [
+        "EM69sm",
+        "KN6TNH<br>Jun-02 00:50z<br>2803 Km<br>SNR:-7"
+    ],
+    [
+        "CN79kv",
+        "K6MCS<br>Jun-02 00:40z<br>1358 Km<br>SNR:-13"
+    ],
+    [
+        "FM18cr",
+        "WB6JHI<br>Jun-02 00:00z<br>3751 Km<br>SNR:-5"
+    ],
+    [
+        "DO33or",
+        "K6VDU<br>Jun-01 23:40z<br>1914 Km<br>SNR:-7"
+    ],
+    [
+        "DO33or",
+        "W6SRI<br>Jun-01 23:30z<br>1914 Km<br>SNR:-10"
+    ],
+    [
+        "DN26LL",
+        "K2RJC<br>Jun-01 23:20z<br>1244 Km<br>SNR:-5"
+    ],
+    [
+        "DO33or",
+        "AH6CY<br>Jun-01 23:00z<br>1914 Km<br>SNR:-7"
+    ],
+    [
+        "CN88kn",
+        "W6BB<br>Jun-01 22:30z<br>1244 Km<br>SNR:-1"
+    ],
+    [
+        "DN26LL",
+        "WD0E<br>Jun-01 22:20z<br>1444 Km<br>SNR:0"
+    ],
+    [
+        "DO33or",
+        "KM6TEA<br>Jun-01 22:00z<br>1914 Km<br>SNR:3"
+    ],
+    [
+        "DO33or",
+        "AA6KL<br>Jun-01 20:40z<br>2075 Km<br>SNR:16"
+    ],
+    [
+        "DO33or",
+        "AK6HY<br>Jun-01 20:10z<br>2075 Km<br>SNR:13"
+    ],
+    [
+        "DO33or",
+        "AE7TF<br>Jun-01 20:00z<br>2075 Km<br>SNR:16"
+    ],
+    [
+        "DO33or",
+        "KQ6RS/6<br>Jun-01 18:50z<br>2075 Km<br>SNR:5"
+    ],
+    [
+        "DO33or",
+        "KI7JOD<br>Jun-01 17:40z<br>2139 Km<br>SNR:-4"
+    ],
+    [
+        "DO33or",
+        "W0AY<br>Jun-01 16:50z<br>2139 Km<br>SNR:-4"
+    ],
+    [
+        "DO33or",
+        "VA7JX<br>Jun-01 16:20z<br>2139 Km<br>SNR:-11"
+    ],
+    [
+        "DO33or",
+        "K6ACJ<br>Jun-01 02:20z<br>2948 Km<br>SNR:-14"
+    ],
+    [
+        "DO34lr",
+        "VE6PDQ<br>Jun-01 00:10z<br>3015 Km<br>SNR:-5"
+    ],
+    [
+        "DN31uo",
+        "KD7HGL<br>May-31 23:00z<br>2416 Km<br>SNR:-14"
+    ],
+    [
+        "CN83mw",
+        "K9CZI<br>May-31 22:50z<br>1742 Km<br>SNR:-18"
+    ],
+    [
+        "CN98pi",
+        "W7WKR-K1<br>May-31 21:30z<br>2231 Km<br>SNR:-20"
+    ],
+    [
+        "CM87tj",
+        "KFS/OMNI<br>May-31 20:50z<br>1397 Km<br>SNR:-26"
+    ],
+    [
+        "DN31uo",
+        "KPH<br>May-31 16:50z<br>2600 Km<br>SNR:-16"
+    ],
+    [
+        "CN87kk",
+        "W2ADW<br>May-30 22:20z<br>2666 Km<br>SNR:-26"
+    ],
+    [
+        "DO24ka",
+        "AI6VN/KH6<br>May-30 21:40z<br>3498 Km<br>SNR:-17"
+    ],
+    [
+        "DO24ka",
+        "VE6FT<br>May-30 19:40z<br>3616 Km<br>SNR:-20"
+    ],
+    [
+        "EM85ll",
+        "WA2N<br>May-30 06:00z<br>7501 Km<br>SNR:-14"
+    ],
+    [
+        "PM86vq",
+        "JJ0VBZ<br>May-29 06:00z<br>1268 Km<br>SNR:-21"
+    ],
+    [
+        "PM95wr",
+        "7L4IOU1<br>May-29 03:10z<br>321 Km<br>SNR:-25"
+    ],
+    [
+        "PM95wr",
+        "JI1HFJ<br>May-29 02:50z<br>316 Km<br>SNR:-26"
+    ],
+    [
+        "PM95wr",
+        "JA7KBR<br>May-29 02:40z<br>316 Km<br>SNR:-22"
+    ],
+    [
+        "QN12ei",
+        "7L4IOU4<br>May-28 23:50z<br>912 Km<br>SNR:-11"
+    ],
+    [
+        "OO17iw",
+        "RA0SX<br>May-27 08:40z<br>1497 Km<br>SNR:-24"
+    ],
+    [
+        "KO85nt",
+        "RZ3DVP<br>May-26 04:20z<br>2538 Km<br>SNR:-23"
+    ],
+    [
+        "KO25ha",
+        "LY3FF-11<br>May-26 02:20z<br>3188 Km<br>SNR:-24"
+    ],
+    [
+        "KP20fw",
+        "OK2IT<br>May-25 05:30z<br>3292 Km<br>SNR:-16"
+    ],
+    [
+        "KM15uf",
+        "SV9/DK5HH<br>May-24 13:50z<br>1890 Km<br>SNR:-16"
+    ],
+    [
+        "KO25ha",
+        "HG0GU<br>May-24 13:30z<br>1959 Km<br>SNR:-17"
+    ],
+    [
+        "JO33sn",
+        "HA5GB<br>May-24 13:20z<br>2235 Km<br>SNR:-10"
+    ],
+    [
+        "JO62up",
+        "HA4BM<br>May-24 13:00z<br>2307 Km<br>SNR:-15"
+    ],
+    [
+        "JN63LL",
+        "IZ6QQTRX<br>May-24 11:40z<br>1149 Km<br>SNR:-11"
+    ],
+    [
+        "JN97ba",
+        "OE3ICA<br>May-24 11:30z<br>1685 Km<br>SNR:-14"
+    ],
+    [
+        "KN07uw",
+        "HB9VQQ/ZACH<br>May-24 11:10z<br>1685 Km<br>SNR:-9"
+    ],
+    [
+        "KN07uw",
+        "HB9VQQ/AS<br>May-24 10:50z<br>2131 Km<br>SNR:-12"
+    ],
+    [
+        "JO33lc",
+        "DL4RU<br>May-24 10:20z<br>2184 Km<br>SNR:-10"
+    ],
+    [
+        "JO62up",
+        "DM3ME<br>May-24 08:00z<br>2065 Km<br>SNR:-11"
+    ],
+    [
+        "JO61vd",
+        "DO4ZT<br>May-24 07:50z<br>1869 Km<br>SNR:-6"
+    ],
+    [
+        "JO62up",
+        "IU2ITE<br>May-24 07:40z<br>1964 Km<br>SNR:-9"
+    ],
+    [
+        "JO62up",
+        "DL7KST<br>May-24 07:20z<br>1964 Km<br>SNR:1"
+    ],
+    [
+        "JO60wa",
+        "PA1GVZ<br>May-24 07:10z<br>2043 Km<br>SNR:-8"
+    ],
+    [
+        "JO62up",
+        "IZ0FKE<br>May-24 06:40z<br>1950 Km<br>SNR:-16"
+    ],
+    [
+        "JO62up",
+        "G0WZM<br>May-24 06:00z<br>2708 Km<br>SNR:-9"
+    ],
+    [
+        "JO33lc",
+        "EI4ACB<br>May-24 05:20z<br>2708 Km<br>SNR:-21"
+    ],
+    [
+        "KP20fw",
+        "ES2RR<br>May-24 04:50z<br>2745 Km<br>SNR:-15"
+    ],
+    [
+        "JN55wg",
+        "IZ3LCH<br>May-24 04:00z<br>864 Km<br>SNR:-20"
+    ],
+    [
+        "JO33uo",
+        "DL6OW-WTM<br>May-23 17:50z<br>2159 Km<br>SNR:-19"
+    ],
+    [
+        "JO10os",
+        "HB9VQQ/RE<br>May-23 16:30z<br>1812 Km<br>SNR:-22"
+    ],
+    [
+        "JO44tm",
+        "ON5SE<br>May-23 15:30z<br>2328 Km<br>SNR:-13"
+    ],
+    [
+        "JO10os",
+        "DL9SW<br>May-23 14:50z<br>1844 Km<br>SNR:-3"
+    ],
+    [
+        "JN47kh",
+        "HB9VQQ/RL<br>May-23 13:00z<br>1739 Km<br>SNR:-11"
+    ],
+    [
+        "JO31ai",
+        "DF7PNX<br>May-23 12:50z<br>2013 Km<br>SNR:-13"
+    ],
+    [
+        "JO31lo",
+        "DL2ZZ<br>May-23 08:50z<br>5955 Km<br>SNR:-8"
+    ],
+    [
+        "KP03qa",
+        "F4VTQ/H<br>May-22 18:20z<br>2555 Km<br>SNR:-5"
+    ],
+    [
+        "KO07wn",
+        "DL3HRM<br>May-22 16:10z<br>2767 Km<br>SNR:-5"
+    ],
+    [
+        "JP40fj",
+        "M5GUM<br>May-22 15:40z<br>2878 Km<br>SNR:-4"
+    ],
+    [
+        "JP40fj",
+        "DL4XU<br>May-22 15:30z<br>2878 Km<br>SNR:-3"
+    ],
+    [
+        "JP40fj",
+        "SWLHOL<br>May-22 15:10z<br>2878 Km<br>SNR:-6"
+    ],
+    [
+        "JP40fj",
+        "OZ1LFI<br>May-22 14:40z<br>2878 Km<br>SNR:-8"
+    ],
+    [
+        "JP40fj",
+        "LA3FY/2<br>May-22 09:40z<br>4743 Km<br>SNR:-15"
+    ],
+    [
+        "JN46lj",
+        "MM0KKF<br>May-21 20:30z<br>3062 Km<br>SNR:-5"
+    ],
+    [
+        "IO77vo",
+        "2M0JAT<br>May-21 18:10z<br>3197 Km<br>SNR:-12"
+    ],
+    [
+        "JO43jb",
+        "PD0ME<br>May-21 16:50z<br>2811 Km<br>SNR:-4"
+    ],
+    [
+        "IO83ib",
+        "TF3HZ<br>May-21 15:20z<br>3429 Km<br>SNR:-6"
+    ],
+    [
+        "KP03qa",
+        "OH6BG<br>May-21 13:00z<br>3541 Km<br>SNR:-26"
+    ],
+    [
+        "FN42fq",
+        "W3BH<br>May-20 17:50z<br>1890 Km<br>SNR:-11"
+    ],
+    [
+        "IO92as",
+        "G4FPH<br>May-20 16:40z<br>3748 Km<br>SNR:-8"
+    ],
+    [
+        "IO92as",
+        "KB1MCT<br>May-20 16:20z<br>3588 Km<br>SNR:-11"
+    ],
+    [
+        "FN42ht",
+        "56IGJF<br>May-20 12:10z<br>4333 Km<br>SNR:-5"
+    ],
+    [
+        "IL38bo",
+        "KE8UZF<br>May-20 10:50z<br>3845 Km<br>SNR:-12"
+    ],
+    [
+        "FN42et",
+        "N4MXZ<br>May-20 10:20z<br>2631 Km<br>SNR:-15"
+    ],
+    [
+        "QE38lr",
+        "VK7JJ<br>May-20 09:40z<br>18197 Km<br>SNR:-19"
+    ],
+    [
+        "EM73sc",
+        "K4COD<br>May-20 09:10z<br>2912 Km<br>SNR:-19"
+    ],
+    [
+        "EM93td",
+        "K5XL<br>May-20 08:30z<br>4119 Km<br>SNR:-9"
+    ],
+    [
+        "JO31lk",
+        "KA3LNA<br>May-19 19:40z<br>5471 Km<br>SNR:-11"
+    ],
+    [
+        "FN05gk",
+        "KB8EZX<br>May-19 19:30z<br>1844 Km<br>SNR:-16"
+    ],
+    [
+        "FN20kk",
+        "KI4WKZ<br>May-19 19:00z<br>2524 Km<br>SNR:-12"
+    ],
+    [
+        "FN31gn",
+        "WD4IMI<br>May-19 18:50z<br>2130 Km<br>SNR:-11"
+    ],
+    [
+        "FN43fe",
+        "KB1VC<br>May-19 17:40z<br>2017 Km<br>SNR:-7"
+    ],
+    [
+        "FN42et",
+        "KE2EYN<br>May-19 17:30z<br>2268 Km<br>SNR:-8"
+    ],
+    [
+        "FN34fh",
+        "K1HTV-4<br>May-19 16:40z<br>2103 Km<br>SNR:-10"
+    ],
+    [
+        "FN21ej",
+        "N3KMT<br>May-19 15:20z<br>2351 Km<br>SNR:-11"
+    ],
+    [
+        "FN31gn",
+        "W3VAC<br>May-19 14:30z<br>2177 Km<br>SNR:-11"
+    ],
+    [
+        "FN54nh",
+        "SWLKCL<br>May-19 14:00z<br>3828 Km<br>SNR:-1"
+    ],
+    [
+        "FN31pg",
+        "KE8MYP<br>May-19 13:20z<br>2784 Km<br>SNR:-8"
+    ],
+    [
+        "FN34fh",
+        "VE3XLZ<br>May-19 13:10z<br>2177 Km<br>SNR:7"
+    ],
+    [
+        "EN80ee",
+        "N8GA-1<br>May-19 11:40z<br>1267 Km<br>SNR:-23"
+    ],
+    [
+        "FN30lu",
+        "NY9T<br>May-19 11:20z<br>2003 Km<br>SNR:-5"
+    ],
+    [
+        "FN05gk",
+        "KE8VOX<br>May-18 21:00z<br>2814 Km<br>SNR:0"
+    ],
+    [
+        "FN03ng",
+        "WJ8A<br>May-18 20:10z<br>2568 Km<br>SNR:-1"
+    ],
+    [
+        "FN54fa",
+        "VA3KTJ<br>May-18 19:10z<br>2512 Km<br>SNR:-2"
+    ],
+    [
+        "FN43er",
+        "W8UM<br>May-18 18:50z<br>2405 Km<br>SNR:3"
+    ],
+    [
+        "FN42et",
+        "N0AN<br>May-18 18:20z<br>2512 Km<br>SNR:9"
+    ],
+    [
+        "FN42ht",
+        "WA1RAJ<br>May-18 18:10z<br>2405 Km<br>SNR:14"
+    ],
+    [
+        "FN34fh",
+        "KA7VIK<br>May-18 17:20z<br>2316 Km<br>SNR:-8"
+    ],
+    [
+        "FN43fe",
+        "W0VI<br>May-18 16:50z<br>2316 Km<br>SNR:-4"
+    ],
+    [
+        "FN43fe",
+        "KI4TWB/0<br>May-18 16:20z<br>2316 Km<br>SNR:-6"
+    ],
+    [
+        "FN42et",
+        "KB8VME<br>May-18 16:00z<br>2496 Km<br>SNR:7"
+    ],
+    [
+        "FN43fe",
+        "K9YWO<br>May-18 15:50z<br>2192 Km<br>SNR:0"
+    ],
+    [
+        "FN34fh",
+        "K9REO<br>May-18 15:30z<br>2408 Km<br>SNR:-2"
+    ],
+    [
+        "FN42et",
+        "N9YBX<br>May-18 14:40z<br>2815 Km<br>SNR:10"
+    ],
+    [
+        "EN80ee",
+        "WA7LNW<br>May-17 23:20z<br>1636 Km<br>SNR:-4"
+    ],
+    [
+        "FN31jg",
+        "KM4QXW<br>May-17 22:00z<br>2518 Km<br>SNR:7"
+    ],
+    [
+        "EN90xn",
+        "KC0KVR<br>May-17 21:30z<br>1939 Km<br>SNR:8"
+    ],
+    [
+        "EM35LL",
+        "K5CS<br>May-17 20:20z<br>1686 Km<br>SNR:15"
+    ],
+    [
+        "FM17fk",
+        "KC6WPK<br>May-17 20:00z<br>2392 Km<br>SNR:13"
+    ],
+    [
+        "EM69sm",
+        "K1NTL<br>May-17 19:30z<br>1700 Km<br>SNR:5"
+    ],
+    [
+        "EN80ee",
+        "KG5FNU<br>May-17 19:20z<br>1979 Km<br>SNR:6"
+    ],
+    [
+        "EN38si",
+        "VE7WEX<br>May-17 19:10z<br>1575 Km<br>SNR:6"
+    ],
+    [
+        "EN38si",
+        "KK6HPB<br>May-17 18:50z<br>1653 Km<br>SNR:-12"
+    ],
+    [
+        "DO33or",
+        "VE7FML<br>May-17 17:50z<br>1706 Km<br>SNR:-8"
+    ],
+    [
+        "EM47bg",
+        "W5WTH<br>May-17 16:10z<br>1832 Km<br>SNR:-12"
+    ],
+    [
+        "DO34lr",
+        "WI6P<br>May-16 22:50z<br>2227 Km<br>SNR:-8"
+    ],
+    [
+        "DN70ll",
+        "KE4TH<br>May-16 22:20z<br>1569 Km<br>SNR:-7"
+    ],
+    [
+        "DO34lr",
+        "KK7SB<br>May-16 20:40z<br>2227 Km<br>SNR:-5"
+    ],
+    [
+        "DO34uv",
+        "KC0OOO<br>May-16 19:10z<br>2261 Km<br>SNR:-6"
+    ],
+    [
+        "DO33or",
+        "K7CYR<br>May-16 17:40z<br>2180 Km<br>SNR:-7"
+    ],
+    [
+        "DN31uo",
+        "KG5FJI<br>May-16 16:10z<br>1596 Km<br>SNR:-3"
+    ],
+    [
+        "EN35ga",
+        "KL3RR<br>May-16 14:40z<br>3327 Km<br>SNR:-10"
+    ],
+    [
+        "DN26LL",
+        "KK6PXP<br>May-16 00:20z<br>2038 Km<br>SNR:-6"
+    ],
+    [
+        "DO33or",
+        "KL5SE<br>May-15 21:20z<br>2532 Km<br>SNR:-13"
+    ],
+    [
+        "DN06ta",
+        "KB7GF<br>May-15 17:50z<br>2423 Km<br>SNR:-18"
+    ],
+    [
+        "CM87tj",
+        "K0ESQ<br>May-15 17:10z<br>2505 Km<br>SNR:-14"
+    ],
+    [
+        "PM96LL",
+        "JE1JDL<br>May-14 22:40z<br>2471 Km<br>SNR:-24"
+    ],
+    [
+        "QM06bb",
+        "JA1KPF<br>May-14 19:20z<br>1899 Km<br>SNR:-24"
+    ],
+    [
+        "QN12ei",
+        "7L4IOU5<br>May-14 06:10z<br>8672 Km<br>SNR:-8"
+    ],
+    [
+        "PM53fp",
+        "JH6LAV<br>May-14 04:10z<br>933 Km<br>SNR:-30"
+    ],
+    [
+        "QN12ei",
+        "JA7KBR3<br>May-14 01:50z<br>761 Km<br>SNR:-16"
+    ],
+    [
+        "JN87aq",
+        "OE3GBB/Q2<br>May-12 23:10z<br>6349 Km<br>SNR:-28"
+    ],
+    [
+        "JN36fq",
+        "HB9TJM<br>May-11 14:00z<br>4653 Km<br>SNR:-28"
+    ],
+    [
+        "KO25ha",
+        "LY4PR-11<br>May-10 08:40z<br>2428 Km<br>SNR:-20"
+    ],
+    [
+        "KM66kb",
+        "TA5/DL6JH<br>May-10 07:50z<br>1007 Km<br>SNR:-20"
+    ],
+    [
+        "JN89hf",
+        "OK2MTB<br>May-10 06:30z<br>2486 Km<br>SNR:-22"
+    ],
+    [
+        "JO33lc",
+        "IW2DMO<br>May-10 06:20z<br>3036 Km<br>SNR:-14"
+    ],
+    [
+        "LN32LL",
+        "UA6WKM<br>May-10 06:10z<br>3110 Km<br>SNR:-22"
+    ],
+    [
+        "KP20fw",
+        "EW9SWL<br>May-10 04:20z<br>2481 Km<br>SNR:-22"
+    ],
+    [
+        "JO40ba",
+        "DJ2MG<br>May-09 12:50z<br>1738 Km<br>SNR:-12"
+    ],
+    [
+        "JN89ef",
+        "OE7HKJ<br>May-09 11:40z<br>1558 Km<br>SNR:-16"
+    ],
+    [
+        "JO60wa",
+        "DF5VL<br>May-09 08:20z<br>1992 Km<br>SNR:-8"
+    ],
+    [
+        "JO21lq",
+        "F4WCW<br>May-08 18:20z<br>1973 Km<br>SNR:-24"
+    ],
+    [
+        "JO21lq",
+        "PA0LSB<br>May-08 17:40z<br>2018 Km<br>SNR:-22"
+    ],
+    [
+        "JN78sf",
+        "EB4FJN<br>May-08 15:10z<br>2411 Km<br>SNR:-12"
+    ],
+    [
+        "JN47kh",
+        "HB9VQQ/KE<br>May-08 13:10z<br>2150 Km<br>SNR:-8"
+    ],
+    [
+        "JP40fj",
+        "KP2RUM<br>May-07 20:20z<br>4702 Km<br>SNR:-16"
+    ],
+    [
+        "JO40oe",
+        "W4MXZ<br>May-07 20:00z<br>4541 Km<br>SNR:-13"
+    ],
+    [
+        "FN13sa",
+        "AC2GR<br>May-07 12:00z<br>0 Km<br>SNR:-17"
+    ],
+    [
+        "FN21ej",
+        "W2NAF-2<br>May-07 11:30z<br>3434 Km<br>SNR:-21"
+    ],
+    [
+        "FN54nh",
+        "W1BW<br>May-06 16:00z<br>1950 Km<br>SNR:-30"
+    ],
+    [
+        "FN54nh",
+        "KH6FA<br>May-06 12:20z<br>3488 Km<br>SNR:-12"
+    ],
+    [
+        "IO77vo",
+        "W3CHB<br>May-05 18:20z<br>4603 Km<br>SNR:-3"
+    ],
+    [
+        "IO77vo",
+        "N3CHX<br>May-05 17:30z<br>4603 Km<br>SNR:-1"
+    ],
+    [
+        "FN43fe",
+        "N4TVC/4<br>May-05 14:50z<br>2176 Km<br>SNR:-8"
+    ],
+    [
+        "FN42et",
+        "N2NXZ<br>May-05 14:40z<br>2238 Km<br>SNR:-2"
+    ],
+    [
+        "FN54nh",
+        "KD7SCT<br>May-05 13:20z<br>2530 Km<br>SNR:-7"
+    ],
+    [
+        "IO77vo",
+        "KA8BRK<br>May-04 19:50z<br>4796 Km<br>SNR:-2"
+    ],
+    [
+        "FN34fh",
+        "KC8FCE<br>May-04 18:40z<br>1741 Km<br>SNR:-5"
+    ],
+    [
+        "FN21ej",
+        "AJ8S<br>May-04 18:20z<br>1741 Km<br>SNR:-5"
+    ],
+    [
+        "FN15xi",
+        "N2UGS<br>May-04 17:30z<br>2046 Km<br>SNR:-5"
+    ],
+    [
+        "FN13sa",
+        "KK4KTV<br>May-04 17:20z<br>2148 Km<br>SNR:-11"
+    ],
+    [
+        "FN34fh",
+        "KB8TL<br>May-04 16:30z<br>3863 Km<br>SNR:-4"
+    ],
+    [
+        "FN41qp",
+        "WB3AK<br>May-04 14:10z<br>2188 Km<br>SNR:-7"
+    ],
+    [
+        "FN42hn",
+        "KE9ZZ<br>May-04 13:40z<br>4811 Km<br>SNR:-7"
+    ],
+    [
+        "FN76LL",
+        "VE9ASS<br>May-04 12:50z<br>1950 Km<br>SNR:-2"
+    ],
+    [
+        "FN34fh",
+        "KJ5HY<br>May-03 22:40z<br>983 Km<br>SNR:-12"
+    ],
+    [
+        "FN54nh",
+        "VA3JDL<br>May-03 19:50z<br>1733 Km<br>SNR:-6"
+    ],
+    [
+        "FN54nh",
+        "AI4RY<br>May-03 18:10z<br>1733 Km<br>SNR:-7"
+    ],
+    [
+        "FN54nh",
+        "N9MKC<br>May-03 16:30z<br>1809 Km<br>SNR:-8"
+    ],
+    [
+        "FN54nh",
+        "NG5P<br>May-03 16:20z<br>1661 Km<br>SNR:-6"
+    ],
+    [
+        "FN54nh",
+        "K4AGR<br>May-03 15:20z<br>1809 Km<br>SNR:-10"
+    ],
+    [
+        "FN54nh",
+        "KG5TED/H<br>May-03 15:10z<br>4091 Km<br>SNR:-10"
+    ],
+    [
+        "FN42dt",
+        "N8MH<br>May-03 14:30z<br>3309 Km<br>SNR:-14"
+    ],
+    [
+        "EM73sc",
+        "NI5F<br>May-02 23:40z<br>2609 Km<br>SNR:-19"
+    ],
+    [
+        "FN31jg",
+        "N0KSU<br>May-02 21:30z<br>1568 Km<br>SNR:-4"
+    ],
+    [
+        "FN31jg",
+        "K8CHY<br>May-02 18:50z<br>2290 Km<br>SNR:-16"
+    ],
+    [
+        "FN31jg",
+        "K4FMH<br>May-02 18:40z<br>1710 Km<br>SNR:-18"
+    ],
+    [
+        "FN31LL",
+        "KC1LXO<br>May-02 13:40z<br>2032 Km<br>SNR:-15"
+    ],
+    [
+        "FN03ng",
+        "AB1OF<br>May-02 13:20z<br>2541 Km<br>SNR:-15"
+    ],
+    [
+        "EN55we",
+        "KG5ABO<br>May-02 12:30z<br>1831 Km<br>SNR:-18"
+    ],
+    [
+        "DM43ah",
+        "N5AQM<br>May-01 22:30z<br>1095 Km<br>SNR:-5"
+    ],
+    [
+        "DM43ff",
+        "WB5DYG<br>May-01 21:50z<br>1183 Km<br>SNR:2"
+    ],
+    [
+        "DN26LL",
+        "AF7KR<br>May-01 18:50z<br>1969 Km<br>SNR:2"
+    ],
+    [
+        "DN40ao",
+        "KA7OEI-9<br>May-01 18:00z<br>1216 Km<br>SNR:-27"
+    ],
+    [
+        "DM45dg",
+        "KN6ZPL<br>May-01 17:50z<br>1699 Km<br>SNR:0"
+    ],
+    [
+        "CM87tj",
+        "KFS/SW<br>May-01 03:10z<br>1191 Km<br>SNR:-6"
+    ],
+    [
+        "DN31uo",
+        "WB6VEX<br>May-01 00:30z<br>2389 Km<br>SNR:-10"
+    ],
+    [
+        "CM88mc",
+        "KPH2<br>Apr-30 19:30z<br>1846 Km<br>SNR:-13"
+    ],
+    [
+        "DM12kx",
+        "NH6V<br>Apr-30 01:30z<br>3388 Km<br>SNR:-9"
+    ],
+    [
+        "CN87xk",
+        "N1CL<br>Apr-28 23:20z<br>3028 Km<br>SNR:-19"
+    ],
+    [
+        "BP51dc",
+        "KL7QN<br>Apr-27 02:30z<br>2541 Km<br>SNR:-18"
+    ],
+    [
+        "PM74bi",
+        "JR5JEU<br>Apr-26 01:50z<br>1316 Km<br>SNR:-22"
+    ],
+    [
+        "PM63is",
+        "JA6YAP<br>Apr-25 23:50z<br>1113 Km<br>SNR:-19"
+    ],
+    [
+        "PM86mr",
+        "JA9MAT/SDR<br>Apr-25 21:20z<br>203 Km<br>SNR:-12"
+    ],
+    [
+        "NO33qt",
+        "RA9UIP<br>Apr-24 07:20z<br>2034 Km<br>SNR:-20"
+    ],
+    [
+        "LN28ep",
+        "R4ABX<br>Apr-23 07:10z<br>1422 Km<br>SNR:-24"
+    ],
+    [
+        "JN47wk",
+        "OE9GHV<br>Apr-22 11:40z<br>2025 Km<br>SNR:-20"
+    ],
+    [
+        "JO10os",
+        "HB9VQQ/RW3<br>Apr-22 11:30z<br>2722 Km<br>SNR:-17"
+    ],
+    [
+        "JO40ba",
+        "F5OIH<br>Apr-22 08:40z<br>2504 Km<br>SNR:-9"
+    ],
+    [
+        "JO61jv",
+        "DG1AW<br>Apr-21 16:40z<br>2217 Km<br>SNR:-11"
+    ],
+    [
+        "JO62up",
+        "M0PWX<br>Apr-21 16:30z<br>2239 Km<br>SNR:-9"
+    ],
+    [
+        "JO33sn",
+        "DJ2DS-2<br>Apr-21 16:00z<br>1643 Km<br>SNR:-23"
+    ],
+    [
+        "JO00ww",
+        "F6ASP<br>Apr-21 15:50z<br>2050 Km<br>SNR:-19"
+    ],
+    [
+        "KM18ub",
+        "G0VOK<br>Apr-21 15:30z<br>2130 Km<br>SNR:-8"
+    ],
+    [
+        "KM18ub",
+        "DL1XH<br>Apr-21 15:20z<br>2500 Km<br>SNR:-10"
+    ],
+    [
+        "JO62up",
+        "G4LEN<br>Apr-21 15:10z<br>2162 Km<br>SNR:-5"
+    ],
+    [
+        "JO43lw",
+        "ON7AN<br>Apr-21 14:40z<br>1775 Km<br>SNR:-6"
+    ],
+    [
+        "JO52ak",
+        "DK8OK<br>Apr-21 14:30z<br>1695 Km<br>SNR:-9"
+    ],
+    [
+        "JO21lq",
+        "F1OIL<br>Apr-21 13:40z<br>1688 Km<br>SNR:-4"
+    ],
+    [
+        "JO40ba",
+        "HB9AZT<br>Apr-21 12:40z<br>1565 Km<br>SNR:-6"
+    ],
+    [
+        "JO40oe",
+        "DK1CC<br>Apr-21 11:50z<br>1842 Km<br>SNR:-9"
+    ],
+    [
+        "JO43hn",
+        "DL6OW-MH<br>Apr-21 11:40z<br>1876 Km<br>SNR:-11"
+    ],
+    [
+        "JO43hn",
+        "DP0POL<br>Apr-21 11:20z<br>1876 Km<br>SNR:-11"
+    ],
+    [
+        "JO62up",
+        "TM86REF<br>Apr-21 10:40z<br>2046 Km<br>SNR:-15"
+    ],
+    [
+        "IM58ob",
+        "CT1ETL/1<br>Apr-21 10:10z<br>1362 Km<br>SNR:-10"
+    ],
+    [
+        "JN48ps",
+        "DK8ZV<br>Apr-21 09:40z<br>1736 Km<br>SNR:-10"
+    ],
+    [
+        "IM58hr",
+        "CT1EDG<br>Apr-21 08:50z<br>1185 Km<br>SNR:-18"
+    ],
+    [
+        "IO77vo",
+        "W3ENR<br>Apr-20 12:40z<br>3520 Km<br>SNR:-22"
+    ],
+    [
+        "IL38bo",
+        "W2AXR<br>Apr-20 11:50z<br>4741 Km<br>SNR:-10"
+    ],
+    [
+        "JO40oe",
+        "N8AYY<br>Apr-19 18:20z<br>5050 Km<br>SNR:-5"
+    ],
+    [
+        "FN42et",
+        "WA3VPZ<br>Apr-19 18:10z<br>1799 Km<br>SNR:0"
+    ],
+    [
+        "IO77vo",
+        "NA1S<br>Apr-19 17:10z<br>4081 Km<br>SNR:-5"
+    ],
+    [
+        "FN32bs",
+        "KE5HDE<br>Apr-19 13:40z<br>5126 Km<br>SNR:-4"
+    ],
+    [
+        "EM93td",
+        "KR4DBJ<br>Apr-19 11:10z<br>2538 Km<br>SNR:-15"
+    ],
+    [
+        "EN57qc",
+        "NS8C<br>Apr-18 21:50z<br>126 Km<br>SNR:-27"
+    ],
+    [
+        "FN30lu",
+        "W0ASW<br>Apr-18 18:50z<br>1696 Km<br>SNR:-7"
+    ],
+    [
+        "FN31jg",
+        "KK7IXU<br>Apr-18 18:40z<br>2272 Km<br>SNR:-12"
+    ],
+    [
+        "FN30lu",
+        "NK0V<br>Apr-18 17:20z<br>2125 Km<br>SNR:-10"
+    ],
+    [
+        "FN25ge",
+        "N1SRC<br>Apr-18 16:10z<br>2018 Km<br>SNR:-8"
+    ],
+    [
+        "DN70jo",
+        "N6GN/K<br>Apr-18 12:30z<br>405 Km<br>SNR:-5"
+    ],
+    [
+        "FN13sa",
+        "W3HH<br>Apr-18 12:20z<br>2404 Km<br>SNR:-1"
+    ],
+    [
+        "EN90xn",
+        "AC7IJ<br>Apr-17 23:20z<br>3352 Km<br>SNR:23"
+    ],
+    [
+        "DN70ll",
+        "N7OR<br>Apr-17 22:40z<br>1861 Km<br>SNR:16"
+    ],
+    [
+        "DN70ll",
+        "KI7VEM<br>Apr-17 20:30z<br>1821 Km<br>SNR:0"
+    ],
+    [
+        "EN80ee",
+        "K7AU<br>Apr-16 23:40z<br>3852 Km<br>SNR:-10"
+    ],
+    [
+        "DO33or",
+        "W6JWW<br>Apr-16 18:20z<br>3539 Km<br>SNR:-6"
+    ],
+    [
+        "DN70ll",
+        "K6PZB<br>Apr-15 22:40z<br>1520 Km<br>SNR:-11"
+    ],
+    [
+        "DO62LL",
+        "WW6D<br>Apr-15 20:30z<br>1803 Km<br>SNR:-7"
+    ],
+    [
+        "DN31uo",
+        "K7GXB<br>Apr-15 17:50z<br>1271 Km<br>SNR:-9"
+    ],
+    [
+        "DO34uv",
+        "K7NNT<br>Apr-15 16:50z<br>1960 Km<br>SNR:-15"
+    ],
+    [
+        "DO33or",
+        "K6JFZ<br>Apr-15 02:30z<br>2139 Km<br>SNR:-5"
+    ],
+    [
+        "DN70ll",
+        "N6GN3<br>Apr-15 00:50z<br>1834 Km<br>SNR:-22"
+    ],
+    [
+        "DO43ph",
+        "K1XD<br>Apr-14 23:20z<br>2277 Km<br>SNR:-7"
+    ],
+    [
+        "DN31uo",
+        "VE7LGN<br>Apr-14 16:40z<br>1962 Km<br>SNR:-10"
+    ]
+];
+
+var flechas = [
+    "FF57nd",
+    "GH64cg",
+    "GG56tv",
+    "GH64cg",
+    "DN31uo",
+    "FJ08bn",
+    "FN30lu",
+    "DM13ie",
+    "CM87tj",
+    "CM87wi",
+    "QG62lr",
+    "RF72no",
+    "PF95ht",
+    "QG62lr",
+    "RF72no",
+    "RE68mx",
+    "OF88bc",
+    "PF95ht",
+    "QF13xa",
+    "LG79sc",
+    "LG78qs",
+    "KG25xj",
+    "KF16fa",
+    "KG43ol",
+    "JG87ql",
+    "KF06ic",
+    "JG87ql",
+    "KG43ev",
+    "KO38ig",
+    "OK03fu",
+    "PL02gs",
+    "OL72LL",
+    "PL05vc",
+    "PL02gs",
+    "PL05vc",
+    "QE38lr",
+    "PM74ec",
+    "PM74bi",
+    "PM95wt",
+    "PM96sa",
+    "QN12ei",
+    "PM74bi",
+    "JO10os",
+    "KO85nt",
+    "JN58oe",
+    "KM56vo",
+    "JO33lc",
+    "JO10os",
+    "JO31ai",
+    "JO10os",
+    "JN61nl",
+    "KM17km",
+    "JN61nl",
+    "JO10os",
+    "JN89ef",
+    "JN48ps",
+    "KM17tw",
+    "IL38bo",
+    "IL38bp",
+    "IN71pn",
+    "JN47bj",
+    "IN71pn",
+    "JO22lf",
+    "JO40oe",
+    "IL38bp",
+    "IL38bo",
+    "IO77vo",
+    "EM72gl",
+    "FM06be",
+    "FM18cr",
+    "FN31jg",
+    "IL38bo",
+    "EM95mn",
+    "IO83ib",
+    "FN20kk",
+    "EM72gl",
+    "EN43jt",
+    "IL38bo",
+    "JO31LL",
+    "JO21lq",
+    "JO40ba",
+    "JO40oe",
+    "JO21lq",
+    "IO83ib",
+    "JN48ps",
+    "FN42et",
+    "JN49cm",
+    "JO40oe",
+    "KO29hg",
+    "JO40oe",
+    "KO29hg",
+    "JO65di",
+    "KO07wn",
+    "JP40fj",
+    "JO40oe",
+    "JP40fj",
+    "JO10os",
+    "JO40oe",
+    "JO42LL",
+    "JO40oe",
+    "JO42LL",
+    "JO33sn",
+    "JO42LL",
+    "IO90ir",
+    "KO07wn",
+    "JO42jr",
+    "JN49cm",
+    "JN59LL",
+    "IP05es",
+    "IO93cu",
+    "HP85fp",
+    "FN42fq",
+    "FN54nh",
+    "JO10os",
+    "JO40oe",
+    "IO83ib",
+    "IO77vo",
+    "FN42et",
+    "FN84ip",
+    "FN42fq",
+    "FN54nh",
+    "FN84ip",
+    "FN31jg",
+    "FN84ip",
+    "FN54nh",
+    "FN41fl",
+    "FN31pg",
+    "FN31jg",
+    "FN54nh",
+    "FN84ip",
+    "FN43fe",
+    "FN42kk",
+    "FN43fe",
+    "FN54nh",
+    "FN42et",
+    "FN20kk",
+    "FN21wa",
+    "FN30lu",
+    "EN19gu",
+    "EN16ov",
+    "FN12qp",
+    "EN74gc",
+    "FN12qp",
+    "EN74gc",
+    "EM28sq",
+    "DN84ha",
+    "EM47bg",
+    "EN74gc",
+    "EM72LL",
+    "EM47bg",
+    "CM98iq",
+    "EM69sm",
+    "CN79kv",
+    "FM18cr",
+    "DO33or",
+    "DN26LL",
+    "DO33or",
+    "CN88kn",
+    "DN26LL",
+    "DO33or",
+    "DN40co",
+    "DO33or",
+    "DN31uo",
+    "DO33or",
+    "DO34lr",
+    "DM13nh",
+    "DO34lr",
+    "DN31uo",
+    "CN83mw",
+    "DN31uo",
+    "CN98pi",
+    "DN06ta",
+    "CM87tj",
+    "DN26LL",
+    "DN31uo",
+    "CM88mc",
+    "CN87kk",
+    "CN79kv",
+    "DO24ka",
+    "EM85ll",
+    "PM86vq",
+    "PM95wr",
+    "PM96sa",
+    "QN12ei",
+    "OO17iw",
+    "KO85nt",
+    "JN87aq",
+    "KO25ha",
+    "KP20fw",
+    "KM15uf",
+    "KO25ha",
+    "JO33sn",
+    "JO62up",
+    "JN63LL",
+    "JN97ba",
+    "KN07uw",
+    "JO33lc",
+    "JO62up",
+    "JO61vd",
+    "JO62up",
+    "JO60wa",
+    "JO62up",
+    "JO33lc",
+    "KP20fw",
+    "JN55wg",
+    "JO33uo",
+    "JO10os",
+    "JO44tm",
+    "JO10os",
+    "JN47kh",
+    "JO31ai",
+    "JO31lo",
+    "KP03qa",
+    "KO07wn",
+    "JP40fj",
+    "KO07wn",
+    "JP40fj",
+    "JO38ig",
+    "JP40fj",
+    "JN46lj",
+    "IO77vo",
+    "KP20fw",
+    "JO43jb",
+    "IO83ib",
+    "KP03qa",
+    "FN42fq",
+    "IO92as",
+    "FN42ht",
+    "IL38bo",
+    "FN42et",
+    "QE38lr",
+    "EM73sc",
+    "EM93td",
+    "JO31lk",
+    "FN05gk",
+    "FN20kk",
+    "FN31gn",
+    "FN43fe",
+    "FN42et",
+    "FN34fh",
+    "FN21ej",
+    "FN31gn",
+    "FN54nh",
+    "FN31pg",
+    "FN34fh",
+    "EN80ee",
+    "FN30lu",
+    "FN05gk",
+    "FN03ng",
+    "FN54fa",
+    "FN43er",
+    "FN42et",
+    "FN42ht",
+    "FN34fh",
+    "FN43fe",
+    "FN42et",
+    "FN43fe",
+    "FN34fh",
+    "FN42et",
+    "EN80ee",
+    "FN31jg",
+    "EN90xn",
+    "EM35LL",
+    "FM17fk",
+    "EM69sm",
+    "EN80ee",
+    "EN38si",
+    "DO33or",
+    "EM47bg",
+    "DO34lr",
+    "DN70ll",
+    "DO34lr",
+    "DO34uv",
+    "DO33or",
+    "DN31uo",
+    "EN35ga",
+    "DN26LL",
+    "DO33or",
+    "DN06ta",
+    "CM87tj",
+    "PM96LL",
+    "QM06bb",
+    "QN12ei",
+    "PM95wr",
+    "PM53fp",
+    "QN12ei",
+    "JN87aq",
+    "JN36fq",
+    "KO25ha",
+    "KM66kb",
+    "JN89hf",
+    "JO33lc",
+    "LN32LL",
+    "KP20fw",
+    "JO40ba",
+    "JN89ef",
+    "JO60wa",
+    "JO21lq",
+    "JN78sf",
+    "JN47kh",
+    "JP40fj",
+    "JO40oe",
+    "FN13sa",
+    "FN21ej",
+    "FN54nh",
+    "FN42et",
+    "FN54nh",
+    "IO77vo",
+    "FN43fe",
+    "FN42et",
+    "FN54nh",
+    "FN43dc",
+    "IO77vo",
+    "FN34fh",
+    "FN21ej",
+    "FN15xi",
+    "FN13sa",
+    "FN34fh",
+    "FN41qp",
+    "FN42hn",
+    "FN76LL",
+    "FN34fh",
+    "FN54nh",
+    "FN42dt",
+    "EM73sc",
+    "FN31jg",
+    "FN31LL",
+    "FN03ng",
+    "EN55we",
+    "DM43ah",
+    "DM43ff",
+    "DN26LL",
+    "DN40ao",
+    "DM45dg",
+    "CM87tj",
+    "DN31uo",
+    "CM88mc",
+    "DM12kx",
+    "CN87xk",
+    "BP51dc",
+    "PM74bi",
+    "PM63is",
+    "PM86mr",
+    "NO33qt",
+    "LN28ep",
+    "JN47wk",
+    "JO10os",
+    "JO40ba",
+    "JN63hr",
+    "JO61jv",
+    "JO62up",
+    "JO33sn",
+    "JO00ww",
+    "KM18ub",
+    "JO62up",
+    "JO43lw",
+    "JO52ak",
+    "JO21lq",
+    "JO40ba",
+    "JO40oe",
+    "JO43hn",
+    "JO62up",
+    "IM58ob",
+    "JN48ps",
+    "IM58hr",
+    "IO77vo",
+    "IL38bo",
+    "JO40oe",
+    "FN42et",
+    "IO77vo",
+    "FN32bs",
+    "EM93td",
+    "EN57qc",
+    "FN30lu",
+    "FN31jg",
+    "FN30lu",
+    "FN25ge",
+    "DN70jo",
+    "FN13sa",
+    "EN90xn",
+    "DN70ll",
+    "EN80ee",
+    "DN31uo",
+    "DO33or",
+    "DO24ka",
+    "DN70ll",
+    "DO62LL",
+    "DN31uo",
+    "DO34uv",
+    "DO33or",
+    "DN70ll",
+    "DO43ph",
+    "DN31uo"
+];
+
+var trayecto = [
+    [
+        "2025-07-13 20:00:00z",
+        "FH85LL",
+        "? ",
+        "12000"
+    ],
+    [
+        "2025-07-13 18:40:00z",
+        "FH74UU",
+        "16",
+        "12840"
+    ],
+    [
+        "2025-07-13 18:20:00z",
+        "FH74RT",
+        "16",
+        "12840"
+    ],
+    [
+        "2025-07-13 17:20:00z",
+        "FH74LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-13 16:20:00z",
+        "FH74AP",
+        "15",
+        "12880"
+    ],
+    [
+        "2025-07-13 16:10:00z",
+        "FH64WO",
+        "14",
+        "12860"
+    ],
+    [
+        "2025-07-13 15:20:00z",
+        "FH64PM",
+        "6",
+        "12880"
+    ],
+    [
+        "2025-07-12 13:20:00z",
+        "EH98LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-11 21:50:00z",
+        "EI81LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-11 16:10:00z",
+        "EI81LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-11 15:50:00z",
+        "EI80LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-09 17:40:00z",
+        "DH69LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-09 01:40:00z",
+        "DI17OH",
+        "-12",
+        "12820"
+    ],
+    [
+        "2025-07-09 00:50:00z",
+        "DI17LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-09 00:20:00z",
+        "DI17LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-08 23:00:00z",
+        "DI08WK",
+        "22",
+        "12680"
+    ],
+    [
+        "2025-07-08 22:40:00z",
+        "DI08LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-08 18:40:00z",
+        "CI99LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-08 18:20:00z",
+        "CI99LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-08 18:00:00z",
+        "CI99LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-08 17:30:00z",
+        "CI99IO",
+        "3",
+        "12800"
+    ],
+    [
+        "2025-07-08 15:30:00z",
+        "CI89LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-07 23:40:00z",
+        "CI26LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-06 22:20:00z",
+        "BI21LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-06 20:50:00z",
+        "BI11LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-06 00:50:00z",
+        "AH66QN",
+        "10",
+        "12540"
+    ],
+    [
+        "2025-07-06 00:00:00z",
+        "AH66KE",
+        "8",
+        "12760"
+    ],
+    [
+        "2025-07-05 23:40:00z",
+        "AH66HA",
+        "16",
+        "12720"
+    ],
+    [
+        "2025-07-05 23:30:00z",
+        "AH65GV",
+        "18",
+        "12600"
+    ],
+    [
+        "2025-07-05 23:10:00z",
+        "AH65LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-05 22:50:00z",
+        "AH65LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-05 22:30:00z",
+        "AH55XF",
+        "13",
+        "12720"
+    ],
+    [
+        "2025-07-05 22:10:00z",
+        "AH54UX",
+        "21",
+        "12720"
+    ],
+    [
+        "2025-07-05 21:50:00z",
+        "AH54SQ",
+        "20",
+        "12660"
+    ],
+    [
+        "2025-07-05 21:00:00z",
+        "AH53MW",
+        "19",
+        "12720"
+    ],
+    [
+        "2025-07-05 20:40:00z",
+        "AH53JP",
+        "13",
+        "12700"
+    ],
+    [
+        "2025-07-05 20:00:00z",
+        "AH52CS",
+        "-4",
+        "0"
+    ],
+    [
+        "2025-07-05 19:20:00z",
+        "AH42VE",
+        "10",
+        "12680"
+    ],
+    [
+        "2025-07-05 02:50:00z",
+        "QF77LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-05 02:20:00z",
+        "QF67LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-05 01:50:00z",
+        "QF58WB",
+        "10",
+        "12380"
+    ],
+    [
+        "2025-07-05 01:10:00z",
+        "QF49LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-05 00:10:00z",
+        "QG30LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-04 04:40:00z",
+        "OG71GI",
+        "8",
+        "12520"
+    ],
+    [
+        "2025-07-04 02:50:00z",
+        "OF58ET",
+        "5",
+        "12500"
+    ],
+    [
+        "2025-07-04 02:20:00z",
+        "OF48OF",
+        "12",
+        "12520"
+    ],
+    [
+        "2025-07-04 01:50:00z",
+        "OF37LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-04 01:10:00z",
+        "OF37BB",
+        "-4",
+        "12500"
+    ],
+    [
+        "2025-07-04 01:00:00z",
+        "OF26LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-04 00:30:00z",
+        "OF26LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-03 08:40:00z",
+        "MG48EK",
+        "18",
+        "12680"
+    ],
+    [
+        "2025-07-03 08:20:00z",
+        "MG38WQ",
+        "21",
+        "12760"
+    ],
+    [
+        "2025-07-03 08:00:00z",
+        "MG38RW",
+        "15",
+        "12680"
+    ],
+    [
+        "2025-07-03 07:50:00z",
+        "MG39OB",
+        "14",
+        "12700"
+    ],
+    [
+        "2025-07-03 07:30:00z",
+        "MG39IG",
+        "16",
+        "12680"
+    ],
+    [
+        "2025-07-03 07:10:00z",
+        "MG39LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-03 07:00:00z",
+        "MG29XN",
+        "5",
+        "12680"
+    ],
+    [
+        "2025-07-03 06:40:00z",
+        "MG29SS",
+        "15",
+        "12700"
+    ],
+    [
+        "2025-07-02 08:40:00z",
+        "LG36LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-02 06:30:00z",
+        "LG25LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-02 05:50:00z",
+        "LG24LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-02 05:20:00z",
+        "LG14VQ",
+        "1",
+        "12640"
+    ],
+    [
+        "2025-07-02 05:00:00z",
+        "LG14LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-01 15:50:00z",
+        "KG25LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-01 15:30:00z",
+        "KG25LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-01 15:00:00z",
+        "KG26HE",
+        "2",
+        "12660"
+    ],
+    [
+        "2025-07-01 13:40:00z",
+        "KG17LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-01 12:10:00z",
+        "KG08LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-07-01 11:40:00z",
+        "KG08LO",
+        "17",
+        "12740"
+    ],
+    [
+        "2025-07-01 11:20:00z",
+        "KG08HU",
+        "23",
+        "12760"
+    ],
+    [
+        "2025-07-01 11:00:00z",
+        "KG09DC",
+        "18",
+        "12760"
+    ],
+    [
+        "2025-07-01 10:40:00z",
+        "KG09AI",
+        "19",
+        "12740"
+    ],
+    [
+        "2025-07-01 10:30:00z",
+        "JG99WL",
+        "17",
+        "12820"
+    ],
+    [
+        "2025-07-01 10:10:00z",
+        "JG99TR",
+        "17",
+        "12880"
+    ],
+    [
+        "2025-07-01 09:50:00z",
+        "JG99QW",
+        "20",
+        "12760"
+    ],
+    [
+        "2025-07-01 09:40:00z",
+        "JH90LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-30 14:00:00z",
+        "JH59LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-30 13:40:00z",
+        "JH59GO",
+        "11",
+        "12740"
+    ],
+    [
+        "2025-06-30 13:20:00z",
+        "JH59FS",
+        "8",
+        "12760"
+    ],
+    [
+        "2025-06-30 13:00:00z",
+        "JH59FV",
+        "14",
+        "12700"
+    ],
+    [
+        "2025-06-30 12:40:00z",
+        "JI50FB",
+        "10",
+        "12660"
+    ],
+    [
+        "2025-06-30 12:20:00z",
+        "JI50EE",
+        "14",
+        "12820"
+    ],
+    [
+        "2025-06-30 12:00:00z",
+        "JI50EI",
+        "20",
+        "12700"
+    ],
+    [
+        "2025-06-30 11:40:00z",
+        "JI50EL",
+        "28",
+        "12720"
+    ],
+    [
+        "2025-06-30 11:20:00z",
+        "JI50DO",
+        "22",
+        "12720"
+    ],
+    [
+        "2025-06-30 11:00:00z",
+        "JI50DR",
+        "19",
+        "12720"
+    ],
+    [
+        "2025-06-30 10:40:00z",
+        "JI50DV",
+        "27",
+        "12700"
+    ],
+    [
+        "2025-06-30 10:20:00z",
+        "JI51DA",
+        "23",
+        "12660"
+    ],
+    [
+        "2025-06-30 10:00:00z",
+        "JI51DE",
+        "21",
+        "12700"
+    ],
+    [
+        "2025-06-30 09:40:00z",
+        "JI51CH",
+        "17",
+        "12720"
+    ],
+    [
+        "2025-06-30 09:20:00z",
+        "JI51CK",
+        "20",
+        "12680"
+    ],
+    [
+        "2025-06-29 16:10:00z",
+        "JI65PI",
+        "-9",
+        "0"
+    ],
+    [
+        "2025-06-29 15:50:00z",
+        "JI65PI",
+        "-8",
+        "12000"
+    ],
+    [
+        "2025-06-29 15:30:00z",
+        "JI65RI",
+        "-13",
+        "11940"
+    ],
+    [
+        "2025-06-29 15:00:00z",
+        "JI65UJ",
+        "-1",
+        "12240"
+    ],
+    [
+        "2025-06-29 14:40:00z",
+        "JI65XK",
+        "6",
+        "11720"
+    ],
+    [
+        "2025-06-29 14:20:00z",
+        "JI75AK",
+        "11",
+        "0"
+    ],
+    [
+        "2025-06-29 14:00:00z",
+        "JI75BJ",
+        "23",
+        "10720"
+    ],
+    [
+        "2025-06-29 13:40:00z",
+        "JI75CJ",
+        "28",
+        "10240"
+    ],
+    [
+        "2025-06-29 13:20:00z",
+        "JI75LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-29 13:00:00z",
+        "JI75DJ",
+        "22",
+        "9500"
+    ],
+    [
+        "2025-06-29 12:40:00z",
+        "JI75EJ",
+        "29",
+        "9740"
+    ],
+    [
+        "2025-06-29 12:20:00z",
+        "JI75EI",
+        "31",
+        "10080"
+    ],
+    [
+        "2025-06-29 12:00:00z",
+        "JI75FI",
+        "27",
+        "10780"
+    ],
+    [
+        "2025-06-29 11:40:00z",
+        "JI75GH",
+        "24",
+        "11380"
+    ],
+    [
+        "2025-06-29 11:20:00z",
+        "JI75IG",
+        "29",
+        "11660"
+    ],
+    [
+        "2025-06-29 11:00:00z",
+        "JI75LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-29 10:40:00z",
+        "JI75LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-29 10:20:00z",
+        "JI75LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-29 10:00:00z",
+        "JI75MA",
+        "23",
+        "11140"
+    ],
+    [
+        "2025-06-29 09:40:00z",
+        "JI74OX",
+        "19",
+        "11780"
+    ],
+    [
+        "2025-06-29 09:20:00z",
+        "JI74LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-29 09:00:00z",
+        "JI74RU",
+        "21",
+        "12240"
+    ],
+    [
+        "2025-06-29 08:40:00z",
+        "JI74TU",
+        "15",
+        "12340"
+    ],
+    [
+        "2025-06-29 08:10:00z",
+        "JI74LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-29 07:50:00z",
+        "JI74XR",
+        "16",
+        "13180"
+    ],
+    [
+        "2025-06-29 07:20:00z",
+        "JI84BR",
+        "10",
+        "12600"
+    ],
+    [
+        "2025-06-29 07:00:00z",
+        "JI84DR",
+        "-6",
+        "12640"
+    ],
+    [
+        "2025-06-28 14:20:00z",
+        "KI05LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-28 13:10:00z",
+        "KI05PL",
+        "15",
+        "12820"
+    ],
+    [
+        "2025-06-28 12:50:00z",
+        "KI05QJ",
+        "14",
+        "12840"
+    ],
+    [
+        "2025-06-28 12:30:00z",
+        "KI05SJ",
+        "21",
+        "12760"
+    ],
+    [
+        "2025-06-28 12:10:00z",
+        "KI05TI",
+        "20",
+        "12780"
+    ],
+    [
+        "2025-06-28 11:50:00z",
+        "KI05UH",
+        "20",
+        "12820"
+    ],
+    [
+        "2025-06-28 11:30:00z",
+        "KI05WH",
+        "20",
+        "12820"
+    ],
+    [
+        "2025-06-28 11:10:00z",
+        "KI05XH",
+        "21",
+        "12820"
+    ],
+    [
+        "2025-06-28 11:00:00z",
+        "KI15AG",
+        "19",
+        "12840"
+    ],
+    [
+        "2025-06-28 10:40:00z",
+        "KI15LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-28 10:20:00z",
+        "KI15LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-28 10:00:00z",
+        "KI15LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-28 09:40:00z",
+        "KI15LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-28 09:10:00z",
+        "KI15FF",
+        "17",
+        "12740"
+    ],
+    [
+        "2025-06-28 08:50:00z",
+        "KI15GF",
+        "13",
+        "12760"
+    ],
+    [
+        "2025-06-28 08:30:00z",
+        "KI15HF",
+        "14",
+        "12780"
+    ],
+    [
+        "2025-06-28 08:00:00z",
+        "KI15LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-28 05:10:00z",
+        "KI15LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-27 12:50:00z",
+        "KI47LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-27 12:40:00z",
+        "KI57AI",
+        "8",
+        "12800"
+    ],
+    [
+        "2025-06-27 12:20:00z",
+        "KI57EL",
+        "8",
+        "12780"
+    ],
+    [
+        "2025-06-27 12:10:00z",
+        "KI47JK",
+        "8",
+        "2180"
+    ],
+    [
+        "2025-06-27 11:40:00z",
+        "KI57LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-27 09:30:00z",
+        "KI68RH",
+        "16",
+        "12700"
+    ],
+    [
+        "2025-06-27 08:00:00z",
+        "KI78LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-27 07:00:00z",
+        "KI88LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-27 03:50:00z",
+        "KI99LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-26 11:20:00z",
+        "LJ90QP",
+        "-3",
+        "12720"
+    ],
+    [
+        "2025-06-26 10:40:00z",
+        "MJ00AP",
+        "3",
+        "12740"
+    ],
+    [
+        "2025-06-25 12:40:00z",
+        "MJ11DC",
+        "-12",
+        "12780"
+    ],
+    [
+        "2025-06-25 12:20:00z",
+        "MJ11DC",
+        "-7",
+        "12780"
+    ],
+    [
+        "2025-06-25 10:40:00z",
+        "MJ11LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-24 09:20:00z",
+        "NJ44LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-24 03:00:00z",
+        "NJ65WH",
+        "22",
+        "12880"
+    ],
+    [
+        "2025-06-24 02:50:00z",
+        "NJ75LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-23 05:00:00z",
+        "OK01LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-23 04:20:00z",
+        "OK01KT",
+        "19",
+        "13320"
+    ],
+    [
+        "2025-06-23 03:50:00z",
+        "OK01NW",
+        "20",
+        "13180"
+    ],
+    [
+        "2025-06-23 03:00:00z",
+        "OK02TE",
+        "13",
+        "13240"
+    ],
+    [
+        "2025-06-23 02:40:00z",
+        "OK02VH",
+        "17",
+        "13260"
+    ],
+    [
+        "2025-06-22 08:40:00z",
+        "OK32LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-22 08:20:00z",
+        "OK32LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-22 07:40:00z",
+        "OK32LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-22 07:00:00z",
+        "OK32LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-22 06:00:00z",
+        "OK42LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-22 03:20:00z",
+        "OK43FB",
+        "13",
+        "13200"
+    ],
+    [
+        "2025-06-22 02:50:00z",
+        "OK43GD",
+        "17",
+        "13200"
+    ],
+    [
+        "2025-06-22 02:30:00z",
+        "OK43HF",
+        "14",
+        "13280"
+    ],
+    [
+        "2025-06-22 02:00:00z",
+        "OK43IH",
+        "-2",
+        "13060"
+    ],
+    [
+        "2025-06-21 08:10:00z",
+        "OK53JQ",
+        "-1",
+        "13380"
+    ],
+    [
+        "2025-06-21 07:50:00z",
+        "OK53KR",
+        "5",
+        "13420"
+    ],
+    [
+        "2025-06-21 07:20:00z",
+        "OK53LS",
+        "5",
+        "13520"
+    ],
+    [
+        "2025-06-21 06:40:00z",
+        "OK53NT",
+        "22",
+        "13400"
+    ],
+    [
+        "2025-06-21 06:00:00z",
+        "OK53LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-21 05:40:00z",
+        "OK53RV",
+        "18",
+        "13400"
+    ],
+    [
+        "2025-06-21 05:20:00z",
+        "OK53SW",
+        "22",
+        "13580"
+    ],
+    [
+        "2025-06-21 04:50:00z",
+        "OK54UA",
+        "18",
+        "13300"
+    ],
+    [
+        "2025-06-21 04:30:00z",
+        "OK54VB",
+        "20",
+        "13380"
+    ],
+    [
+        "2025-06-21 04:10:00z",
+        "OK54WC",
+        "19",
+        "13280"
+    ],
+    [
+        "2025-06-21 03:50:00z",
+        "OK64AD",
+        "16",
+        "13420"
+    ],
+    [
+        "2025-06-21 03:30:00z",
+        "OK64BE",
+        "16",
+        "13400"
+    ],
+    [
+        "2025-06-21 03:10:00z",
+        "OK64CF",
+        "19",
+        "13400"
+    ],
+    [
+        "2025-06-21 02:50:00z",
+        "OK64EG",
+        "21",
+        "13380"
+    ],
+    [
+        "2025-06-21 02:30:00z",
+        "OK64FH",
+        "19",
+        "13400"
+    ],
+    [
+        "2025-06-21 02:10:00z",
+        "OK64HI",
+        "17",
+        "13420"
+    ],
+    [
+        "2025-06-21 01:50:00z",
+        "OK64IJ",
+        "20",
+        "13400"
+    ],
+    [
+        "2025-06-21 01:30:00z",
+        "OK64KL",
+        "19",
+        "13360"
+    ],
+    [
+        "2025-06-21 01:10:00z",
+        "OK64LM",
+        "8",
+        "13380"
+    ],
+    [
+        "2025-06-20 23:40:00z",
+        "OK64LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-20 09:50:00z",
+        "PK19HT",
+        "-16",
+        "13320"
+    ],
+    [
+        "2025-06-20 07:20:00z",
+        "PL20GU",
+        "-1",
+        "13340"
+    ],
+    [
+        "2025-06-20 07:00:00z",
+        "PL21JA",
+        "11",
+        "13380"
+    ],
+    [
+        "2025-06-20 06:40:00z",
+        "PL21LD",
+        "13",
+        "13360"
+    ],
+    [
+        "2025-06-20 06:20:00z",
+        "PL21OH",
+        "5",
+        "13340"
+    ],
+    [
+        "2025-06-20 06:00:00z",
+        "PL21QK",
+        "16",
+        "13360"
+    ],
+    [
+        "2025-06-20 05:40:00z",
+        "PL21LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-20 05:20:00z",
+        "PL21VR",
+        "17",
+        "13300"
+    ],
+    [
+        "2025-06-20 05:00:00z",
+        "PL21XV",
+        "16",
+        "13300"
+    ],
+    [
+        "2025-06-20 04:50:00z",
+        "PL31AX",
+        "11",
+        "13320"
+    ],
+    [
+        "2025-06-20 04:10:00z",
+        "PL32LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-20 03:50:00z",
+        "PL32FJ",
+        "-1",
+        "13240"
+    ],
+    [
+        "2025-06-20 03:30:00z",
+        "PL32GM",
+        "-2",
+        "13400"
+    ],
+    [
+        "2025-06-20 03:10:00z",
+        "PL32IQ",
+        "12",
+        "13260"
+    ],
+    [
+        "2025-06-20 02:50:00z",
+        "PL32KU",
+        "12",
+        "13360"
+    ],
+    [
+        "2025-06-20 02:30:00z",
+        "PL33MA",
+        "11",
+        "13280"
+    ],
+    [
+        "2025-06-20 02:10:00z",
+        "PL33ND",
+        "3",
+        "13100"
+    ],
+    [
+        "2025-06-20 01:50:00z",
+        "PL33LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-20 01:30:00z",
+        "PL33LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-20 01:10:00z",
+        "PL33SN",
+        "-1",
+        "13280"
+    ],
+    [
+        "2025-06-20 00:50:00z",
+        "PL33UQ",
+        "11",
+        "13240"
+    ],
+    [
+        "2025-06-20 00:30:00z",
+        "PL33VT",
+        "6",
+        "13340"
+    ],
+    [
+        "2025-06-19 22:20:00z",
+        "PL44LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-19 07:00:00z",
+        "PM34RP",
+        "5",
+        "13300"
+    ],
+    [
+        "2025-06-19 06:40:00z",
+        "PM34OT",
+        "25",
+        "13400"
+    ],
+    [
+        "2025-06-19 06:20:00z",
+        "PM34LX",
+        "19",
+        "13320"
+    ],
+    [
+        "2025-06-19 06:10:00z",
+        "PM35KB",
+        "15",
+        "13280"
+    ],
+    [
+        "2025-06-19 05:50:00z",
+        "PM35IF",
+        "22",
+        "13320"
+    ],
+    [
+        "2025-06-19 05:20:00z",
+        "PM35DL",
+        "21",
+        "13240"
+    ],
+    [
+        "2025-06-19 05:00:00z",
+        "PM35AQ",
+        "21",
+        "13260"
+    ],
+    [
+        "2025-06-19 04:50:00z",
+        "PM25WS",
+        "19",
+        "13280"
+    ],
+    [
+        "2025-06-19 04:30:00z",
+        "PM25TW",
+        "19",
+        "13240"
+    ],
+    [
+        "2025-06-19 04:10:00z",
+        "PM26LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-19 03:50:00z",
+        "PM26LG",
+        "19",
+        "13280"
+    ],
+    [
+        "2025-06-19 03:30:00z",
+        "PM26HK",
+        "18",
+        "13220"
+    ],
+    [
+        "2025-06-19 03:10:00z",
+        "PM26LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-19 02:50:00z",
+        "PM16WS",
+        "25",
+        "13160"
+    ],
+    [
+        "2025-06-19 02:30:00z",
+        "PM16SW",
+        "18",
+        "13200"
+    ],
+    [
+        "2025-06-19 02:20:00z",
+        "PM17QA",
+        "23",
+        "13180"
+    ],
+    [
+        "2025-06-19 02:00:00z",
+        "PM17LE",
+        "19",
+        "13140"
+    ],
+    [
+        "2025-06-19 01:40:00z",
+        "PM17HH",
+        "14",
+        "13200"
+    ],
+    [
+        "2025-06-19 01:20:00z",
+        "PM17DL",
+        "9",
+        "13220"
+    ],
+    [
+        "2025-06-19 01:00:00z",
+        "PM07WO",
+        "12",
+        "13160"
+    ],
+    [
+        "2025-06-19 00:40:00z",
+        "PM07RS",
+        "12",
+        "13120"
+    ],
+    [
+        "2025-06-19 00:20:00z",
+        "PM07NV",
+        "17",
+        "13180"
+    ],
+    [
+        "2025-06-18 23:00:00z",
+        "OM98VK",
+        "-7",
+        "0"
+    ],
+    [
+        "2025-06-17 23:10:00z",
+        "NN21VL",
+        "-1",
+        "12660"
+    ],
+    [
+        "2025-06-17 04:20:00z",
+        "MN42DR",
+        "19",
+        "12720"
+    ],
+    [
+        "2025-06-17 03:50:00z",
+        "MN32VS",
+        "27",
+        "12740"
+    ],
+    [
+        "2025-06-16 12:50:00z",
+        "LN27LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-16 11:20:00z",
+        "LM28LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-16 08:20:00z",
+        "KN60LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-16 06:20:00z",
+        "KM73BH",
+        "8",
+        "660"
+    ],
+    [
+        "2025-06-15 15:20:00z",
+        "JL89LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-15 14:50:00z",
+        "JL89QJ",
+        "17",
+        "13060"
+    ],
+    [
+        "2025-06-15 14:30:00z",
+        "JL89JI",
+        "24",
+        "13040"
+    ],
+    [
+        "2025-06-15 13:50:00z",
+        "JL79LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-15 12:30:00z",
+        "JL79FC",
+        "29",
+        "0"
+    ],
+    [
+        "2025-06-15 12:10:00z",
+        "JL79LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-15 11:50:00z",
+        "JL79LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-15 11:20:00z",
+        "JL68LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-15 11:00:00z",
+        "JL68LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-15 10:40:00z",
+        "JL68OU",
+        "26",
+        "13120"
+    ],
+    [
+        "2025-06-15 10:20:00z",
+        "JL68LT",
+        "25",
+        "13140"
+    ],
+    [
+        "2025-06-15 10:00:00z",
+        "JL68IR",
+        "18",
+        "13140"
+    ],
+    [
+        "2025-06-15 09:40:00z",
+        "JL68FP",
+        "21",
+        "13140"
+    ],
+    [
+        "2025-06-15 09:10:00z",
+        "JL68BM",
+        "16",
+        "13180"
+    ],
+    [
+        "2025-06-15 08:50:00z",
+        "JL58XK",
+        "14",
+        "13160"
+    ],
+    [
+        "2025-06-15 08:30:00z",
+        "JL58VJ",
+        "12",
+        "13160"
+    ],
+    [
+        "2025-06-15 07:50:00z",
+        "JL58QI",
+        "3",
+        "13200"
+    ],
+    [
+        "2025-06-15 07:20:00z",
+        "JL58LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-15 04:50:00z",
+        "JL48LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-14 15:50:00z",
+        "JL18LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-14 15:30:00z",
+        "JL18LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-14 15:10:00z",
+        "JL18LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-14 14:50:00z",
+        "JL18IM",
+        "7",
+        "13200"
+    ],
+    [
+        "2025-06-14 13:50:00z",
+        "JL18LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-14 13:10:00z",
+        "JL08LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-14 12:20:00z",
+        "JL08RL",
+        "24",
+        "13380"
+    ],
+    [
+        "2025-06-14 11:50:00z",
+        "JL08NK",
+        "25",
+        "13380"
+    ],
+    [
+        "2025-06-14 11:10:00z",
+        "JL08JF",
+        "21",
+        "13380"
+    ],
+    [
+        "2025-06-14 10:50:00z",
+        "JL08HD",
+        "22",
+        "13360"
+    ],
+    [
+        "2025-06-14 10:10:00z",
+        "JL07LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-14 09:40:00z",
+        "JL07BT",
+        "13",
+        "13340"
+    ],
+    [
+        "2025-06-14 09:20:00z",
+        "IL97XR",
+        "22",
+        "13360"
+    ],
+    [
+        "2025-06-14 09:00:00z",
+        "IL97WP",
+        "21",
+        "13320"
+    ],
+    [
+        "2025-06-14 08:40:00z",
+        "IL97UM",
+        "-3",
+        "13360"
+    ],
+    [
+        "2025-06-14 08:20:00z",
+        "IL97TJ",
+        "14",
+        "13340"
+    ],
+    [
+        "2025-06-14 08:00:00z",
+        "IL97LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-14 07:20:00z",
+        "IL97LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-13 16:20:00z",
+        "IL66XR",
+        "-3",
+        "13380"
+    ],
+    [
+        "2025-06-13 16:00:00z",
+        "IL66LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-13 15:40:00z",
+        "IL66SO",
+        "7",
+        "13380"
+    ],
+    [
+        "2025-06-13 15:20:00z",
+        "IL66PN",
+        "7",
+        "13340"
+    ],
+    [
+        "2025-06-13 14:50:00z",
+        "IL66ML",
+        "15",
+        "13360"
+    ],
+    [
+        "2025-06-13 14:20:00z",
+        "IL66IK",
+        "21",
+        "13320"
+    ],
+    [
+        "2025-06-13 14:00:00z",
+        "IL66GK",
+        "22",
+        "13380"
+    ],
+    [
+        "2025-06-13 13:40:00z",
+        "IL66FJ",
+        "23",
+        "15340"
+    ],
+    [
+        "2025-06-13 13:20:00z",
+        "IL66CJ",
+        "25",
+        "13380"
+    ],
+    [
+        "2025-06-13 13:00:00z",
+        "IL56XJ",
+        "23",
+        "13380"
+    ],
+    [
+        "2025-06-13 12:40:00z",
+        "IL56VI",
+        "5",
+        "13360"
+    ],
+    [
+        "2025-06-13 12:20:00z",
+        "IL56SI",
+        "23",
+        "13360"
+    ],
+    [
+        "2025-06-13 12:00:00z",
+        "IL56QI",
+        "21",
+        "13520"
+    ],
+    [
+        "2025-06-13 11:40:00z",
+        "IL56NI",
+        "21",
+        "13240"
+    ],
+    [
+        "2025-06-13 11:20:00z",
+        "IL56KI",
+        "17",
+        "13300"
+    ],
+    [
+        "2025-06-13 11:00:00z",
+        "IL56HI",
+        "11",
+        "13300"
+    ],
+    [
+        "2025-06-13 10:40:00z",
+        "IL56EI",
+        "13",
+        "13320"
+    ],
+    [
+        "2025-06-13 10:20:00z",
+        "IL56BJ",
+        "19",
+        "13320"
+    ],
+    [
+        "2025-06-13 10:00:00z",
+        "IL46WJ",
+        "10",
+        "13260"
+    ],
+    [
+        "2025-06-13 09:40:00z",
+        "IL46UJ",
+        "9",
+        "13320"
+    ],
+    [
+        "2025-06-13 09:20:00z",
+        "IL46RJ",
+        "7",
+        "13280"
+    ],
+    [
+        "2025-06-13 09:00:00z",
+        "IL46OJ",
+        "-1",
+        "13300"
+    ],
+    [
+        "2025-06-13 08:10:00z",
+        "IL46LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-13 07:00:00z",
+        "IL36VM",
+        "-33",
+        "13220"
+    ],
+    [
+        "2025-06-12 20:20:00z",
+        "HL89LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-12 17:50:00z",
+        "HL69VN",
+        "7",
+        "13160"
+    ],
+    [
+        "2025-06-12 17:30:00z",
+        "HL69QN",
+        "4",
+        "13240"
+    ],
+    [
+        "2025-06-12 17:10:00z",
+        "HL69LO",
+        "6",
+        "13220"
+    ],
+    [
+        "2025-06-12 16:50:00z",
+        "HL69GO",
+        "5",
+        "13220"
+    ],
+    [
+        "2025-06-12 16:30:00z",
+        "HL69BO",
+        "4",
+        "13260"
+    ],
+    [
+        "2025-06-12 16:20:00z",
+        "HL59WP",
+        "4",
+        "13220"
+    ],
+    [
+        "2025-06-12 16:00:00z",
+        "HL59RO",
+        "11",
+        "13220"
+    ],
+    [
+        "2025-06-12 15:30:00z",
+        "HL59KO",
+        "14",
+        "13300"
+    ],
+    [
+        "2025-06-12 15:10:00z",
+        "HL59FO",
+        "18",
+        "13220"
+    ],
+    [
+        "2025-06-12 14:50:00z",
+        "HL59AO",
+        "21",
+        "13240"
+    ],
+    [
+        "2025-06-12 14:40:00z",
+        "HL49WN",
+        "22",
+        "13240"
+    ],
+    [
+        "2025-06-12 14:20:00z",
+        "HL49RN",
+        "20",
+        "13240"
+    ],
+    [
+        "2025-06-12 14:00:00z",
+        "HL49MQ",
+        "26",
+        "12860"
+    ],
+    [
+        "2025-06-12 13:20:00z",
+        "HL49CL",
+        "24",
+        "13260"
+    ],
+    [
+        "2025-06-12 13:00:00z",
+        "HL39VK",
+        "25",
+        "13260"
+    ],
+    [
+        "2025-06-12 12:10:00z",
+        "HL39JI",
+        "22",
+        "13240"
+    ],
+    [
+        "2025-06-12 11:20:00z",
+        "HL29VG",
+        "18",
+        "13200"
+    ],
+    [
+        "2025-06-12 11:00:00z",
+        "HL29RF",
+        "14",
+        "13240"
+    ],
+    [
+        "2025-06-12 10:20:00z",
+        "HL29HC",
+        "-2",
+        "0"
+    ],
+    [
+        "2025-06-12 09:10:00z",
+        "HL18TX",
+        "5",
+        "2920"
+    ],
+    [
+        "2025-06-12 08:00:00z",
+        "HL18LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-11 19:50:00z",
+        "GL63LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-11 18:50:00z",
+        "GL53XP",
+        "9",
+        "13180"
+    ],
+    [
+        "2025-06-11 18:40:00z",
+        "GL63AM",
+        "7",
+        "0"
+    ],
+    [
+        "2025-06-11 18:30:00z",
+        "GL53VM",
+        "2",
+        "13140"
+    ],
+    [
+        "2025-06-11 18:10:00z",
+        "GL53SK",
+        "6",
+        "13160"
+    ],
+    [
+        "2025-06-11 16:00:00z",
+        "GL52CX",
+        "21",
+        "13180"
+    ],
+    [
+        "2025-06-11 15:30:00z",
+        "GL42WU",
+        "8",
+        "13160"
+    ],
+    [
+        "2025-06-11 14:00:00z",
+        "GL42LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-11 12:30:00z",
+        "GL42EK",
+        "17",
+        "13140"
+    ],
+    [
+        "2025-06-11 12:10:00z",
+        "GL42CJ",
+        "6",
+        "13140"
+    ],
+    [
+        "2025-06-11 11:00:00z",
+        "GL32LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-10 19:10:00z",
+        "GL45BA",
+        "3",
+        "13160"
+    ],
+    [
+        "2025-06-10 18:20:00z",
+        "GL45EF",
+        "9",
+        "13000"
+    ],
+    [
+        "2025-06-10 18:00:00z",
+        "GL45GI",
+        "5",
+        "12780"
+    ],
+    [
+        "2025-06-10 17:30:00z",
+        "GL45IL",
+        "10",
+        "13180"
+    ],
+    [
+        "2025-06-10 17:00:00z",
+        "GL45KP",
+        "17",
+        "13200"
+    ],
+    [
+        "2025-06-10 15:30:00z",
+        "GL46PB",
+        "0",
+        "13180"
+    ],
+    [
+        "2025-06-10 15:00:00z",
+        "GL46LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-10 14:30:00z",
+        "GL46TJ",
+        "22",
+        "13180"
+    ],
+    [
+        "2025-06-10 14:00:00z",
+        "GL46LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-10 13:40:00z",
+        "GL46WQ",
+        "20",
+        "13140"
+    ],
+    [
+        "2025-06-10 13:20:00z",
+        "GL56AS",
+        "19",
+        "13180"
+    ],
+    [
+        "2025-06-10 12:50:00z",
+        "GL56CX",
+        "16",
+        "13160"
+    ],
+    [
+        "2025-06-10 12:40:00z",
+        "GL57CA",
+        "19",
+        "13160"
+    ],
+    [
+        "2025-06-10 12:20:00z",
+        "GL57EF",
+        "24",
+        "0"
+    ],
+    [
+        "2025-06-10 12:00:00z",
+        "GL57EG",
+        "16",
+        "13180"
+    ],
+    [
+        "2025-06-10 11:40:00z",
+        "GL57FJ",
+        "20",
+        "13180"
+    ],
+    [
+        "2025-06-10 11:00:00z",
+        "GL57LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-09 18:50:00z",
+        "GM83QK",
+        "10",
+        "13160"
+    ],
+    [
+        "2025-06-09 18:30:00z",
+        "GM83RN",
+        "5",
+        "13160"
+    ],
+    [
+        "2025-06-09 18:10:00z",
+        "GM83SP",
+        "10",
+        "13160"
+    ],
+    [
+        "2025-06-09 17:50:00z",
+        "GM83TQ",
+        "16",
+        "13180"
+    ],
+    [
+        "2025-06-09 17:30:00z",
+        "GM83US",
+        "14",
+        "13180"
+    ],
+    [
+        "2025-06-09 17:10:00z",
+        "GM83VT",
+        "21",
+        "13160"
+    ],
+    [
+        "2025-06-09 16:50:00z",
+        "GM83WV",
+        "14",
+        "13260"
+    ],
+    [
+        "2025-06-09 16:30:00z",
+        "GM83XW",
+        "14",
+        "13180"
+    ],
+    [
+        "2025-06-09 16:20:00z",
+        "GM93AW",
+        "12",
+        "13180"
+    ],
+    [
+        "2025-06-09 16:00:00z",
+        "GM93BX",
+        "16",
+        "13180"
+    ],
+    [
+        "2025-06-09 15:50:00z",
+        "GM94BA",
+        "16",
+        "13160"
+    ],
+    [
+        "2025-06-09 15:30:00z",
+        "GM94",
+        "20",
+        "13080"
+    ],
+    [
+        "2025-06-09 15:10:00z",
+        "GM94EC",
+        "20",
+        "13140"
+    ],
+    [
+        "2025-06-09 14:50:00z",
+        "GM94LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-09 14:30:00z",
+        "GM94GD",
+        "19",
+        "13160"
+    ],
+    [
+        "2025-06-09 14:10:00z",
+        "GM94LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-09 13:50:00z",
+        "GM94JE",
+        "23",
+        "13160"
+    ],
+    [
+        "2025-06-09 13:20:00z",
+        "GM94LE",
+        "18",
+        "13160"
+    ],
+    [
+        "2025-06-09 13:00:00z",
+        "GM94NF",
+        "20",
+        "13160"
+    ],
+    [
+        "2025-06-09 12:40:00z",
+        "GM94PF",
+        "18",
+        "13140"
+    ],
+    [
+        "2025-06-09 12:20:00z",
+        "GM94QF",
+        "15",
+        "13160"
+    ],
+    [
+        "2025-06-09 12:00:00z",
+        "GM94SF",
+        "12",
+        "13160"
+    ],
+    [
+        "2025-06-09 11:40:00z",
+        "GM94UF",
+        "7",
+        "13180"
+    ],
+    [
+        "2025-06-09 11:20:00z",
+        "GM94WF",
+        "3",
+        "13180"
+    ],
+    [
+        "2025-06-09 11:00:00z",
+        "HM04AF",
+        "16",
+        "13160"
+    ],
+    [
+        "2025-06-09 10:40:00z",
+        "HM04CG",
+        "-13",
+        "13180"
+    ],
+    [
+        "2025-06-09 08:40:00z",
+        "HM04LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-09 08:00:00z",
+        "HM04LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-08 21:20:00z",
+        "HM24LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-08 21:00:00z",
+        "HM24RH",
+        "-4",
+        "13200"
+    ],
+    [
+        "2025-06-08 20:30:00z",
+        "HM24TH",
+        "-6",
+        "13180"
+    ],
+    [
+        "2025-06-08 19:00:00z",
+        "HM34LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-08 18:20:00z",
+        "HM34LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-08 18:00:00z",
+        "HM34HL",
+        "15",
+        "13160"
+    ],
+    [
+        "2025-06-08 17:40:00z",
+        "HM34JM",
+        "23",
+        "13160"
+    ],
+    [
+        "2025-06-08 17:20:00z",
+        "HM34KN",
+        "24",
+        "13160"
+    ],
+    [
+        "2025-06-08 17:00:00z",
+        "HM34LO",
+        "21",
+        "13140"
+    ],
+    [
+        "2025-06-08 16:40:00z",
+        "HM34NQ",
+        "22",
+        "13140"
+    ],
+    [
+        "2025-06-08 16:20:00z",
+        "HM34OR",
+        "22",
+        "13100"
+    ],
+    [
+        "2025-06-08 16:00:00z",
+        "HM34QS",
+        "17",
+        "13160"
+    ],
+    [
+        "2025-06-08 15:40:00z",
+        "HM34RU",
+        "16",
+        "13180"
+    ],
+    [
+        "2025-06-08 15:20:00z",
+        "HM34SW",
+        "22",
+        "13180"
+    ],
+    [
+        "2025-06-08 15:00:00z",
+        "HM34UX",
+        "20",
+        "13140"
+    ],
+    [
+        "2025-06-08 14:50:00z",
+        "HM35VA",
+        "16",
+        "13160"
+    ],
+    [
+        "2025-06-08 14:30:00z",
+        "HM35WB",
+        "16",
+        "13160"
+    ],
+    [
+        "2025-06-08 14:10:00z",
+        "HM45AD",
+        "16",
+        "13160"
+    ],
+    [
+        "2025-06-08 13:50:00z",
+        "HM45BE",
+        "16",
+        "13180"
+    ],
+    [
+        "2025-06-08 13:30:00z",
+        "HM45CG",
+        "15",
+        "13160"
+    ],
+    [
+        "2025-06-08 13:10:00z",
+        "HM45EH",
+        "16",
+        "13200"
+    ],
+    [
+        "2025-06-08 12:50:00z",
+        "HM45GJ",
+        "19",
+        "13200"
+    ],
+    [
+        "2025-06-08 12:30:00z",
+        "HM45IK",
+        "24",
+        "13180"
+    ],
+    [
+        "2025-06-08 12:10:00z",
+        "HM45JM",
+        "18",
+        "13180"
+    ],
+    [
+        "2025-06-08 11:50:00z",
+        "HM45LN",
+        "9",
+        "13120"
+    ],
+    [
+        "2025-06-08 11:30:00z",
+        "HM45NP",
+        "12",
+        "13160"
+    ],
+    [
+        "2025-06-08 11:10:00z",
+        "HM45PR",
+        "15",
+        "13200"
+    ],
+    [
+        "2025-06-08 10:50:00z",
+        "HM45RT",
+        "21",
+        "13160"
+    ],
+    [
+        "2025-06-08 10:30:00z",
+        "HM45TW",
+        "14",
+        "13160"
+    ],
+    [
+        "2025-06-08 10:10:00z",
+        "HM46VA",
+        "12",
+        "13140"
+    ],
+    [
+        "2025-06-08 09:40:00z",
+        "HM56LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-08 08:50:00z",
+        "HM56FM",
+        "6",
+        "13160"
+    ],
+    [
+        "2025-06-08 07:40:00z",
+        "HM56LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-08 07:30:00z",
+        "HM57MA",
+        "-6",
+        "13140"
+    ],
+    [
+        "2025-06-07 19:10:00z",
+        "HN81MP",
+        "-6",
+        "13280"
+    ],
+    [
+        "2025-06-07 18:40:00z",
+        "HN81NU",
+        "2",
+        "0"
+    ],
+    [
+        "2025-06-07 18:20:00z",
+        "HN81LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-07 18:00:00z",
+        "HN82PA",
+        "18",
+        "13280"
+    ],
+    [
+        "2025-06-07 17:40:00z",
+        "HN82QC",
+        "17",
+        "13240"
+    ],
+    [
+        "2025-06-07 17:20:00z",
+        "HN82SE",
+        "8",
+        "80"
+    ],
+    [
+        "2025-06-07 17:00:00z",
+        "HN82RF",
+        "16",
+        "13260"
+    ],
+    [
+        "2025-06-07 16:40:00z",
+        "HN82RG",
+        "21",
+        "13260"
+    ],
+    [
+        "2025-06-07 16:20:00z",
+        "HN82SI",
+        "23",
+        "13300"
+    ],
+    [
+        "2025-06-07 16:00:00z",
+        "HN82SJ",
+        "20",
+        "13340"
+    ],
+    [
+        "2025-06-07 15:40:00z",
+        "HN82TL",
+        "18",
+        "13340"
+    ],
+    [
+        "2025-06-07 15:20:00z",
+        "HN82UM",
+        "22",
+        "13260"
+    ],
+    [
+        "2025-06-07 15:00:00z",
+        "HN82UN",
+        "26",
+        "13240"
+    ],
+    [
+        "2025-06-07 14:40:00z",
+        "HN82VO",
+        "25",
+        "13240"
+    ],
+    [
+        "2025-06-07 14:20:00z",
+        "HN82VP",
+        "23",
+        "13320"
+    ],
+    [
+        "2025-06-07 14:00:00z",
+        "HN82WQ",
+        "23",
+        "13320"
+    ],
+    [
+        "2025-06-07 13:40:00z",
+        "HN82WS",
+        "25",
+        "13260"
+    ],
+    [
+        "2025-06-07 13:20:00z",
+        "HN82XT",
+        "24",
+        "13280"
+    ],
+    [
+        "2025-06-07 13:00:00z",
+        "HN92AU",
+        "26",
+        "13260"
+    ],
+    [
+        "2025-06-07 12:40:00z",
+        "HN92AV",
+        "18",
+        "13300"
+    ],
+    [
+        "2025-06-07 12:20:00z",
+        "HN92BX",
+        "14",
+        "13260"
+    ],
+    [
+        "2025-06-07 12:10:00z",
+        "HN93BA",
+        "11",
+        "13260"
+    ],
+    [
+        "2025-06-07 11:50:00z",
+        "HN93BB",
+        "17",
+        "13280"
+    ],
+    [
+        "2025-06-07 11:30:00z",
+        "HN93CD",
+        "12",
+        "13260"
+    ],
+    [
+        "2025-06-07 11:10:00z",
+        "HN93CE",
+        "14",
+        "13260"
+    ],
+    [
+        "2025-06-07 10:50:00z",
+        "HN93DG",
+        "10",
+        "13260"
+    ],
+    [
+        "2025-06-07 10:30:00z",
+        "HN93DI",
+        "8",
+        "13300"
+    ],
+    [
+        "2025-06-07 10:10:00z",
+        "HN93DJ",
+        "7",
+        "13240"
+    ],
+    [
+        "2025-06-07 09:40:00z",
+        "HN93DM",
+        "-5",
+        "13220"
+    ],
+    [
+        "2025-06-07 05:50:00z",
+        "HN84LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-06 22:00:00z",
+        "HN58MG",
+        "-22",
+        "13180"
+    ],
+    [
+        "2025-06-06 21:10:00z",
+        "HN58LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-06 20:50:00z",
+        "HN48UN",
+        "-5",
+        "13240"
+    ],
+    [
+        "2025-06-06 19:40:00z",
+        "HN48DT",
+        "-3",
+        "13220"
+    ],
+    [
+        "2025-06-06 19:20:00z",
+        "HN38LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-06 18:50:00z",
+        "HN38PX",
+        "8",
+        "13240"
+    ],
+    [
+        "2025-06-06 18:10:00z",
+        "HN39GB",
+        "14",
+        "13220"
+    ],
+    [
+        "2025-06-06 17:50:00z",
+        "HN39CC",
+        "21",
+        "13260"
+    ],
+    [
+        "2025-06-06 17:40:00z",
+        "HN29XD",
+        "21",
+        "13200"
+    ],
+    [
+        "2025-06-06 17:20:00z",
+        "HN29TD",
+        "21",
+        "13240"
+    ],
+    [
+        "2025-06-06 17:00:00z",
+        "HN29OE",
+        "23",
+        "13220"
+    ],
+    [
+        "2025-06-06 16:30:00z",
+        "HN29IG",
+        "25",
+        "13200"
+    ],
+    [
+        "2025-06-06 16:10:00z",
+        "HN29LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-06 15:50:00z",
+        "HN19LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-06 15:30:00z",
+        "HN19SI",
+        "30",
+        "13200"
+    ],
+    [
+        "2025-06-06 15:10:00z",
+        "HN19LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-06 14:10:00z",
+        "HN19BL",
+        "26",
+        "13200"
+    ],
+    [
+        "2025-06-06 14:00:00z",
+        "HN09XL",
+        "28",
+        "13200"
+    ],
+    [
+        "2025-06-06 13:40:00z",
+        "HN09LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-06 13:00:00z",
+        "HN09LN",
+        "28",
+        "13200"
+    ],
+    [
+        "2025-06-06 12:40:00z",
+        "HN09HN",
+        "25",
+        "13200"
+    ],
+    [
+        "2025-06-06 12:20:00z",
+        "HN09DO",
+        "24",
+        "13180"
+    ],
+    [
+        "2025-06-06 12:00:00z",
+        "GN99XP",
+        "21",
+        "13200"
+    ],
+    [
+        "2025-06-06 11:30:00z",
+        "GN99RQ",
+        "16",
+        "13180"
+    ],
+    [
+        "2025-06-06 11:10:00z",
+        "GN99LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-06 10:00:00z",
+        "GN89LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-06 09:40:00z",
+        "GN89QU",
+        "17",
+        "13180"
+    ],
+    [
+        "2025-06-06 09:20:00z",
+        "GN89LU",
+        "12",
+        "13180"
+    ],
+    [
+        "2025-06-06 09:00:00z",
+        "GN89HU",
+        "-1",
+        "13180"
+    ],
+    [
+        "2025-06-06 08:30:00z",
+        "GN79LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-06 08:00:00z",
+        "GN79LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-05 22:20:00z",
+        "GN37LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-05 20:50:00z",
+        "GN27LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-05 19:40:00z",
+        "GN26JR",
+        "8",
+        "13240"
+    ],
+    [
+        "2025-06-05 19:20:00z",
+        "GN26HM",
+        "10",
+        "13260"
+    ],
+    [
+        "2025-06-05 19:00:00z",
+        "GN26FH",
+        "8",
+        "13240"
+    ],
+    [
+        "2025-06-05 18:40:00z",
+        "GN26EC",
+        "14",
+        "13260"
+    ],
+    [
+        "2025-06-05 18:30:00z",
+        "GN25EX",
+        "19",
+        "13240"
+    ],
+    [
+        "2025-06-05 18:10:00z",
+        "GN25DR",
+        "16",
+        "13360"
+    ],
+    [
+        "2025-06-05 17:50:00z",
+        "GN25DL",
+        "10",
+        "13320"
+    ],
+    [
+        "2025-06-05 17:30:00z",
+        "GN25EG",
+        "13",
+        "13400"
+    ],
+    [
+        "2025-06-05 17:10:00z",
+        "GN25EC",
+        "13",
+        "13300"
+    ],
+    [
+        "2025-06-05 16:50:00z",
+        "GN24FW",
+        "19",
+        "13340"
+    ],
+    [
+        "2025-06-05 16:30:00z",
+        "GN24FR",
+        "26",
+        "13280"
+    ],
+    [
+        "2025-06-05 16:10:00z",
+        "GN24GN",
+        "16",
+        "13300"
+    ],
+    [
+        "2025-06-05 15:50:00z",
+        "GN24GI",
+        "25",
+        "13280"
+    ],
+    [
+        "2025-06-05 15:30:00z",
+        "GN24IC",
+        "20",
+        "12040"
+    ],
+    [
+        "2025-06-05 15:10:00z",
+        "GN23HX",
+        "26",
+        "13260"
+    ],
+    [
+        "2025-06-05 14:50:00z",
+        "GN23IS",
+        "20",
+        "13280"
+    ],
+    [
+        "2025-06-05 14:30:00z",
+        "GN23JO",
+        "17",
+        "13260"
+    ],
+    [
+        "2025-06-05 14:10:00z",
+        "GN23KL",
+        "17",
+        "13220"
+    ],
+    [
+        "2025-06-05 13:50:00z",
+        "GN23MI",
+        "19",
+        "13280"
+    ],
+    [
+        "2025-06-05 13:30:00z",
+        "GN23ND",
+        "14",
+        "13240"
+    ],
+    [
+        "2025-06-05 13:10:00z",
+        "GN22OW",
+        "13",
+        "13240"
+    ],
+    [
+        "2025-06-05 12:50:00z",
+        "GN22PQ",
+        "19",
+        "13200"
+    ],
+    [
+        "2025-06-05 12:30:00z",
+        "GN22QL",
+        "7",
+        "13240"
+    ],
+    [
+        "2025-06-05 12:10:00z",
+        "GN22RF",
+        "4",
+        "13220"
+    ],
+    [
+        "2025-06-05 11:50:00z",
+        "GN22SA",
+        "1",
+        "13220"
+    ],
+    [
+        "2025-06-05 11:40:00z",
+        "GN21SV",
+        "0",
+        "13220"
+    ],
+    [
+        "2025-06-05 10:40:00z",
+        "GN21LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-04 21:40:00z",
+        "FM91LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-04 21:20:00z",
+        "FM91LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-04 20:50:00z",
+        "FM91IQ",
+        "6",
+        "13140"
+    ],
+    [
+        "2025-06-04 20:30:00z",
+        "FM91DP",
+        "5",
+        "13160"
+    ],
+    [
+        "2025-06-04 20:10:00z",
+        "FM81LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-04 19:50:00z",
+        "FM81TP",
+        "10",
+        "13160"
+    ],
+    [
+        "2025-06-04 19:30:00z",
+        "FM81PQ",
+        "0",
+        "13200"
+    ],
+    [
+        "2025-06-04 19:10:00z",
+        "FM81MR",
+        "13",
+        "13200"
+    ],
+    [
+        "2025-06-04 18:50:00z",
+        "FM81IS",
+        "11",
+        "13160"
+    ],
+    [
+        "2025-06-04 18:30:00z",
+        "FM81EU",
+        "18",
+        "13180"
+    ],
+    [
+        "2025-06-04 18:10:00z",
+        "FM81AX",
+        "19",
+        "13100"
+    ],
+    [
+        "2025-06-04 18:00:00z",
+        "FM72WA",
+        "14",
+        "13160"
+    ],
+    [
+        "2025-06-04 17:40:00z",
+        "FM72SC",
+        "14",
+        "13200"
+    ],
+    [
+        "2025-06-04 17:20:00z",
+        "FM72PE",
+        "18",
+        "13200"
+    ],
+    [
+        "2025-06-04 17:00:00z",
+        "FM72LH",
+        "17",
+        "13180"
+    ],
+    [
+        "2025-06-04 16:40:00z",
+        "FM72HK",
+        "20",
+        "13160"
+    ],
+    [
+        "2025-06-04 16:20:00z",
+        "FM72EO",
+        "20",
+        "13160"
+    ],
+    [
+        "2025-06-04 16:00:00z",
+        "FM72BR",
+        "19",
+        "13140"
+    ],
+    [
+        "2025-06-04 15:50:00z",
+        "FM62XT",
+        "22",
+        "13120"
+    ],
+    [
+        "2025-06-04 15:30:00z",
+        "FM62TW",
+        "22",
+        "13200"
+    ],
+    [
+        "2025-06-04 15:20:00z",
+        "FM63SA",
+        "16",
+        "13240"
+    ],
+    [
+        "2025-06-04 15:00:00z",
+        "FM63OC",
+        "17",
+        "13220"
+    ],
+    [
+        "2025-06-04 14:40:00z",
+        "FM63LF",
+        "8",
+        "13220"
+    ],
+    [
+        "2025-06-04 14:20:00z",
+        "FM63HH",
+        "8",
+        "13260"
+    ],
+    [
+        "2025-06-04 14:00:00z",
+        "FM63EK",
+        "17",
+        "13200"
+    ],
+    [
+        "2025-06-04 13:40:00z",
+        "FM63BN",
+        "13",
+        "13240"
+    ],
+    [
+        "2025-06-04 13:30:00z",
+        "FM53XO",
+        "4",
+        "13200"
+    ],
+    [
+        "2025-06-04 13:10:00z",
+        "FM53UQ",
+        "1",
+        "13200"
+    ],
+    [
+        "2025-06-04 12:50:00z",
+        "FM53OX",
+        "2",
+        "0"
+    ],
+    [
+        "2025-06-04 09:50:00z",
+        "FM45LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-03 23:50:00z",
+        "FN32LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-03 23:10:00z",
+        "FN32LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-03 22:40:00z",
+        "FN32LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-03 22:30:00z",
+        "FN33SC",
+        "-11",
+        "13160"
+    ],
+    [
+        "2025-06-03 22:10:00z",
+        "FN33SJ",
+        "7",
+        "13160"
+    ],
+    [
+        "2025-06-03 21:00:00z",
+        "FN34VO",
+        "17",
+        "0"
+    ],
+    [
+        "2025-06-03 20:40:00z",
+        "FN34VR",
+        "19",
+        "13120"
+    ],
+    [
+        "2025-06-03 20:20:00z",
+        "FN35WB",
+        "21",
+        "13120"
+    ],
+    [
+        "2025-06-03 20:00:00z",
+        "FN35WJ",
+        "12",
+        "13100"
+    ],
+    [
+        "2025-06-03 19:40:00z",
+        "FN35WR",
+        "5",
+        "13020"
+    ],
+    [
+        "2025-06-03 19:20:00z",
+        "FN36WB",
+        "20",
+        "13060"
+    ],
+    [
+        "2025-06-03 19:00:00z",
+        "FN36WJ",
+        "16",
+        "13040"
+    ],
+    [
+        "2025-06-03 18:40:00z",
+        "FN36VR",
+        "16",
+        "13080"
+    ],
+    [
+        "2025-06-03 18:20:00z",
+        "FN37UB",
+        "13",
+        "13080"
+    ],
+    [
+        "2025-06-03 18:00:00z",
+        "FN37TJ",
+        "21",
+        "12780"
+    ],
+    [
+        "2025-06-03 17:40:00z",
+        "FN37RQ",
+        "18",
+        "13000"
+    ],
+    [
+        "2025-06-03 17:20:00z",
+        "FN37OX",
+        "18",
+        "13000"
+    ],
+    [
+        "2025-06-03 17:10:00z",
+        "FN38ND",
+        "19",
+        "12980"
+    ],
+    [
+        "2025-06-03 16:50:00z",
+        "FN38KK",
+        "20",
+        "12920"
+    ],
+    [
+        "2025-06-03 16:30:00z",
+        "FN38HR",
+        "10",
+        "12960"
+    ],
+    [
+        "2025-06-03 16:10:00z",
+        "FN39DA",
+        "12",
+        "12900"
+    ],
+    [
+        "2025-06-03 15:50:00z",
+        "FN39AG",
+        "10",
+        "12960"
+    ],
+    [
+        "2025-06-03 15:40:00z",
+        "FN29WJ",
+        "17",
+        "12860"
+    ],
+    [
+        "2025-06-03 15:20:00z",
+        "FN29SO",
+        "13",
+        "13400"
+    ],
+    [
+        "2025-06-03 15:00:00z",
+        "FN29OT",
+        "11",
+        "12920"
+    ],
+    [
+        "2025-06-03 14:30:00z",
+        "FO20IC",
+        "2",
+        "12820"
+    ],
+    [
+        "2025-06-03 14:10:00z",
+        "FO20DF",
+        "6",
+        "12920"
+    ],
+    [
+        "2025-06-03 13:50:00z",
+        "FO10WJ",
+        "-5",
+        "12960"
+    ],
+    [
+        "2025-06-03 13:30:00z",
+        "FO10SM",
+        "-1",
+        "12860"
+    ],
+    [
+        "2025-06-03 01:10:00z",
+        "EN28RA",
+        "-24",
+        "12940"
+    ],
+    [
+        "2025-06-03 01:00:00z",
+        "EN27OV",
+        "-4",
+        "12940"
+    ],
+    [
+        "2025-06-02 23:50:00z",
+        "EN17VA",
+        "1",
+        "0"
+    ],
+    [
+        "2025-06-02 23:40:00z",
+        "EN16LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-02 22:40:00z",
+        "EN16EL",
+        "1",
+        "12880"
+    ],
+    [
+        "2025-06-02 22:20:00z",
+        "EN06XH",
+        "14",
+        "12920"
+    ],
+    [
+        "2025-06-02 22:00:00z",
+        "EN06RD",
+        "21",
+        "12940"
+    ],
+    [
+        "2025-06-02 21:40:00z",
+        "EN05MX",
+        "18",
+        "12940"
+    ],
+    [
+        "2025-06-02 21:20:00z",
+        "EN05HT",
+        "21",
+        "12940"
+    ],
+    [
+        "2025-06-02 21:00:00z",
+        "EN05BQ",
+        "24",
+        "12880"
+    ],
+    [
+        "2025-06-02 20:50:00z",
+        "DN95WO",
+        "19",
+        "12880"
+    ],
+    [
+        "2025-06-02 20:30:00z",
+        "DN95QL",
+        "21",
+        "12880"
+    ],
+    [
+        "2025-06-02 20:10:00z",
+        "DN95LH",
+        "22",
+        "12900"
+    ],
+    [
+        "2025-06-02 19:50:00z",
+        "DN95FD",
+        "20",
+        "12900"
+    ],
+    [
+        "2025-06-02 19:30:00z",
+        "DN94AX",
+        "26",
+        "12840"
+    ],
+    [
+        "2025-06-02 19:20:00z",
+        "DN84VV",
+        "29",
+        "12760"
+    ],
+    [
+        "2025-06-02 19:00:00z",
+        "DN84PS",
+        "24",
+        "12860"
+    ],
+    [
+        "2025-06-02 18:40:00z",
+        "DN84KN",
+        "25",
+        "12920"
+    ],
+    [
+        "2025-06-02 18:20:00z",
+        "DN84EI",
+        "21",
+        "12920"
+    ],
+    [
+        "2025-06-02 18:00:00z",
+        "DN74XE",
+        "21",
+        "12940"
+    ],
+    [
+        "2025-06-02 17:40:00z",
+        "DN74RA",
+        "15",
+        "12960"
+    ],
+    [
+        "2025-06-02 17:30:00z",
+        "DN73OV",
+        "11",
+        "12940"
+    ],
+    [
+        "2025-06-02 17:10:00z",
+        "DN73JR",
+        "15",
+        "13020"
+    ],
+    [
+        "2025-06-02 16:50:00z",
+        "DN73DN",
+        "8",
+        "12980"
+    ],
+    [
+        "2025-06-02 16:30:00z",
+        "DN63WK",
+        "8",
+        "12960"
+    ],
+    [
+        "2025-06-02 16:10:00z",
+        "DN63RH",
+        "10",
+        "12980"
+    ],
+    [
+        "2025-06-02 15:50:00z",
+        "DN63ME",
+        "9",
+        "13000"
+    ],
+    [
+        "2025-06-02 15:30:00z",
+        "DN63HA",
+        "-3",
+        "13220"
+    ],
+    [
+        "2025-06-02 15:20:00z",
+        "DN62FX",
+        "-3",
+        "12960"
+    ],
+    [
+        "2025-06-02 01:50:00z",
+        "DM08LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-02 01:10:00z",
+        "DM08LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-02 00:40:00z",
+        "DM08CG",
+        "-1",
+        "13160"
+    ],
+    [
+        "2025-06-02 00:10:00z",
+        "CM98WA",
+        "8",
+        "13060"
+    ],
+    [
+        "2025-06-02 00:00:00z",
+        "CM97VW",
+        "17",
+        "13060"
+    ],
+    [
+        "2025-06-01 23:40:00z",
+        "CM97ST",
+        "11",
+        "13100"
+    ],
+    [
+        "2025-06-01 23:20:00z",
+        "CM97QP",
+        "14",
+        "13180"
+    ],
+    [
+        "2025-06-01 23:00:00z",
+        "CM97OM",
+        "6",
+        "13180"
+    ],
+    [
+        "2025-06-01 22:40:00z",
+        "CM97MJ",
+        "10",
+        "13160"
+    ],
+    [
+        "2025-06-01 22:20:00z",
+        "CM97JH",
+        "13",
+        "13260"
+    ],
+    [
+        "2025-06-01 22:00:00z",
+        "CM97HE",
+        "16",
+        "13160"
+    ],
+    [
+        "2025-06-01 21:40:00z",
+        "CM97FD",
+        "14",
+        "13140"
+    ],
+    [
+        "2025-06-01 21:20:00z",
+        "CM97CB",
+        "19",
+        "13120"
+    ],
+    [
+        "2025-06-01 21:10:00z",
+        "CM87XD",
+        "17",
+        "10160"
+    ],
+    [
+        "2025-06-01 21:00:00z",
+        "CM96AX",
+        "18",
+        "13120"
+    ],
+    [
+        "2025-06-01 20:50:00z",
+        "CM86WX",
+        "20",
+        "13120"
+    ],
+    [
+        "2025-06-01 20:30:00z",
+        "CM86UV",
+        "24",
+        "13120"
+    ],
+    [
+        "2025-06-01 20:10:00z",
+        "CM86RU",
+        "27",
+        "13140"
+    ],
+    [
+        "2025-06-01 19:50:00z",
+        "CM86PT",
+        "25",
+        "13160"
+    ],
+    [
+        "2025-06-01 19:30:00z",
+        "CM86NR",
+        "24",
+        "13160"
+    ],
+    [
+        "2025-06-01 19:10:00z",
+        "CM86KQ",
+        "24",
+        "13140"
+    ],
+    [
+        "2025-06-01 18:50:00z",
+        "CM86IP",
+        "19",
+        "13160"
+    ],
+    [
+        "2025-06-01 18:30:00z",
+        "CM86FO",
+        "25",
+        "13180"
+    ],
+    [
+        "2025-06-01 18:10:00z",
+        "CM86DN",
+        "22",
+        "13180"
+    ],
+    [
+        "2025-06-01 17:50:00z",
+        "CM86AM",
+        "27",
+        "13180"
+    ],
+    [
+        "2025-06-01 17:40:00z",
+        "CM76XL",
+        "26",
+        "13220"
+    ],
+    [
+        "2025-06-01 17:20:00z",
+        "CM76UK",
+        "28",
+        "13180"
+    ],
+    [
+        "2025-06-01 17:00:00z",
+        "CM76RK",
+        "18",
+        "13200"
+    ],
+    [
+        "2025-06-01 16:40:00z",
+        "CM76OJ",
+        "16",
+        "13200"
+    ],
+    [
+        "2025-06-01 16:20:00z",
+        "CM76LJ",
+        "19",
+        "13220"
+    ],
+    [
+        "2025-06-01 16:00:00z",
+        "CM76II",
+        "16",
+        "13200"
+    ],
+    [
+        "2025-06-01 15:40:00z",
+        "CM76FH",
+        "14",
+        "0"
+    ],
+    [
+        "2025-06-01 15:10:00z",
+        "CM76LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-01 14:50:00z",
+        "CM66VF",
+        "1",
+        "13180"
+    ],
+    [
+        "2025-06-01 14:20:00z",
+        "CM66LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-06-01 03:50:00z",
+        "CM33EM",
+        "-28",
+        "13240"
+    ],
+    [
+        "2025-06-01 02:20:00z",
+        "CM22XV",
+        "-1",
+        "13220"
+    ],
+    [
+        "2025-06-01 01:20:00z",
+        "CM22TM",
+        "-1",
+        "13200"
+    ],
+    [
+        "2025-06-01 01:00:00z",
+        "CM22SI",
+        "3",
+        "13200"
+    ],
+    [
+        "2025-06-01 00:40:00z",
+        "CM22RF",
+        "9",
+        "13180"
+    ],
+    [
+        "2025-06-01 00:20:00z",
+        "CM22QC",
+        "15",
+        "13180"
+    ],
+    [
+        "2025-06-01 00:00:00z",
+        "CM21PX",
+        "11",
+        "13360"
+    ],
+    [
+        "2025-05-31 23:40:00z",
+        "CM21OU",
+        "11",
+        "13200"
+    ],
+    [
+        "2025-05-31 23:20:00z",
+        "CM21MR",
+        "15",
+        "13180"
+    ],
+    [
+        "2025-05-31 23:00:00z",
+        "CM21LO",
+        "22",
+        "13180"
+    ],
+    [
+        "2025-05-31 22:40:00z",
+        "CM21LL",
+        "20",
+        "13180"
+    ],
+    [
+        "2025-05-31 22:20:00z",
+        "CM21KI",
+        "22",
+        "13140"
+    ],
+    [
+        "2025-05-31 22:00:00z",
+        "CM21IE",
+        "20",
+        "13140"
+    ],
+    [
+        "2025-05-31 21:40:00z",
+        "CM21HB",
+        "19",
+        "13280"
+    ],
+    [
+        "2025-05-31 21:20:00z",
+        "CM20GW",
+        "24",
+        "13200"
+    ],
+    [
+        "2025-05-31 21:00:00z",
+        "CM20FU",
+        "21",
+        "13140"
+    ],
+    [
+        "2025-05-31 20:40:00z",
+        "CM20ER",
+        "21",
+        "13040"
+    ],
+    [
+        "2025-05-31 20:20:00z",
+        "CM20LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-31 19:50:00z",
+        "CM20CL",
+        "31",
+        "13120"
+    ],
+    [
+        "2025-05-31 19:30:00z",
+        "CM20BI",
+        "27",
+        "13100"
+    ],
+    [
+        "2025-05-31 19:10:00z",
+        "CM20AG",
+        "26",
+        "13080"
+    ],
+    [
+        "2025-05-31 19:00:00z",
+        "CM10XG",
+        "26",
+        "13100"
+    ],
+    [
+        "2025-05-31 18:40:00z",
+        "CM10WE",
+        "25",
+        "13140"
+    ],
+    [
+        "2025-05-31 18:20:00z",
+        "CM10VB",
+        "17",
+        "13140"
+    ],
+    [
+        "2025-05-31 18:00:00z",
+        "CM10TA",
+        "18",
+        "13120"
+    ],
+    [
+        "2025-05-31 17:50:00z",
+        "CL19SX",
+        "16",
+        "13140"
+    ],
+    [
+        "2025-05-31 17:30:00z",
+        "CL19RV",
+        "14",
+        "13120"
+    ],
+    [
+        "2025-05-31 17:10:00z",
+        "CL19LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-31 16:50:00z",
+        "CL19OR",
+        "11",
+        "13140"
+    ],
+    [
+        "2025-05-31 16:20:00z",
+        "CL19MP",
+        "-7",
+        "13160"
+    ],
+    [
+        "2025-05-31 01:50:00z",
+        "BM72LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-31 01:30:00z",
+        "BM72NH",
+        "19",
+        "13220"
+    ],
+    [
+        "2025-05-31 01:00:00z",
+        "BM72LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-31 00:30:00z",
+        "BM72BQ",
+        "18",
+        "13160"
+    ],
+    [
+        "2025-05-31 00:20:00z",
+        "BM62LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-30 23:30:00z",
+        "BM62NX",
+        "21",
+        "13180"
+    ],
+    [
+        "2025-05-30 23:10:00z",
+        "BM63JA",
+        "21",
+        "13160"
+    ],
+    [
+        "2025-05-30 22:50:00z",
+        "BM63EC",
+        "17",
+        "12940"
+    ],
+    [
+        "2025-05-30 22:30:00z",
+        "BM63AE",
+        "25",
+        "13160"
+    ],
+    [
+        "2025-05-30 22:20:00z",
+        "BM53VF",
+        "27",
+        "13160"
+    ],
+    [
+        "2025-05-30 22:00:00z",
+        "BM53RG",
+        "26",
+        "13220"
+    ],
+    [
+        "2025-05-30 21:40:00z",
+        "BM53MH",
+        "27",
+        "13340"
+    ],
+    [
+        "2025-05-30 21:10:00z",
+        "BM53GJ",
+        "21",
+        "13220"
+    ],
+    [
+        "2025-05-30 20:50:00z",
+        "BM53BL",
+        "20",
+        "13200"
+    ],
+    [
+        "2025-05-30 20:40:00z",
+        "BM43XM",
+        "13",
+        "13180"
+    ],
+    [
+        "2025-05-30 20:20:00z",
+        "BM43LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-30 20:00:00z",
+        "BM43NQ",
+        "23",
+        "13200"
+    ],
+    [
+        "2025-05-30 19:40:00z",
+        "BM43JS",
+        "20",
+        "13200"
+    ],
+    [
+        "2025-05-30 19:20:00z",
+        "BM43EU",
+        "21",
+        "13220"
+    ],
+    [
+        "2025-05-30 19:00:00z",
+        "BM33XW",
+        "14",
+        "13240"
+    ],
+    [
+        "2025-05-30 18:40:00z",
+        "BM34LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-30 18:20:00z",
+        "BM34NC",
+        "8",
+        "13200"
+    ],
+    [
+        "2025-05-30 17:50:00z",
+        "BM34LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-30 06:00:00z",
+        "AM48JA",
+        "-12",
+        "13220"
+    ],
+    [
+        "2025-05-30 03:30:00z",
+        "AM28OJ",
+        "10",
+        "13160"
+    ],
+    [
+        "2025-05-30 02:00:00z",
+        "AM18LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-29 06:00:00z",
+        "QM39MS",
+        "-4",
+        "12920"
+    ],
+    [
+        "2025-05-29 05:40:00z",
+        "QM39DQ",
+        "1",
+        "12960"
+    ],
+    [
+        "2025-05-29 05:30:00z",
+        "QM29WO",
+        "2",
+        "12980"
+    ],
+    [
+        "2025-05-29 05:10:00z",
+        "QM29MK",
+        "9",
+        "12960"
+    ],
+    [
+        "2025-05-29 04:40:00z",
+        "QM19WE",
+        "19",
+        "13000"
+    ],
+    [
+        "2025-05-29 03:50:00z",
+        "QM18AR",
+        "14",
+        "13020"
+    ],
+    [
+        "2025-05-29 03:40:00z",
+        "QM08LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-29 03:10:00z",
+        "QM08HI",
+        "20",
+        "12900"
+    ],
+    [
+        "2025-05-29 02:50:00z",
+        "PM98LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-29 02:30:00z",
+        "PM98QA",
+        "19",
+        "12960"
+    ],
+    [
+        "2025-05-29 02:20:00z",
+        "PM97MW",
+        "21",
+        "12940"
+    ],
+    [
+        "2025-05-29 02:00:00z",
+        "PM97ES",
+        "18",
+        "12940"
+    ],
+    [
+        "2025-05-29 01:40:00z",
+        "PM87VO",
+        "22",
+        "12900"
+    ],
+    [
+        "2025-05-29 01:20:00z",
+        "PM87NL",
+        "25",
+        "12900"
+    ],
+    [
+        "2025-05-29 01:00:00z",
+        "PM87GG",
+        "21",
+        "12900"
+    ],
+    [
+        "2025-05-29 00:30:00z",
+        "PM76LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-29 00:00:00z",
+        "PM76LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-28 23:40:00z",
+        "PM76BL",
+        "16",
+        "12860"
+    ],
+    [
+        "2025-05-28 23:30:00z",
+        "PM66VI",
+        "11",
+        "12860"
+    ],
+    [
+        "2025-05-28 23:10:00z",
+        "PM66OD",
+        "13",
+        "12880"
+    ],
+    [
+        "2025-05-28 22:50:00z",
+        "PM65HX",
+        "17",
+        "12820"
+    ],
+    [
+        "2025-05-28 22:30:00z",
+        "PM65BU",
+        "13",
+        "12800"
+    ],
+    [
+        "2025-05-28 22:10:00z",
+        "PM55RP",
+        "11",
+        "12780"
+    ],
+    [
+        "2025-05-28 21:50:00z",
+        "PM55LL",
+        "1",
+        "12840"
+    ],
+    [
+        "2025-05-28 08:20:00z",
+        "OM74FW",
+        "4",
+        "12780"
+    ],
+    [
+        "2025-05-28 08:00:00z",
+        "OM75CC",
+        "21",
+        "12800"
+    ],
+    [
+        "2025-05-27 08:40:00z",
+        "ON14LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-27 08:20:00z",
+        "ON14LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-27 08:00:00z",
+        "ON04LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-27 07:20:00z",
+        "ON04LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-27 06:50:00z",
+        "ON04LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-27 06:00:00z",
+        "ON04LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-27 05:40:00z",
+        "ON04LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-27 04:30:00z",
+        "NN95LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-27 03:50:00z",
+        "NN95LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-27 03:20:00z",
+        "NN95LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-27 02:40:00z",
+        "NN85LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-27 02:00:00z",
+        "NN85LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-27 00:50:00z",
+        "NN74LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-26 04:20:00z",
+        "MN10LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-26 04:00:00z",
+        "MN10LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-26 02:40:00z",
+        "MM09TV",
+        "-2",
+        "12820"
+    ],
+    [
+        "2025-05-25 06:40:00z",
+        "LM05LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-25 06:10:00z",
+        "LM05KD",
+        "26",
+        "12880"
+    ],
+    [
+        "2025-05-25 05:50:00z",
+        "LM05GD",
+        "18",
+        "12880"
+    ],
+    [
+        "2025-05-24 13:50:00z",
+        "KM37VW",
+        "14",
+        "12920"
+    ],
+    [
+        "2025-05-24 13:30:00z",
+        "KM37SX",
+        "15",
+        "12920"
+    ],
+    [
+        "2025-05-24 13:20:00z",
+        "KM38QA",
+        "20",
+        "12900"
+    ],
+    [
+        "2025-05-24 13:00:00z",
+        "KM38NB",
+        "20",
+        "12920"
+    ],
+    [
+        "2025-05-24 12:40:00z",
+        "KM38KD",
+        "17",
+        "12920"
+    ],
+    [
+        "2025-05-24 12:20:00z",
+        "KM38GE",
+        "22",
+        "12900"
+    ],
+    [
+        "2025-05-24 12:00:00z",
+        "KM38DF",
+        "17",
+        "12860"
+    ],
+    [
+        "2025-05-24 11:40:00z",
+        "KM28XG",
+        "20",
+        "12880"
+    ],
+    [
+        "2025-05-24 11:20:00z",
+        "KM28TH",
+        "20",
+        "12860"
+    ],
+    [
+        "2025-05-24 11:00:00z",
+        "KM28QJ",
+        "21",
+        "12860"
+    ],
+    [
+        "2025-05-24 10:40:00z",
+        "KM28MK",
+        "16",
+        "12860"
+    ],
+    [
+        "2025-05-24 10:20:00z",
+        "KM28IL",
+        "19",
+        "12700"
+    ],
+    [
+        "2025-05-24 10:00:00z",
+        "KM28EM",
+        "18",
+        "12820"
+    ],
+    [
+        "2025-05-24 09:40:00z",
+        "KM28AN",
+        "16",
+        "12780"
+    ],
+    [
+        "2025-05-24 09:30:00z",
+        "KM18WO",
+        "19",
+        "12800"
+    ],
+    [
+        "2025-05-24 09:10:00z",
+        "KM18RQ",
+        "13",
+        "12820"
+    ],
+    [
+        "2025-05-24 08:50:00z",
+        "KM18MR",
+        "20",
+        "12840"
+    ],
+    [
+        "2025-05-24 08:30:00z",
+        "KM18GO",
+        "18",
+        "2400"
+    ],
+    [
+        "2025-05-24 08:10:00z",
+        "KM18CT",
+        "13",
+        "12660"
+    ],
+    [
+        "2025-05-24 07:50:00z",
+        "KM08VU",
+        "11",
+        "12900"
+    ],
+    [
+        "2025-05-24 07:30:00z",
+        "KM08QU",
+        "13",
+        "12760"
+    ],
+    [
+        "2025-05-24 07:10:00z",
+        "KM08KU",
+        "13",
+        "12780"
+    ],
+    [
+        "2025-05-24 06:50:00z",
+        "KM08IW",
+        "5",
+        "3680"
+    ],
+    [
+        "2025-05-24 06:30:00z",
+        "JM98XT",
+        "16",
+        "12700"
+    ],
+    [
+        "2025-05-24 06:00:00z",
+        "JM98LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-24 05:40:00z",
+        "JM98LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-24 05:20:00z",
+        "JM98AQ",
+        "13",
+        "12680"
+    ],
+    [
+        "2025-05-24 05:10:00z",
+        "JM88VP",
+        "11",
+        "12780"
+    ],
+    [
+        "2025-05-24 04:50:00z",
+        "JM88PN",
+        "2",
+        "12760"
+    ],
+    [
+        "2025-05-24 04:00:00z",
+        "JM88LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-23 17:50:00z",
+        "JM14LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-23 16:30:00z",
+        "JM14LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-23 16:10:00z",
+        "JM04PN",
+        "-9",
+        "0"
+    ],
+    [
+        "2025-05-23 15:40:00z",
+        "JM04LN",
+        "-6",
+        "12740"
+    ],
+    [
+        "2025-05-23 15:20:00z",
+        "JM04GN",
+        "14",
+        "12660"
+    ],
+    [
+        "2025-05-23 15:00:00z",
+        "JM04BM",
+        "9",
+        "12620"
+    ],
+    [
+        "2025-05-23 14:50:00z",
+        "IM94XN",
+        "4",
+        "12680"
+    ],
+    [
+        "2025-05-23 14:30:00z",
+        "IM94TN",
+        "21",
+        "12680"
+    ],
+    [
+        "2025-05-23 14:10:00z",
+        "IM94ON",
+        "26",
+        "12680"
+    ],
+    [
+        "2025-05-23 13:50:00z",
+        "IM94KN",
+        "23",
+        "12640"
+    ],
+    [
+        "2025-05-23 13:30:00z",
+        "IM94GN",
+        "27",
+        "12560"
+    ],
+    [
+        "2025-05-23 13:10:00z",
+        "IM94BO",
+        "30",
+        "12680"
+    ],
+    [
+        "2025-05-23 13:00:00z",
+        "IM84XP",
+        "29",
+        "12640"
+    ],
+    [
+        "2025-05-23 12:40:00z",
+        "IM84TQ",
+        "25",
+        "12680"
+    ],
+    [
+        "2025-05-23 12:20:00z",
+        "IM84PR",
+        "28",
+        "12700"
+    ],
+    [
+        "2025-05-23 12:00:00z",
+        "IM84LT",
+        "31",
+        "12740"
+    ],
+    [
+        "2025-05-23 11:40:00z",
+        "IM84HW",
+        "29",
+        "12760"
+    ],
+    [
+        "2025-05-23 11:20:00z",
+        "IM85DA",
+        "23",
+        "12760"
+    ],
+    [
+        "2025-05-23 11:00:00z",
+        "IM75XC",
+        "23",
+        "12780"
+    ],
+    [
+        "2025-05-23 10:40:00z",
+        "IM75UF",
+        "25",
+        "12800"
+    ],
+    [
+        "2025-05-23 10:20:00z",
+        "IM75QH",
+        "20",
+        "12780"
+    ],
+    [
+        "2025-05-23 10:00:00z",
+        "IM75NK",
+        "14",
+        "12760"
+    ],
+    [
+        "2025-05-23 09:40:00z",
+        "IM75KO",
+        "10",
+        "12800"
+    ],
+    [
+        "2025-05-23 09:20:00z",
+        "IM75HR",
+        "15",
+        "12760"
+    ],
+    [
+        "2025-05-23 09:00:00z",
+        "IM75EW",
+        "5",
+        "12780"
+    ],
+    [
+        "2025-05-23 08:50:00z",
+        "IM76DA",
+        "6",
+        "12800"
+    ],
+    [
+        "2025-05-23 08:30:00z",
+        "IM76AF",
+        "0",
+        "12860"
+    ],
+    [
+        "2025-05-22 18:20:00z",
+        "IO41PM",
+        "10",
+        "12740"
+    ],
+    [
+        "2025-05-22 18:00:00z",
+        "IO41NU",
+        "12",
+        "12840"
+    ],
+    [
+        "2025-05-22 17:50:00z",
+        "IO42LD",
+        "13",
+        "0"
+    ],
+    [
+        "2025-05-22 17:20:00z",
+        "IO42HO",
+        "18",
+        "0"
+    ],
+    [
+        "2025-05-22 16:50:00z",
+        "IO43CB",
+        "19",
+        "12700"
+    ],
+    [
+        "2025-05-22 16:20:00z",
+        "IO33VL",
+        "19",
+        "12760"
+    ],
+    [
+        "2025-05-22 16:00:00z",
+        "IO33RR",
+        "19",
+        "12620"
+    ],
+    [
+        "2025-05-22 15:40:00z",
+        "IO34NA",
+        "25",
+        "12740"
+    ],
+    [
+        "2025-05-22 15:20:00z",
+        "IO34JG",
+        "11",
+        "12600"
+    ],
+    [
+        "2025-05-22 15:00:00z",
+        "IO34FM",
+        "24",
+        "12660"
+    ],
+    [
+        "2025-05-22 14:40:00z",
+        "IO34BS",
+        "20",
+        "12740"
+    ],
+    [
+        "2025-05-22 14:20:00z",
+        "IO25UA",
+        "16",
+        "12660"
+    ],
+    [
+        "2025-05-22 14:00:00z",
+        "IO25PF",
+        "13",
+        "12640"
+    ],
+    [
+        "2025-05-22 13:40:00z",
+        "IO25KK",
+        "25",
+        "12680"
+    ],
+    [
+        "2025-05-22 13:20:00z",
+        "IO25FP",
+        "24",
+        "12680"
+    ],
+    [
+        "2025-05-22 13:00:00z",
+        "IO25AT",
+        "28",
+        "12720"
+    ],
+    [
+        "2025-05-22 12:50:00z",
+        "IO15WV",
+        "30",
+        "12620"
+    ],
+    [
+        "2025-05-22 12:30:00z",
+        "IO16SB",
+        "27",
+        "12620"
+    ],
+    [
+        "2025-05-22 12:10:00z",
+        "IO16PF",
+        "27",
+        "12640"
+    ],
+    [
+        "2025-05-22 11:50:00z",
+        "IO16LJ",
+        "28",
+        "12680"
+    ],
+    [
+        "2025-05-22 11:30:00z",
+        "IO16HN",
+        "25",
+        "12600"
+    ],
+    [
+        "2025-05-22 11:10:00z",
+        "IO16ER",
+        "31",
+        "12560"
+    ],
+    [
+        "2025-05-22 10:50:00z",
+        "IO16AV",
+        "30",
+        "12580"
+    ],
+    [
+        "2025-05-22 10:40:00z",
+        "IO06VX",
+        "18",
+        "12600"
+    ],
+    [
+        "2025-05-22 10:30:00z",
+        "IO07TA",
+        "26",
+        "12600"
+    ],
+    [
+        "2025-05-22 10:10:00z",
+        "IO07OE",
+        "27",
+        "12580"
+    ],
+    [
+        "2025-05-22 09:50:00z",
+        "IO07KH",
+        "22",
+        "12580"
+    ],
+    [
+        "2025-05-22 09:30:00z",
+        "IO07BM",
+        "8",
+        "0"
+    ],
+    [
+        "2025-05-22 09:00:00z",
+        "HO97LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-22 08:20:00z",
+        "HO97LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-22 07:40:00z",
+        "HO97LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-22 07:20:00z",
+        "HO87LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-22 05:40:00z",
+        "HO87LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-22 05:20:00z",
+        "HO77XW",
+        "-11",
+        "12420"
+    ],
+    [
+        "2025-05-21 21:40:00z",
+        "HO46LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-21 20:30:00z",
+        "HO36QF",
+        "-15",
+        "12080"
+    ],
+    [
+        "2025-05-21 20:00:00z",
+        "HO36LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-21 19:30:00z",
+        "HO36JA",
+        "-9",
+        "12340"
+    ],
+    [
+        "2025-05-21 18:40:00z",
+        "HO25WQ",
+        "17",
+        "0"
+    ],
+    [
+        "2025-05-21 18:10:00z",
+        "HO25SO",
+        "25",
+        "12320"
+    ],
+    [
+        "2025-05-21 17:50:00z",
+        "HO25OL",
+        "27",
+        "12300"
+    ],
+    [
+        "2025-05-21 17:30:00z",
+        "HO25LI",
+        "18",
+        "12280"
+    ],
+    [
+        "2025-05-21 17:10:00z",
+        "HO25IF",
+        "17",
+        "12280"
+    ],
+    [
+        "2025-05-21 16:50:00z",
+        "HO25FC",
+        "11",
+        "12260"
+    ],
+    [
+        "2025-05-21 16:30:00z",
+        "HO24CX",
+        "21",
+        "12160"
+    ],
+    [
+        "2025-05-21 16:10:00z",
+        "HO14XU",
+        "24",
+        "12260"
+    ],
+    [
+        "2025-05-21 15:50:00z",
+        "HO14US",
+        "28",
+        "12300"
+    ],
+    [
+        "2025-05-21 15:30:00z",
+        "HO14RP",
+        "31",
+        "12300"
+    ],
+    [
+        "2025-05-21 15:10:00z",
+        "HO14PL",
+        "30",
+        "12300"
+    ],
+    [
+        "2025-05-21 14:50:00z",
+        "HO14MI",
+        "27",
+        "12300"
+    ],
+    [
+        "2025-05-21 14:30:00z",
+        "HO14JF",
+        "25",
+        "12280"
+    ],
+    [
+        "2025-05-21 14:10:00z",
+        "HO14GC",
+        "28",
+        "12280"
+    ],
+    [
+        "2025-05-21 13:50:00z",
+        "HO13EX",
+        "28",
+        "12280"
+    ],
+    [
+        "2025-05-21 13:10:00z",
+        "HO03WQ",
+        "31",
+        "12260"
+    ],
+    [
+        "2025-05-21 12:50:00z",
+        "HO03UN",
+        "26",
+        "12260"
+    ],
+    [
+        "2025-05-21 12:30:00z",
+        "HO03RK",
+        "27",
+        "12220"
+    ],
+    [
+        "2025-05-21 12:10:00z",
+        "HO03OG",
+        "25",
+        "12220"
+    ],
+    [
+        "2025-05-21 11:50:00z",
+        "HO03MD",
+        "20",
+        "12220"
+    ],
+    [
+        "2025-05-21 11:30:00z",
+        "HO03JA",
+        "25",
+        "12220"
+    ],
+    [
+        "2025-05-21 11:20:00z",
+        "HO02IX",
+        "21",
+        "12200"
+    ],
+    [
+        "2025-05-21 11:00:00z",
+        "HO02GU",
+        "22",
+        "12220"
+    ],
+    [
+        "2025-05-21 10:40:00z",
+        "HO02LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-21 10:10:00z",
+        "GO92XM",
+        "6",
+        "12200"
+    ],
+    [
+        "2025-05-21 08:00:00z",
+        "GO91LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-20 22:30:00z",
+        "GO92WK",
+        "0",
+        "0"
+    ],
+    [
+        "2025-05-20 20:30:00z",
+        "GN57RB",
+        "-2",
+        "12300"
+    ],
+    [
+        "2025-05-20 20:00:00z",
+        "GN56NV",
+        "14",
+        "0"
+    ],
+    [
+        "2025-05-20 19:00:00z",
+        "GN56GN",
+        "8",
+        "12140"
+    ],
+    [
+        "2025-05-20 18:40:00z",
+        "GN56DK",
+        "22",
+        "12240"
+    ],
+    [
+        "2025-05-20 18:20:00z",
+        "GN56BH",
+        "15",
+        "12280"
+    ],
+    [
+        "2025-05-20 18:00:00z",
+        "GN46XE",
+        "21",
+        "12260"
+    ],
+    [
+        "2025-05-20 17:40:00z",
+        "GN46VB",
+        "25",
+        "12040"
+    ],
+    [
+        "2025-05-20 17:30:00z",
+        "GN45TX",
+        "28",
+        "12220"
+    ],
+    [
+        "2025-05-20 17:10:00z",
+        "GN45RU",
+        "28",
+        "12300"
+    ],
+    [
+        "2025-05-20 16:50:00z",
+        "GN45OR",
+        "25",
+        "12300"
+    ],
+    [
+        "2025-05-20 16:30:00z",
+        "GN45MO",
+        "25",
+        "12300"
+    ],
+    [
+        "2025-05-20 16:10:00z",
+        "GN45KL",
+        "28",
+        "12300"
+    ],
+    [
+        "2025-05-20 15:40:00z",
+        "GN45HG",
+        "25",
+        "12320"
+    ],
+    [
+        "2025-05-20 15:20:00z",
+        "GN45FD",
+        "27",
+        "12300"
+    ],
+    [
+        "2025-05-20 15:00:00z",
+        "GN45DA",
+        "31",
+        "12320"
+    ],
+    [
+        "2025-05-20 14:50:00z",
+        "GN44CW",
+        "26",
+        "12300"
+    ],
+    [
+        "2025-05-20 14:30:00z",
+        "GN44AT",
+        "28",
+        "12300"
+    ],
+    [
+        "2025-05-20 14:10:00z",
+        "GN34XQ",
+        "25",
+        "12340"
+    ],
+    [
+        "2025-05-20 13:50:00z",
+        "GN34VN",
+        "20",
+        "12280"
+    ],
+    [
+        "2025-05-20 13:30:00z",
+        "GN34UK",
+        "21",
+        "12280"
+    ],
+    [
+        "2025-05-20 13:10:00z",
+        "GN34SI",
+        "26",
+        "12300"
+    ],
+    [
+        "2025-05-20 12:50:00z",
+        "GN34QG",
+        "25",
+        "12340"
+    ],
+    [
+        "2025-05-20 12:30:00z",
+        "GN34PD",
+        "25",
+        "12360"
+    ],
+    [
+        "2025-05-20 12:10:00z",
+        "GN34NB",
+        "18",
+        "12360"
+    ],
+    [
+        "2025-05-20 12:00:00z",
+        "GN33MX",
+        "19",
+        "12340"
+    ],
+    [
+        "2025-05-20 11:40:00z",
+        "GN33LV",
+        "23",
+        "12380"
+    ],
+    [
+        "2025-05-20 11:20:00z",
+        "GN33LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-20 10:50:00z",
+        "GN33LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-20 10:20:00z",
+        "GN33LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-20 09:40:00z",
+        "GN23XH",
+        "-6",
+        "12380"
+    ],
+    [
+        "2025-05-20 08:40:00z",
+        "GN22RX",
+        "-20",
+        "12360"
+    ],
+    [
+        "2025-05-20 08:20:00z",
+        "GN22PT",
+        "-31",
+        "12360"
+    ],
+    [
+        "2025-05-19 22:40:00z",
+        "FM99WO",
+        "-12",
+        "12400"
+    ],
+    [
+        "2025-05-19 20:00:00z",
+        "FM98AT",
+        "9",
+        "12460"
+    ],
+    [
+        "2025-05-19 19:50:00z",
+        "FM88XT",
+        "2",
+        "12440"
+    ],
+    [
+        "2025-05-19 19:30:00z",
+        "FM88VS",
+        "2",
+        "12440"
+    ],
+    [
+        "2025-05-19 19:10:00z",
+        "FM88SR",
+        "21",
+        "12440"
+    ],
+    [
+        "2025-05-19 18:50:00z",
+        "FM88PR",
+        "13",
+        "12440"
+    ],
+    [
+        "2025-05-19 18:30:00z",
+        "FM88MQ",
+        "25",
+        "12420"
+    ],
+    [
+        "2025-05-19 18:10:00z",
+        "FM88KQ",
+        "22",
+        "12440"
+    ],
+    [
+        "2025-05-19 17:50:00z",
+        "FM88GQ",
+        "30",
+        "12440"
+    ],
+    [
+        "2025-05-19 17:30:00z",
+        "FM88DP",
+        "18",
+        "12440"
+    ],
+    [
+        "2025-05-19 17:10:00z",
+        "FM88AP",
+        "30",
+        "12420"
+    ],
+    [
+        "2025-05-19 17:00:00z",
+        "FM78WP",
+        "25",
+        "12460"
+    ],
+    [
+        "2025-05-19 16:40:00z",
+        "FM78SP",
+        "30",
+        "12400"
+    ],
+    [
+        "2025-05-19 16:20:00z",
+        "FM78PO",
+        "30",
+        "12460"
+    ],
+    [
+        "2025-05-19 16:00:00z",
+        "FM78MO",
+        "23",
+        "12480"
+    ],
+    [
+        "2025-05-19 15:40:00z",
+        "FM78IN",
+        "27",
+        "12440"
+    ],
+    [
+        "2025-05-19 15:20:00z",
+        "FM78FN",
+        "28",
+        "12420"
+    ],
+    [
+        "2025-05-19 15:00:00z",
+        "FM78CN",
+        "26",
+        "12360"
+    ],
+    [
+        "2025-05-19 14:40:00z",
+        "FM68WM",
+        "19",
+        "12400"
+    ],
+    [
+        "2025-05-19 14:20:00z",
+        "FM68TN",
+        "27",
+        "12360"
+    ],
+    [
+        "2025-05-19 14:00:00z",
+        "FM68RN",
+        "16",
+        "12380"
+    ],
+    [
+        "2025-05-19 13:40:00z",
+        "FM68OO",
+        "24",
+        "12400"
+    ],
+    [
+        "2025-05-19 13:20:00z",
+        "FM68LO",
+        "14",
+        "12400"
+    ],
+    [
+        "2025-05-19 13:00:00z",
+        "FM68IP",
+        "7",
+        "12360"
+    ],
+    [
+        "2025-05-19 12:40:00z",
+        "FM68GQ",
+        "26",
+        "12380"
+    ],
+    [
+        "2025-05-19 12:20:00z",
+        "FM68DR",
+        "24",
+        "12400"
+    ],
+    [
+        "2025-05-19 12:00:00z",
+        "FM68AS",
+        "19",
+        "12400"
+    ],
+    [
+        "2025-05-19 11:50:00z",
+        "FM58WR",
+        "5",
+        "12160"
+    ],
+    [
+        "2025-05-19 11:20:00z",
+        "FM58RV",
+        "-14",
+        "12440"
+    ],
+    [
+        "2025-05-19 10:40:00z",
+        "FM59LA",
+        "-11",
+        "12420"
+    ],
+    [
+        "2025-05-18 22:20:00z",
+        "EN92LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-18 21:10:00z",
+        "EN92MO",
+        "27",
+        "12440"
+    ],
+    [
+        "2025-05-18 20:50:00z",
+        "EN92IP",
+        "31",
+        "12500"
+    ],
+    [
+        "2025-05-18 20:30:00z",
+        "EN92FR",
+        "20",
+        "12500"
+    ],
+    [
+        "2025-05-18 20:10:00z",
+        "EN92BS",
+        "21",
+        "12500"
+    ],
+    [
+        "2025-05-18 20:00:00z",
+        "EN82XS",
+        "19",
+        "12520"
+    ],
+    [
+        "2025-05-18 19:40:00z",
+        "EN82RV",
+        "26",
+        "220"
+    ],
+    [
+        "2025-05-18 19:20:00z",
+        "EN82PU",
+        "27",
+        "12540"
+    ],
+    [
+        "2025-05-18 19:00:00z",
+        "EN82LV",
+        "24",
+        "12520"
+    ],
+    [
+        "2025-05-18 18:40:00z",
+        "EN82IW",
+        "27",
+        "12520"
+    ],
+    [
+        "2025-05-18 18:20:00z",
+        "EN82EX",
+        "23",
+        "12500"
+    ],
+    [
+        "2025-05-18 18:00:00z",
+        "EN83AA",
+        "27",
+        "12440"
+    ],
+    [
+        "2025-05-18 17:50:00z",
+        "EN73WA",
+        "23",
+        "12480"
+    ],
+    [
+        "2025-05-18 17:30:00z",
+        "EN73SB",
+        "23",
+        "12440"
+    ],
+    [
+        "2025-05-18 17:10:00z",
+        "EN73PB",
+        "29",
+        "12460"
+    ],
+    [
+        "2025-05-18 16:50:00z",
+        "EN73LC",
+        "29",
+        "12520"
+    ],
+    [
+        "2025-05-18 16:30:00z",
+        "EN73HD",
+        "21",
+        "12520"
+    ],
+    [
+        "2025-05-18 16:10:00z",
+        "EN73DE",
+        "13",
+        "12480"
+    ],
+    [
+        "2025-05-18 15:50:00z",
+        "EN63XF",
+        "13",
+        "12540"
+    ],
+    [
+        "2025-05-18 15:30:00z",
+        "EN63TG",
+        "8",
+        "12540"
+    ],
+    [
+        "2025-05-18 15:10:00z",
+        "EN63QH",
+        "24",
+        "12500"
+    ],
+    [
+        "2025-05-18 14:50:00z",
+        "EN63LI",
+        "14",
+        "12460"
+    ],
+    [
+        "2025-05-18 14:30:00z",
+        "EN63HJ",
+        "11",
+        "12520"
+    ],
+    [
+        "2025-05-18 14:10:00z",
+        "EN63DK",
+        "2",
+        "12540"
+    ],
+    [
+        "2025-05-18 14:00:00z",
+        "EN53SM",
+        "-7",
+        "0"
+    ],
+    [
+        "2025-05-18 11:20:00z",
+        "EN43LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-17 23:20:00z",
+        "DN81SD",
+        "2",
+        "12600"
+    ],
+    [
+        "2025-05-17 23:00:00z",
+        "DN81OB",
+        "8",
+        "16600"
+    ],
+    [
+        "2025-05-17 22:40:00z",
+        "DN80JX",
+        "3",
+        "0"
+    ],
+    [
+        "2025-05-17 22:20:00z",
+        "DN80IW",
+        "9",
+        "12640"
+    ],
+    [
+        "2025-05-17 22:00:00z",
+        "DN80FU",
+        "5",
+        "12640"
+    ],
+    [
+        "2025-05-17 21:40:00z",
+        "DN80CS",
+        "14",
+        "12540"
+    ],
+    [
+        "2025-05-17 21:20:00z",
+        "DN70WQ",
+        "22",
+        "12560"
+    ],
+    [
+        "2025-05-17 21:00:00z",
+        "DN70SN",
+        "19",
+        "12600"
+    ],
+    [
+        "2025-05-17 20:40:00z",
+        "DN70PL",
+        "28",
+        "12560"
+    ],
+    [
+        "2025-05-17 20:20:00z",
+        "DN70LJ",
+        "31",
+        "12580"
+    ],
+    [
+        "2025-05-17 20:00:00z",
+        "DN70HG",
+        "24",
+        "12640"
+    ],
+    [
+        "2025-05-17 19:40:00z",
+        "DN70DE",
+        "24",
+        "12640"
+    ],
+    [
+        "2025-05-17 19:20:00z",
+        "DN60XB",
+        "22",
+        "12620"
+    ],
+    [
+        "2025-05-17 19:00:00z",
+        "DM69UX",
+        "26",
+        "12560"
+    ],
+    [
+        "2025-05-17 18:40:00z",
+        "DM69QU",
+        "28",
+        "12620"
+    ],
+    [
+        "2025-05-17 18:20:00z",
+        "DM69MR",
+        "18",
+        "12640"
+    ],
+    [
+        "2025-05-17 18:00:00z",
+        "DM69JO",
+        "13",
+        "12660"
+    ],
+    [
+        "2025-05-17 17:40:00z",
+        "DM69FM",
+        "10",
+        "12660"
+    ],
+    [
+        "2025-05-17 17:20:00z",
+        "DM69CJ",
+        "13",
+        "12660"
+    ],
+    [
+        "2025-05-17 17:00:00z",
+        "DM59WF",
+        "5",
+        "12640"
+    ],
+    [
+        "2025-05-17 16:40:00z",
+        "DM59SC",
+        "16",
+        "12660"
+    ],
+    [
+        "2025-05-17 16:20:00z",
+        "DM58OX",
+        "9",
+        "12660"
+    ],
+    [
+        "2025-05-17 16:00:00z",
+        "DM58LT",
+        "22",
+        "12640"
+    ],
+    [
+        "2025-05-17 15:40:00z",
+        "DM58IQ",
+        "9",
+        "12680"
+    ],
+    [
+        "2025-05-17 15:20:00z",
+        "DM58GN",
+        "18",
+        "12640"
+    ],
+    [
+        "2025-05-17 14:10:00z",
+        "DM48LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-17 13:40:00z",
+        "DM47LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-17 01:40:00z",
+        "DM05LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-17 01:00:00z",
+        "DM05PM",
+        "-9",
+        "12860"
+    ],
+    [
+        "2025-05-17 00:20:00z",
+        "DM05KM",
+        "12",
+        "12920"
+    ],
+    [
+        "2025-05-17 00:00:00z",
+        "DM05IL",
+        "12",
+        "12900"
+    ],
+    [
+        "2025-05-16 23:40:00z",
+        "DM05FL",
+        "7",
+        "12920"
+    ],
+    [
+        "2025-05-16 23:20:00z",
+        "DM05DK",
+        "20",
+        "12960"
+    ],
+    [
+        "2025-05-16 23:00:00z",
+        "DM05AK",
+        "10",
+        "12940"
+    ],
+    [
+        "2025-05-16 22:50:00z",
+        "CM95XK",
+        "19",
+        "12900"
+    ],
+    [
+        "2025-05-16 22:30:00z",
+        "CM95VJ",
+        "20",
+        "12860"
+    ],
+    [
+        "2025-05-16 22:10:00z",
+        "CM95TJ",
+        "14",
+        "12980"
+    ],
+    [
+        "2025-05-16 21:50:00z",
+        "CM95RJ",
+        "21",
+        "13000"
+    ],
+    [
+        "2025-05-16 21:30:00z",
+        "CM95PJ",
+        "20",
+        "12980"
+    ],
+    [
+        "2025-05-16 21:10:00z",
+        "CM95MJ",
+        "22",
+        "12920"
+    ],
+    [
+        "2025-05-16 20:50:00z",
+        "CM95KJ",
+        "19",
+        "13000"
+    ],
+    [
+        "2025-05-16 20:30:00z",
+        "CM95IJ",
+        "22",
+        "12800"
+    ],
+    [
+        "2025-05-16 20:10:00z",
+        "CM95HJ",
+        "19",
+        "12880"
+    ],
+    [
+        "2025-05-16 19:50:00z",
+        "CM95FJ",
+        "18",
+        "12880"
+    ],
+    [
+        "2025-05-16 19:30:00z",
+        "CM95DJ",
+        "18",
+        "12940"
+    ],
+    [
+        "2025-05-16 19:10:00z",
+        "CM95BJ",
+        "17",
+        "12940"
+    ],
+    [
+        "2025-05-16 18:50:00z",
+        "CM95AK",
+        "18",
+        "12880"
+    ],
+    [
+        "2025-05-16 18:40:00z",
+        "CM85XK",
+        "22",
+        "12940"
+    ],
+    [
+        "2025-05-16 18:20:00z",
+        "CM85VK",
+        "8",
+        "12980"
+    ],
+    [
+        "2025-05-16 18:00:00z",
+        "CM85UL",
+        "10",
+        "13000"
+    ],
+    [
+        "2025-05-16 17:40:00z",
+        "CM85SM",
+        "7",
+        "12960"
+    ],
+    [
+        "2025-05-16 17:20:00z",
+        "CM85RN",
+        "10",
+        "12960"
+    ],
+    [
+        "2025-05-16 17:00:00z",
+        "CM85PP",
+        "0",
+        "12960"
+    ],
+    [
+        "2025-05-16 16:40:00z",
+        "CM85NQ",
+        "2",
+        "12960"
+    ],
+    [
+        "2025-05-16 16:20:00z",
+        "CM85MS",
+        "13",
+        "12980"
+    ],
+    [
+        "2025-05-16 16:00:00z",
+        "CM85KT",
+        "11",
+        "12920"
+    ],
+    [
+        "2025-05-16 15:30:00z",
+        "CM85HW",
+        "-6",
+        "13000"
+    ],
+    [
+        "2025-05-16 15:10:00z",
+        "CM86FB",
+        "-1",
+        "13000"
+    ],
+    [
+        "2025-05-16 14:50:00z",
+        "CM86DD",
+        "-12",
+        "12960"
+    ],
+    [
+        "2025-05-16 14:30:00z",
+        "CM86LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-16 14:00:00z",
+        "CM76VL",
+        "-21",
+        "13000"
+    ],
+    [
+        "2025-05-16 01:40:00z",
+        "CN21ET",
+        "-16",
+        "12960"
+    ],
+    [
+        "2025-05-16 01:20:00z",
+        "CN11LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-16 00:50:00z",
+        "CN12ME",
+        "-9",
+        "12960"
+    ],
+    [
+        "2025-05-16 00:30:00z",
+        "CN12GH",
+        "-3",
+        "12980"
+    ],
+    [
+        "2025-05-16 00:10:00z",
+        "CN02XK",
+        "-1",
+        "13020"
+    ],
+    [
+        "2025-05-15 23:50:00z",
+        "CN02RM",
+        "3",
+        "12980"
+    ],
+    [
+        "2025-05-15 23:30:00z",
+        "CN02KP",
+        "10",
+        "12980"
+    ],
+    [
+        "2025-05-15 23:10:00z",
+        "CN02DR",
+        "10",
+        "12980"
+    ],
+    [
+        "2025-05-15 22:50:00z",
+        "BN92UT",
+        "12",
+        "13000"
+    ],
+    [
+        "2025-05-15 22:30:00z",
+        "BN92NV",
+        "17",
+        "12880"
+    ],
+    [
+        "2025-05-15 22:10:00z",
+        "BN92GX",
+        "25",
+        "12920"
+    ],
+    [
+        "2025-05-15 22:00:00z",
+        "BN93DA",
+        "13",
+        "12940"
+    ],
+    [
+        "2025-05-15 21:50:00z",
+        "BN83XB",
+        "19",
+        "12900"
+    ],
+    [
+        "2025-05-15 21:30:00z",
+        "BN83QC",
+        "29",
+        "12940"
+    ],
+    [
+        "2025-05-15 21:10:00z",
+        "BN83JD",
+        "28",
+        "12940"
+    ],
+    [
+        "2025-05-15 20:50:00z",
+        "BN83BE",
+        "28",
+        "12920"
+    ],
+    [
+        "2025-05-15 20:40:00z",
+        "BN73WE",
+        "27",
+        "12940"
+    ],
+    [
+        "2025-05-15 20:20:00z",
+        "BN73OF",
+        "31",
+        "12920"
+    ],
+    [
+        "2025-05-15 20:00:00z",
+        "BN73HF",
+        "31",
+        "12920"
+    ],
+    [
+        "2025-05-15 19:40:00z",
+        "BN73AF",
+        "25",
+        "12900"
+    ],
+    [
+        "2025-05-15 19:30:00z",
+        "BN63UF",
+        "26",
+        "12900"
+    ],
+    [
+        "2025-05-15 19:10:00z",
+        "BN63NF",
+        "26",
+        "12900"
+    ],
+    [
+        "2025-05-15 18:50:00z",
+        "BN63GF",
+        "26",
+        "2680"
+    ],
+    [
+        "2025-05-15 18:30:00z",
+        "BN53WG",
+        "21",
+        "12900"
+    ],
+    [
+        "2025-05-15 18:10:00z",
+        "BN53PG",
+        "23",
+        "12880"
+    ],
+    [
+        "2025-05-15 17:50:00z",
+        "BN53HG",
+        "17",
+        "12880"
+    ],
+    [
+        "2025-05-15 17:30:00z",
+        "BN43LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-15 17:10:00z",
+        "BN43QG",
+        "9",
+        "12880"
+    ],
+    [
+        "2025-05-15 16:50:00z",
+        "BN43IF",
+        "7",
+        "12680"
+    ],
+    [
+        "2025-05-15 16:30:00z",
+        "BN33LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-15 16:00:00z",
+        "BN33LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-15 15:40:00z",
+        "BN23UC",
+        "-15",
+        "0"
+    ],
+    [
+        "2025-05-15 06:10:00z",
+        "AN20IT",
+        "-3",
+        "0"
+    ],
+    [
+        "2025-05-15 05:40:00z",
+        "AN10LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-15 05:10:00z",
+        "AN10LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-15 03:50:00z",
+        "RN90LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-15 03:20:00z",
+        "RM89VX",
+        "1",
+        "12620"
+    ],
+    [
+        "2025-05-15 02:00:00z",
+        "RM79GP",
+        "14",
+        "12540"
+    ],
+    [
+        "2025-05-15 01:20:00z",
+        "RM69LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-14 22:40:00z",
+        "RM38LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-14 21:30:00z",
+        "RM28DR",
+        "31",
+        "12720"
+    ],
+    [
+        "2025-05-14 21:20:00z",
+        "RM18XS",
+        "18",
+        "12740"
+    ],
+    [
+        "2025-05-14 19:20:00z",
+        "RM09CC",
+        "-9",
+        "12620"
+    ],
+    [
+        "2025-05-14 06:20:00z",
+        "QM08GV",
+        "-9",
+        "12780"
+    ],
+    [
+        "2025-05-14 06:00:00z",
+        "QM08LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-14 05:50:00z",
+        "PM98XT",
+        "0",
+        "12820"
+    ],
+    [
+        "2025-05-14 04:10:00z",
+        "PM98LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-14 03:50:00z",
+        "PM88AH",
+        "15",
+        "9180"
+    ],
+    [
+        "2025-05-14 03:30:00z",
+        "PM88LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-14 02:50:00z",
+        "PM88GK",
+        "22",
+        "12840"
+    ],
+    [
+        "2025-05-14 02:30:00z",
+        "PM88BK",
+        "23",
+        "12820"
+    ],
+    [
+        "2025-05-14 02:20:00z",
+        "PM78LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-14 01:50:00z",
+        "PM78QJ",
+        "25",
+        "12820"
+    ],
+    [
+        "2025-05-14 01:30:00z",
+        "PM78LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-14 01:00:00z",
+        "PM78EI",
+        "29",
+        "12820"
+    ],
+    [
+        "2025-05-14 00:40:00z",
+        "PM68WH",
+        "24",
+        "12800"
+    ],
+    [
+        "2025-05-14 00:10:00z",
+        "PM68PG",
+        "21",
+        "12820"
+    ],
+    [
+        "2025-05-13 22:30:00z",
+        "PM58QD",
+        "8",
+        "12800"
+    ],
+    [
+        "2025-05-13 21:40:00z",
+        "PM58EB",
+        "-6",
+        "12820"
+    ],
+    [
+        "2025-05-12 23:10:00z",
+        "NN90MD",
+        "-8",
+        "12680"
+    ],
+    [
+        "2025-05-12 05:20:00z",
+        "MN80LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-12 04:40:00z",
+        "MN70LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-12 04:20:00z",
+        "MN70AH",
+        "15",
+        "17500"
+    ],
+    [
+        "2025-05-12 03:40:00z",
+        "MN70LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-12 02:30:00z",
+        "MN60XH",
+        "9",
+        "12740"
+    ],
+    [
+        "2025-05-11 14:00:00z",
+        "MN20LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-11 11:00:00z",
+        "MN10LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-11 09:40:00z",
+        "MN00LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-11 06:30:00z",
+        "LN90LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-11 05:40:00z",
+        "LN90LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-11 05:10:00z",
+        "LN90PR",
+        "12",
+        "12840"
+    ],
+    [
+        "2025-05-11 04:50:00z",
+        "LN90MS",
+        "14",
+        "12820"
+    ],
+    [
+        "2025-05-11 04:30:00z",
+        "LN90IT",
+        "-1",
+        "0"
+    ],
+    [
+        "2025-05-11 02:50:00z",
+        "LN80VX",
+        "-1",
+        "12820"
+    ],
+    [
+        "2025-05-11 02:00:00z",
+        "LN81LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-10 13:40:00z",
+        "LN40LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-10 12:50:00z",
+        "LN30TQ",
+        "16",
+        "12820"
+    ],
+    [
+        "2025-05-10 12:30:00z",
+        "LN30QQ",
+        "7",
+        "12780"
+    ],
+    [
+        "2025-05-10 12:00:00z",
+        "LN30LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-10 11:30:00z",
+        "LN30HP",
+        "19",
+        "12820"
+    ],
+    [
+        "2025-05-10 11:10:00z",
+        "LN30EO",
+        "13",
+        "12820"
+    ],
+    [
+        "2025-05-10 10:50:00z",
+        "JI09AX",
+        "13",
+        "0"
+    ],
+    [
+        "2025-05-10 10:40:00z",
+        "LN30AN",
+        "18",
+        "12840"
+    ],
+    [
+        "2025-05-10 10:30:00z",
+        "LN20WN",
+        "25",
+        "12840"
+    ],
+    [
+        "2025-05-10 10:10:00z",
+        "LN20TM",
+        "13",
+        "12940"
+    ],
+    [
+        "2025-05-10 09:50:00z",
+        "LN20RL",
+        "15",
+        "12840"
+    ],
+    [
+        "2025-05-10 09:30:00z",
+        "LN20OL",
+        "31",
+        "12760"
+    ],
+    [
+        "2025-05-10 09:10:00z",
+        "LN20LL",
+        "19",
+        "12840"
+    ],
+    [
+        "2025-05-10 08:40:00z",
+        "LN20HL",
+        "25",
+        "12760"
+    ],
+    [
+        "2025-05-10 08:20:00z",
+        "LN20DM",
+        "25",
+        "12820"
+    ],
+    [
+        "2025-05-10 08:00:00z",
+        "LN10XM",
+        "26",
+        "12820"
+    ],
+    [
+        "2025-05-10 07:40:00z",
+        "LN10TM",
+        "26",
+        "12660"
+    ],
+    [
+        "2025-05-10 07:00:00z",
+        "LN10KM",
+        "21",
+        "12840"
+    ],
+    [
+        "2025-05-10 06:40:00z",
+        "LN10GM",
+        "6",
+        "12840"
+    ],
+    [
+        "2025-05-10 06:20:00z",
+        "LN10BL",
+        "8",
+        "12880"
+    ],
+    [
+        "2025-05-10 06:10:00z",
+        "LN00SK",
+        "12",
+        "0"
+    ],
+    [
+        "2025-05-10 05:50:00z",
+        "LN00SK",
+        "18",
+        "12900"
+    ],
+    [
+        "2025-05-10 05:30:00z",
+        "LN00MJ",
+        "23",
+        "0"
+    ],
+    [
+        "2025-05-10 05:10:00z",
+        "LN00II",
+        "15",
+        "12820"
+    ],
+    [
+        "2025-05-10 04:50:00z",
+        "LN00GH",
+        "9",
+        "12780"
+    ],
+    [
+        "2025-05-10 04:20:00z",
+        "KN90WF",
+        "-2",
+        "0"
+    ],
+    [
+        "2025-05-09 15:40:00z",
+        "KM38LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-09 14:00:00z",
+        "KM28LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-09 13:40:00z",
+        "KM28NO",
+        "10",
+        "12860"
+    ],
+    [
+        "2025-05-09 13:20:00z",
+        "KM28HN",
+        "14",
+        "12820"
+    ],
+    [
+        "2025-05-09 13:00:00z",
+        "KM28CL",
+        "16",
+        "12820"
+    ],
+    [
+        "2025-05-09 12:50:00z",
+        "KM18XK",
+        "24",
+        "12800"
+    ],
+    [
+        "2025-05-09 12:30:00z",
+        "KM18SI",
+        "27",
+        "12780"
+    ],
+    [
+        "2025-05-09 12:10:00z",
+        "KM18MH",
+        "22",
+        "12820"
+    ],
+    [
+        "2025-05-09 11:50:00z",
+        "KM18HF",
+        "21",
+        "12580"
+    ],
+    [
+        "2025-05-09 11:30:00z",
+        "KM18CE",
+        "19",
+        "12780"
+    ],
+    [
+        "2025-05-09 11:20:00z",
+        "KM08XD",
+        "24",
+        "12780"
+    ],
+    [
+        "2025-05-09 11:00:00z",
+        "KM08SB",
+        "21",
+        "12780"
+    ],
+    [
+        "2025-05-09 10:40:00z",
+        "KM07MX",
+        "17",
+        "12820"
+    ],
+    [
+        "2025-05-09 10:20:00z",
+        "KM07HV",
+        "15",
+        "12840"
+    ],
+    [
+        "2025-05-09 10:00:00z",
+        "KM07BR",
+        "17",
+        "9920"
+    ],
+    [
+        "2025-05-09 09:50:00z",
+        "JM97XR",
+        "21",
+        "12800"
+    ],
+    [
+        "2025-05-09 09:30:00z",
+        "JM97SN",
+        "23",
+        "12760"
+    ],
+    [
+        "2025-05-09 09:10:00z",
+        "JM97NK",
+        "15",
+        "12780"
+    ],
+    [
+        "2025-05-09 08:40:00z",
+        "JM97GG",
+        "25",
+        "12740"
+    ],
+    [
+        "2025-05-09 08:20:00z",
+        "JM97BD",
+        "20",
+        "12740"
+    ],
+    [
+        "2025-05-09 08:10:00z",
+        "JM87XC",
+        "13",
+        "12760"
+    ],
+    [
+        "2025-05-09 07:50:00z",
+        "JM87SA",
+        "13",
+        "12740"
+    ],
+    [
+        "2025-05-09 07:40:00z",
+        "JM86PX",
+        "19",
+        "12740"
+    ],
+    [
+        "2025-05-09 07:20:00z",
+        "JM86KW",
+        "16",
+        "12720"
+    ],
+    [
+        "2025-05-09 06:50:00z",
+        "JM86DT",
+        "1",
+        "12780"
+    ],
+    [
+        "2025-05-09 06:40:00z",
+        "JM76UQ",
+        "-3",
+        "0"
+    ],
+    [
+        "2025-05-09 06:10:00z",
+        "JM76LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-08 18:20:00z",
+        "IM94LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-08 17:40:00z",
+        "IM84LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-08 16:20:00z",
+        "IM74UG",
+        "14",
+        "12700"
+    ],
+    [
+        "2025-05-08 16:00:00z",
+        "IM74ME",
+        "14",
+        "12660"
+    ],
+    [
+        "2025-05-08 15:40:00z",
+        "IM74GD",
+        "15",
+        "12700"
+    ],
+    [
+        "2025-05-08 15:20:00z",
+        "IM74AC",
+        "20",
+        "12740"
+    ],
+    [
+        "2025-05-08 15:10:00z",
+        "IM64VC",
+        "25",
+        "12700"
+    ],
+    [
+        "2025-05-08 14:50:00z",
+        "IM64QB",
+        "19",
+        "12740"
+    ],
+    [
+        "2025-05-08 14:30:00z",
+        "IM64KA",
+        "23",
+        "12680"
+    ],
+    [
+        "2025-05-08 14:10:00z",
+        "IM63EX",
+        "23",
+        "12720"
+    ],
+    [
+        "2025-05-08 13:50:00z",
+        "IM53WW",
+        "19",
+        "12660"
+    ],
+    [
+        "2025-05-08 13:30:00z",
+        "IM53QV",
+        "24",
+        "12720"
+    ],
+    [
+        "2025-05-08 13:10:00z",
+        "IM53JT",
+        "23",
+        "12700"
+    ],
+    [
+        "2025-05-08 12:50:00z",
+        "IM53DR",
+        "19",
+        "12680"
+    ],
+    [
+        "2025-05-08 12:30:00z",
+        "IM43VP",
+        "21",
+        "12700"
+    ],
+    [
+        "2025-05-08 12:10:00z",
+        "IM43PN",
+        "23",
+        "12720"
+    ],
+    [
+        "2025-05-08 11:50:00z",
+        "IM43JL",
+        "21",
+        "12720"
+    ],
+    [
+        "2025-05-08 11:30:00z",
+        "IM43DI",
+        "14",
+        "12720"
+    ],
+    [
+        "2025-05-08 11:10:00z",
+        "IM33VF",
+        "16",
+        "12720"
+    ],
+    [
+        "2025-05-08 10:50:00z",
+        "IM33PD",
+        "8",
+        "12800"
+    ],
+    [
+        "2025-05-08 10:30:00z",
+        "IM33JB",
+        "25",
+        "12760"
+    ],
+    [
+        "2025-05-08 10:10:00z",
+        "IM32EX",
+        "24",
+        "12800"
+    ],
+    [
+        "2025-05-08 09:50:00z",
+        "IM22WU",
+        "7",
+        "12820"
+    ],
+    [
+        "2025-05-08 09:30:00z",
+        "IM22RS",
+        "-1",
+        "12800"
+    ],
+    [
+        "2025-05-08 09:10:00z",
+        "IM22LQ",
+        "9",
+        "12820"
+    ],
+    [
+        "2025-05-08 08:00:00z",
+        "IM12QH",
+        "-30",
+        "12840"
+    ],
+    [
+        "2025-05-07 20:20:00z",
+        "HL38VR",
+        "-6",
+        "0"
+    ],
+    [
+        "2025-05-07 20:00:00z",
+        "HL38RQ",
+        "-14",
+        "12920"
+    ],
+    [
+        "2025-05-07 19:20:00z",
+        "HL38LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-07 19:00:00z",
+        "HL38EP",
+        "4",
+        "12860"
+    ],
+    [
+        "2025-05-07 18:40:00z",
+        "HL28VQ",
+        "17",
+        "0"
+    ],
+    [
+        "2025-05-07 18:10:00z",
+        "HL28SR",
+        "18",
+        "12880"
+    ],
+    [
+        "2025-05-07 17:50:00z",
+        "HL28MS",
+        "21",
+        "12940"
+    ],
+    [
+        "2025-05-07 17:30:00z",
+        "HL28IT",
+        "25",
+        "12940"
+    ],
+    [
+        "2025-05-07 17:10:00z",
+        "HL28EU",
+        "25",
+        "12920"
+    ],
+    [
+        "2025-05-07 16:50:00z",
+        "HL28AU",
+        "22",
+        "12940"
+    ],
+    [
+        "2025-05-07 16:40:00z",
+        "HL18VV",
+        "26",
+        "12840"
+    ],
+    [
+        "2025-05-07 16:20:00z",
+        "HL18RV",
+        "19",
+        "12940"
+    ],
+    [
+        "2025-05-07 16:00:00z",
+        "HL18NW",
+        "20",
+        "12920"
+    ],
+    [
+        "2025-05-07 15:30:00z",
+        "HL18GX",
+        "21",
+        "12680"
+    ],
+    [
+        "2025-05-07 15:10:00z",
+        "HL18CX",
+        "22",
+        "12900"
+    ],
+    [
+        "2025-05-07 14:50:00z",
+        "HL08WX",
+        "24",
+        "12720"
+    ],
+    [
+        "2025-05-07 14:30:00z",
+        "HL08TX",
+        "22",
+        "12700"
+    ],
+    [
+        "2025-05-07 13:50:00z",
+        "HL08LX",
+        "23",
+        "12840"
+    ],
+    [
+        "2025-05-07 13:30:00z",
+        "HL08HW",
+        "23",
+        "12820"
+    ],
+    [
+        "2025-05-07 13:10:00z",
+        "HL08EW",
+        "22",
+        "12940"
+    ],
+    [
+        "2025-05-07 12:50:00z",
+        "HL08BV",
+        "23",
+        "12940"
+    ],
+    [
+        "2025-05-07 12:40:00z",
+        "GL98XV",
+        "11",
+        "12940"
+    ],
+    [
+        "2025-05-07 12:00:00z",
+        "GL98LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-07 11:30:00z",
+        "GL98MX",
+        "8",
+        "13020"
+    ],
+    [
+        "2025-05-07 11:00:00z",
+        "GL99LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-06 21:30:00z",
+        "GM51LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-06 21:20:00z",
+        "GM52LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-06 20:40:00z",
+        "GM52CD",
+        "7",
+        "13140"
+    ],
+    [
+        "2025-05-06 20:20:00z",
+        "GM52AF",
+        "14",
+        "13180"
+    ],
+    [
+        "2025-05-06 20:10:00z",
+        "GM42XG",
+        "11",
+        "13160"
+    ],
+    [
+        "2025-05-06 19:30:00z",
+        "GM42TL",
+        "13",
+        "0"
+    ],
+    [
+        "2025-05-06 18:50:00z",
+        "GM42RO",
+        "8",
+        "13160"
+    ],
+    [
+        "2025-05-06 18:30:00z",
+        "GM42QQ",
+        "6",
+        "13200"
+    ],
+    [
+        "2025-05-06 18:10:00z",
+        "GM42OT",
+        "14",
+        "13220"
+    ],
+    [
+        "2025-05-06 17:40:00z",
+        "GM42MW",
+        "6",
+        "13140"
+    ],
+    [
+        "2025-05-06 17:20:00z",
+        "GM43KA",
+        "9",
+        "13200"
+    ],
+    [
+        "2025-05-06 16:40:00z",
+        "GM43HE",
+        "16",
+        "13180"
+    ],
+    [
+        "2025-05-06 16:10:00z",
+        "GM43FH",
+        "14",
+        "12980"
+    ],
+    [
+        "2025-05-06 15:50:00z",
+        "GM43DJ",
+        "15",
+        "13140"
+    ],
+    [
+        "2025-05-06 15:30:00z",
+        "GM43CL",
+        "14",
+        "13100"
+    ],
+    [
+        "2025-05-06 15:10:00z",
+        "GM43AM",
+        "15",
+        "13100"
+    ],
+    [
+        "2025-05-06 15:00:00z",
+        "GM43AM",
+        "15",
+        "13100"
+    ],
+    [
+        "2025-05-06 14:40:00z",
+        "GM33WO",
+        "16",
+        "13120"
+    ],
+    [
+        "2025-05-06 14:20:00z",
+        "GM33UP",
+        "15",
+        "13100"
+    ],
+    [
+        "2025-05-06 14:00:00z",
+        "GM33LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-06 13:40:00z",
+        "GM33SS",
+        "19",
+        "13140"
+    ],
+    [
+        "2025-05-06 13:20:00z",
+        "GM33QT",
+        "19",
+        "13160"
+    ],
+    [
+        "2025-05-06 12:50:00z",
+        "GM33OW",
+        "14",
+        "13140"
+    ],
+    [
+        "2025-05-06 12:30:00z",
+        "GM34NA",
+        "13",
+        "13140"
+    ],
+    [
+        "2025-05-06 12:10:00z",
+        "GM34MC",
+        "16",
+        "13180"
+    ],
+    [
+        "2025-05-06 11:40:00z",
+        "GM34JF",
+        "6",
+        "0"
+    ],
+    [
+        "2025-05-06 11:20:00z",
+        "GM34HH",
+        "7",
+        "0"
+    ],
+    [
+        "2025-05-06 09:30:00z",
+        "GM34CO",
+        "-18",
+        "13140"
+    ],
+    [
+        "2025-05-05 19:30:00z",
+        "GM16EM",
+        "-5",
+        "13140"
+    ],
+    [
+        "2025-05-05 19:10:00z",
+        "GM16CN",
+        "3",
+        "13120"
+    ],
+    [
+        "2025-05-05 18:40:00z",
+        "GM16AO",
+        "12",
+        "13120"
+    ],
+    [
+        "2025-05-05 18:20:00z",
+        "GM06XP",
+        "9",
+        "13100"
+    ],
+    [
+        "2025-05-05 17:50:00z",
+        "GM06WQ",
+        "22",
+        "13100"
+    ],
+    [
+        "2025-05-05 17:30:00z",
+        "GM06VQ",
+        "12",
+        "13120"
+    ],
+    [
+        "2025-05-05 17:10:00z",
+        "GM06UR",
+        "30",
+        "13080"
+    ],
+    [
+        "2025-05-05 16:40:00z",
+        "GM06SS",
+        "19",
+        "13100"
+    ],
+    [
+        "2025-05-05 16:20:00z",
+        "GM06RS",
+        "17",
+        "12960"
+    ],
+    [
+        "2025-05-05 15:50:00z",
+        "GM06QT",
+        "21",
+        "13120"
+    ],
+    [
+        "2025-05-05 15:30:00z",
+        "GM06PT",
+        "17",
+        "13100"
+    ],
+    [
+        "2025-05-05 15:10:00z",
+        "GM06OU",
+        "26",
+        "13100"
+    ],
+    [
+        "2025-05-05 14:40:00z",
+        "GM06NV",
+        "12",
+        "13080"
+    ],
+    [
+        "2025-05-05 14:20:00z",
+        "GM06MW",
+        "13",
+        "13100"
+    ],
+    [
+        "2025-05-05 13:50:00z",
+        "GM06KX",
+        "8",
+        "13120"
+    ],
+    [
+        "2025-05-05 13:30:00z",
+        "GM07JA",
+        "5",
+        "13120"
+    ],
+    [
+        "2025-05-05 13:10:00z",
+        "GM07IA",
+        "14",
+        "13120"
+    ],
+    [
+        "2025-05-05 12:40:00z",
+        "GM07HB",
+        "-2",
+        "13100"
+    ],
+    [
+        "2025-05-05 12:20:00z",
+        "GM07GC",
+        "-13",
+        "13080"
+    ],
+    [
+        "2025-05-04 22:20:00z",
+        "FM87JT",
+        "-11",
+        "12980"
+    ],
+    [
+        "2025-05-04 20:50:00z",
+        "FM78XA",
+        "-25",
+        "13020"
+    ],
+    [
+        "2025-05-04 19:40:00z",
+        "FM78PB",
+        "20",
+        "13060"
+    ],
+    [
+        "2025-05-04 19:20:00z",
+        "FM78MB",
+        "25",
+        "13080"
+    ],
+    [
+        "2025-05-04 18:50:00z",
+        "FM78JB",
+        "21",
+        "13100"
+    ],
+    [
+        "2025-05-04 18:30:00z",
+        "FM78HB",
+        "21",
+        "13120"
+    ],
+    [
+        "2025-05-04 18:10:00z",
+        "FM78FA",
+        "24",
+        "13100"
+    ],
+    [
+        "2025-05-04 17:50:00z",
+        "FM77CX",
+        "23",
+        "13100"
+    ],
+    [
+        "2025-05-04 17:30:00z",
+        "FM77AW",
+        "23",
+        "13100"
+    ],
+    [
+        "2025-05-04 17:20:00z",
+        "FM67XW",
+        "15",
+        "13120"
+    ],
+    [
+        "2025-05-04 16:50:00z",
+        "FM67VV",
+        "21",
+        "13100"
+    ],
+    [
+        "2025-05-04 16:30:00z",
+        "FM67TU",
+        "22",
+        "13100"
+    ],
+    [
+        "2025-05-04 16:10:00z",
+        "FM67RT",
+        "22",
+        "13120"
+    ],
+    [
+        "2025-05-04 15:40:00z",
+        "FM67PS",
+        "24",
+        "13100"
+    ],
+    [
+        "2025-05-04 15:20:00z",
+        "FM67OR",
+        "18",
+        "13100"
+    ],
+    [
+        "2025-05-04 14:50:00z",
+        "FM67MQ",
+        "22",
+        "13080"
+    ],
+    [
+        "2025-05-04 14:30:00z",
+        "FM67KP",
+        "16",
+        "13080"
+    ],
+    [
+        "2025-05-04 14:10:00z",
+        "FM67JO",
+        "16",
+        "13100"
+    ],
+    [
+        "2025-05-04 13:40:00z",
+        "FM67HM",
+        "11",
+        "13020"
+    ],
+    [
+        "2025-05-04 13:20:00z",
+        "FM67GL",
+        "-2",
+        "13060"
+    ],
+    [
+        "2025-05-04 12:50:00z",
+        "FM67EJ",
+        "-12",
+        "13020"
+    ],
+    [
+        "2025-05-03 23:30:00z",
+        "FM35LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-03 22:40:00z",
+        "FM35LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-03 21:20:00z",
+        "FM34LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-03 20:50:00z",
+        "FM24LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-03 20:30:00z",
+        "FM24VR",
+        "-3",
+        "13020"
+    ],
+    [
+        "2025-05-03 20:10:00z",
+        "FM24TP",
+        "6",
+        "13020"
+    ],
+    [
+        "2025-05-03 19:40:00z",
+        "FM24QM",
+        "2",
+        "12980"
+    ],
+    [
+        "2025-05-03 19:20:00z",
+        "FM24OK",
+        "15",
+        "13000"
+    ],
+    [
+        "2025-05-03 18:50:00z",
+        "FM24MG",
+        "16",
+        "13000"
+    ],
+    [
+        "2025-05-03 18:30:00z",
+        "FM24LD",
+        "16",
+        "13000"
+    ],
+    [
+        "2025-05-03 18:10:00z",
+        "FM24JB",
+        "21",
+        "13020"
+    ],
+    [
+        "2025-05-03 17:50:00z",
+        "FM23IX",
+        "22",
+        "13060"
+    ],
+    [
+        "2025-05-03 17:30:00z",
+        "FM23HU",
+        "22",
+        "13080"
+    ],
+    [
+        "2025-05-03 17:10:00z",
+        "FM23GS",
+        "20",
+        "13080"
+    ],
+    [
+        "2025-05-03 16:40:00z",
+        "FM23FP",
+        "22",
+        "13120"
+    ],
+    [
+        "2025-05-03 16:20:00z",
+        "FM23EO",
+        "21",
+        "13080"
+    ],
+    [
+        "2025-05-03 15:50:00z",
+        "FM23CM",
+        "20",
+        "13080"
+    ],
+    [
+        "2025-05-03 15:30:00z",
+        "FM23BK",
+        "25",
+        "13080"
+    ],
+    [
+        "2025-05-03 15:10:00z",
+        "FM13XJ",
+        "25",
+        "13100"
+    ],
+    [
+        "2025-05-03 14:40:00z",
+        "FM13VH",
+        "20",
+        "13080"
+    ],
+    [
+        "2025-05-03 14:20:00z",
+        "FM13UG",
+        "11",
+        "13060"
+    ],
+    [
+        "2025-05-03 13:50:00z",
+        "FM13SF",
+        "16",
+        "13080"
+    ],
+    [
+        "2025-05-03 13:30:00z",
+        "FM13RE",
+        "11",
+        "13080"
+    ],
+    [
+        "2025-05-03 13:10:00z",
+        "FM13QD",
+        "3",
+        "13120"
+    ],
+    [
+        "2025-05-02 23:50:00z",
+        "EM72EC",
+        "-6",
+        "13060"
+    ],
+    [
+        "2025-05-02 23:30:00z",
+        "EM72",
+        "-10",
+        "13020"
+    ],
+    [
+        "2025-05-02 22:10:00z",
+        "EM62VD",
+        "12",
+        "12960"
+    ],
+    [
+        "2025-05-02 21:40:00z",
+        "EM62LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-02 21:20:00z",
+        "EM62QE",
+        "10",
+        "13000"
+    ],
+    [
+        "2025-05-02 20:50:00z",
+        "EM62NE",
+        "10",
+        "13060"
+    ],
+    [
+        "2025-05-02 20:30:00z",
+        "EM62LF",
+        "21",
+        "13060"
+    ],
+    [
+        "2025-05-02 20:10:00z",
+        "EM62JG",
+        "28",
+        "12840"
+    ],
+    [
+        "2025-05-02 19:40:00z",
+        "EM62FI",
+        "25",
+        "12840"
+    ],
+    [
+        "2025-05-02 19:20:00z",
+        "EM62CI",
+        "24",
+        "12840"
+    ],
+    [
+        "2025-05-02 18:50:00z",
+        "EM52WK",
+        "31",
+        "12820"
+    ],
+    [
+        "2025-05-02 18:30:00z",
+        "EM52TK",
+        "30",
+        "12860"
+    ],
+    [
+        "2025-05-02 18:10:00z",
+        "EM52PL",
+        "25",
+        "12840"
+    ],
+    [
+        "2025-05-02 17:40:00z",
+        "EM52KM",
+        "27",
+        "12800"
+    ],
+    [
+        "2025-05-02 17:20:00z",
+        "EM52GM",
+        "31",
+        "12800"
+    ],
+    [
+        "2025-05-02 16:50:00z",
+        "EM52BN",
+        "25",
+        "12820"
+    ],
+    [
+        "2025-05-02 16:40:00z",
+        "EM42XN",
+        "24",
+        "12800"
+    ],
+    [
+        "2025-05-02 16:20:00z",
+        "EM42TN",
+        "31",
+        "12820"
+    ],
+    [
+        "2025-05-02 15:50:00z",
+        "EM42NO",
+        "13",
+        "12380"
+    ],
+    [
+        "2025-05-02 15:30:00z",
+        "EM42IP",
+        "8",
+        "12760"
+    ],
+    [
+        "2025-05-02 15:10:00z",
+        "EM42EQ",
+        "16",
+        "12700"
+    ],
+    [
+        "2025-05-02 14:50:00z",
+        "EM32XQ",
+        "17",
+        "12740"
+    ],
+    [
+        "2025-05-02 14:30:00z",
+        "EM32SR",
+        "21",
+        "12760"
+    ],
+    [
+        "2025-05-02 14:10:00z",
+        "EM32NR",
+        "0",
+        "12760"
+    ],
+    [
+        "2025-05-02 13:30:00z",
+        "EM32LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-02 13:20:00z",
+        "EM22WR",
+        "-19",
+        "0"
+    ],
+    [
+        "2025-05-02 12:30:00z",
+        "EM22NQ",
+        "-27",
+        "12820"
+    ],
+    [
+        "2025-05-02 00:40:00z",
+        "DM52LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-01 23:10:00z",
+        "DM42IF",
+        "25",
+        "12760"
+    ],
+    [
+        "2025-05-01 22:40:00z",
+        "DM42AE",
+        "26",
+        "12760"
+    ],
+    [
+        "2025-05-01 22:30:00z",
+        "DM32VD",
+        "28",
+        "12760"
+    ],
+    [
+        "2025-05-01 22:10:00z",
+        "DM32PC",
+        "27",
+        "12780"
+    ],
+    [
+        "2025-05-01 21:50:00z",
+        "DM31KX",
+        "27",
+        "12560"
+    ],
+    [
+        "2025-05-01 21:30:00z",
+        "DM31FV",
+        "27",
+        "12400"
+    ],
+    [
+        "2025-05-01 21:10:00z",
+        "DM21XS",
+        "31",
+        "12800"
+    ],
+    [
+        "2025-05-01 20:40:00z",
+        "DM21QO",
+        "27",
+        "13140"
+    ],
+    [
+        "2025-05-01 20:20:00z",
+        "DM21LL",
+        "27",
+        "12760"
+    ],
+    [
+        "2025-05-01 20:00:00z",
+        "DM21GJ",
+        "31",
+        "12780"
+    ],
+    [
+        "2025-05-01 19:40:00z",
+        "DM21BH",
+        "24",
+        "12800"
+    ],
+    [
+        "2025-05-01 19:30:00z",
+        "DM11WG",
+        "27",
+        "12800"
+    ],
+    [
+        "2025-05-01 19:10:00z",
+        "DM11SE",
+        "26",
+        "14480"
+    ],
+    [
+        "2025-05-01 18:40:00z",
+        "DM11KA",
+        "24",
+        "12800"
+    ],
+    [
+        "2025-05-01 18:20:00z",
+        "DM10FX",
+        "30",
+        "12820"
+    ],
+    [
+        "2025-05-01 18:00:00z",
+        "DM10AW",
+        "26",
+        "12820"
+    ],
+    [
+        "2025-05-01 17:50:00z",
+        "DM00VW",
+        "31",
+        "12820"
+    ],
+    [
+        "2025-05-01 17:30:00z",
+        "DM00QV",
+        "25",
+        "12780"
+    ],
+    [
+        "2025-05-01 17:10:00z",
+        "DM00MV",
+        "26",
+        "12760"
+    ],
+    [
+        "2025-05-01 16:40:00z",
+        "DM00FV",
+        "28",
+        "12800"
+    ],
+    [
+        "2025-05-01 16:20:00z",
+        "DM00AV",
+        "24",
+        "12760"
+    ],
+    [
+        "2025-05-01 16:10:00z",
+        "CM90VV",
+        "9",
+        "0"
+    ],
+    [
+        "2025-05-01 14:20:00z",
+        "CM80LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-01 03:10:00z",
+        "CL49LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-05-01 00:30:00z",
+        "CL38JJ",
+        "14",
+        "12960"
+    ],
+    [
+        "2025-05-01 00:10:00z",
+        "CL38GG",
+        "12",
+        "12960"
+    ],
+    [
+        "2025-04-30 23:40:00z",
+        "CL38CC",
+        "14",
+        "12980"
+    ],
+    [
+        "2025-04-30 23:20:00z",
+        "CL28XA",
+        "11",
+        "12960"
+    ],
+    [
+        "2025-04-30 23:10:00z",
+        "CL27WW",
+        "9",
+        "13340"
+    ],
+    [
+        "2025-04-30 22:40:00z",
+        "CL27SS",
+        "18",
+        "12980"
+    ],
+    [
+        "2025-04-30 22:20:00z",
+        "CL27PP",
+        "23",
+        "12980"
+    ],
+    [
+        "2025-04-30 21:40:00z",
+        "CL27LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-30 21:20:00z",
+        "CL27LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-30 20:40:00z",
+        "CL27LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-30 20:20:00z",
+        "CL16WX",
+        "19",
+        "12960"
+    ],
+    [
+        "2025-04-30 19:50:00z",
+        "CL16SU",
+        "16",
+        "12960"
+    ],
+    [
+        "2025-04-30 19:30:00z",
+        "CL16PR",
+        "17",
+        "12960"
+    ],
+    [
+        "2025-04-30 18:50:00z",
+        "CL16JL",
+        "15",
+        "12940"
+    ],
+    [
+        "2025-04-30 18:20:00z",
+        "CL16LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-30 17:30:00z",
+        "CL05WW",
+        "-2",
+        "12940"
+    ],
+    [
+        "2025-04-30 01:30:00z",
+        "BL51JX",
+        "-1",
+        "12960"
+    ],
+    [
+        "2025-04-30 01:10:00z",
+        "BL51GW",
+        "16",
+        "12940"
+    ],
+    [
+        "2025-04-30 00:40:00z",
+        "BL51BV",
+        "24",
+        "12960"
+    ],
+    [
+        "2025-04-30 00:30:00z",
+        "BL41XV",
+        "12",
+        "12980"
+    ],
+    [
+        "2025-04-30 00:10:00z",
+        "BL41UU",
+        "24",
+        "12920"
+    ],
+    [
+        "2025-04-29 23:40:00z",
+        "BL41QT",
+        "17",
+        "12940"
+    ],
+    [
+        "2025-04-29 23:20:00z",
+        "BL41NS",
+        "15",
+        "12940"
+    ],
+    [
+        "2025-04-29 22:50:00z",
+        "BL41IR",
+        "24",
+        "12960"
+    ],
+    [
+        "2025-04-29 21:50:00z",
+        "BL41AR",
+        "23",
+        "12880"
+    ],
+    [
+        "2025-04-29 21:40:00z",
+        "BL31XR",
+        "20",
+        "12880"
+    ],
+    [
+        "2025-04-29 21:20:00z",
+        "BL31UR",
+        "25",
+        "12880"
+    ],
+    [
+        "2025-04-29 20:50:00z",
+        "BL31QT",
+        "18",
+        "12900"
+    ],
+    [
+        "2025-04-29 20:30:00z",
+        "BL31OU",
+        "21",
+        "12880"
+    ],
+    [
+        "2025-04-29 20:10:00z",
+        "BL31MV",
+        "15",
+        "12880"
+    ],
+    [
+        "2025-04-29 19:40:00z",
+        "BL32IB",
+        "7",
+        "12860"
+    ],
+    [
+        "2025-04-29 19:20:00z",
+        "BL32GD",
+        "8",
+        "12800"
+    ],
+    [
+        "2025-04-29 18:50:00z",
+        "BL32DI",
+        "1",
+        "12820"
+    ],
+    [
+        "2025-04-29 18:30:00z",
+        "BL32BL",
+        "5",
+        "12860"
+    ],
+    [
+        "2025-04-29 18:20:00z",
+        "BL22XN",
+        "-1",
+        "12820"
+    ],
+    [
+        "2025-04-29 03:50:00z",
+        "BL49AR",
+        "-3",
+        "12920"
+    ],
+    [
+        "2025-04-29 03:10:00z",
+        "BL49DW",
+        "10",
+        "12900"
+    ],
+    [
+        "2025-04-29 02:40:00z",
+        "BM40IH",
+        "-1",
+        "0"
+    ],
+    [
+        "2025-04-29 02:20:00z",
+        "BM40IH",
+        "-11",
+        "12940"
+    ],
+    [
+        "2025-04-29 01:30:00z",
+        "BM40KO",
+        "9",
+        "12960"
+    ],
+    [
+        "2025-04-29 01:10:00z",
+        "BM40LR",
+        "1",
+        "12960"
+    ],
+    [
+        "2025-04-29 00:40:00z",
+        "BM40MW",
+        "2",
+        "12940"
+    ],
+    [
+        "2025-04-29 00:20:00z",
+        "BM41MA",
+        "8",
+        "12940"
+    ],
+    [
+        "2025-04-28 23:50:00z",
+        "BM41ME",
+        "22",
+        "12940"
+    ],
+    [
+        "2025-04-28 23:30:00z",
+        "BM41NH",
+        "17",
+        "12940"
+    ],
+    [
+        "2025-04-28 23:10:00z",
+        "BM41NJ",
+        "16",
+        "12900"
+    ],
+    [
+        "2025-04-28 22:40:00z",
+        "BM41NM",
+        "22",
+        "12940"
+    ],
+    [
+        "2025-04-28 22:20:00z",
+        "BM41NO",
+        "27",
+        "12940"
+    ],
+    [
+        "2025-04-28 21:50:00z",
+        "BM41OR",
+        "30",
+        "12900"
+    ],
+    [
+        "2025-04-28 21:30:00z",
+        "BM41OT",
+        "30",
+        "12880"
+    ],
+    [
+        "2025-04-28 21:10:00z",
+        "BM41OV",
+        "28",
+        "12840"
+    ],
+    [
+        "2025-04-28 20:40:00z",
+        "BM42NA",
+        "28",
+        "12860"
+    ],
+    [
+        "2025-04-28 20:20:00z",
+        "BM42NC",
+        "23",
+        "12860"
+    ],
+    [
+        "2025-04-28 19:50:00z",
+        "BM42LE",
+        "26",
+        "12800"
+    ],
+    [
+        "2025-04-28 19:30:00z",
+        "BM42LG",
+        "20",
+        "12820"
+    ],
+    [
+        "2025-04-28 18:50:00z",
+        "BM42KI",
+        "22",
+        "12800"
+    ],
+    [
+        "2025-04-28 18:20:00z",
+        "BM42LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-28 15:40:00z",
+        "BM42ER",
+        "-17",
+        "12800"
+    ],
+    [
+        "2025-04-28 01:50:00z",
+        "BM22SQ",
+        "-5",
+        "12760"
+    ],
+    [
+        "2025-04-28 01:30:00z",
+        "BM22RR",
+        "5",
+        "12740"
+    ],
+    [
+        "2025-04-28 01:10:00z",
+        "BM22PR",
+        "8",
+        "12780"
+    ],
+    [
+        "2025-04-28 00:40:00z",
+        "BM22LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-28 00:20:00z",
+        "BM22KS",
+        "11",
+        "12760"
+    ],
+    [
+        "2025-04-27 23:50:00z",
+        "BM22HT",
+        "12",
+        "12860"
+    ],
+    [
+        "2025-04-27 23:30:00z",
+        "BM22FU",
+        "19",
+        "12760"
+    ],
+    [
+        "2025-04-27 23:10:00z",
+        "BM22EV",
+        "19",
+        "12780"
+    ],
+    [
+        "2025-04-27 22:40:00z",
+        "BM22BW",
+        "26",
+        "12740"
+    ],
+    [
+        "2025-04-27 22:20:00z",
+        "BM12XX",
+        "21",
+        "12760"
+    ],
+    [
+        "2025-04-27 22:10:00z",
+        "BM13WA",
+        "22",
+        "12760"
+    ],
+    [
+        "2025-04-27 21:40:00z",
+        "BM13UB",
+        "23",
+        "12780"
+    ],
+    [
+        "2025-04-27 21:20:00z",
+        "BM13SD",
+        "31",
+        "12760"
+    ],
+    [
+        "2025-04-27 20:50:00z",
+        "BM13PE",
+        "28",
+        "12720"
+    ],
+    [
+        "2025-04-27 20:30:00z",
+        "BM13NF",
+        "21",
+        "12760"
+    ],
+    [
+        "2025-04-27 20:10:00z",
+        "BM13LG",
+        "15",
+        "12740"
+    ],
+    [
+        "2025-04-27 19:40:00z",
+        "BM13JI",
+        "16",
+        "12720"
+    ],
+    [
+        "2025-04-27 19:20:00z",
+        "BM13HJ",
+        "31",
+        "12720"
+    ],
+    [
+        "2025-04-27 18:40:00z",
+        "BM13LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-27 17:40:00z",
+        "BM03LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-27 17:10:00z",
+        "BM03LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-27 16:40:00z",
+        "BM04LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-27 02:40:00z",
+        "AN50UW",
+        "13",
+        "12500"
+    ],
+    [
+        "2025-04-27 02:30:00z",
+        "AN51LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-26 05:40:00z",
+        "QN63PN",
+        "22",
+        "12300"
+    ],
+    [
+        "2025-04-26 04:50:00z",
+        "QN52TV",
+        "27",
+        "12220"
+    ],
+    [
+        "2025-04-26 04:20:00z",
+        "QN52LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-26 03:40:00z",
+        "QN41LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-26 03:10:00z",
+        "QN41DL",
+        "24",
+        "12280"
+    ],
+    [
+        "2025-04-26 02:30:00z",
+        "QN30LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-26 01:50:00z",
+        "QN20TF",
+        "28",
+        "12200"
+    ],
+    [
+        "2025-04-26 01:30:00z",
+        "QM29LW",
+        "28",
+        "12220"
+    ],
+    [
+        "2025-04-26 01:10:00z",
+        "QM29DP",
+        "26",
+        "12280"
+    ],
+    [
+        "2025-04-26 00:50:00z",
+        "QM19TI",
+        "31",
+        "12240"
+    ],
+    [
+        "2025-04-26 00:30:00z",
+        "QM19LB",
+        "30",
+        "12220"
+    ],
+    [
+        "2025-04-26 00:20:00z",
+        "QM18HW",
+        "31",
+        "12180"
+    ],
+    [
+        "2025-04-25 23:50:00z",
+        "QM08RO",
+        "23",
+        "12260"
+    ],
+    [
+        "2025-04-25 23:30:00z",
+        "QM08IJ",
+        "20",
+        "12200"
+    ],
+    [
+        "2025-04-25 23:10:00z",
+        "PM98VD",
+        "21",
+        "12220"
+    ],
+    [
+        "2025-04-25 22:30:00z",
+        "PM97ES",
+        "13",
+        "0"
+    ],
+    [
+        "2025-04-25 22:10:00z",
+        "PM87LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-25 21:20:00z",
+        "PM77LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-24 07:20:00z",
+        "MM96LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-23 07:10:00z",
+        "LM67LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-23 06:40:00z",
+        "LM57QN",
+        "17",
+        "12660"
+    ],
+    [
+        "2025-04-23 06:20:00z",
+        "LM57LK",
+        "18",
+        "12680"
+    ],
+    [
+        "2025-04-23 05:50:00z",
+        "LM57DH",
+        "8",
+        "12760"
+    ],
+    [
+        "2025-04-23 05:30:00z",
+        "LM47WF",
+        "11",
+        "12760"
+    ],
+    [
+        "2025-04-23 04:50:00z",
+        "LM46LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-22 13:40:00z",
+        "KM45LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-22 13:20:00z",
+        "KM44HV",
+        "7",
+        "12620"
+    ],
+    [
+        "2025-04-22 12:50:00z",
+        "KM34AI",
+        "-15",
+        "5560"
+    ],
+    [
+        "2025-04-22 12:30:00z",
+        "KM34LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-22 11:50:00z",
+        "KM34AH",
+        "-15",
+        "10880"
+    ],
+    [
+        "2025-04-22 11:30:00z",
+        "KM33CX",
+        "21",
+        "12620"
+    ],
+    [
+        "2025-04-22 11:10:00z",
+        "KM23VT",
+        "31",
+        "12680"
+    ],
+    [
+        "2025-04-22 10:40:00z",
+        "KM23PP",
+        "30",
+        "12680"
+    ],
+    [
+        "2025-04-22 10:20:00z",
+        "KM23LN",
+        "28",
+        "12640"
+    ],
+    [
+        "2025-04-22 09:50:00z",
+        "KM23GM",
+        "27",
+        "12640"
+    ],
+    [
+        "2025-04-22 09:30:00z",
+        "KM23CM",
+        "27",
+        "12600"
+    ],
+    [
+        "2025-04-22 09:20:00z",
+        "KM13XM",
+        "22",
+        "12660"
+    ],
+    [
+        "2025-04-22 08:50:00z",
+        "KM13RL",
+        "18",
+        "12620"
+    ],
+    [
+        "2025-04-22 08:30:00z",
+        "KM13ML",
+        "10",
+        "12640"
+    ],
+    [
+        "2025-04-22 08:10:00z",
+        "KM13HL",
+        "12",
+        "12620"
+    ],
+    [
+        "2025-04-22 07:40:00z",
+        "KM13AM",
+        "10",
+        "12640"
+    ],
+    [
+        "2025-04-22 07:30:00z",
+        "KM03VM",
+        "10",
+        "12600"
+    ],
+    [
+        "2025-04-22 06:40:00z",
+        "KM03GQ",
+        "-3",
+        "0"
+    ],
+    [
+        "2025-04-21 17:40:00z",
+        "JM18LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-21 16:40:00z",
+        "JM18AX",
+        "11",
+        "12620"
+    ],
+    [
+        "2025-04-21 16:30:00z",
+        "JM08XX",
+        "13",
+        "12620"
+    ],
+    [
+        "2025-04-21 16:10:00z",
+        "JM09RA",
+        "5",
+        "12660"
+    ],
+    [
+        "2025-04-21 15:50:00z",
+        "JM09LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-21 15:30:00z",
+        "JM09EB",
+        "11",
+        "12640"
+    ],
+    [
+        "2025-04-21 15:20:00z",
+        "IM78RI",
+        "10",
+        "5700"
+    ],
+    [
+        "2025-04-21 15:10:00z",
+        "IM99XB",
+        "15",
+        "12640"
+    ],
+    [
+        "2025-04-21 14:40:00z",
+        "IM99PB",
+        "23",
+        "12660"
+    ],
+    [
+        "2025-04-21 14:20:00z",
+        "IM99KB",
+        "24",
+        "12620"
+    ],
+    [
+        "2025-04-21 13:50:00z",
+        "IM99CB",
+        "23",
+        "12420"
+    ],
+    [
+        "2025-04-21 13:30:00z",
+        "IM89VB",
+        "23",
+        "12700"
+    ],
+    [
+        "2025-04-21 13:10:00z",
+        "IM89RB",
+        "28",
+        "12580"
+    ],
+    [
+        "2025-04-21 12:40:00z",
+        "IM89JB",
+        "31",
+        "12620"
+    ],
+    [
+        "2025-04-21 12:20:00z",
+        "IM89EB",
+        "28",
+        "12640"
+    ],
+    [
+        "2025-04-21 11:50:00z",
+        "IM79UA",
+        "25",
+        "12580"
+    ],
+    [
+        "2025-04-21 11:30:00z",
+        "IM79PB",
+        "24",
+        "12580"
+    ],
+    [
+        "2025-04-21 11:10:00z",
+        "IM79KB",
+        "15",
+        "12600"
+    ],
+    [
+        "2025-04-21 10:40:00z",
+        "IM79CA",
+        "22",
+        "12620"
+    ],
+    [
+        "2025-04-21 10:30:00z",
+        "IM69XA",
+        "23",
+        "12600"
+    ],
+    [
+        "2025-04-21 10:10:00z",
+        "IM69RA",
+        "22",
+        "12580"
+    ],
+    [
+        "2025-04-21 09:40:00z",
+        "IM68JX",
+        "21",
+        "12700"
+    ],
+    [
+        "2025-04-21 09:20:00z",
+        "IM68EX",
+        "21",
+        "13760"
+    ],
+    [
+        "2025-04-21 08:50:00z",
+        "IM58UX",
+        "22",
+        "12560"
+    ],
+    [
+        "2025-04-21 08:30:00z",
+        "IM58LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-21 08:10:00z",
+        "IM58LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-21 07:50:00z",
+        "IM59DA",
+        "17",
+        "12460"
+    ],
+    [
+        "2025-04-21 07:30:00z",
+        "IM49VA",
+        "15",
+        "12480"
+    ],
+    [
+        "2025-04-21 07:10:00z",
+        "IM49PB",
+        "8",
+        "12440"
+    ],
+    [
+        "2025-04-21 06:40:00z",
+        "IM49LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-21 06:10:00z",
+        "HM68LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-20 17:20:00z",
+        "HM48PO",
+        "10",
+        "12480"
+    ],
+    [
+        "2025-04-20 16:50:00z",
+        "HM48HN",
+        "5",
+        "12820"
+    ],
+    [
+        "2025-04-20 16:30:00z",
+        "HM48BM",
+        "23",
+        "12800"
+    ],
+    [
+        "2025-04-20 16:20:00z",
+        "HM38WL",
+        "22",
+        "12820"
+    ],
+    [
+        "2025-04-20 15:50:00z",
+        "HM38OD",
+        "18",
+        "10280"
+    ],
+    [
+        "2025-04-20 15:30:00z",
+        "HM38JJ",
+        "16",
+        "12620"
+    ],
+    [
+        "2025-04-20 15:10:00z",
+        "HM38DI",
+        "16",
+        "12760"
+    ],
+    [
+        "2025-04-20 14:50:00z",
+        "HM28WH",
+        "15",
+        "12860"
+    ],
+    [
+        "2025-04-20 14:30:00z",
+        "HM28RH",
+        "21",
+        "12840"
+    ],
+    [
+        "2025-04-20 14:10:00z",
+        "HM28MG",
+        "20",
+        "12820"
+    ],
+    [
+        "2025-04-20 13:40:00z",
+        "HM28LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-20 13:20:00z",
+        "HM18XG",
+        "17",
+        "12860"
+    ],
+    [
+        "2025-04-20 12:40:00z",
+        "HM18JF",
+        "10",
+        "3660"
+    ],
+    [
+        "2025-04-20 12:20:00z",
+        "HM18IG",
+        "9",
+        "12860"
+    ],
+    [
+        "2025-04-20 11:50:00z",
+        "HM18AG",
+        "12",
+        "12880"
+    ],
+    [
+        "2025-04-20 11:40:00z",
+        "HM08WH",
+        "21",
+        "12880"
+    ],
+    [
+        "2025-04-19 20:20:00z",
+        "GN20LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-19 19:40:00z",
+        "GN21JD",
+        "-7",
+        "0"
+    ],
+    [
+        "2025-04-19 19:20:00z",
+        "GN21FG",
+        "2",
+        "13000"
+    ],
+    [
+        "2025-04-19 18:50:00z",
+        "GN11XJ",
+        "5",
+        "13020"
+    ],
+    [
+        "2025-04-19 18:30:00z",
+        "GN11TM",
+        "0",
+        "12980"
+    ],
+    [
+        "2025-04-19 18:10:00z",
+        "GN11PP",
+        "8",
+        "13000"
+    ],
+    [
+        "2025-04-19 17:40:00z",
+        "GN11KS",
+        "13",
+        "13040"
+    ],
+    [
+        "2025-04-19 17:20:00z",
+        "GN11GV",
+        "11",
+        "13020"
+    ],
+    [
+        "2025-04-19 16:50:00z",
+        "GN12BB",
+        "13",
+        "12960"
+    ],
+    [
+        "2025-04-19 16:40:00z",
+        "GN02XC",
+        "14",
+        "12940"
+    ],
+    [
+        "2025-04-19 16:20:00z",
+        "GN02TE",
+        "10",
+        "12920"
+    ],
+    [
+        "2025-04-19 15:50:00z",
+        "GN02OI",
+        "9",
+        "12840"
+    ],
+    [
+        "2025-04-19 15:30:00z",
+        "GN02KL",
+        "6",
+        "12820"
+    ],
+    [
+        "2025-04-19 15:10:00z",
+        "GN02HO",
+        "6",
+        "12820"
+    ],
+    [
+        "2025-04-19 14:40:00z",
+        "GN02BT",
+        "1",
+        "12880"
+    ],
+    [
+        "2025-04-19 14:20:00z",
+        "FN92WV",
+        "0",
+        "12820"
+    ],
+    [
+        "2025-04-19 13:50:00z",
+        "FN93RD",
+        "-1",
+        "12820"
+    ],
+    [
+        "2025-04-19 13:30:00z",
+        "FN93NG",
+        "-4",
+        "12780"
+    ],
+    [
+        "2025-04-19 13:10:00z",
+        "FN93KK",
+        "-4",
+        "12760"
+    ],
+    [
+        "2025-04-19 11:10:00z",
+        "FN84LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-18 22:50:00z",
+        "EN77IN",
+        "12",
+        "12480"
+    ],
+    [
+        "2025-04-18 21:50:00z",
+        "EN67LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-18 21:30:00z",
+        "EN67BB",
+        "24",
+        "12500"
+    ],
+    [
+        "2025-04-18 21:20:00z",
+        "EN57WA",
+        "28",
+        "12500"
+    ],
+    [
+        "2025-04-18 21:10:00z",
+        "EN56SW",
+        "21",
+        "12500"
+    ],
+    [
+        "2025-04-18 20:40:00z",
+        "EN56HR",
+        "25",
+        "12520"
+    ],
+    [
+        "2025-04-18 20:10:00z",
+        "EN46UL",
+        "27",
+        "12480"
+    ],
+    [
+        "2025-04-18 19:40:00z",
+        "EN46KF",
+        "25",
+        "12520"
+    ],
+    [
+        "2025-04-18 19:20:00z",
+        "EN46",
+        "26",
+        "12520"
+    ],
+    [
+        "2025-04-18 19:10:00z",
+        "EN45AX",
+        "24",
+        "12520"
+    ],
+    [
+        "2025-04-18 18:50:00z",
+        "EN35RT",
+        "30",
+        "12520"
+    ],
+    [
+        "2025-04-18 18:30:00z",
+        "EN35LP",
+        "27",
+        "12480"
+    ],
+    [
+        "2025-04-18 18:10:00z",
+        "EN35EL",
+        "26",
+        "12480"
+    ],
+    [
+        "2025-04-18 17:50:00z",
+        "EN25XH",
+        "26",
+        "12460"
+    ],
+    [
+        "2025-04-18 17:30:00z",
+        "EN25RD",
+        "24",
+        "12540"
+    ],
+    [
+        "2025-04-18 17:10:00z",
+        "EN25LA",
+        "31",
+        "12420"
+    ],
+    [
+        "2025-04-18 16:50:00z",
+        "EN24GU",
+        "25",
+        "12420"
+    ],
+    [
+        "2025-04-18 16:30:00z",
+        "EN24AQ",
+        "25",
+        "12440"
+    ],
+    [
+        "2025-04-18 16:20:00z",
+        "EN14VP",
+        "28",
+        "12420"
+    ],
+    [
+        "2025-04-18 15:50:00z",
+        "EN14MJ",
+        "28",
+        "12420"
+    ],
+    [
+        "2025-04-18 15:30:00z",
+        "EN14FF",
+        "19",
+        "12420"
+    ],
+    [
+        "2025-04-18 15:10:00z",
+        "EN04XA",
+        "22",
+        "12420"
+    ],
+    [
+        "2025-04-18 14:50:00z",
+        "EN03RS",
+        "7",
+        "12360"
+    ],
+    [
+        "2025-04-18 14:10:00z",
+        "EN03EH",
+        "13",
+        "0"
+    ],
+    [
+        "2025-04-18 13:40:00z",
+        "DN93VB",
+        "13",
+        "12380"
+    ],
+    [
+        "2025-04-18 13:30:00z",
+        "DN92SX",
+        "13",
+        "12340"
+    ],
+    [
+        "2025-04-18 13:10:00z",
+        "DN92NR",
+        "-11",
+        "12300"
+    ],
+    [
+        "2025-04-18 12:20:00z",
+        "DN82XD",
+        "-13",
+        "12240"
+    ],
+    [
+        "2025-04-18 00:20:00z",
+        "DM13LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-17 23:50:00z",
+        "DM13QI",
+        "-1",
+        "12440"
+    ],
+    [
+        "2025-04-17 23:30:00z",
+        "DM13MD",
+        "10",
+        "12520"
+    ],
+    [
+        "2025-04-17 23:10:00z",
+        "DM12JX",
+        "2",
+        "12560"
+    ],
+    [
+        "2025-04-17 22:40:00z",
+        "DM12FS",
+        "8",
+        "12560"
+    ],
+    [
+        "2025-04-17 22:20:00z",
+        "DM12CP",
+        "18",
+        "12600"
+    ],
+    [
+        "2025-04-17 21:50:00z",
+        "DM02WL",
+        "18",
+        "12580"
+    ],
+    [
+        "2025-04-17 21:30:00z",
+        "DM02TI",
+        "11",
+        "12560"
+    ],
+    [
+        "2025-04-17 21:10:00z",
+        "DM02RG",
+        "14",
+        "12580"
+    ],
+    [
+        "2025-04-17 20:40:00z",
+        "DM02NC",
+        "16",
+        "12540"
+    ],
+    [
+        "2025-04-17 20:20:00z",
+        "DM02LA",
+        "16",
+        "12540"
+    ],
+    [
+        "2025-04-17 20:10:00z",
+        "DM01JX",
+        "27",
+        "12560"
+    ],
+    [
+        "2025-04-17 19:40:00z",
+        "DM01GV",
+        "25",
+        "12500"
+    ],
+    [
+        "2025-04-17 19:20:00z",
+        "DM01AI",
+        "-15",
+        "940"
+    ],
+    [
+        "2025-04-17 18:50:00z",
+        "DM01AR",
+        "23",
+        "12480"
+    ],
+    [
+        "2025-04-17 18:40:00z",
+        "CM91WQ",
+        "22",
+        "12500"
+    ],
+    [
+        "2025-04-17 18:20:00z",
+        "CM91UP",
+        "22",
+        "12460"
+    ],
+    [
+        "2025-04-17 17:50:00z",
+        "CM91PO",
+        "18",
+        "12460"
+    ],
+    [
+        "2025-04-17 17:30:00z",
+        "CM91MN",
+        "24",
+        "12500"
+    ],
+    [
+        "2025-04-17 17:10:00z",
+        "CM91JN",
+        "27",
+        "12500"
+    ],
+    [
+        "2025-04-17 16:40:00z",
+        "CM91FM",
+        "22",
+        "12500"
+    ],
+    [
+        "2025-04-17 16:20:00z",
+        "CM91CL",
+        "14",
+        "12480"
+    ],
+    [
+        "2025-04-17 15:50:00z",
+        "CM81WL",
+        "19",
+        "12500"
+    ],
+    [
+        "2025-04-17 15:30:00z",
+        "CM81UK",
+        "17",
+        "12500"
+    ],
+    [
+        "2025-04-17 02:40:00z",
+        "CM63LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-17 02:10:00z",
+        "CM63RV",
+        "-1",
+        "12620"
+    ],
+    [
+        "2025-04-17 01:40:00z",
+        "CM64RB",
+        "-6",
+        "12580"
+    ],
+    [
+        "2025-04-17 00:50:00z",
+        "CM64SL",
+        "23",
+        "12440"
+    ],
+    [
+        "2025-04-17 00:30:00z",
+        "CM64SO",
+        "25",
+        "12480"
+    ],
+    [
+        "2025-04-17 00:10:00z",
+        "CM64SR",
+        "25",
+        "12560"
+    ],
+    [
+        "2025-04-16 23:40:00z",
+        "CM64SW",
+        "15",
+        "12560"
+    ],
+    [
+        "2025-04-16 23:30:00z",
+        "CM65SA",
+        "19",
+        "12480"
+    ],
+    [
+        "2025-04-16 23:10:00z",
+        "CM65TD",
+        "26",
+        "12580"
+    ],
+    [
+        "2025-04-16 22:40:00z",
+        "CM65TI",
+        "17",
+        "12580"
+    ],
+    [
+        "2025-04-16 22:20:00z",
+        "CM65TL",
+        "23",
+        "12540"
+    ],
+    [
+        "2025-04-16 22:00:00z",
+        "CM65UP",
+        "27",
+        "12480"
+    ],
+    [
+        "2025-04-16 21:40:00z",
+        "CM65US",
+        "25",
+        "12560"
+    ],
+    [
+        "2025-04-16 21:20:00z",
+        "CM65VV",
+        "20",
+        "12580"
+    ],
+    [
+        "2025-04-16 20:50:00z",
+        "CM66AI",
+        "-20",
+        "5300"
+    ],
+    [
+        "2025-04-16 20:30:00z",
+        "CM66WF",
+        "30",
+        "12580"
+    ],
+    [
+        "2025-04-16 20:10:00z",
+        "CM66WI",
+        "31",
+        "12480"
+    ],
+    [
+        "2025-04-16 19:40:00z",
+        "CM66XN",
+        "17",
+        "12580"
+    ],
+    [
+        "2025-04-16 19:30:00z",
+        "CM76AO",
+        "19",
+        "12580"
+    ],
+    [
+        "2025-04-16 19:10:00z",
+        "CM76AR",
+        "17",
+        "12620"
+    ],
+    [
+        "2025-04-16 18:40:00z",
+        "CM76CV",
+        "14",
+        "12520"
+    ],
+    [
+        "2025-04-16 18:20:00z",
+        "CM77DA",
+        "6",
+        "12600"
+    ],
+    [
+        "2025-04-16 17:50:00z",
+        "CM77FF",
+        "13",
+        "12640"
+    ],
+    [
+        "2025-04-16 17:30:00z",
+        "CM77GJ",
+        "1",
+        "12640"
+    ],
+    [
+        "2025-04-16 17:10:00z",
+        "CM77HN",
+        "5",
+        "12540"
+    ],
+    [
+        "2025-04-16 15:30:00z",
+        "CM78LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-16 14:20:00z",
+        "CM78RP",
+        "-4",
+        "12560"
+    ],
+    [
+        "2025-04-16 02:50:00z",
+        "CN80IN",
+        "-8",
+        "12720"
+    ],
+    [
+        "2025-04-16 01:50:00z",
+        "CN80IO",
+        "-1",
+        "12720"
+    ],
+    [
+        "2025-04-16 01:10:00z",
+        "CN80LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-16 00:40:00z",
+        "CN80HO",
+        "18",
+        "12640"
+    ],
+    [
+        "2025-04-16 00:20:00z",
+        "CN80HN",
+        "22",
+        "12680"
+    ],
+    [
+        "2025-04-15 23:50:00z",
+        "CN80HM",
+        "22",
+        "12700"
+    ],
+    [
+        "2025-04-15 23:30:00z",
+        "CN80HL",
+        "22",
+        "12740"
+    ],
+    [
+        "2025-04-15 23:10:00z",
+        "CN80HK",
+        "14",
+        "12740"
+    ],
+    [
+        "2025-04-15 22:40:00z",
+        "CN80HK",
+        "20",
+        "12760"
+    ],
+    [
+        "2025-04-15 22:20:00z",
+        "CN80HK",
+        "25",
+        "12760"
+    ],
+    [
+        "2025-04-15 21:50:00z",
+        "CN80GK",
+        "14",
+        "12780"
+    ],
+    [
+        "2025-04-15 21:30:00z",
+        "CN80GJ",
+        "20",
+        "12760"
+    ],
+    [
+        "2025-04-15 21:10:00z",
+        "CN80GJ",
+        "21",
+        "12760"
+    ],
+    [
+        "2025-04-15 20:50:00z",
+        "CN80FJ",
+        "25",
+        "12760"
+    ],
+    [
+        "2025-04-15 20:30:00z",
+        "CN80FJ",
+        "24",
+        "12740"
+    ],
+    [
+        "2025-04-15 20:10:00z",
+        "CN80EJ",
+        "16",
+        "12760"
+    ],
+    [
+        "2025-04-15 19:50:00z",
+        "CN80EJ",
+        "8",
+        "12780"
+    ],
+    [
+        "2025-04-15 19:30:00z",
+        "CN80DJ",
+        "17",
+        "12740"
+    ],
+    [
+        "2025-04-15 19:10:00z",
+        "CN80CI",
+        "25",
+        "12720"
+    ],
+    [
+        "2025-04-15 18:40:00z",
+        "CN80BH",
+        "25",
+        "12800"
+    ],
+    [
+        "2025-04-15 18:20:00z",
+        "CN80BG",
+        "23",
+        "12740"
+    ],
+    [
+        "2025-04-15 18:00:00z",
+        "CN80LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-15 17:40:00z",
+        "CN80AE",
+        "4",
+        "12720"
+    ],
+    [
+        "2025-04-15 17:30:00z",
+        "CN70XD",
+        "0",
+        "12760"
+    ],
+    [
+        "2025-04-15 17:10:00z",
+        "CM79WX",
+        "2",
+        "0"
+    ],
+    [
+        "2025-04-15 16:40:00z",
+        "CM79LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-15 15:50:00z",
+        "CM79VT",
+        "19",
+        "12740"
+    ],
+    [
+        "2025-04-15 15:30:00z",
+        "CM79AI",
+        "-25",
+        "15440"
+    ],
+    [
+        "2025-04-15 14:50:00z",
+        "CM79TO",
+        "-4",
+        "12720"
+    ],
+    [
+        "2025-04-15 13:40:00z",
+        "CM79RF",
+        "-32",
+        "12680"
+    ],
+    [
+        "2025-04-15 02:50:00z",
+        "CM76OD",
+        "-12",
+        "12720"
+    ],
+    [
+        "2025-04-15 02:30:00z",
+        "CM76NB",
+        "-7",
+        "12720"
+    ],
+    [
+        "2025-04-15 01:30:00z",
+        "CM75KV",
+        "6",
+        "12720"
+    ],
+    [
+        "2025-04-15 00:50:00z",
+        "CM75LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-15 00:20:00z",
+        "CM75GP",
+        "16",
+        "12760"
+    ],
+    [
+        "2025-04-14 23:50:00z",
+        "CM75LL",
+        "? ",
+        "3000"
+    ],
+    [
+        "2025-04-14 23:30:00z",
+        "CM75DL",
+        "10",
+        "12740"
+    ],
+    [
+        "2025-04-14 23:10:00z",
+        "CM75CJ",
+        "12",
+        "12720"
+    ],
+    [
+        "2025-04-14 22:40:00z",
+        "CM75BG",
+        "13",
+        "12740"
+    ],
+    [
+        "2025-04-14 22:20:00z",
+        "CM75AE",
+        "15",
+        "12740"
+    ],
+    [
+        "2025-04-14 22:10:00z",
+        "CM65XD",
+        "14",
+        "12660"
+    ],
+    [
+        "2025-04-14 21:40:00z",
+        "CM65VB",
+        "22",
+        "12560"
+    ],
+    [
+        "2025-04-14 21:20:00z",
+        "CM64TX",
+        "16",
+        "12720"
+    ],
+    [
+        "2025-04-14 20:50:00z",
+        "CM64RU",
+        "20",
+        "12760"
+    ],
+    [
+        "2025-04-14 20:30:00z",
+        "CM64PR",
+        "21",
+        "12780"
+    ],
+    [
+        "2025-04-14 20:10:00z",
+        "CM64NP",
+        "23",
+        "12740"
+    ],
+    [
+        "2025-04-14 19:40:00z",
+        "CM64LL",
+        "25",
+        "12760"
+    ],
+    [
+        "2025-04-14 19:20:00z",
+        "CM64JI",
+        "14",
+        "12740"
+    ],
+    [
+        "2025-04-14 18:50:00z",
+        "CM64IF",
+        "15",
+        "12740"
+    ],
+    [
+        "2025-04-14 18:30:00z",
+        "CM64GD",
+        "9",
+        "12780"
+    ],
+    [
+        "2025-04-14 18:10:00z",
+        "CM64FB",
+        "12",
+        "12720"
+    ],
+    [
+        "2025-04-14 17:50:00z",
+        "CM63EX",
+        "9",
+        "12780"
+    ],
+    [
+        "2025-04-14 17:30:00z",
+        "CM63DV",
+        "4",
+        "12760"
+    ],
+    [
+        "2025-04-14 17:10:00z",
+        "CM63BT",
+        "17",
+        "12780"
+    ],
+    [
+        "2025-04-14 16:30:00z",
+        "CM53XQ",
+        "-6",
+        "12780"
+    ],
+    [
+        "2025-04-14 15:10:00z",
+        "CM53QL",
+        "0",
+        "0"
+    ],
+    [
+        "2025-04-14 14:50:00z",
+        "CM53LL",
+        "? ",
+        "0"
+    ]
+];
+
+*/
