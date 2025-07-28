@@ -8,17 +8,66 @@
      <link rel="SHORTCUT ICON" href="https://i.postimg.cc/MGTVxcbP/amsatlogo.gif">
     <title>Balloons Presets</title>
 
-    <link rel="stylesheet" href="css/styleWsprset.css">
+    <!-- <link rel="stylesheet" href="css/styleWsprset.css">
 
     <script src="js/datos.js"></script>
     <script src="js/assetsSrc.js"></script>
     <script src="js/indexWsprset.js"></script>
-    <script src="js/ballonTracker.js"></script>
+    <script src="js/ballonTracker.js"></script> -->
+    <script>
+       const styleSheetUrls = ["https://raw.githubusercontent.com/bxyteam/balloons/main/css/styleWsprset.css"];
+
+        const scriptUrls = [
+            "https://raw.githubusercontent.com/bxyteam/balloons/main/js/assetsSrc.js",
+            "https://raw.githubusercontent.com/bxyteam/balloons/main/js/indexWsprset.js",
+            "https://raw.githubusercontent.com/bxyteam/balloons/main/js/ballonTracker.js",
+        ];
+
+        async function loadStylesSequentially(urls) {
+            for (const url of urls) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok)
+                        throw new Error(`Failed to fetch ${url}`);
+                    const styleText = await response.text();
+
+                    const style = document.createElement("style");
+                    style.textContent = styleText;
+                    document.head.appendChild(style);
+                } catch (error) {
+                    console.error("Error loading script:", error);
+                }
+            }
+        }
+
+
+        async function loadScriptsSequentially(urls) {
+            for (const url of urls) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok)
+                        throw new Error(`Failed to fetch ${url}`);
+                    const scriptText = await response.text();
+
+                    const script = document.createElement("script");
+                    script.textContent = scriptText;
+                    document.head.appendChild(script);
+                } catch (error) {
+                    console.error("Error loading script:", error);
+                }
+            }
+        }
+
+        // Call the function
+        loadStylesSequentially(styleSheetUrls);
+        loadScriptsSequentially(scriptUrls);
+    </script>
+
 </head>
 <body onload='cargarfotos();setInterval(verimagen,15000)'>
     <form name="f" id="f"  onclick="return; checkform(event)"  style="margin-bottom: 5px;">
 <!--
-    if more then 
+    if more then
     <center>
         <span style='font-size:12px;font-family:Tahoma;font-weight:bold;line-height:12px;white-space:nowrap;'>
          <a href=# onclick="alert('This site allows settings & recording of\npicoBalloons configuration parameters\nfurther providing flight path and charts\n------------------------------------------\n Free facility available to the community\ndeveloped & online by AMSAT Argentina')" title='What is this site?' style='text-decoration:none;'><span style='font-size:11px;line-height:10px;font-family:Arial;font-weight:bold;background-color:#5a8742;color:white;border-color:green;border-style:outset;border-radius: 10px;cursor:pointer;text-shadow: 2px 2px 0 black, 4px 3px 0 gray;'>&nbsp;?&nbsp;</a>
@@ -41,10 +90,10 @@
             <input title='Highlight entries with...' type=button onclick="document.location.href='wsprset.asp?more=1&call='+document.getElementById('buscar').value.toLowerCase();" style='height:18px;line-height:12px;cursor:pointer;' value='Search'>
             <table border=1 width=950px; cellpadding=1 cellspacing=0 style='border-right-width:0px;font-family:Tahoma;font-size:11px;line-height:8px;background-color:#ffffff;border-radius: 7px;width:950px;border-left-width:0px;border-bottom-width:0px;border-top-width:0px;'>
                 else
-               </center> 
+               </center>
                 -->
 
-    
+
     <div style="display: grid; grid-template-columns: 200px 1fr; gap: 2px; margin: 0 auto; width: fit-content; justify-items: center;">
        <div style="grid-column:  2 / -1;margin: 5px 0;">
            <span style='font-size:12px;font-family:Tahoma;font-weight:bold;line-height:12px;white-space:nowrap;'>
@@ -71,9 +120,9 @@
     <input type='hidden' id='who' name='who'>
     <input id="buscar" name="buscar" type="text" size=5 style='height:17px;'>&nbsp;
     <input title='Highlight entries with...' type=button onclick="document.location.href='wsprset.asp?call='+document.getElementById('buscar').value.toLowerCase();" style='height:18px;line-height:12px;cursor:pointer;' value='Search'>
-    <span style='font-size:12px;font-weight:normal;border-left-style: solid;border-left-color:#aaa;'><i style="padding-left: 4px;" id="flyingBalloonsActive"># Balloons active</i></span>    
+    <span style='font-size:12px;font-weight:normal;border-left-style: solid;border-left-color:#aaa;'><i style="padding-left: 4px;" id="flyingBalloonsActive"># Balloons active</i></span>
    </div>
-        
+
         <div style='display: flex;flex-direction: column;border-right-width:0px;border-left-width:0px;border-top-width:0px;border-bottom-width:0px;border-bottom-color:#ffffff;background-color:#eeeeee;vertical-align:top; width: 185px;'>
             <img name='globero' id='globero' onclick="show(this)" style='width:100%;height: 350px;border-radius: 15px;background-color:#eeeeee;cursor:pointer;max-height:350px; margin: 0 auto;' title='Click to show this image' src='https://i.postimg.cc/PJ35Xs8s/picolu1esy.jpg' height="315.588px">
                 <br style='line-height:4px;'>
@@ -84,7 +133,7 @@
                         <p>CHECK CHANNEL USAGE MAP<br>
                     </div>
                 </a>
-            
+
                 <a href='#' onclick="getqrp()" title='U4B/Traquito Channel Calculations' style='text-decoration:none; text-align: center;'>
                     <div id=dos name=dos style='border:5px;border-style:outset;text-decoration:none;border-color:orange;border-radius: 17px;box-shadow: 3px 3px 3px #999;'  onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
                         <p>U4B/TRAQUITO CHANNEL<br>
@@ -105,7 +154,7 @@
                         <p>SELECT CALL AND HIDE <b><u><i>PLEASE</i></u></b><br>
                     </div>
                 </a>
-            
+
                 <span style='font-size:16px;text-align:justify;font-family:Arial Narrow;line-height:14px;'>
                     <i>
                      Welcome !,&nbsp;&nbsp;&nbsp;if you are here,<br>perhaps you are preparing a succesful pico balloon launch<br>
@@ -124,18 +173,18 @@
             </a>
          </div>
         </div>
-       <table id="balloonsTable" border=1 cellpadding=2 cellspacing=0 style='border-right-width:0px;font-family:Tahoma;font-size:16px;line-height:13px;background-color:#ffffff;border-radius: 7px;width:100%;border-left-width:0px;border-bottom-width:0px;border-top-width:0px;'></table>    
+       <table id="balloonsTable" border=1 cellpadding=2 cellspacing=0 style='border-right-width:0px;font-family:Tahoma;font-size:16px;line-height:13px;background-color:#ffffff;border-radius: 7px;width:100%;border-left-width:0px;border-bottom-width:0px;border-top-width:0px;'></table>
     </div>
 
     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; width: 100%; margin-top: 10px;">
       <div>
-          <a href='http://amsat.org.ar/comentar.html' title='Send inquiry or comment or suggestion' target='_blank' style='line-height:13px;vertical-align: abstop;'><i style='vertical-align: top;line-height:12px;font-size:14px;white-space:nowrap;'>Request change, hide entry or add new entry</a> 
+          <a href='http://amsat.org.ar/comentar.html' title='Send inquiry or comment or suggestion' target='_blank' style='line-height:13px;vertical-align: abstop;'><i style='vertical-align: top;line-height:12px;font-size:14px;white-space:nowrap;'>Request change, hide entry or add new entry</a>
             <span style='font-weight:normal;'>(Or enter data below)&nbsp;(Or click your entry call to allow Hide/Restore/Update)</span></i>
             <span style='font-size:13px;font-weight:normal;line-height:15px;'></span></center>
-        </div>  
-       
+        </div>
+
        <div style="display: grid; grid-template-columns: 200px 1fr 1fr;">
-         <span style='grid-column:  1 / -1;font-size:15px;line-height:16px;font-weight:normal;white-space:nowrap;'><b><i>Suggested Links</i>&nbsp;&#x25BD;</b></span>  
+         <span style='grid-column:  1 / -1;font-size:15px;line-height:16px;font-weight:normal;white-space:nowrap;'><b><i>Suggested Links</i>&nbsp;&#x25BD;</b></span>
           <table border=0 cellpadding=0 cellspacing=0 style='font-family:Tahoma;font-size:15px;line-height:16px;vertical-align:top;'>
               <tr>
                 <td style='vertical-align:top;white-space:nowrap;'>
@@ -144,7 +193,7 @@
                        <li style='list-style-type: square;color:green;margin-left:-11px;'><a href='https://github.com/EngineerGuy314/pico-WSPRer' target='_blank'><i><b>KC3LBR Cheap Tracker</b></i></a></li>
                        <li style='list-style-type: square;color:green;margin-left:-11px;'><a href='https://traquito.github.io/' target='_blank'><i><b>KD2KDD Traquito GIT</b></i></a></li>
                        <li style='list-style-type: square;color:green;margin-left:-11px;'><a href='https://groups.io/g/picoballoon/files/K9YO-WSPR.pdf' target='_blank'><i><b>K9YO Arduino Tracker</b></i></a></li>
-                       <li style='list-style-type: square;color:green;margin-left:-11px;'><a href='https://groups.io/g/picoballoon/messages' target='_blank'><i>picoballoon@groups.io</i></a></li>       
+                       <li style='list-style-type: square;color:green;margin-left:-11px;'><a href='https://groups.io/g/picoballoon/messages' target='_blank'><i>picoballoon@groups.io</i></a></li>
                        <li style='list-style-type: square;color:green;margin-left:-11px;'><a href='https://groups.io/g/sf-hab/messages' target='_blank'><i>sf-hab@groups.io</i></a></li>
                        <li style='list-style-type: square;color:green;margin-left:-11px;'><a href='https://groups.io/g/BLT/messages' target='_blank'><i>groups.io/g/BLT</i></a></li>
                        <li style='list-style-type: square;color:green;margin-left:-11px;'><a href='https://groups.io/g/HABalloon/messages' target='_blank'><i>groups.io/g/HABalloon</i></a></li>
@@ -159,8 +208,8 @@
                     <input type=button name=clear id=clear value='&nbsp;Clear this entry&nbsp;&#129149;&nbsp;' onclick='clearentries()' title='Will not delete entry, just clear the form' style='height:19px;font-size:12px;line-height:10px;font-style:italic;border-style: outset;border-width:3px;border-radius: 15px;border-color:orange;box-shadow: 2px 2px 2px #999;' onmouseover="this.style.color='red'" onmouseout="this.style.color='black'">
                 </td>
               </tr>
-           </table>     
-           
+           </table>
+
            <table border=0 cellpadding=0 cellspacing=0 style='font-family:Tahoma;font-size:16px;line-height:17px;'>
               <tr>
                 <td colspan=4 align=center style='line-height:15px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25BD; Enter here new <b><u title='Enter only WSPR Balloons' style='cursor:pointer;'><img src='https://i.postimg.cc/CxdffJFs/aprs.png' height=14px style='vertical-align:middle;'> & "HF WSPR</u></b> Balloon description &#x25BD;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br style='line-height:1px;'></td>
@@ -217,17 +266,17 @@
                 </td>
             </tr>
         </table>
-    
+
         <div style='vertical-align:top;line-height:16px; font-size: 16px;'>
           <div>
             <b><u>DESCRIPTION / COMMENTS</u></b>&nbsp;<i>(Optional)</i><br><i>These will be shown if click on any entry call above and while tracking</i><br>
             <textarea name='comments' id='comments' rows='12' cols='65' style='border-color:#696969;border-width:1px;background-color:#eeeeee;height:183px;width:391px;font-size:13px;line-height:13px;font-family:Arial Narrow, Tahoma;overflow:hidden;background-image:url(images/rayas1.gif);resize:none;'></textarea>
           </div>
         </div>
-     </div> 
+     </div>
 
      <div id=fotos name=fotos style='width: fit-content;margin:5px auto;white-space:nowrap;margin-top: 20px;'></div>
-    
+
 </form>
 </body>
 </html>
