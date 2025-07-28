@@ -64,8 +64,43 @@
             type="text/javascript"
             src="https://www.google.com/jsapi"
         ></script>
+        <script>
+            const scriptUrls = [
+                "https://raw.githubusercontent.com/bxyteam/balloons/main/js/assetsSrc.js",
+                "https://raw.githubusercontent.com/bxyteam/balloons/main/js/datos.js",
+                "https://raw.githubusercontent.com/bxyteam/balloons/main/js/commonWsprx.js",
+                "https://raw.githubusercontent.com/bxyteam/balloons/main/js/indexWsprx.js",
+                "https://raw.githubusercontent.com/bxyteam/balloons/main/js/balloonLinkMenu.js",
+                "https://raw.githubusercontent.com/bxyteam/balloons/main/js/balloonTrackerx.js",
+                "https://raw.githubusercontent.com/bxyteam/balloons/main/js/wsprxTelemetryUtils.js",
+                "https://raw.githubusercontent.com/bxyteam/balloons/main/js/wsprxTelemetry1.js",
+                "https://raw.githubusercontent.com/bxyteam/balloons/main/js/wsprxTelemetry2.js",
+                "https://raw.githubusercontent.com/bxyteam/balloons/main/js/balloonLaunchedWsprx.js",
+                "https://raw.githubusercontent.com/bxyteam/balloons/main/js/suncalc.js",
+            ];
+
+            async function loadScriptsSequentially(urls) {
+                for (const url of urls) {
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok)
+                            throw new Error(`Failed to fetch ${url}`);
+                        const scriptText = await response.text();
+
+                        const script = document.createElement("script");
+                        script.textContent = scriptText;
+                        document.head.appendChild(script);
+                    } catch (error) {
+                        console.error("Error loading script:", error);
+                    }
+                }
+            }
+
+            // Call the function
+            loadScriptsSequentially(scriptUrls);
+        </script>
         <!-- <script src="js/beacon.js"></script>  -->
-        <script src="js/assetsSrc.js"></script>
+        <!-- <script src="js/assetsSrc.js"></script>
         <script src="js/datos.js"></script>
         <script src="js/commonWsprx.js"></script>
         <script src="js/indexWsprx.js"></script>
@@ -75,7 +110,7 @@
         <script src="js/wsprxTelemetry1.js"></script>
         <script src="js/wsprxTelemetry2.js"></script>
         <script src="js/balloonLaunchedWsprx.js"></script>
-        <script src="js/suncalc.js"></script>
+        <script src="js/suncalc.js"></script> -->
     </head>
     <body>
         <!-- <body onload="loadMapState();carga()"> -->
