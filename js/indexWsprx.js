@@ -17,6 +17,10 @@ var velest;
 var meterfeet = 0;
 var prevaltutext;
 
+var diaslaunch = Math.floor(
+  (new Date() - new Date(window.getLaunchDate())) / (1000 * 60 * 60 * 24),
+);
+
 function handleErr(msg, url, l) {
   txt = "There was an error on this page.\n\n";
   txt += "Error: " + msg + "\n";
@@ -3368,7 +3372,7 @@ function drawKm() {
         .innerHTML.replace(/&nbsp;/g, "")
         .replace(/z/, "") +
       " UTC, " +
-      "<%=diaslaunch%>" +
+      diaslaunch +
       " days ago. Last received on: " +
       beacon1[0][0].replace(/z/, " ").substring(0, 16) +
       "z" +
@@ -3479,7 +3483,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
@@ -3516,7 +3520,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
@@ -3566,7 +3570,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
@@ -3615,7 +3619,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
@@ -3656,7 +3660,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
@@ -3704,7 +3708,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
@@ -3739,7 +3743,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
@@ -3787,7 +3791,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
@@ -3838,7 +3842,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
@@ -3888,7 +3892,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
@@ -3929,7 +3933,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z (click DX)" +
@@ -3990,7 +3994,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
@@ -4033,7 +4037,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
@@ -4085,7 +4089,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
@@ -4135,7 +4139,7 @@ function drawChart(meterfeet) {
           .innerHTML.replace(/&nbsp;/g, "")
           .replace(/z/, "") +
         " UTC, " +
-        "<%=diaslaunch%>" +
+        diaslaunch +
         " days ago. Last received on: " +
         beacon1[0][0].replace(/z/, " ").substring(0, 16) +
         "z" +
