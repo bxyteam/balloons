@@ -306,17 +306,17 @@ class BalloonDataTable {
          <td align="center" width="100px;" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;border-left-width:0px;width:100px;${foundCall ? "background-color:orange;" : ""}">
            <a href="${balloon.url}" target="_blank'" title="Go Track ${balloon.other} !">${balloon.other.toUpperCase()}</a>
          </td>
-         <td onclick="showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.other}-${balloon.SSID}</td>
-         <td onclick="showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.banda}</td>
-         <td onclick="showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.balloonid}</td>
-         <td onclick="showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.timeslot}</td>
-         <td onclick="showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">
+         <td onclick="event.preventDefault(); showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.other}-${balloon.SSID}</td>
+         <td onclick="event.preventDefault(); showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.banda}</td>
+         <td onclick="event.preventDefault(); showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.balloonid}</td>
+         <td onclick="event.preventDefault(); showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.timeslot}</td>
+         <td onclick="event.preventDefault(); showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">
            <span title="upload to aprs.fi">${balloon.telen && balloon.telen === "on" ? "#" : ""} ${balloon.detail && balloon.detail === "on" ? "on" : ""} ◬</span>
         </td>
         <td align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;" title="YYYYMMDDHHMMSS (z)">${this.formatDate(balloon.launch)}</td>
-        <td onclick="showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.SSID}</td>
-        <td onclick="showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.tracker}</td>
-        <td onclick="showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.qrpid}</td>
+        <td onclick="event.preventDefault(); showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.SSID}</td>
+        <td onclick="event.preventDefault(); showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.tracker}</td>
+        <td onclick="event.preventDefault(); showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.qrpid}</td>
         ${freqCell}
         <td align="center">
           <b>${daysSinceLaunch}</b>
@@ -355,7 +355,7 @@ class BalloonDataTable {
 }
 
 const loadBalloonApp = async () => {
-  window.dataTracker = await loadDataTrackerjson();
+  // window.dataTracker = await loadDataTrackerjson();
   window.bj = JSON.parse(dataTracker.jsonArray);
   const bdt = new BalloonDataTable(dataTracker.balloons);
   bdt.buildTableTemplate();
