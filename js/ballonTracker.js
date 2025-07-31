@@ -13,7 +13,7 @@ class BalloonDataTable {
       "10m": 28,
       "6m": 50,
       "4m": 70,
-      "2m": 144
+      "2m": 144,
     });
     this.flying = 0;
     this.balloons = balloons;
@@ -22,11 +22,11 @@ class BalloonDataTable {
   htmlEncode(str) {
     return str.replace(/[&<>"']/g, function (match) {
       const escapeMap = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;'
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
       };
       return escapeMap[match];
     });
@@ -61,20 +61,33 @@ class BalloonDataTable {
   }
 
   getLastContactTime(entry, daysSinceLaunch) {
-
-    const cally = entry.other || '';
-    const bandas = entry.banda || '';
+    const cally = entry.other || "";
+    const bandas = entry.banda || "";
     //const ssidx = entry.SSID || '';
     for (let x = 0; x < dataTracker.licenseData.length; x++) {
       const licekEntry = dataTracker.licenseData[x];
-      if (licekEntry.callSign === cally.toUpperCase() &&
-        parseInt(licekEntry.frequency) === this.FREQUENCY_MAP[bandas]) {
+      if (
+        licekEntry.callSign === cally.toUpperCase() &&
+        parseInt(licekEntry.frequency) === this.FREQUENCY_MAP[bandas]
+      ) {
         if (Math.abs(licekEntry.hoursDiff) > 120) {
-          return { lastContactTime: Math.round(Math.abs(licekEntry.hoursDiff) / 24), lastHeardText: "days", ponerAsterisco: true };
+          return {
+            lastContactTime: Math.round(Math.abs(licekEntry.hoursDiff) / 24),
+            lastHeardText: "days",
+            ponerAsterisco: true,
+          };
         } else if (daysSinceLaunch > 30) {
-          return { lastContactTime: Math.abs(licekEntry.hoursDiff), lastHeardText: "", ponerAsterisco: true };
+          return {
+            lastContactTime: Math.abs(licekEntry.hoursDiff),
+            lastHeardText: "",
+            ponerAsterisco: true,
+          };
         } else {
-          return { lastContactTime: Math.abs(licekEntry.hoursDiff), lastHeardText: "", ponerAsterisco: true };
+          return {
+            lastContactTime: Math.abs(licekEntry.hoursDiff),
+            lastHeardText: "",
+            ponerAsterisco: true,
+          };
         }
       }
     }
@@ -84,8 +97,7 @@ class BalloonDataTable {
   getContactStyle(ultimo) {
     let ponecolor = "";
 
-    if (typeof ultimo === 'number') {
-
+    if (typeof ultimo === "number") {
       if (ultimo < 13) {
         this.flying++;
       }
@@ -97,38 +109,69 @@ class BalloonDataTable {
       }
 
       if (ultimo > 240) {
-        ponecolor = "background-color:#ffaaaa;font-weight:normal;font-style:italic;white-space:nowrap;";
+        ponecolor =
+          "background-color:#ffaaaa;font-weight:normal;font-style:italic;white-space:nowrap;";
       } else if (ultimo > 24 && ultimo < 240) {
-        ponecolor = "background-color:#ffff33;font-weight:normal;font-style:italic;white-space:nowrap;";
+        ponecolor =
+          "background-color:#ffff33;font-weight:normal;font-style:italic;white-space:nowrap;";
       }
     } else {
-      ponecolor = "background-color:#ffaaaa;font-weight:normal;font-style:italic;white-space:nowrap;";
+      ponecolor =
+        "background-color:#ffaaaa;font-weight:normal;font-style:italic;white-space:nowrap;";
     }
     return ponecolor;
   }
   calcfreq(band, qrpn) {
     let ffb = 0;
     let ffd = 0;
-    let c1, c2, c3, fd = 0;
+    let c1,
+      c2,
+      c3,
+      fd = 0;
 
     switch (band.toLowerCase()) {
-      case "160m": ffb = 1838000; break;
-      case "80m": ffb = 3569000; break;
-      case "40m": ffb = 7040000; break;
-      case "30m": ffb = 10140100; break;
-      case "22m": ffb = 13553300; break;
-      case "20m": ffb = 14097000; break;
-      case "17m": ffb = 18106000; break;
-      case "15m": ffb = 21096000; break;
-      case "12m": ffb = 24926000; break;
-      case "10m": ffb = 28126000; break;
-      case "6m": ffb = 50294000; break;
-      case "2m": ffb = 144490400; break;
-      default: ffb = 14097000; break;
+      case "160m":
+        ffb = 1838000;
+        break;
+      case "80m":
+        ffb = 3569000;
+        break;
+      case "40m":
+        ffb = 7040000;
+        break;
+      case "30m":
+        ffb = 10140100;
+        break;
+      case "22m":
+        ffb = 13553300;
+        break;
+      case "20m":
+        ffb = 14097000;
+        break;
+      case "17m":
+        ffb = 18106000;
+        break;
+      case "15m":
+        ffb = 21096000;
+        break;
+      case "12m":
+        ffb = 24926000;
+        break;
+      case "10m":
+        ffb = 28126000;
+        break;
+      case "6m":
+        ffb = 50294000;
+        break;
+      case "2m":
+        ffb = 144490400;
+        break;
+      default:
+        ffb = 14097000;
+        break;
     }
 
     if (qrpn !== null && qrpn !== undefined && qrpn.toString() !== "") {
-
       const qrp = parseInt(qrpn);
 
       if (qrp < 200) c1 = "0";
@@ -162,14 +205,14 @@ class BalloonDataTable {
       ffd = 100;
     }
 
-    let result = (ffb + ffd);
+    let result = ffb + ffd;
 
-
-    return band.toLowerCase() !== "all" ? result : result + "<span title='more bands'>&#x2295;</span>";
+    return band.toLowerCase() !== "all"
+      ? result
+      : result + "<span title='more bands'>&#x2295;</span>";
   }
 
   getFreqCell(balloon) {
-
     let uno = balloon.banda || "";
     let dos = balloon.qrpid !== " " ? balloon.qrpid : "";
 
@@ -181,7 +224,6 @@ class BalloonDataTable {
   }
 
   foundCallSignInSearchParams(balloon) {
-
     if (!balloon.other || balloon.other === "") {
       return false;
     }
@@ -189,27 +231,29 @@ class BalloonDataTable {
     const queryString = window.location.search;
 
     const urlParams = new URLSearchParams(queryString);
-    const callParam = urlParams.get('call');
+    const callParam = urlParams.get("call");
 
     if (!callParam) {
       return false;
     }
 
     return callParam.toUpperCase() === balloon.other.toUpperCase();
-
   }
 
   replaceText(str, searchText, replaceWith) {
-    if (!str) return '';
-    return str.toString().replace(new RegExp(searchText, 'g'), replaceWith);
+    if (!str) return "";
+    return str.toString().replace(new RegExp(searchText, "g"), replaceWith);
   }
 
   getAdicionalInfo(balloon) {
-
-    let adicio = this.replaceText(balloon.repito, "on", "") + this.replaceText(balloon.qp, "on", "");
+    let adicio =
+      this.replaceText(balloon.repito, "on", "") +
+      this.replaceText(balloon.qp, "on", "");
 
     if (adicio === "wide=" || adicio === "wide=on") {
-      adicio = this.replaceText(balloon.repito, "on", "") + this.replaceText(balloon.telen, "on", "");
+      adicio =
+        this.replaceText(balloon.repito, "on", "") +
+        this.replaceText(balloon.telen, "on", "");
     }
 
     if (adicio === "") {
@@ -220,35 +264,44 @@ class BalloonDataTable {
   }
 
   getFrequencyParams(balloon, index) {
-    //on + banda, qrpid, other, SSID, qp, launch, tracker, detail, balloonid, timeslot, # index, qp  
+    //on + banda, qrpid, other, SSID, qp, launch, tracker, detail, balloonid, timeslot, # index, qp
     const detail = `detail=${balloon.detail}`;
 
-    return [`on ${balloon.banda}`,
-    `${balloon.qrpid}`,
-    `${balloon.other}`,
-    `${balloon.SSID}`,
-    `qp=${balloon.qp}`,
-    `launch=${balloon.launch}`,
-    `tracker=${balloon.tracker}`,
-    `${detail}`,
-    `balloonid=${balloon.balloonid}`,
-    `timeslot=${balloon.timeslot}`,
-    `${index}`,
-    `qp=${balloon.qp}`].reduce((acc, t) => (`${acc}, '${t}'`), '').slice(2);
+    return [
+      `on ${balloon.banda}`,
+      `${balloon.qrpid}`,
+      `${balloon.other}`,
+      `${balloon.SSID}`,
+      `qp=${balloon.qp}`,
+      `launch=${balloon.launch}`,
+      `tracker=${balloon.tracker}`,
+      `${detail}`,
+      `balloonid=${balloon.balloonid}`,
+      `timeslot=${balloon.timeslot}`,
+      `${index}`,
+      `qp=${balloon.qp}`,
+    ]
+      .reduce((acc, t) => `${acc}, '${t}'`, "")
+      .slice(2);
   }
 
   getRowsTemplate() {
-    return this.balloons.map((balloon, index) => {
-      const daysSinceLaunch = this.getDaysSinceLaunch(balloon.launch);
-      const { lastContactTime, lastHeardText, ponerAsterisco } = this.getLastContactTime(balloon, daysSinceLaunch);
-      const contactStyle = this.getContactStyle(lastContactTime, lastHeardText);
-      const freqCell = this.getFreqCell(balloon);
-      const foundCall = this.foundCallSignInSearchParams(balloon);
-      const adicionalInfo = this.getAdicionalInfo(balloon);
-      const freqParams = this.getFrequencyParams(balloon, index);
-      //'on 20m','346','AB9LM','11','qp=','2024020600:00:00','qrplabs',' &lt;span title='Upload to aprs.fi'&gt;◬&lt;/u&gt;','17','2','0','qp='
-      //showfreq('on 20m','346','AB9LM','11','qp=','launch=20240206000000','tracker=qrplabs','detail=','balloonid=17','timeslot=2','0','qp=')
-      return (`<tr onmouseout="if(popupwin1){popupwin1.close()}" style="cursor:pointer;" title="Show Emit Frequency Click for Hide/Restore Or Click to Update">
+    return this.balloons
+      .map((balloon, index) => {
+        const daysSinceLaunch = this.getDaysSinceLaunch(balloon.launch);
+        const { lastContactTime, lastHeardText, ponerAsterisco } =
+          this.getLastContactTime(balloon, daysSinceLaunch);
+        const contactStyle = this.getContactStyle(
+          lastContactTime,
+          lastHeardText,
+        );
+        const freqCell = this.getFreqCell(balloon);
+        const foundCall = this.foundCallSignInSearchParams(balloon);
+        const adicionalInfo = this.getAdicionalInfo(balloon);
+        const freqParams = this.getFrequencyParams(balloon, index);
+        //'on 20m','346','AB9LM','11','qp=','2024020600:00:00','qrplabs',' &lt;span title='Upload to aprs.fi'&gt;◬&lt;/u&gt;','17','2','0','qp='
+        //showfreq('on 20m','346','AB9LM','11','qp=','launch=20240206000000','tracker=qrplabs','detail=','balloonid=17','timeslot=2','0','qp=')
+        return `<tr onmouseout="if(popupwin1){popupwin1.close()}" style="cursor:pointer;" title="Show Emit Frequency Click for Hide/Restore Or Click to Update">
          <td align="center" style="white-space:nowrap;border-color:#ffffff;border-width:1px;">${index + 1}</td>
          <td align="center" width="100px;" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;border-left-width:0px;width:100px;${foundCall ? "background-color:orange;" : ""}">
            <a href="${balloon.url}" target="_blank'" title="Go Track ${balloon.other} !">${balloon.other.toUpperCase()}</a>
@@ -257,7 +310,7 @@ class BalloonDataTable {
          <td onclick="showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.banda}</td>
          <td onclick="showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.balloonid}</td>
          <td onclick="showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">${balloon.timeslot}</td>
-         <td onclick="showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;"> 
+         <td onclick="showfreq(${freqParams})" align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;">
            <span title="upload to aprs.fi">${balloon.telen && balloon.telen === "on" ? "#" : ""} ${balloon.detail && balloon.detail === "on" ? "on" : ""} ◬</span>
         </td>
         <td align="center" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;" title="YYYYMMDDHHMMSS (z)">${this.formatDate(balloon.launch)}</td>
@@ -272,12 +325,13 @@ class BalloonDataTable {
         <td title="✓ Callsign seen last 24 hours" style="color:green;font-size:14px;border-width:0px;background-color:#eeeeee;">
           ${ponerAsterisco ? "<b>✓</b>" : ""}
         </td>
-    </tr>`)
-    }).join("");
+    </tr>`;
+      })
+      .join("");
   }
 
   buildTableTemplate() {
-    document.getElementById('balloonsTable').innerHTML = `<thead'>
+    document.getElementById("balloonsTable").innerHTML = `<thead'>
         <th width='8%' colspan=2 style='width:8%;white-space:nowrap;' align=left>&nbsp;#&nbsp;&nbsp&#x25BD;&nbsp;Links to Go Track&nbsp;&#x25BD;</th>
         <th align=center>&nbsp;CALL +SSID</th>
         <th align=center>BAND</th>
@@ -295,16 +349,18 @@ class BalloonDataTable {
       </thead>
         ${this.getRowsTemplate(this.balloons)}`;
 
-      document.getElementById('flyingBalloonsActive').innerHTML = `${this.flying} Balloons Active`;
+    document.getElementById("flyingBalloonsActive").innerHTML =
+      `${this.flying} Balloons Active`;
   }
 }
 
+const loadBalloonApp = async () => {
+  window.dataTracker = await loadDataTrackerjson();
+  window.bj = JSON.parse(dataTracker.jsonArray);
+  const bdt = new BalloonDataTable(dataTracker.balloons);
+  bdt.buildTableTemplate();
+  cargarfotos();
+  setInterval(verimagen, 15000);
+};
 
-
-
-window.addEventListener('load', () => {
-    window.bj = JSON.parse(dataTracker.jsonArray);
-    const bdt = new BalloonDataTable(dataTracker.balloons);
-    bdt.buildTableTemplate();
-
-});
+window.addEventListener("load", loadBalloonApp);
