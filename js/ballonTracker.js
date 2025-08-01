@@ -355,12 +355,13 @@ class BalloonDataTable {
 }
 
 const loadBalloonApp = async () => {
-  // window.dataTracker = await loadDataTrackerjson();
+  window.dataTracker = await loadDataTrackerjson();
   window.bj = JSON.parse(dataTracker.jsonArray);
   const bdt = new BalloonDataTable(dataTracker.balloons);
   bdt.buildTableTemplate();
   cargarfotos();
   setInterval(verimagen, 15000);
+  document.getElementById("spinner-overlay").style.display = "none";
 };
 
 window.addEventListener("load", loadBalloonApp);

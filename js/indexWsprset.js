@@ -269,34 +269,27 @@ function getslot(banda, qrp) {
   }
   return { balloonid: chan, timeslot: startime };
 }
-function checkform(ev) {
+async function checkform(ev) {
   ev.preventDefault();
-  const formValues = {};
+  const inputNames = [
+    "other",
+    "band",
+    "qrp",
+    "SSID",
+    "tracker",
+    "launch",
+    "detail",
+    "balloonid",
+    "timeslot",
+    "comments",
+    "telen",
+    "repito",
+    "wide",
+  ];
   const _data = {
     who: "",
-    form: {
-      other: "",
-      band: "",
-      qrp: "",
-      SSID: "",
-      tracker: "",
-      launch: "",
-      detail: "",
-      balloonid: "",
-      timeslot: "",
-      comments: "",
-      telen: "",
-      repito: "",
-      wide: "",
-    },
+    form: {},
   };
-
-  console.log(
-    "Form submitted",
-    [...f.querySelectorAll("input")].forEach((i) =>
-      console.log(`[ ${i.name} ]: ${i.value} `),
-    ),
-  );
 
   if (!f.other.value) {
     alert("Callsign missing");
@@ -316,11 +309,9 @@ function checkform(ev) {
   }
 
   f.other.value = f.other.value.toLowerCase();
-  formValues.other = f.other.value;
 
   if (f.balloonid) {
     f.balloonid.value = f.balloonid.value.toLowerCase();
-    formValues.balloonid = f.balloonid.value;
   }
   if (f.balloonid.value != "") {
     if (f.balloonid.value.length != 2) {
@@ -372,11 +363,9 @@ function checkform(ev) {
   }
   if (f.SSID.value != "" && f.SSID.value.substring(0, 1) == "0") {
     f.SSID.value = f.SSID.value.slice(-1);
-    formValues.SSID = f.SSID.value;
   }
   if (f.detail.value != "") {
     f.detail.value = f.detail.value.toLowerCase();
-    formValues.detail = f.detail.value;
   }
   if (f.detail.value != "") {
     if (f.detail.value != "on") {
@@ -440,31 +429,24 @@ function checkform(ev) {
     lanza.substring(12, 14);
   if (f.tracker.value != "") {
     f.tracker.value = f.tracker.value.toLowerCase();
-    formValues.tracker = f.tracker.value;
   }
   if (f.tracker.value != "" && f.tracker.value == "ict") {
     f.tracker.value = "yo3ict";
-    formValues.tracker = "yo3ict";
   }
   if (f.tracker.value != "" && f.tracker.value == "skytracker") {
     f.tracker.value = "wb8elk";
-    formValues.tracker = "wb8elk";
   }
   if (f.tracker.value != "" && f.tracker.value == "skytrack") {
     f.tracker.value = "wb8elk";
-    formValues.tracker = "wb8elk";
   }
   if (f.tracker.value == "lightaprs") {
     f.tracker.value = "qrplabs";
-    formValues.tracker = "qrplabs";
   }
   if (f.tracker.value == "zachtek") {
     f.tracker.value = "zachtek1";
-    formValues.tracker = "zachtek1";
   }
   if (f.tracker.value == "u4b") {
     f.tracker.value = "qrplabs";
-    formValues.tracker = "qrplabs";
   }
   if (
     (f.tracker.value == "qrplabs" || f.tracker.value == "traquito") &&
@@ -529,8 +511,6 @@ function checkform(ev) {
   if (f.qrp.value) {
     f.balloonid.value = "";
     f.timeslot.value = "";
-    formValues.balloonid = "";
-    formValues.timeslot = "";
     qrp = f.qrp.value * 1;
     if (f.balloonid.value != "" || f.timeslot.value != "") {
       alert("Enter BalloonId or QRP-ID, both is invalid...");
@@ -544,14 +524,10 @@ function checkform(ev) {
     }
     f.balloonid.value = getslot(f.band.value, f.qrp.value).balloonid;
     f.timeslot.value = getslot(f.band.value, f.qrp.value).timeslot;
-    formValues.balloonid = f.balloonid.value;
-    formValues.timeslot = f.timeslot.value;
     if (f.tracker.value == "traquito") {
       f.tracker.value = "traquito";
-      formValues.tracker = "traquito";
     } else {
       f.tracker.value = "qrplabs";
-      formValues.tracker = "qrplabs";
     }
     if (band == "All") {
       band = "20m";
@@ -674,18 +650,9 @@ function checkform(ev) {
       others +
       "\n";
   }
-  formValues.band = f.band.value;
-  formValues.launch = f.launch.value;
-  formValues.qrp = f.qrp.value;
-  formValues.telen = f.telen.value;
-  formValues.repito = f.repito.value;
-  formValues.wide = f.wide.value;
 
-  _data.form = { ..._data.form, ...formValues };
   if (desdechange) {
-    console.log("desde-change", desdechange);
   } else {
-    console.log("confirm");
     if (
       confirm(
         leyend +
@@ -697,15 +664,46 @@ function checkform(ev) {
       document.getElementById("who").value = prompt(
         "Enter call of wspr inventor",
       );
+
+      [...f.querySelectorAll("input")].forEach((i) => {
+        if (inputNames.includes(i.name)) {
+          _data.form[i.name] = i.value.toString().trim();
+        }
+      });
+      _data.form["comments"] = f.comments.value;
       _data.who = document.getElementById("who").value;
-      console.log("data-OK ", _data);
+
+      const response = await sendBalloonData(_data);
+
       return true;
     } else {
-      console.log("data-Fail ", _data);
       return false;
     }
   }
 } // END CHECK Form
+
+async function sendBalloonData(_data) {
+  document.getElementById("spinner-overlay").style.display = "flex";
+  try {
+    const response = await fetch("/api/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(_data),
+    });
+
+    if (response.ok) {
+      console.log("Balloon data sent successfully");
+    } else {
+      console.error("Failed to send balloon data");
+    }
+  } catch (error) {
+    console.error("Error sending balloon data:", error);
+  } finally {
+    document.getElementById("spinner-overlay").style.display = "none";
+  }
+}
 
 function showfreq(
   band,
