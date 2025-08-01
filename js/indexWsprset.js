@@ -671,6 +671,7 @@ async function checkform(ev) {
         }
       });
       _data.form["comments"] = f.comments.value;
+      _data.form["band"] = f.band.value;
       _data.who = document.getElementById("who").value;
 
       const response = await sendBalloonData(_data);
@@ -683,25 +684,46 @@ async function checkform(ev) {
 } // END CHECK Form
 
 async function sendBalloonData(_data) {
+  console.log(_data);
   document.getElementById("spinner-overlay").style.display = "flex";
   try {
-    const response = await fetch("/api/send", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(_data),
-    });
+    // const response = await fetch("/api/send", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(_data),
+    // });
 
-    if (response.ok) {
-      console.log("Balloon data sent successfully");
-    } else {
-      console.error("Failed to send balloon data");
-    }
+    // if (response.ok) {
+    //   console.log("Balloon data sent successfully");
+    // } else {
+    //   console.error("Failed to send balloon data");
+    // }
+
+    const browxyActions = {
+      action: "UPLOAD",
+      message: {
+        executionParam: {
+          functionName: "saveBalloon",
+        },
+        formParams: [
+          {
+            type: "text",
+            value: {
+              data: btoa(JSON.stringify(_data)),
+              paramName: "jsonBalloon",
+            },
+          },
+        ],
+      },
+    };
+    console.log(browxyActions);
+    window.parent.postMessage(browxyActions, HOST_URL);
   } catch (error) {
     console.error("Error sending balloon data:", error);
   } finally {
-    document.getElementById("spinner-overlay").style.display = "none";
+    //document.getElementById("spinner-overlay").style.display = "none";
   }
 }
 

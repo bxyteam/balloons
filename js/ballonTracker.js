@@ -364,4 +364,23 @@ const loadBalloonApp = async () => {
   document.getElementById("spinner-overlay").style.display = "none";
 };
 
+const handleMessage = (event) => {
+  console.log("event", event);
+  const { response } = event.data;
+  if (response && response.socketPayload) {
+    const socketPayload = response.socketPayload;
+    console.log(socketPayload);
+    if (socketPayload.statusCode === 200) {
+      console.log(socketPayload.logs);
+    } else if (socketPayload.statusCode === 400) {
+      if (socketPayload.error) {
+        console.error(socketPayload.error.message);
+      }
+    }
+  }
+  document.getElementById("spinner-overlay").style.display = "none";
+};
+
 window.addEventListener("load", loadBalloonApp);
+
+window.addEventListener("message", handleMessage);
