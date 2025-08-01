@@ -367,14 +367,16 @@ const loadBalloonApp = async () => {
 const handleMessage = (event) => {
   console.log("event", event);
   const { response } = event.data;
-  if (response && response.socketPayload) {
-    const socketPayload = response.socketPayload;
-    console.log(socketPayload);
-    if (socketPayload.statusCode === 200) {
-      console.log(socketPayload.logs);
-    } else if (socketPayload.statusCode === 400) {
-      if (socketPayload.error) {
-        console.error(socketPayload.error.message);
+  if (response && response.apiPayload) {
+    const apiPayload = response.apiPayload;
+    console.log(apiPayload);
+    if (apiPayload.statusCode === 200) {
+      console.log(apiPayload.logs);
+      const url = apiPayload.data.data.url;
+      console.log("url", url);
+    } else if (apiPayload.statusCode === 400) {
+      if (apiPayload.error) {
+        console.error(apiPayload.error.message);
       }
     }
   }
