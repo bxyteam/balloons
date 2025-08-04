@@ -378,7 +378,7 @@ const handleMessage = (event) => {
     } else if (apiPayload.statusCode === 400) {
       if (apiPayload.error) {
         console.error(apiPayload.error.message);
-        alert(apiPayload.error.message);
+        window.parent.window.alert(apiPayload.error.message);
       }
     }
   }
