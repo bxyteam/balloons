@@ -1253,17 +1253,16 @@ function gohide() {
   document.getElementById("wspr-form").onsubmit = function (e) {
     e.preventDefault();
 
-    const whoInput = document.getElementById("who");
-    if (!whoInput.value.trim()) {
+    if (document.getElementById("who").value.trim() === "") {
       alert("Por favor ingrese el call del inventor WSPR");
       whoInput.focus();
       return false;
     }
 
     const _formData = {
-      who: document.getElementById("who"),
-      datos: document.getElementById("datos"),
-      comenta: document.getElementById("comenta"),
+      who: document.getElementById("who").value.trim(),
+      datos: document.getElementById("datos").value.trim(),
+      comenta: document.getElementById("comenta").value.trim(),
     };
     document.getElementById("spinner-overlay").style.display = "flex";
     setTimeout(() => {
