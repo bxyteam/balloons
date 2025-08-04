@@ -367,20 +367,21 @@ const loadBalloonApp = async () => {
 const handleMessage = (event) => {
   console.log("event", event);
   const { response } = event.data;
+  document.getElementById("spinner-overlay").style.display = "none";
   if (response && response.apiPayload) {
     const apiPayload = response.apiPayload;
     console.log(apiPayload);
     if (apiPayload.statusCode === 200) {
       console.log(apiPayload.logs);
       const url = apiPayload.data.data.url;
-      console.log("url", url);
+      window.parent.window.location.href = url;
     } else if (apiPayload.statusCode === 400) {
       if (apiPayload.error) {
         console.error(apiPayload.error.message);
+        alert(apiPayload.error.message);
       }
     }
   }
-  document.getElementById("spinner-overlay").style.display = "none";
 };
 
 window.addEventListener("load", loadBalloonApp);
