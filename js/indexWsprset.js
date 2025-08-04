@@ -1213,6 +1213,7 @@ function gohide() {
             cursor: pointer;
             font-size: 14px;
             margin-right: 10px;
+            font-weight: bold;
           ">Enviar</button>
 
           <button type="button" id="cancel-btn" style="
@@ -1223,6 +1224,7 @@ function gohide() {
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
+            font-weight: bold;
           ">Cancelar</button>
         </div>
 
@@ -1252,7 +1254,7 @@ function gohide() {
   // Manejar envío del formulario
   document.getElementById("wspr-form").onsubmit = function (e) {
     e.preventDefault();
-
+    console.log("who>>>> ", document.getElementById("who").value.trim());
     if (document.getElementById("who").value.trim() === "") {
       alert("Por favor ingrese el call del inventor WSPR");
       whoInput.focus();
@@ -1267,6 +1269,7 @@ function gohide() {
     document.getElementById("spinner-overlay").style.display = "flex";
     setTimeout(() => {
       document.getElementById("spinner-overlay").style.display = "none";
+      closeOverlay();
     }, 4000);
     /*
     try {
