@@ -1175,12 +1175,12 @@ function gohide() {
 
       <form id="wspr-form">
         <div style="margin: 20px 0;">
-          <label for="who" style="display: block; margin-bottom: 10px;">
+          <label for="whoInventor" style="display: block; margin-bottom: 10px;">
             Enter Call of WSPR inventor:
           </label>
           <input
-            id="who"
-            name="who"
+            id="whoInventor"
+            name="whoInventor"
             size="12"
             maxlength="10"
             type="text"
@@ -1254,15 +1254,15 @@ function gohide() {
   // Manejar envío del formulario
   document.getElementById("wspr-form").onsubmit = function (e) {
     e.preventDefault();
-    console.log("who>>>> ", document.getElementById("who").value.trim());
-    if (document.getElementById("who").value.trim() === "") {
+
+    if (document.getElementById("whoInventor").value.trim() === "") {
       alert("Por favor ingrese el call del inventor WSPR");
-      whoInput.focus();
+      document.getElementById("whoInventor").focus();
       return false;
     }
 
     const _formData = {
-      who: document.getElementById("who").value.trim(),
+      who: document.getElementById("whoInventor").value.trim(),
       datos: document.getElementById("datos").value.trim(),
       comenta: document.getElementById("comenta").value.trim(),
     };
@@ -1323,7 +1323,7 @@ function gohide() {
 
   // Enfocar el campo de entrada
   setTimeout(() => {
-    document.getElementById("who").focus();
+    document.getElementById("whoInventor").focus();
   }, 100);
 }
 
