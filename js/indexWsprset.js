@@ -1204,7 +1204,7 @@ function gohide() {
         <input type="hidden" id="comenta" name="comenta" value="${encodeURIComponent(document.getElementById("comments").value)}">
 
         <div style="margin: 20px 0;">
-          <button type="submit" style="
+          <button class="goHide-control-btn" type="submit" style="
             background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
@@ -1216,7 +1216,7 @@ function gohide() {
             font-weight: bold;
           ">Enviar</button>
 
-          <button type="button" id="cancel-btn" style="
+          <button class="goHide-control-btn"  type="button" id="cancel-btn" style="
             background-color: #f44336;
             color: white;
             padding: 10px 20px;
@@ -1254,7 +1254,12 @@ function gohide() {
   // Manejar envío del formulario
   document.getElementById("wspr-form").onsubmit = function (e) {
     e.preventDefault();
+    /*
+<input id="who" name="who" size="12" maxlength="10" type="text" style="text-transform: uppercase;" oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" value="">
+    <input type="hidden" id="datos" name="datos" value="ab9lm,20m,17,2,,20240206000000,11,qrplabs,346,">
+    <input type="hidden" id="comenta" name="comenta" value="">
 
+*/
     if (document.getElementById("whoInventor").value.trim() === "") {
       alert("Por favor ingrese el call del inventor WSPR");
       document.getElementById("whoInventor").focus();
@@ -1266,9 +1271,15 @@ function gohide() {
       datos: document.getElementById("datos").value.trim(),
       comenta: document.getElementById("comenta").value.trim(),
     };
-    document.getElementById("spinner-overlay").style.display = "flex";
+    document.querySelectorAll(".goHide-control-btn").forEach((el) => {
+      el.style.pointerEvents = "none";
+      el.style.cursor = "not-allowed";
+    });
     setTimeout(() => {
-      document.getElementById("spinner-overlay").style.display = "none";
+      document.querySelectorAll(".goHide-control-btn").forEach((el) => {
+        el.style.pointerEvents = "auto";
+        el.style.cursor = "cursor";
+      });
       closeOverlay();
     }, 4000);
     /*
