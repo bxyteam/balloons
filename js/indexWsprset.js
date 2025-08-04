@@ -677,22 +677,8 @@ async function sendBalloonData(_data) {
   console.log(_data);
   document.getElementById("spinner-overlay").style.display = "flex";
   try {
-    // const response = await fetch("/api/send", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(_data),
-    // });
-
-    // if (response.ok) {
-    //   console.log("Balloon data sent successfully");
-    // } else {
-    //   console.error("Failed to send balloon data");
-    // }
-
     const browxyActions = {
-      action: "UPLOAD",
+      action: "SEND",
       message: {
         executionParam: {
           functionName: "saveBalloon",
@@ -1022,6 +1008,7 @@ var mes = new Array(
   "Nov",
   "Dec",
 );
+/*
 function gohide() {
   ///document.getElementById("hide").disabled = "true";
   posleft = screen.availWidth / 2 - 203;
@@ -1029,6 +1016,7 @@ function gohide() {
   if (popupwin != null) {
     popupwin.close();
   }
+  // send to checkwspr.asp pagw
   codata = `</head>
     <body bgcolor="#172447" color="#ffffff" style="font-size:12px;font-family:Tahoma,Arial;font-weight:normal;color:#ffffff;">
       <form id='search' name='search' action='checkwspr.asp'>
@@ -1117,6 +1105,226 @@ function U4B() {
   popupwin.document.write(helpi);
   popupwin.setTimeout("self.close()", 120000);
 }
+*/
+
+function gohide() {
+  // Crear el overlay si no existe
+  let overlay = document.getElementById("wspr-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "wspr-overlay";
+    overlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      font-family: Tahoma, Arial, sans-serif;
+      font-size: 12px;
+    `;
+    document.body.appendChild(overlay);
+  }
+
+  // Procesar los datos
+  const datas = encodeURIComponent(bj[nrolinea]);
+  const datam = datas.split("%2C");
+
+  let callInfo = datam[0].toUpperCase();
+  if (datam[6] != "") {
+    callInfo += ` - ${datam[6]}`;
+  }
+
+  const colaunch = `Launch ${mes[datam[5].substring(4, 6) * 1 - 1]}-${datam[5].substring(6, 8)}-${datam[5].substring(0, 4)} ${datam[5].substring(8, 10)}:${datam[5].substring(10, 12)}z ${datam[7]}`;
+
+  // Crear el contenido del formulario
+  overlay.innerHTML = `
+    <div style="
+      background-color: #172447;
+      color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      width: 420px;
+      max-width: 90vw;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      position: relative;
+    ">
+      <button id="close-overlay" style="
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        background: none;
+        border: none;
+        color: #ffffff;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 0;
+        width: 25px;
+        height: 25px;
+      ">&times;</button>
+
+      <div style="font-size: 16px; line-height: 18px; margin-bottom: 20px;">
+        You are about to Hide or Restore entry for<br><br>
+        ${callInfo} ${colaunch}
+      </div>
+
+      <form id="wspr-form">
+        <div style="margin: 20px 0;">
+          <label for="who" style="display: block; margin-bottom: 10px;">
+            Enter Call of WSPR inventor:
+          </label>
+          <input
+            id="who"
+            name="who"
+            size="12"
+            maxlength="10"
+            type="text"
+            style="
+              text-transform: uppercase;
+              padding: 5px;
+              border: 1px solid #ccc;
+              border-radius: 3px;
+              font-size: 12px;
+            "
+            onCopy="return false"
+            onDrag="return false"
+            onDrop="return false"
+            onPaste="return false"
+            value=""
+            required
+          >
+        </div>
+
+        <input type="hidden" id="datos" name="datos" value="${bj[nrolinea]}">
+        <input type="hidden" id="comenta" name="comenta" value="${encodeURIComponent(document.getElementById("comments").value)}">
+
+        <div style="margin: 20px 0;">
+          <button type="submit" style="
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+          ">Enviar</button>
+
+          <button type="button" id="cancel-btn" style="
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+          ">Cancelar</button>
+        </div>
+
+        <div style="font-style: italic; font-size: 11px; margin-top: 15px;">
+          Anti spam check and confirmation of intention<br>
+          <span style="line-height: 6px;"><br></span>
+          After submit, wait 30 seconds for confirmation
+        </div>
+      </form>
+    </div>
+  `;
+
+  // Mostrar el overlay
+  overlay.style.display = "flex";
+
+  // Event listeners
+  document.getElementById("close-overlay").onclick = closeOverlay;
+  document.getElementById("cancel-btn").onclick = closeOverlay;
+
+  // Cerrar overlay al hacer clic fuera del formulario
+  overlay.onclick = function (e) {
+    if (e.target === overlay) {
+      closeOverlay();
+    }
+  };
+
+  // Manejar envío del formulario
+  document.getElementById("wspr-form").onsubmit = function (e) {
+    e.preventDefault();
+
+    const whoInput = document.getElementById("who");
+    if (!whoInput.value.trim()) {
+      alert("Por favor ingrese el call del inventor WSPR");
+      whoInput.focus();
+      return false;
+    }
+
+    const _formData = {
+      who: document.getElementById("who"),
+      datos: document.getElementById("datos"),
+      comenta: document.getElementById("comenta"),
+    };
+    document.getElementById("spinner-overlay").style.display = "flex";
+    setTimeout(() => {
+      document.getElementById("spinner-overlay").style.display = "none";
+    }, 4000);
+    /*
+    try {
+      const browxyActions = {
+        action: "HIDE_RESTORE",
+        message: {
+          executionParam: {
+            functionName: "hideRestoreBalloon",
+          },
+          formParams: [
+            {
+              type: "text",
+              value: {
+                data: btoa(JSON.stringify(_formData)),
+                paramName: "jsonBalloon",
+              },
+            },
+          ],
+        },
+      };
+      console.log(browxyActions);
+      window.parent.postMessage(browxyActions, HOST_URL);
+    } catch (error) {
+      console.error("Error sending balloon data:", error);
+    }
+    */
+    // fetch("checkwspr.asp", {
+    //   method: "POST",
+    //   body: formData,
+    // })
+    //   .then((response) => response.text())
+    //   .then((data) => {
+    //     // Manejar la respuesta
+    //     console.log("Respuesta del servidor:", data);
+    //     closeOverlay();
+    //     // Aquí puedes mostrar un mensaje de confirmación
+    //     alert(
+    //       "Datos enviados correctamente. Espere 30 segundos para confirmación.",
+    //     );
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //     alert("Error al enviar los datos. Por favor intente nuevamente.");
+    //   });
+  };
+
+  // Función para cerrar el overlay
+  function closeOverlay() {
+    overlay.style.display = "none";
+  }
+
+  // Enfocar el campo de entrada
+  setTimeout(() => {
+    document.getElementById("who").focus();
+  }, 100);
+}
+
 function getqrp(qrp) {
   fcc = 14097000;
   if (typeof qrp != "undefined") {
