@@ -372,13 +372,8 @@ const messageActionHandler = (apiPayload) => {
       window.parent.window.location.href = url;
       break;
     case "HIDE_RESTORE":
-      // document.querySelectorAll(".goHide-control-btn").forEach((el) => {
-      //   el.style.pointerEvents = "auto";
-      //   el.style.cursor = "cursor";
-      // });
       document.getElementById("wspr-overlay-content").innerHTML =
         `<h2 style="color: #FFFFFF; font-size: 22px;font-weight:bold;margin-bottom: 20px;margin-top: 20px;">${data.data.taskState}</h2>`;
-      document.getElementById("executionState").value = "STOPPED";
       setTimeout(() => {
         document.getElementById("wspr-overlay").remove();
       }, 7000);
@@ -395,7 +390,7 @@ const handleMessage = (event) => {
     const apiPayload = response.apiPayload;
     console.log("api-payload:", apiPayload);
     if (apiPayload.statusCode === 200) {
-      console.log("logs:", apiPayload.logs);
+      console.log("logs:", apiPayload.data.logs);
       messageActionHandler(apiPayload);
     } else if (apiPayload.statusCode === 400) {
       if (apiPayload.error) {

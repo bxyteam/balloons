@@ -1304,6 +1304,12 @@ function gohide() {
       window.parent.postMessage(browxyActions, HOST_URL);
     } catch (error) {
       console.error("Error hidden/restore balloon data:", error);
+      if (!document.getElementById("wspr-overlay")) return;
+      document.querySelectorAll(".goHide-control-btn").forEach((el) => {
+        el.style.pointerEvents = "auto";
+        el.style.cursor = "cursor";
+      });
+      document.getElementById("executionState").value = "STOPPED";
     }
   };
 
