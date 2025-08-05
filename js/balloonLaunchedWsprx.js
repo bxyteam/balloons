@@ -1,8 +1,6 @@
 window.addEventListener("load", () => {
   const balloonLinkMenu = new BalloonLinkMenu();
   balloonLinkMenu.buildBalloonsUrlTemplate();
-  balloonLinkMenu.searchParams;
-  document.title = `${balloonLinkMenu.searchParams.toUpperCase() || ""}-${balloonLinkMenu.searchParams.SSID || ""} WSPR`;
 
   var callsign = getParamSafe("callsign").toUpperCase();
   var balloonid = getParamSafe("balloonid");
@@ -10,6 +8,8 @@ window.addEventListener("load", () => {
   var otherRaw = getParamSafe("other");
   var other = otherRaw.toUpperCase();
   var report = getParamSafe("reporters") === "all" ? "" : "uniquereporters=on";
+
+  document.title = `${otherRaw}-${getParamSafe("SSID") || ""} WSPR`;
 
   let callsignFinal = callsign;
   if (other.length > 2) {
