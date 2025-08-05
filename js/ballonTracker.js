@@ -373,8 +373,8 @@ const handleMessage = (event) => {
     console.log(apiPayload);
     if (apiPayload.statusCode === 200) {
       console.log(apiPayload.logs);
-      const url = apiPayload.data.data.url;
-      window.parent.window.location.href = url;
+      //const url = apiPayload.data.data.url;
+      //window.parent.window.location.href = url;
     } else if (apiPayload.statusCode === 400) {
       if (apiPayload.error) {
         console.error(apiPayload.error.message);

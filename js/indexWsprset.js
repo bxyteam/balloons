@@ -1282,7 +1282,7 @@ function gohide() {
       });
       closeOverlay();
     }, 4000);
-    /*
+
     try {
       const browxyActions = {
         action: "HIDE_RESTORE",
@@ -1304,27 +1304,8 @@ function gohide() {
       console.log(browxyActions);
       window.parent.postMessage(browxyActions, HOST_URL);
     } catch (error) {
-      console.error("Error sending balloon data:", error);
+      console.error("Error hidden/restore balloon data:", error);
     }
-    */
-    // fetch("checkwspr.asp", {
-    //   method: "POST",
-    //   body: formData,
-    // })
-    //   .then((response) => response.text())
-    //   .then((data) => {
-    //     // Manejar la respuesta
-    //     console.log("Respuesta del servidor:", data);
-    //     closeOverlay();
-    //     // Aquí puedes mostrar un mensaje de confirmación
-    //     alert(
-    //       "Datos enviados correctamente. Espere 30 segundos para confirmación.",
-    //     );
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //     alert("Error al enviar los datos. Por favor intente nuevamente.");
-    //   });
   };
 
   // Función para cerrar el overlay
