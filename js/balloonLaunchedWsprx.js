@@ -1,11 +1,8 @@
 window.addEventListener("load", () => {
   const balloonLinkMenu = new BalloonLinkMenu();
   balloonLinkMenu.buildBalloonsUrlTemplate();
-  const {
-    other: { otherSign = "" },
-    SSID = "",
-  } = balloonLinkMenu.searchParams;
-  document.title = `${otherSign.toUpperCase()}-${SSID} WSPR`;
+  balloonLinkMenu.searchParams;
+  document.title = `${balloonLinkMenu.searchParams.toUpperCase() || ""}-${balloonLinkMenu.searchParams.SSID || ""} WSPR`;
 
   var callsign = getParamSafe("callsign").toUpperCase();
   var balloonid = getParamSafe("balloonid");
@@ -159,6 +156,7 @@ window.addEventListener("load", () => {
         .insertAdjacentHTML("beforeend", wsprProcessQueryResult.output);
 
       document.getElementById("telemetryTableLoader").classList.add("hidden");
+      document.getElementById("gMapLoader").style.display = "none";
 
       return;
     }
@@ -182,7 +180,7 @@ window.addEventListener("load", () => {
         );
 
       document.getElementById("telemetryTableLoader").classList.add("hidden");
-
+      document.getElementById("gMapLoader").style.display = "none";
       return;
     }
 

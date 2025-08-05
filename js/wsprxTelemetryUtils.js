@@ -426,7 +426,7 @@ async function processWSPRQuery() {
   if (pag.length < 10 && other !== "") {
     return {
       error: true,
-      output: `</table><center><br><a href='http://lu7aa.org/wsprx.asp' title='Go Back' target='self' style='background-color:lightblue;'><b><i><u>&nbsp;There are no WSPR reports for ${ucase(other)}&nbsp;starting on ${launchdate}z&nbsp;<u></i></b></a><br><br></center>`,
+      output: `</table><center><br><a href='https://balloons.dev.browxy.com/wsprx' title='Go Back' target='self' style='background-color:lightblue;'><b><i><u>&nbsp;There are no WSPR reports for ${ucase(other)}&nbsp;starting on ${launchdate}z&nbsp;<u></i></b></a><br><br></center>`,
     };
   }
 
