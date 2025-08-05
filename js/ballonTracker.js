@@ -364,6 +364,28 @@ const loadBalloonApp = async () => {
   document.getElementById("spinner-overlay").style.display = "none";
 };
 
+const messageActionHandler = (apiPayload) => {
+  switch (apiPayload.action) {
+    case "SEND":
+      const url = apiPayload.data.data.url;
+      window.parent.window.location.href = url;
+      break;
+    case "HIDE_RESTORE":
+      // document.querySelectorAll(".goHide-control-btn").forEach((el) => {
+      //   el.style.pointerEvents = "auto";
+      //   el.style.cursor = "cursor";
+      // });
+      document.getElementById("wspr-overlay-content").innerHTML =
+        `<h2 style="color: #FFFFFF; font-size: 22px;font-weight:bold;">${apiPayload.data.data.taskState}</h2>`;
+      document.getElementById("executionState").value = "STOPPED";
+      setTimeout(() => {
+        document.getElementById("wspr-overlay").remove();
+      }, 7000);
+      break;
+    default:
+      console.log("Unknown action:", apiPayload.action);
+  }
+};
 const handleMessage = (event) => {
   console.log("event", event);
   const { response } = event.data;
@@ -373,8 +395,7 @@ const handleMessage = (event) => {
     console.log(apiPayload);
     if (apiPayload.statusCode === 200) {
       console.log(apiPayload.logs);
-      //const url = apiPayload.data.data.url;
-      //window.parent.window.location.href = url;
+      messageActionHandler(apiPayload);
     } else if (apiPayload.statusCode === 400) {
       if (apiPayload.error) {
         console.error(apiPayload.error.message);

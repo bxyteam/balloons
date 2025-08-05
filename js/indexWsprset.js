@@ -1143,7 +1143,7 @@ function gohide() {
 
   // Crear el contenido del formulario
   overlay.innerHTML = `
-    <div style="
+    <div id="wspr-overlay-content" style="
       background-color: #172447;
       color: #ffffff;
       padding: 20px;
@@ -1202,6 +1202,7 @@ function gohide() {
 
         <input type="hidden" id="datos" name="datos" value="${bj[nrolinea]}">
         <input type="hidden" id="comenta" name="comenta" value="${encodeURIComponent(document.getElementById("comments").value)}">
+        <input type="hidden" id="executionState" name="executionState" value="STOPPED">
 
         <div style="margin: 20px 0;">
           <button class="goHide-control-btn" type="submit" style="
@@ -1246,6 +1247,8 @@ function gohide() {
 
   // Cerrar overlay al hacer clic fuera del formulario
   overlay.onclick = function (e) {
+    if (document.getElementById("executionState").value === "RUNNING") return;
+
     if (e.target === overlay) {
       closeOverlay();
     }
@@ -1265,7 +1268,7 @@ function gohide() {
       document.getElementById("whoInventor").focus();
       return false;
     }
-
+    document.getElementById("executionState").value = "RUNNING";
     const _formData = {
       who: document.getElementById("whoInventor").value.trim(),
       datos: document.getElementById("datos").value.trim(),
@@ -1275,13 +1278,6 @@ function gohide() {
       el.style.pointerEvents = "none";
       el.style.cursor = "not-allowed";
     });
-    setTimeout(() => {
-      document.querySelectorAll(".goHide-control-btn").forEach((el) => {
-        el.style.pointerEvents = "auto";
-        el.style.cursor = "cursor";
-      });
-      closeOverlay();
-    }, 4000);
 
     try {
       const browxyActions = {
@@ -1310,7 +1306,7 @@ function gohide() {
 
   // Función para cerrar el overlay
   function closeOverlay() {
-    overlay.style.display = "none";
+    document.getElementById("wspr-overlay").remove();
   }
 
   // Enfocar el campo de entrada
