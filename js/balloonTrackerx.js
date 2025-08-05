@@ -1,16 +1,12 @@
+// window.addEventListener('load', (event) => {
+//     const balloonLinkMenu = new BalloonLinkMenu();
+//     balloonLinkMenu.buildBalloonsUrlTemplate();
+//     const {other = "", SSID = "" } = balloonLinkMenu.searchParams;
+//     document.title = `${other.toUpperCase()}-${SSID} WSPR`;
 
-window.addEventListener('load', (event) => {
-    const balloonLinkMenu = new BalloonLinkMenu();
-    balloonLinkMenu.buildBalloonsUrlTemplate();
-    const {other = "", SSID = "" } = balloonLinkMenu.searchParams;
-    document.title = `${other.toUpperCase()}-${SSID} WSPR`; 
-
-
-});
-
+// });
 
 //let decoqrf ="";
-
 
 // Default values
 //let summhz = 0;
@@ -42,10 +38,8 @@ window.addEventListener('load', (event) => {
 // Get SSID if available
 //const SSID = searchParams.get("SSID") || "";
 
-
 // Example: print results
 // console.log("Launch Date:", launchdate);
 // console.log("SSID:", SSID);
 // console.log("Other :", other);
 // console.log("tbanda table:", tbanda);
-           

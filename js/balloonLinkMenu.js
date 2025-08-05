@@ -59,7 +59,9 @@ class BalloonLinkMenu {
   }
 
   getSearchParams() {
-    const searchParams = new URLSearchParams(window.location.search);
+    const searchParams = new URLSearchParams(
+      window.parent.window.location.search,
+    );
     const params = {};
     for (const [key, value] of searchParams.entries()) {
       params[key] = encodeURIComponent(value);

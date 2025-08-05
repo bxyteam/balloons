@@ -1,4 +1,12 @@
 window.addEventListener("load", () => {
+  const balloonLinkMenu = new BalloonLinkMenu();
+  balloonLinkMenu.buildBalloonsUrlTemplate();
+  const {
+    other: { otherSign = "" },
+    SSID = "",
+  } = balloonLinkMenu.searchParams;
+  document.title = `${otherSign.toUpperCase()}-${SSID} WSPR`;
+
   var callsign = getParamSafe("callsign").toUpperCase();
   var balloonid = getParamSafe("balloonid");
   var timeslot = getParamSafe("timeslot");
