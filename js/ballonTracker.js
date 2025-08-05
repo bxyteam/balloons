@@ -376,7 +376,7 @@ const messageActionHandler = (apiPayload) => {
       //   el.style.cursor = "cursor";
       // });
       document.getElementById("wspr-overlay-content").innerHTML =
-        `<h2 style="color: #FFFFFF; font-size: 22px;font-weight:bold;">${apiPayload.data.data.taskState}</h2>`;
+        `<h2 style="color: #FFFFFF; font-size: 22px;font-weight:bold;margin-bottom: 20px;margin-top: 20px;">${apiPayload.data.data.taskState}</h2>`;
       document.getElementById("executionState").value = "STOPPED";
       setTimeout(() => {
         document.getElementById("wspr-overlay").remove();

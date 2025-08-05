@@ -1143,7 +1143,7 @@ function gohide() {
 
   // Crear el contenido del formulario
   overlay.innerHTML = `
-    <div id="wspr-overlay-content" style="
+    <div style="
       background-color: #172447;
       color: #ffffff;
       padding: 20px;
@@ -1167,7 +1167,7 @@ function gohide() {
         width: 25px;
         height: 25px;
       ">&times;</button>
-
+    <div id="wspr-overlay-content">
       <div style="font-size: 16px; line-height: 18px; margin-bottom: 20px;">
         You are about to Hide or Restore entry for<br><br>
         ${callInfo} ${colaunch}
@@ -1235,6 +1235,7 @@ function gohide() {
           After submit, wait 30 seconds for confirmation
         </div>
       </form>
+      </div>
     </div>
   `;
 
@@ -1247,6 +1248,8 @@ function gohide() {
 
   // Cerrar overlay al hacer clic fuera del formulario
   overlay.onclick = function (e) {
+    if (!document.getElementById("wspr-overlay")) return;
+
     if (document.getElementById("executionState").value === "RUNNING") return;
 
     if (e.target === overlay) {
