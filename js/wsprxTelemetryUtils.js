@@ -410,6 +410,8 @@ async function processWSPRQuery() {
       "' ) ) group by time order by time desc LIMIT 3000";
   }
 
+  console.log("[REPORTER-URL ", getURLreporters);
+
   let pag = "";
 
   if (other !== "") {
@@ -417,7 +419,7 @@ async function processWSPRQuery() {
     if (response.statusCode === 200) {
       pag = response.content;
     } else {
-      alert("Error: " + response.message);
+      window.parent.window.alert("Error: " + response.message);
       pag = "";
     }
   }
@@ -442,12 +444,12 @@ async function processWSPRQuery() {
         if (response.statusCode === 200) {
           pag = response.content;
         } else {
-          alert("Error: " + response.message);
+          window.parent.window.alert("Error: " + response.message);
           pag = "";
         }
       }
     } else {
-      alert("Error: " + response.message);
+      window.parent.window.alert("Error: " + response.message);
       pag = "";
     }
   }

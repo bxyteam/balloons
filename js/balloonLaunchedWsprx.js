@@ -11,6 +11,8 @@ window.addEventListener("load", () => {
 
   document.title = `${otherRaw}-${getParamSafe("SSID") || ""} WSPR`;
 
+  console.log(">>> ", `${otherRaw}-${getParamSafe("SSID") || ""} WSPR`);
+
   let callsignFinal = callsign;
   if (other.length > 2) {
     callsignFinal = other.replace(",", "");
@@ -144,6 +146,7 @@ window.addEventListener("load", () => {
   document.getElementById("Prox").innerHTML = Prox;
 
   (async () => {
+    console.log("[ CALL - WSPR-QUERY-PROCESSING ]");
     const wsprProcessQueryResult = await processWSPRQuery();
 
     if (wsprProcessQueryResult.error) {
