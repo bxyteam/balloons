@@ -678,7 +678,7 @@ async function sendBalloonData(_data) {
   document.getElementById("spinner-overlay").style.display = "flex";
   try {
     const browxyActions = {
-      action: "SEND",
+      action: "UPLOAD",
       message: {
         executionParam: {
           functionName: "saveBalloon",
@@ -1285,7 +1285,7 @@ function gohide() {
 
     try {
       const browxyActions = {
-        action: "HIDE_RESTORE",
+        action: "UPLOAD",
         message: {
           executionParam: {
             functionName: "hideRestoreBalloon",
