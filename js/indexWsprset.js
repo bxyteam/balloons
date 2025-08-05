@@ -1313,10 +1313,9 @@ function gohide() {
     }
   };
 
-  // Función para cerrar el overlay
   function closeOverlay() {
     if (document.getElementById("executionState").value === "RELOADING") {
-      window.parent.window.location.reload();
+      // window.parent.window.location.reload();
     } else {
       document.getElementById("wspr-overlay").remove();
     }
