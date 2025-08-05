@@ -377,7 +377,9 @@ const messageActionHandler = (apiPayload) => {
         `<h2 style="color: #FFFFFF; font-size: 22px;font-weight:bold;margin-bottom: 20px;margin-top: 20px;">${data.data.taskStateMessage}</h2>`;
       setTimeout(() => {
         document.getElementById("wspr-overlay").remove();
-        //  window.parent.window.location.reload();
+        if (data.data.taskState === "RELOADING") {
+          window.parent.window.location.reload();
+        }
       }, 7000);
       break;
     default:
