@@ -631,7 +631,7 @@ function setssid() {
 }
 function gqs(nombre) {
   //Retrieve Document location and tear off the QueryString values for processing.
-  var url = document.location + "";
+  var url = window.parent.document.location + "";
   q = url.split("?");
   if (q[1]) {
     //Get all Name/Value pairs from the QueryString
@@ -656,7 +656,7 @@ function gourl(url) {
     url = url.replace(/lu7aa.org/, "localhost/lu7aa.org.ar");
   }
   //    if (url.indexOf("qrplabs") > 0 || url.indexOf("traquito") > 0) {url=url+"&qp=on"}
-  document.location.href = url;
+  window.parent.document.location.href = url;
 }
 Date.prototype.addHours = function (h) {
   this.setHours(this.getHours() + h);
