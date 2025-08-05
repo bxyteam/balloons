@@ -365,9 +365,10 @@ const loadBalloonApp = async () => {
 };
 
 const messageActionHandler = (apiPayload) => {
-  switch (apiPayload.action) {
+  const { data } = apiPayload;
+  switch (data.action) {
     case "SEND":
-      const url = apiPayload.data.data.url;
+      const url = data.data.url;
       window.parent.window.location.href = url;
       break;
     case "HIDE_RESTORE":
@@ -376,14 +377,14 @@ const messageActionHandler = (apiPayload) => {
       //   el.style.cursor = "cursor";
       // });
       document.getElementById("wspr-overlay-content").innerHTML =
-        `<h2 style="color: #FFFFFF; font-size: 22px;font-weight:bold;margin-bottom: 20px;margin-top: 20px;">${apiPayload.data.data.taskState}</h2>`;
+        `<h2 style="color: #FFFFFF; font-size: 22px;font-weight:bold;margin-bottom: 20px;margin-top: 20px;">${data.data.taskState}</h2>`;
       document.getElementById("executionState").value = "STOPPED";
       setTimeout(() => {
         document.getElementById("wspr-overlay").remove();
       }, 7000);
       break;
     default:
-      console.log("Unknown action:", apiPayload.action);
+      console.log("Unknown action:", data.data.action);
   }
 };
 const handleMessage = (event) => {
@@ -392,13 +393,13 @@ const handleMessage = (event) => {
   document.getElementById("spinner-overlay").style.display = "none";
   if (response && response.apiPayload) {
     const apiPayload = response.apiPayload;
-    console.log(apiPayload);
+    console.log("api-payload:", apiPayload);
     if (apiPayload.statusCode === 200) {
-      console.log(apiPayload.logs);
+      console.log("logs:", apiPayload.logs);
       messageActionHandler(apiPayload);
     } else if (apiPayload.statusCode === 400) {
       if (apiPayload.error) {
-        console.error(apiPayload.error.message);
+        console.error("apiPayload.error.message");
         window.parent.window.alert(apiPayload.error.message);
       }
     }
