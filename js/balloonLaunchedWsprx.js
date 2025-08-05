@@ -9,9 +9,7 @@ window.addEventListener("load", () => {
   var other = otherRaw.toUpperCase();
   var report = getParamSafe("reporters") === "all" ? "" : "uniquereporters=on";
 
-  document.title = `${otherRaw}-${getParamSafe("SSID") || ""} WSPR`;
-
-  console.log(">>> ", `${otherRaw}-${getParamSafe("SSID") || ""} WSPR`);
+  window.parent.document.title = `${other}-${getParamSafe("SSID") || ""} WSPR`;
 
   let callsignFinal = callsign;
   if (other.length > 2) {
