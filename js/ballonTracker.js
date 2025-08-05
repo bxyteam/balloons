@@ -372,10 +372,12 @@ const messageActionHandler = (apiPayload) => {
       window.parent.window.location.href = url;
       break;
     case "HIDE_RESTORE":
+      document.getElementById("executionState").value = data.data.taskState;
       document.getElementById("wspr-overlay-content").innerHTML =
-        `<h2 style="color: #FFFFFF; font-size: 22px;font-weight:bold;margin-bottom: 20px;margin-top: 20px;">${data.data.taskState}</h2>`;
+        `<h2 style="color: #FFFFFF; font-size: 22px;font-weight:bold;margin-bottom: 20px;margin-top: 20px;">${data.data.taskStateMessage}</h2>`;
       setTimeout(() => {
         document.getElementById("wspr-overlay").remove();
+        window.parent.window.location.reload();
       }, 7000);
       break;
     default:

@@ -1167,6 +1167,7 @@ function gohide() {
         width: 25px;
         height: 25px;
       ">&times;</button>
+    <input type="hidden" id="executionState" name="executionState" value="STOPPED">
     <div id="wspr-overlay-content">
       <div style="font-size: 16px; line-height: 18px; margin-bottom: 20px;">
         You are about to Hide or Restore entry for<br><br>
@@ -1202,7 +1203,6 @@ function gohide() {
 
         <input type="hidden" id="datos" name="datos" value="${bj[nrolinea]}">
         <input type="hidden" id="comenta" name="comenta" value="${encodeURIComponent(document.getElementById("comments").value)}">
-        <input type="hidden" id="executionState" name="executionState" value="STOPPED">
 
         <div style="margin: 20px 0;">
           <button class="goHide-control-btn" type="submit" style="
@@ -1315,7 +1315,11 @@ function gohide() {
 
   // Función para cerrar el overlay
   function closeOverlay() {
-    document.getElementById("wspr-overlay").remove();
+    if (document.getElementById("executionState").value === "RELOADING") {
+      window.parent.window.location.reload();
+    } else {
+      document.getElementById("wspr-overlay").remove();
+    }
   }
 
   // Enfocar el campo de entrada
