@@ -1,3 +1,5 @@
+// TODO  PAGES dx.asp, wsprfull.asp, balloonchart.asp, wspruser.asp
+
 class BalloonLinkMenu {
   constructor() {
     this.did = {
@@ -205,7 +207,7 @@ class BalloonLinkMenu {
   processOutput(callsurl, selectedOther, selectedSSID, balloonsurl) {
     // Sort callsurl alphabetically by callSSID (index 0)
     callsurl.sort((a, b) => a[0].localeCompare(b[0]));
-
+    console.log("callsurl ", callsurl);
     // Build HTML call list with highlight
     let callsll = "";
     const bcidSet = new Set();
@@ -241,7 +243,9 @@ class BalloonLinkMenu {
     );
 
     // Rebuild query string
-    const queryParams = new URLSearchParams(window.location.search);
+    const queryParams = new URLSearchParams(
+      window.parent.window.location.search,
+    );
     let qstring = "?";
     for (const [key, value] of queryParams.entries()) {
       qstring += `${key}=${encodeURIComponent(value)}&`;
@@ -252,22 +256,22 @@ class BalloonLinkMenu {
     const didBand = this.did[banda.toLowerCase()] || "";
 
     balloonsurl += `
-        <a style='background-color:lightblue;font-size:14px;color:red;' href='wsprx.asp${qstring}' target='_self' title='New using wspr.live'><b><u>TRACK</u></b></a>&nbsp;
-        <a style='background-color:lightblue;font-size:14px;color:red;' href='wsprfull.asp${qstring}' target='_self' title='More points but slower'><b><u>[+]</u></b></a>&nbsp;
-        <a style='background-color:lightblue;font-style: italic;' href='wsprset.asp' target='_blank' title='See these entries&#13 Or Enter New...'><b><u>Presets</u></b></a>
+        <a style='background-color:lightblue;font-size:14px;color:red;' href='${HOST_URL}/wsprx${qstring}' target='_self' title='New using wspr.live'><b><u>TRACK</u></b></a>&nbsp;
+        <a style='background-color:lightblue;font-size:14px;color:red;' href='${HOST_URL}/wsprfull${qstring}' target='_self' title='More points but slower'><b><u>[+]</u></b></a>&nbsp;
+        <a style='background-color:lightblue;font-style: italic;' href='${HOST_URL}/wsprset' target='_blank' title='See these entries&#13 Or Enter New...'><b><u>Presets</u></b></a>
         &nbsp;&nbsp;<a href='https://www.qrp-labs.com/tracking.html' target='_blank' style='background-color:lightblue;font-style: italic;cursor:pointer;' title='U4B Settings'><b><u>U4B</u></b></a>
     `;
 
     if (selectedSSID) {
       balloonsurl += `
-            &nbsp;&nbsp;<a href='balloonchart.asp?callsign=${selectedOther}-${selectedSSID}&flights=0&grafico=height%20m' target='_blank' title='Plot Graphs if data available on aprs.fi' style='background-color:lightblue;font-style: italic;cursor:pointer;'><b><u>Charts</u></b></a>
+            &nbsp;&nbsp;<a href='${HOST_URL}/balloonchart?callsign=${selectedOther}-${selectedSSID}&flights=0&grafico=height%20m' target='_blank' title='Plot Graphs if data available on aprs.fi' style='background-color:lightblue;font-style: italic;cursor:pointer;'><b><u>Charts</u></b></a>
         `;
     }
 
     balloonsurl += `
-        &nbsp;&nbsp;<a href='http://lu7aa.org/dx.asp?call=${selectedOther}&band=${didBand}&bs=B' target='_blank' style='background-color:lightblue;font-style: italic;cursor:pointer;' title='WSPR DX Reports'><b><u>DX</u></b></a>
-        &nbsp;&nbsp;<a href='http://amsat.org.ar/pass' target='_blank' style='background-color:lightblue;font-style: italic;cursor:pointer;' title='Track Satellites'><b><u>Sat</u></b></a>
-        &nbsp;&nbsp;<a href='http://lu7aa.org/wspruser.asp' target='_blank' style='background-color:lightblue;font-style: italic;cursor:pointer;' title='Last Uses'><b><u>Users</u></b></a>
+        &nbsp;&nbsp;<a href='${HOST_URL}/dx?call=${selectedOther}&band=${didBand}&bs=B' target='_blank' style='background-color:lightblue;font-style: italic;cursor:pointer;' title='WSPR DX Reports'><b><u>DX</u></b></a>
+        &nbsp;&nbsp;<a href='https://satellites.browxy.com/pass' target='_blank' style='background-color:lightblue;font-style: italic;cursor:pointer;' title='Track Satellites'><b><u>Sat</u></b></a>
+        &nbsp;&nbsp;<a href='${HOST_URL}/wspruser' target='_blank' style='background-color:lightblue;font-style: italic;cursor:pointer;' title='Last Uses'><b><u>Users</u></b></a>
         </span></span></center>
     `;
 
@@ -279,13 +283,13 @@ class BalloonLinkMenu {
                 <span style='font-size:11px;line-height:10px;font-weight:bold;text-align:center'>
                    <span style='font-size:12px;line-height:11px;'>Browse</span><br>
                    <hr width='60px' style='color:#ffffff;margin-top:0px;margin-bottom:0px;'>
-                   <a style='cursor:pointer;' href="wsprx.asp${qstring}" target='_self' title='New using wspr.live'><u><i>ANY</i></u></a><br>
-                   <a style='cursor:pointer;' href="wsprset.asp" target='_blank' title='See these entries&#13 Or Enter New...'><u>Presets</u></a></b><br>
+                   <a style='cursor:pointer;' href="${HOST_URL}/wsprx${qstring}" target='_self' title='New using wspr.live'><u><i>ANY</i></u></a><br>
+                   <a style='cursor:pointer;' href="${HOST_URL}/wsprset" target='_blank' title='See these entries&#13 Or Enter New...'><u>Presets</u></a></b><br>
                    <a href='https://www.qrp-labs.com/tracking.html' target='_blank' style='cursor:pointer;' title='U4B Settings'><u><i>U4B</i></u></a><br>
-                   <a href="balloonchart.asp?callsign=${selectedOther}-${selectedSSID}&flights=0&grafico=height%20m"  target='_blank' title='Plot Graphs if data available on aprs.fi' style='cursor:pointer;'><u><i>Charts</i></u></a><br>
-                   <a href='http://lu7aa.org/dx.asp?call="${selectedOther}&band=${didBand}&bs=B' target='_blank' style='cursor:pointer;' title='WSPR DX Reports'><u><i>DX-Prop</i></u></a><br>
-                   <a href='http://amsat.org.ar/pass' target='_blank' style='cursor:pointer;' title='Track Satellites'><u><i>Satellite</i></u></a><br>
-                   <a href='http://lu7aa.org/wspruser.asp' target='_blank' style='cursor:pointer;' title='Last Uses'><u><i>Usage</i></u></a><hr width='60px' style='color:#ffffff;margin-top:0px;margin-bottom:0px;'>
+                   <a href="${HOST_URL}/balloonchart?callsign=${selectedOther}-${selectedSSID}&flights=0&grafico=height%20m"  target='_blank' title='Plot Graphs if data available on aprs.fi' style='cursor:pointer;'><u><i>Charts</i></u></a><br>
+                   <a href='${HOST_URL}/dx?call="${selectedOther}&band=${didBand}&bs=B' target='_blank' style='cursor:pointer;' title='WSPR DX Reports'><u><i>DX-Prop</i></u></a><br>
+                   <a href='https://satellites.browxy.com/pass' target='_blank' style='cursor:pointer;' title='Track Satellites'><u><i>Satellite</i></u></a><br>
+                   <a href='${HOST_URL}/wspruser' target='_blank' style='cursor:pointer;' title='Last Uses'><u><i>Usage</i></u></a><hr width='60px' style='color:#ffffff;margin-top:0px;margin-bottom:0px;'>
                     ${callsll}
                     <hr width='60px' style='color:#ffffff;margin-top:1px;margin-bottom:0px;'>
                     <i>${callsurl.length} Entries</i>
