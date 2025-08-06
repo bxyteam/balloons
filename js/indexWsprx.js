@@ -3399,7 +3399,6 @@ if (gqs("wide") == "on") {
   var hifreq = window.fcentral * 1 + 100;
 }
 function drawChart(meterfeet) {
-  console.log("draw-chart ", meterfeet);
   for (g = 0; g < 16; g++) {
     document.getElementById(g).style.backgroundColor = "#f2f2f2";
   }
