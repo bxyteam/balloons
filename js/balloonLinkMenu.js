@@ -294,7 +294,7 @@ class BalloonLinkMenu {
                    <a style='cursor:pointer;' href="${HOST_URL}/wsprset" target='_blank' title='See these entries&#13 Or Enter New...'><u>Presets</u></a></b><br>
                    <a href='https://www.qrp-labs.com/tracking.html' target='_blank' style='cursor:pointer;' title='U4B Settings'><u><i>U4B</i></u></a><br>
                    <a href="${HOST_URL}/balloonchart?callsign=${selectedOther}-${selectedSSID}&flights=0&grafico=height%20m"  target='_blank' title='Plot Graphs if data available on aprs.fi' style='cursor:pointer;'><u><i>Charts</i></u></a><br>
-                   <a href='${HOST_URL}/dx?call="${selectedOther}&band=${didBand}&bs=B' target='_blank' style='cursor:pointer;' title='WSPR DX Reports'><u><i>DX-Prop</i></u></a><br>
+                   <a href='${HOST_URL}/dx?call=${selectedOther}&band=${didBand}&bs=B' target='_blank' style='cursor:pointer;' title='WSPR DX Reports'><u><i>DX-Prop</i></u></a><br>
                    <a href='https://satellites.browxy.com/pass' target='_blank' style='cursor:pointer;' title='Track Satellites'><u><i>Satellite</i></u></a><br>
                    <a href='${HOST_URL}/wspruser' target='_blank' style='cursor:pointer;' title='Last Uses'><u><i>Usage</i></u></a><hr width='60px' style='color:#ffffff;margin-top:0px;margin-bottom:0px;'>
                     ${callsll}
