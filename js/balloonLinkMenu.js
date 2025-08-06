@@ -135,7 +135,7 @@ class BalloonLinkMenu {
       const launchdate1 = entry.launchdate1 || "";
       const comentarios = entry.comments || "";
       const linea = entry.line;
-
+      console.log("linea", linea);
       if (ballooncall.length > 0) {
         let tok1 = "<u>";
         //let diaslaunch = entry.dias1;
@@ -343,6 +343,7 @@ class BalloonLinkMenu {
     const { other = "", SSID = "" } = this.searchParams;
     const enriched = dataTracker.balloons.map(this.processBalloonData);
     const result = this.buildBalloonLinks(enriched, other, SSID);
+    console.log("result-balloon-calls", result);
     const output = this.processOutput(
       result.callsurl,
       other,
