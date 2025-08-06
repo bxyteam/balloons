@@ -204,6 +204,12 @@ class BalloonLinkMenu {
     };
   }
 
+  decodeHTMLEntities(str) {
+    const txt = document.createElement("textarea");
+    txt.innerHTML = str;
+    return txt.value;
+  }
+
   processOutput(callsurl, selectedOther, selectedSSID, balloonsurl) {
     // Sort callsurl alphabetically by callSSID (index 0)
     callsurl.sort((a, b) => a[0].localeCompare(b[0]));
@@ -212,7 +218,7 @@ class BalloonLinkMenu {
     let callsll = "";
     const bcidSet = new Set();
     callsurl.forEach(([callSSID, rawUrl]) => {
-      const url = decodeHTMLEntities(rawUrl); // <- aquí decodificas
+      const url = decodeHTMLEntities(rawUrl);
       const [callo, callssid = ""] = callSSID.split("-");
       const match =
         callo.toLowerCase() === selectedOther.toLowerCase() &&
