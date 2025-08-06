@@ -126,12 +126,12 @@ body {
     background-color: #f2f2f2;
 }
 
-img [src="http://maps.gstatic.com/mapfiles/api-3/images/google_gray.svg"]
+img [src="https://maps.gstatic.com/mapfiles/api-3/images/google_gray.svg"]
 {
     display: none !important;
 }
 
-img [src="http://maps.gstatic.com/mapfiles/transparent.png"]
+img [src="https://maps.gstatic.com/mapfiles/transparent.png"]
 {
     display: none !important;
 }
