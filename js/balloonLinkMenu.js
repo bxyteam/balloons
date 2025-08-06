@@ -321,7 +321,7 @@ class BalloonLinkMenu {
             <br /><button id="15" onclick="drawChart(12)" class='chartbutton'>&nbsp;Speed Knots&nbsp;&nbsp;</button><br />
             <br /><button id="5" onclick="drawChart(5)" class='chartbutton'>&nbsp;&nbsp;&nbsp;Asc. / Desc.&nbsp;&nbsp;</button><br />
             <br /><button id="6" onclick="drawChart(6)" ${ocultar} class='chartbutton'>&nbsp;&nbsp;Temperat. °C&nbsp;</button>${this.searchParams.tracker !== "zachtek1" ? "<br />" : ""}
-            <br /><button id="11" onclick="drawChart(11)" ${ocultar} class='chartbutton'>&nbsp;&nbsp;Temperat. °F&nbsp;&nbsp;</a>${this.searchParams.tracker !== "zachtek1" ? "<br />" : ""}
+            <br /><button id="11" onclick="drawChart(11)" ${ocultar} class='chartbutton'>&nbsp;&nbsp;Temperat. °F&nbsp;&nbsp;</button>${this.searchParams.tracker !== "zachtek1" ? "<br />" : ""}
             <br /><button id="7" onclick="drawChart(7)" class='chartbutton'>&nbsp;&nbsp;&nbsp;SNR dB Lvl&nbsp;&nbsp;&nbsp;</button><br />
             <br /><button id="8" onclick="drawChart(8)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;MULTIPLE&nbsp;&nbsp;&nbsp;&nbsp;</button><br />
             <br /><button id="9" onclick="drawChart(9)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Longitude&nbsp;&nbsp;&nbsp;&nbsp</button><br />

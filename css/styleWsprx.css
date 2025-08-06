@@ -31,7 +31,7 @@
     font-weight: bold;
     line-height: 11px;
     color: #ff0000;
-    text-decoration: underline
+    text-decoration: underline;
 }
 
 .gray {
@@ -45,7 +45,7 @@
 
 A:link {
     text-decoration: none;
-    color: #064A80;
+    color: #064a80;
 }
 
 A:hover {
@@ -57,7 +57,7 @@ A:hover {
 
 A:active {
     text-decoration: none;
-    color: #064A80;
+    color: #064a80;
     background: lightblue;
     border: 0;
 }
@@ -86,7 +86,7 @@ td:hover {
     line-height: 12px;
     font-family: Arial Narrow;
     font-style: italic;
-    background-color: transparent;
+    background-color: #f2f2f2;
     color: navy;
     border-style: outset;
     border-width: 3px;
@@ -100,7 +100,7 @@ td:hover {
     line-height: 12px;
     font-style: italic;
     border-style: outset;
-    background-color: transparent;
+    background-color: #f2f2f2;
     border-width: 3px;
     border-radius: 15px;
     border-color: orange;
@@ -123,15 +123,17 @@ td:hover {
 
 body {
     margin: 0;
-    background-color:#f2f2f2;
+    background-color: #f2f2f2;
 }
 
-img [src="http://maps.gstatic.com/mapfiles/api-3/images/google_gray.svg"] {
-    display: none !important
+img [src="http://maps.gstatic.com/mapfiles/api-3/images/google_gray.svg"]
+{
+    display: none !important;
 }
 
-img [src="http://maps.gstatic.com/mapfiles/transparent.png"] {
-    display: none !important
+img [src="http://maps.gstatic.com/mapfiles/transparent.png"]
+{
+    display: none !important;
 }
 
 .gm-style-iw button {
@@ -139,13 +141,13 @@ img [src="http://maps.gstatic.com/mapfiles/transparent.png"] {
 }
 
 .loader {
-  border: 6px solid #92e0ff;
-  border-top: 6px solid #3498db; 
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin: 15px auto; 
+    border: 6px solid #92e0ff;
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 15px auto;
 }
 
 .hidden {
@@ -153,7 +155,10 @@ img [src="http://maps.gstatic.com/mapfiles/transparent.png"] {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
-
