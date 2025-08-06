@@ -58,6 +58,7 @@ class BalloonLinkMenu {
       ]));
     this.searchParams = this.getSearchParams();
     this.processBalloonData = this.processBalloonData.bind(this);
+    this.processOutput = this.processOutput.bind(this);
   }
 
   getSearchParams() {
@@ -135,7 +136,7 @@ class BalloonLinkMenu {
       const launchdate1 = entry.launchdate1 || "";
       const comentarios = entry.comments || "";
       const linea = entry.line;
-      console.log("linea", linea);
+
       if (ballooncall.length > 0) {
         let tok1 = "<u>";
         //let diaslaunch = entry.dias1;
@@ -213,7 +214,7 @@ class BalloonLinkMenu {
   processOutput(callsurl, selectedOther, selectedSSID, balloonsurl) {
     // Sort callsurl alphabetically by callSSID (index 0)
     callsurl.sort((a, b) => a[0].localeCompare(b[0]));
-    console.log("callsurl ", callsurl);
+
     // Build HTML call list with highlight
     let callsll = "";
     const bcidSet = new Set();
@@ -350,7 +351,7 @@ class BalloonLinkMenu {
     const { other = "", SSID = "" } = this.searchParams;
     const enriched = dataTracker.balloons.map(this.processBalloonData);
     const result = this.buildBalloonLinks(enriched, other, SSID);
-    console.log("result-balloon-calls", result);
+
     const output = this.processOutput(
       result.callsurl,
       other,
