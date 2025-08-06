@@ -151,7 +151,7 @@ class BalloonLinkMenu {
         let tooltip = `${launchdate1} ${decodeURIComponent(comentarios).replace(/"/g, "''")}`;
         tooltip = tooltip.replace(/&#13/g, " ");
 
-        const link = `<a title="${tooltip}" style="cursor:pointer;" onclick="this.style.color='#ff0000'; formu.callsign.value='${ballooncall}'; logactivity('${linea}'); gourl('${linea}')">${tok1}${ballooncall}</u></a>`;
+        const link = `<a title="${tooltip}" style="cursor:pointer;" onclick="event.preventDefault(); this.style.color='#ff0000'; formu.callsign.value='${ballooncall}'; logactivity('${linea}'); gourl('${linea}')">${tok1}${ballooncall}</u></a>`;
         balloonsurl += link + "<br>";
 
         // Set comentariosballoon
@@ -313,22 +313,22 @@ class BalloonLinkMenu {
         : "";
     document.getElementById("chdiv").innerHTML = `<center>
            &nbsp;&nbsp;<i>Charts</i><br />
-            <br /><a href="#" id="0" onclick="drawChart(0)" class='chartbutton'>&nbsp;&nbsp;Height mtrs&nbsp;</a><br />
-            <br /><a href="#" id="1" onclick="drawChart(1)" class='chartbutton'>&nbsp;&nbsp;Height Feet&nbsp;&nbsp;</a>${this.searchParams.tracker !== "zachtek1" ? "<br />" : ""}
-            <br /><a href="#" id="2" onclick="drawChart(2)" ${ocultar} class='chartbutton'">&nbsp;&nbsp;Solar Volts&nbsp;&nbsp;&nbsp;</a><br />
-            <br /><a href="#" id="3" onclick="drawChart(3)" class='chartbutton' title='Solar Elev.° at&#13Balloon height'>&nbsp;&nbsp;&nbsp;Solar Elev.&nbsp;&nbsp;&nbsp;</a><br />
-            <br /><a href="#" id="4" onclick="drawChart(4)" class='chartbutton'>&nbsp;Speed Km/h&nbsp;&nbsp;</a><br />
-            <br /><a href="#" id="15" onclick="drawChart(12)" class='chartbutton'>&nbsp;Speed Knots&nbsp;&nbsp;</a><br />
-            <br /><a href="#" id="5" onclick="drawChart(5)" class='chartbutton'>&nbsp;&nbsp;&nbsp;Asc. / Desc.&nbsp;&nbsp;</a><br />
-            <br /><a href="#" id="6" onclick="drawChart(6)" ${ocultar} class='chartbutton'>&nbsp;&nbsp;Temperat. °C&nbsp;</a>${this.searchParams.tracker !== "zachtek1" ? "<br />" : ""}
-            <br /><a href="#" id="11" onclick="drawChart(11)" ${ocultar} class='chartbutton'>&nbsp;&nbsp;Temperat. °F&nbsp;&nbsp;</a>${this.searchParams.tracker !== "zachtek1" ? "<br />" : ""}
-            <br /><a href="#" id="7" onclick="drawChart(7)" class='chartbutton'>&nbsp;&nbsp;&nbsp;SNR dB Lvl&nbsp;&nbsp;&nbsp;</a><br />
-            <br /><a href="#" id="8" onclick="drawChart(8)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;MULTIPLE&nbsp;&nbsp;&nbsp;&nbsp;</a><br />
-            <br /><a href="#" id="9" onclick="drawChart(9)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Longitude&nbsp;&nbsp;&nbsp;&nbsp</a><br />
-            <br /><a href="#" id="10" onclick="drawChart(10)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Frequency&nbsp;&nbsp;&nbsp;&nbsp</a><br />
-            <br style="line-height:14px;" /><a href="#" id="12" onclick="drawKm(12)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Distance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a><br />
-            <br /><a href="#" id="13" onclick="solarflux()" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;Solar Flux&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</a><br />
-            <br style="line-height:11px;" /><a href="#" id="14" onclick="drawChart(14)" title="Go to Map"><img src="https://i.postimg.cc/GpGtk56G/map.png" width="76px" class='chartbutton' /></a><br />
+            <br /><button id="0" onclick="drawChart(0)" class='chartbutton'>&nbsp;&nbsp;Height mtrs&nbsp;</button><br />
+            <br /><button id="1" onclick="drawChart(1)" class='chartbutton'>&nbsp;&nbsp;Height Feet&nbsp;&nbsp;</button>${this.searchParams.tracker !== "zachtek1" ? "<br />" : ""}
+            <br /><button id="2" onclick="drawChart(2)" ${ocultar} class='chartbutton'">&nbsp;&nbsp;Solar Volts&nbsp;&nbsp;&nbsp;</button><br />
+            <br /><button id="3" onclick="drawChart(3)" class='chartbutton' title='Solar Elev.° at&#13Balloon height'>&nbsp;&nbsp;&nbsp;Solar Elev.&nbsp;&nbsp;&nbsp;</button><br />
+            <br /><button id="4" onclick="drawChart(4)" class='chartbutton'>&nbsp;Speed Km/h&nbsp;&nbsp;</button><br />
+            <br /><button id="15" onclick="drawChart(12)" class='chartbutton'>&nbsp;Speed Knots&nbsp;&nbsp;</button><br />
+            <br /><button id="5" onclick="drawChart(5)" class='chartbutton'>&nbsp;&nbsp;&nbsp;Asc. / Desc.&nbsp;&nbsp;</button><br />
+            <br /><button id="6" onclick="drawChart(6)" ${ocultar} class='chartbutton'>&nbsp;&nbsp;Temperat. °C&nbsp;</button>${this.searchParams.tracker !== "zachtek1" ? "<br />" : ""}
+            <br /><button id="11" onclick="drawChart(11)" ${ocultar} class='chartbutton'>&nbsp;&nbsp;Temperat. °F&nbsp;&nbsp;</a>${this.searchParams.tracker !== "zachtek1" ? "<br />" : ""}
+            <br /><button id="7" onclick="drawChart(7)" class='chartbutton'>&nbsp;&nbsp;&nbsp;SNR dB Lvl&nbsp;&nbsp;&nbsp;</button><br />
+            <br /><button id="8" onclick="drawChart(8)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;MULTIPLE&nbsp;&nbsp;&nbsp;&nbsp;</button><br />
+            <br /><button id="9" onclick="drawChart(9)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Longitude&nbsp;&nbsp;&nbsp;&nbsp</button><br />
+            <br /><button id="10" onclick="drawChart(10)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Frequency&nbsp;&nbsp;&nbsp;&nbsp</button><br />
+            <br style="line-height:14px;" /><button id="12" onclick="drawKm(12)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Distance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button><br />
+            <br /><button id="13" onclick="solarflux()" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;Solar Flux&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</button><br />
+            <br style="line-height:11px;" /><button id="14" onclick="drawChart(14)" title="Go to Map"><img src="https://i.postimg.cc/GpGtk56G/map.png" width="76px" class='chartbutton' /></button><br />
             <br style="line-height:2px;" /><i style="font-size:11px;line-height:10px;">&nbsp;&nbsp;A graph is worth a<br />&nbsp;&nbsp;thousand numbers<br />&nbsp;Drag chart to Zoom<br />right click unzooms</i><br style="line-height:11px;" />
             <a href='https://www.paypal.me/AMSATARGENTINA/' title=' Please help keep site active, if possible&#13&#xbb; Donate to Amsat Argentina, Thanks! &#xab;' target='_blank' style='text-decoration:none;'><br style="line-height:1px;" />
               <img src="https://i.postimg.cc/QtqMzW8M/pen.gif"/>
