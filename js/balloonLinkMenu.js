@@ -211,7 +211,8 @@ class BalloonLinkMenu {
     // Build HTML call list with highlight
     let callsll = "";
     const bcidSet = new Set();
-    callsurl.forEach(([callSSID, url]) => {
+    callsurl.forEach(([callSSID, rawUrl]) => {
+      const url = decodeHTMLEntities(rawUrl); // <- aquí decodificas
       const [callo, callssid = ""] = callSSID.split("-");
       const match =
         callo.toLowerCase() === selectedOther.toLowerCase() &&
