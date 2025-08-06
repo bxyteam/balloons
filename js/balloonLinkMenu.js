@@ -204,7 +204,6 @@ class BalloonLinkMenu {
     };
   }
 
-  /*
   processOutput(callsurl, selectedOther, selectedSSID, balloonsurl) {
     // Sort callsurl alphabetically by callSSID (index 0)
     callsurl.sort((a, b) => a[0].localeCompare(b[0]));
@@ -212,13 +211,13 @@ class BalloonLinkMenu {
     // Build HTML call list with highlight
     let callsll = "";
     const bcidSet = new Set();
-    callsurl.forEach(([callSSID, rawUrl]) => {
-      console.log("raw-url", rawUrl);
-      const url = ((str) => {
-        const txt = document.createElement("textarea");
-        txt.innerHTML = str;
-        return txt.value;
-      })(rawUrl);
+    callsurl.forEach(([callSSID, url]) => {
+      //console.log("raw-url", rawUrl);
+      // const url = ((str) => {
+      //   const txt = document.createElement("textarea");
+      //   txt.innerHTML = str;
+      //   return txt.value;
+      // })(rawUrl);
 
       const [callo, callssid = ""] = callSSID.split("-");
       const match =
@@ -313,8 +312,8 @@ class BalloonLinkMenu {
       calink, // Calls list block with count
     };
   }
-  */
 
+  /*
   processOutput(callsurl, selectedOther, selectedSSID, balloonsurl) {
     // Sort callsurl alphabetically by callSSID (index 0)
     callsurl.sort((a, b) => a[0].localeCompare(b[0]));
@@ -325,7 +324,7 @@ class BalloonLinkMenu {
 
     callsurl.forEach(([callSSID, rawUrl]) => {
       //console.log("raw-url", rawUrl);
-      const url = rawUrl;
+      //const url = rawUrl;
       //   ((str) => {
       //     const txt = document.createElement("textarea");
       //     txt.innerHTML = str;
@@ -617,7 +616,7 @@ class BalloonLinkMenu {
       calink,
     };
   }
-
+*/
   chartMenuTemplate() {
     const ocultar =
       this.searchParams.tracker === "zachtek1"
@@ -663,7 +662,7 @@ class BalloonLinkMenu {
       result.balloonsurl,
     );
     window.bcid = output.bcidm;
-    /*
+
     document.getElementById("balloonsurl").innerHTML = `<center>
         <span style='font-family:Arial Narrow,Tahoma,Arial;font-size:10px;font-stretch:condensed;font-weight:normal;line-height:11px;white-space:nowrap;'>
             <center>
@@ -673,9 +672,9 @@ class BalloonLinkMenu {
             </center>
         </span>
       </center>`;
-    document.getElementById("calink").innerHTML = output.calink
-    */
+    document.getElementById("calink").innerHTML = output.calink;
 
+    /*
     // Create elements for insertion instead of innerHTML
     const balloonsContainer = document.getElementById("balloonsurl");
     balloonsContainer.innerHTML = ""; // Clear first
@@ -699,6 +698,8 @@ class BalloonLinkMenu {
     balloonsContainer.appendChild(centerDiv);
 
     document.getElementById("calink").innerHTML = output.calink;
+    */
+
     this.chartMenuTemplate();
     setTimeout(() => {
       const h = document
