@@ -59,6 +59,7 @@ class BalloonLinkMenu {
     this.searchParams = this.getSearchParams();
     this.processBalloonData = this.processBalloonData.bind(this);
     this.processOutput = this.processOutput.bind(this);
+    this.decodeHTMLEntities = this.decodeHTMLEntities.bind(this);
   }
 
   getSearchParams() {
