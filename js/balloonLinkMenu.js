@@ -212,6 +212,7 @@ class BalloonLinkMenu {
     let callsll = "";
     const bcidSet = new Set();
     callsurl.forEach(([callSSID, rawUrl]) => {
+      console.log("raw-url", rawUrl);
       const url = ((str) => {
         const txt = document.createElement("textarea");
         txt.innerHTML = str;
@@ -304,7 +305,7 @@ class BalloonLinkMenu {
             </tr>
         </table>
     </center>`;
-
+    console.log("callsll ", callsll);
     return {
       bcidm, // bcid = [...]
       balloonsurl, // Full HTML block with buttons
