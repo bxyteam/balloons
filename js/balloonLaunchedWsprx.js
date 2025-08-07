@@ -1,4 +1,7 @@
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
+  window.dataTracker = await loadDataTrackerjson();
+  window.bj = JSON.parse(dataTracker.jsonArray);
+
   const balloonLinkMenu = new BalloonLinkMenu();
   balloonLinkMenu.buildBalloonsUrlTemplate();
 
