@@ -368,22 +368,22 @@ const messageActionHandler = (apiPayload) => {
   const { data } = apiPayload;
   switch (data.action) {
     case "SEND":
-      const url = data.data.url;
+      const url = data.url;
       window.parent.window.location.href = url;
       break;
     case "HIDE_RESTORE":
-      document.getElementById("executionState").value = data.data.taskState;
+      document.getElementById("executionState").value = data.taskState;
       document.getElementById("wspr-overlay-content").innerHTML =
-        `<h2 style="color: #FFFFFF; font-size: 22px;font-weight:bold;margin-bottom: 20px;margin-top: 20px;">${data.data.taskStateMessage}</h2>`;
+        `<h2 style="color: #FFFFFF; font-size: 22px;font-weight:bold;margin-bottom: 20px;margin-top: 20px;">${data.taskStateMessage}</h2>`;
       setTimeout(() => {
         document.getElementById("wspr-overlay").remove();
-        if (data.data.taskState === "RELOADING") {
+        if (data.taskState === "RELOADING") {
           window.parent.window.location.reload();
         }
       }, 7000);
       break;
     default:
-      console.log("Unknown action:", data.data.action);
+      console.log("Unknown action:", data.action);
   }
 };
 const handleMessage = (event) => {
@@ -394,7 +394,6 @@ const handleMessage = (event) => {
     const apiPayload = response.apiPayload;
     console.log("api-payload:", apiPayload);
     if (apiPayload.statusCode === 200) {
-      console.log("logs:", apiPayload.data.logs);
       messageActionHandler(apiPayload);
     } else if (apiPayload.statusCode === 400) {
       if (apiPayload.error) {
