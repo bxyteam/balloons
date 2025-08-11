@@ -335,7 +335,7 @@ class BalloonLinkMenu {
             <br /><button id="10" onclick="event.preventDefault();drawChart(10)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Frequency&nbsp;&nbsp;&nbsp;&nbsp</button><br />
             <br style="line-height:14px;" /><button id="12" onclick="event.preventDefault();drawKm(12)" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Distance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button><br />
             <br /><button id="13" onclick="event.preventDefault();solarflux();" class='chartbutton'>&nbsp;&nbsp;&nbsp;&nbsp;Solar Flux&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</button><br />
-            <br style="line-height:11px;" /><button id="14" onclick="event.preventDefault();drawChart(14)" title="Go to Map"><img src="https://i.postimg.cc/GpGtk56G/map.png" width="76px" class='chartbutton' /></button><br />
+            <br style="line-height:11px;" /><button id="14" class='chartbutton' onclick="event.preventDefault();drawChart(14)" title="Go to Map"><img src="https://i.postimg.cc/GpGtk56G/map.png" width="76px"></button><br />
             <br style="line-height:2px;" /><i style="font-size:11px;line-height:10px;">&nbsp;&nbsp;A graph is worth a<br />&nbsp;&nbsp;thousand numbers<br />&nbsp;Drag chart to Zoom<br />right click unzooms</i><br style="line-height:11px;" />
             <a href='https://www.paypal.me/AMSATARGENTINA/' title=' Please help keep site active, if possible&#13&#xbb; Donate to Amsat Argentina, Thanks! &#xab;' target='_blank' style='text-decoration:none;'><br style="line-height:1px;" />
               <img src="https://i.postimg.cc/QtqMzW8M/pen.gif"/>

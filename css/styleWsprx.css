@@ -82,6 +82,7 @@ td:hover {
 }
 
 .chartbutton {
+    all: unset;
     font-size: 12px;
     line-height: 12px;
     font-family: Arial Narrow;
