@@ -1008,69 +1008,7 @@ var mes = new Array(
   "Nov",
   "Dec",
 );
-/*
-function gohide() {
-  ///document.getElementById("hide").disabled = "true";
-  posleft = screen.availWidth / 2 - 203;
-  postop = screen.availHeight / 2 - 180;
-  if (popupwin != null) {
-    popupwin.close();
-  }
-  // send to checkwspr.asp pagw
-  codata = `</head>
-    <body bgcolor="#172447" color="#ffffff" style="font-size:12px;font-family:Tahoma,Arial;font-weight:normal;color:#ffffff;">
-      <form id='search' name='search' action='checkwspr.asp'>
-     <center><span style='font-size:16px;line-height:18px;'> "You are about to Hide or Restore entry for<br><br>`;
-  //k6sts,20m,17,4,,20230625121700,23,qrplabs
-  datas = encodeURIComponent(bj[nrolinea]);
-  datam = datas.split("%2C");
-  codata = `${codata} ${datam[0].toUpperCase()}`;
-  if (datam[6] != "") {
-    codata = `${codata} - ${datam[6]}`;
-  } else {
-    codata = `${codata} `;
-  }
-  colaunch =
-    "Launch " +
-    mes[datam[5].substring(4, 6) * 1 - 1] +
-    "-" +
-    datam[5].substring(6, 8) +
-    "-" +
-    datam[5].substring(0, 4) +
-    " " +
-    datam[5].substring(8, 10) +
-    ":" +
-    datam[5].substring(10, 12) +
-    "z " +
-    datam[7];
-  codata = `${codata} ${colaunch}<br>
-    <br>Enter Call of WSPR inventor:&nbsp;&nbsp;
-    <input id='who' name='who' size='12' maxlength='10' type='text' style='text-transform: uppercase;' onCopy='return false' onDrag='return false' onDrop='return false' onPaste='return false' value=''>
-    <input type=hidden id='datos' name='datos' value="${bj[nrolinea]}">
-    <input type=hidden id='comenta' name='comenta' value="${encodeURIComponent(document.getElementById("comments").value)}">
-    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;And press enter
-    <br><br><i>Anti spam check and confirmation of intention<br><br style='line-height:6px;'>After enter, wait 30 seconds for confirmation</i>
-    <br></form>
-   </body></html>`;
-  var anchopantalla = 428;
-  var altopantalla = 250;
-  preferences =
-    "toolbar=no,width=" +
-    anchopantalla +
-    "px,height=" +
-    altopantalla +
-    "px,center,margintop=0,top=" +
-    postop +
-    ",left=" +
-    posleft +
-    ",status=no,scrollbars=no,resizable=no,dependent=yes,z-lock=yes";
-  if (popupwin != null) {
-    popupwin.close();
-  }
-  popupwin = window.open("", "win1", preferences);
-  popupwin.document.write(codata);
-  popupwin.setTimeout("self.close()", 60000);
-}
+
 function clearentries() {
   document.getElementById("hide").style.visibility = "hidden";
   document.getElementById("change").style.visibility = "hidden";
@@ -1105,7 +1043,6 @@ function U4B() {
   popupwin.document.write(helpi);
   popupwin.setTimeout("self.close()", 120000);
 }
-*/
 
 function gohide() {
   // Crear el overlay si no existe
