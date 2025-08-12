@@ -301,6 +301,10 @@ window.taltura = 12;
 window.K6_SAVE = "";
 window.N6_SAVE = "";
 
+window.addplusElementValue = "";
+window.avgfreqElementValue = "";
+window.proxElementValue = "";
+
 //var banda = getParamSafe("banda").length > 0 ? getParamSafe("banda") : "All";
 var SSID = getParamSafe("SSID");
 var SSIDL = SSID !== "" ? `-${SSID}` : "";

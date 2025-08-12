@@ -934,8 +934,11 @@ async function processTelemetry2({
       "Hz</span>";
     window.addplusm = " \u25B3" + (avgfreq - fcentral) + "Hz. ";
   }
-  document.getElementById("addPlus").innerHTML = addplus;
-  document.getElementById("avgfreq").innerHTML = avgfreq;
+  //document.getElementById("addPlus").innerHTML = addplus;
+  //document.getElementById("avgfreq").innerHTML = avgfreq;
+
+  window.addplusElementValue = addplus;
+  window.avgfreqElementValue = avgfreq;
 
   return {
     error: false,

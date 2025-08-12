@@ -144,7 +144,8 @@ window.addEventListener("load", async () => {
         ${extra}
      </tr>`;
 
-  document.getElementById("Prox").innerHTML = Prox;
+  //document.getElementById("Prox").innerHTML = Prox;
+  window.proxElementValue = Prox;
 
   (async () => {
     console.log("[ CALL - WSPR-QUERY-PROCESSING ]");

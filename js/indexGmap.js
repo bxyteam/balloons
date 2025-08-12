@@ -1,10 +1,7 @@
-// ?other=ab9lm&banda=20m&balloonid=17&timeslot=2&detail=&launch=20240206000000&SSID=11&tracker=qrplabs&qrpid=346&repito=on&qp=&telen=&comments=
-
-//window.queryParameters = Object.fromEntries([...new URLSearchParams(window.location.search)].map(([k, v]) => [k, encodeURIComponent(v)]));
-
 var saveglobo;
 var saveestaciones;
 var velest;
+var hide = false;
 //var TZD = "<%=TZDiff%>" / 60 / 24;
 var Kmrecorridos = 0;
 var TZD = 0.125 / 60 / 24;
@@ -15,6 +12,24 @@ var saveestaciones;
 var velest;
 var meterfeet = 0;
 var prevaltutext;
+
+window.getParamSafe = (key, defaultValue = "", encode = false) => {
+  const params = new URLSearchParams(window.searchParams);
+  const value = params.get(key);
+  if (value === null || value.trim() === "") return defaultValue;
+  return encode ? encodeURIComponent(value) : value.trim();
+};
+
+window.getLaunchDate = () => {
+  if (getParamSafe("launch").length > 0) {
+    const launchd = getParamSafe("launch");
+    return `${launchd.substring(0, 4)}-${launchd.substring(4, 6)}-${launchd.substring(6, 8)} ${launchd.substring(8, 10)}:${launchd.substring(10, 12)}:${launchd.substring(12, 14)}`;
+  }
+  const now = new Date();
+  const fe = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000); // 7 days ago
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${fe.getFullYear()}-${pad(fe.getMonth() + 1)}-${pad(fe.getDate())} 00:00:00`;
+};
 
 var diaslaunch = Math.floor(
   (new Date() - new Date(window.getLaunchDate())) / (1000 * 60 * 60 * 24),
@@ -630,7 +645,7 @@ function setssid() {
 }
 function gqs(nombre) {
   //Retrieve Document location and tear off the QueryString values for processing.
-  var url = window.parent.document.location + "";
+  var url = window.parentLocation + "";
   q = url.split("?");
   if (q[1]) {
     //Get all Name/Value pairs from the QueryString
@@ -646,17 +661,7 @@ function gqs(nombre) {
   }
   return valor;
 }
-function gourl(url) {
-  if (location.host == "lu7aa.com.ar") {
-    url = url.replace(/.org/, ".com.ar");
-  }
-  if (location.host == "localhost") {
-    //url = url.replace(/wspr./, "wsprx.");
-    url = url.replace(/lu7aa.org/, "localhost/lu7aa.org.ar");
-  }
-  //    if (url.indexOf("qrplabs") > 0 || url.indexOf("traquito") > 0) {url=url+"&qp=on"}
-  window.parent.document.location.href = url;
-}
+
 Date.prototype.addHours = function (h) {
   this.setHours(this.getHours() + h);
   return this;
@@ -1069,7 +1074,6 @@ function showprop() {
   popupwi.setTimeout("self.close()", 120000);
 }
 
-/*
 function ponermapa(locator, licencia) {
   //        if (locator.length < 3) { document.location.reload(); }
   callcheck = locations[0][1].substring(0, 4).toUpperCase();
@@ -1082,14 +1086,11 @@ function ponermapa(locator, licencia) {
   lat = loc2latlon(locator).loclat;
   savelono = savedMapLng;
   savelato = savedMapLat;
-  document.getElementById("map_canvas").style.height = getHeightPercentage(80);
-  document.getElementById("map_canvas").style.width = "80%";
-  if (isIOS) {
-    document.getElementById("map_canvas").style.height =
-      getHeightPercentage(50);
-    document.getElementById("map_canvas").style.width = "50%";
-  }
+  document.getElementById("map_canvas").style.height = window.iframeHeight;
+  document.getElementById("map_canvas").style.width = window.iframeWidth;
+
   document.getElementById("map_canvas").style.align = "center";
+
   var myLatlng = new google.maps.LatLng(lat, lon);
   var myOptions = {
     zoom: 4,
@@ -1219,19 +1220,55 @@ function ponermapa(locator, licencia) {
       if (i < 6 && locations.length > 5) {
         if (hide) {
           icono1 = imageSrcUrl["none"];
-          document.getElementById("estaciones").innerHTML = "";
+          // document.getElementById(
+          //     "estaciones",
+          // ).innerHTML = "";
+          window.parent.postMessage(
+            {
+              callbackName: "changesEstacionesHtml",
+              props: { html: "" },
+            },
+            "https://balloons.dev.browxy.com",
+          );
         } else {
           icono1 = imageSrcUrl["yellow-dot"];
-          document.getElementById("estaciones").innerHTML = saveestaciones;
+          // document.getElementById(
+          //     "estaciones",
+          // ).innerHTML = saveestaciones;
+          window.parent.postMessage(
+            {
+              callbackName: "changesEstacionesHtml",
+              props: { html: saveestaciones },
+            },
+            "https://balloons.dev.browxy.com",
+          );
         }
         ulti = " Last";
       } else {
         if (hide) {
           icono1 = imageSrcUrl["none"];
-          document.getElementById("estaciones").innerHTML = "";
+          // document.getElementById(
+          //     "estaciones",
+          // ).innerHTML = "";
+          window.parent.postMessage(
+            {
+              callbackName: "changesEstacionesHtml",
+              props: { html: "" },
+            },
+            "https://balloons.dev.browxy.com",
+          );
         } else {
           icono1 = imageSrcUrl["red-dot"];
-          document.getElementById("estaciones").innerHTML = saveestaciones;
+          // document.getElementById(
+          //     "estaciones",
+          // ).innerHTML = saveestaciones;
+          window.parent.postMessage(
+            {
+              callbackName: "changesEstacionesHtml",
+              props: { html: saveestaciones },
+            },
+            "https://balloons.dev.browxy.com",
+          );
         }
         ulti = "";
       }
@@ -1342,7 +1379,9 @@ function ponermapa(locator, licencia) {
           geodesic: true,
           icons: [
             {
-              icon: { path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW },
+              icon: {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+              },
               offset: "100%",
             },
           ],
@@ -2172,7 +2211,9 @@ function ponermapa(locator, licencia) {
       // geodesic: true,
       icons: [
         {
-          icon: { path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW },
+          icon: {
+            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+          },
           offset: "100%",
         },
       ],
@@ -2518,7 +2559,6 @@ function ponermapa(locator, licencia) {
     );
   }
 }
-*/
 
 function loctolatlon(loc) {
   loc = loc.toUpperCase().trim().replace(/"/g, "");
@@ -2598,7 +2638,11 @@ function loc2latlon(loc, locname) {
         (parseInt(c0, 28) - 19) * 20 +
         parseInt(c2, 10) * 2 +
         (parseInt(c4, 34) - 9.5) / 12;
-      return { loclat: loclat, loclon: loclon, locname: locname };
+      return {
+        loclat: loclat,
+        loclon: loclon,
+        locname: locname,
+      };
     }
   }
 } // Returns loclat, loclon, locname
@@ -2739,21 +2783,21 @@ function deg_to_dm(deg) {
   return signo + d + "º " + m + "'";
 }
 /*
-function gradosminutos(deg)
-{
-    if (deg < 0) { deg = -deg; var signo = "-" } else { var signo = ""; }
-    var d = Math.floor(deg);
-    var minfloat = (deg - d) * 60;
-    var m = minfloat;
-    //   var secfloat = (minfloat-m)*60;
-    //   var s = Math.round(secfloat);
-    // After rounding, the seconds might become 60. These two
-    // if-tests are not necessary if no rounding is done.
-    //   if (s==60) {m++;s=0;}
-    if (m == 60) { d++; m = 0; }
-    return (d*100+m)
-}
-*/
+    function gradosminutos(deg)
+    {
+        if (deg < 0) { deg = -deg; var signo = "-" } else { var signo = ""; }
+        var d = Math.floor(deg);
+        var minfloat = (deg - d) * 60;
+        var m = minfloat;
+        //   var secfloat = (minfloat-m)*60;
+        //   var s = Math.round(secfloat);
+        // After rounding, the seconds might become 60. These two
+        // if-tests are not necessary if no rounding is done.
+        //   if (s==60) {m++;s=0;}
+        if (m == 60) { d++; m = 0; }
+        return (d*100+m)
+    }
+    */
 function gradosminutos(deg) {
   if (deg < 0) {
     deg = -deg;
@@ -3154,154 +3198,6 @@ function noupload() {
   popupwin.setTimeout("self.close()", 15000);
 }
 hide = false;
-function gohide() {
-  licencia = gqs("other").toUpperCase();
-  if (gqs("SSID") != "") {
-    licencia = licencia + "<br>-" + gqs("SSID");
-  }
-  if (hide) {
-    hide = false;
-    document.getElementById("hide").innerText = "HideSpots";
-    saveMapState();
-    loadMapState();
-    ponermapa(locations[0][0], licencia);
-    document.getElementById("globo").innerHTML = saveglobo;
-    document.getElementById("globo").click();
-  } else {
-    hide = true;
-    document.getElementById("hide").innerText = "ShowSpots";
-    saveMapState();
-    loadMapState();
-    ponermapa(locations[0][0], licencia);
-    document.getElementById("globo").innerHTML = saveglobo;
-    document.getElementById("globo").click();
-  }
-}
-function gohidet() {
-  licencia = gqs("other").toUpperCase();
-  if (gqs("SSID") != "") {
-    licencia = licencia + "<br>-" + gqs("SSID");
-  }
-  if (hidet) {
-    hidet = false;
-    document.getElementById("hidet").innerText = "HideTrack";
-    saveMapState();
-    loadMapState();
-    ponermapa(locations[0][0], licencia);
-    document.getElementById("globo").innerHTML = saveglobo;
-    document.getElementById("globo").click();
-  } else {
-    hidet = true;
-    document.getElementById("hidet").innerText = "ShowTrack";
-    saveMapState();
-    loadMapState();
-    ponermapa(locations[0][0], licencia);
-    document.getElementById("globo").innerHTML = saveglobo;
-    document.getElementById("globo").click();
-  }
-}
-function gowinds() {
-  token = ",";
-  url =
-    "https://www.windy.com/en/-Mostrar---a%C3%B1adir-m%C3%A1s-capas/overlays?cloudtop,";
-  leyenda = "CLOUD";
-  EXTRA = ",5";
-  lugarlatlong =
-    loctolatlon(locations[0][0]).lat + token + loctolatlon(locations[0][0]).lon;
-  irhacia = url + lugarlatlong + EXTRA;
-  window.open(irhacia, "_blank");
-}
-function gowinds1() {
-  token = "";
-  altuv = 0;
-  for (c = 0; c < 5; c++) {
-    if (beacon1[c][3] * 1 > 500) {
-      altuv = beacon1[c][3] * 1;
-    }
-  }
-  url = "https://www.ventusky.com/?p=";
-  leyenda = "12Winds";
-  EXTRA1 =
-    "&t=" +
-    beacon1[0][0].substring(0, 4) +
-    beacon1[0][0].substring(5, 7) +
-    beacon1[0][0].substring(8, 10) +
-    "/" +
-    (100 + Math.floor(beacon1[0][0].substring(11, 13) / 3) * 3)
-      .toString()
-      .slice(-2) +
-    "00";
-  EXTRA = ";6&l=wind-200hpa" + EXTRA1;
-  if (altuv < 10000) {
-    EXTRA = ";6&l=wind-300hpa" + EXTRA1;
-  }
-  if (altuv < 7000) {
-    EXTRA = ";6&l=wind-500hpa" + EXTRA1;
-  }
-  if (altuv < 5000) {
-    EXTRA = ";6&l=wind-600hpa" + EXTRA1;
-  }
-  if (altuv < 1000) {
-    EXTRA = ";6&l=wind-900hpa" + EXTRA1;
-  }
-  if (altuv < 100) {
-    EXTRA = ";6&l=wind-10m" + EXTRA1;
-  }
-  lugarlatlong =
-    loctolatlon(locations[0][0]).lat + ";" + loctolatlon(locations[0][0]).lon;
-  irhacia = url + lugarlatlong + EXTRA;
-  window.open(irhacia, "_blank");
-}
-function gowinds2(oldlon, oldlat) {
-  token = "";
-  url = "https://www.ventusky.com/?p=";
-  leyenda = "12Winds";
-  EXTRA = ";6&l=wind-200hpa";
-  if (beacon1[0][3] * 1 < 10000) {
-    EXTRA = ";6&l=wind-300hpa";
-  }
-  if (beacon1[0][3] * 1 < 7000) {
-    EXTRA = ";6&l=wind-500hpa";
-  }
-  if (beacon1[0][3] * 1 < 5000) {
-    EXTRA = ";6&l=wind-600hpa";
-  }
-  if (beacon1[0][3] * 1 < 1000) {
-    EXTRA = ";6&l=wind-900hpa";
-  }
-  if (beacon1[0][3] * 1 < 100) {
-    EXTRA = ";6&l=wind-10m";
-  }
-  lugarlatlong = oldlat + ";" + oldlon;
-  irhacia = url + lugarlatlong + EXTRA;
-  window.open(irhacia, "_blank");
-}
-function goplanes() {
-  token = ",";
-  url = "https://www.flightradar24.com/";
-  leyenda = "PLANES";
-  EXTRA = "/6";
-  lugarlatlong =
-    (loctolatlon(locations[0][0]).lat * 1).toFixed(2) +
-    token +
-    (loctolatlon(locations[0][0]).lon * 1).toFixed(2);
-  irhacia = url + lugarlatlong + EXTRA;
-  window.open(irhacia, "_blank");
-}
-function goships() {
-  token = "";
-  url =
-    "https://www.marinetraffic.com/en/ais/home/" +
-    "centerx:" +
-    loctolatlon(locations[0][0]).lon +
-    "/centery:" +
-    loctolatlon(locations[0][0]).lat;
-  leyenda = "SHIPS";
-  EXTRA = "/zoom:6";
-  lugarlatlong = "";
-  irhacia = url + lugarlatlong + EXTRA;
-  window.open(irhacia, "_blank");
-}
 function drawKm() {
   for (g = 0; g < 14; g++) {
     document.getElementById(g).style.backgroundColor = "transparent";
@@ -3341,7 +3237,10 @@ function drawKm() {
     chartArea: { width: "85%", height: "85%" },
     legend: "top",
     hAxis: { format: "##,###Km" },
-    vAxis: { format: "short", gridlines: { color: "#CBCBDC", count: 19 } },
+    vAxis: {
+      format: "short",
+      gridlines: { color: "#CBCBDC", count: 19 },
+    },
     vAxis: {
       title: "Reports Count",
       titleTextStyle: { fontSize: 22 },
@@ -3462,8 +3361,14 @@ function drawChart(meterfeet) {
       chartArea: { width: "85%", height: "85%" },
       legend: "top",
       hAxis: { format: "HH:mm\nMMM-dd" },
-      vAxis: { format: "short", gridlines: { color: "#CBCBDC", count: 16 } },
-      vAxis: { title: "Altitude in meters", titleTextStyle: { fontSize: 22 } },
+      vAxis: {
+        format: "short",
+        gridlines: { color: "#CBCBDC", count: 16 },
+      },
+      vAxis: {
+        title: "Altitude in meters",
+        titleTextStyle: { fontSize: 22 },
+      },
       title:
         gqs("other").toUpperCase() +
         "-" +
@@ -3499,8 +3404,14 @@ function drawChart(meterfeet) {
       chartArea: { width: "85%", height: "85%" },
       legend: "top",
       hAxis: { format: "HH:mm\nMMM-dd" },
-      vAxis: { format: "short", gridlines: { color: "#CBCBDC", count: 16 } },
-      vAxis: { title: "Altitude in feet", titleTextStyle: { fontSize: 22 } },
+      vAxis: {
+        format: "short",
+        gridlines: { color: "#CBCBDC", count: 16 },
+      },
+      vAxis: {
+        title: "Altitude in feet",
+        titleTextStyle: { fontSize: 22 },
+      },
       title:
         gqs("other").toUpperCase() +
         "-" +
@@ -3528,7 +3439,11 @@ function drawChart(meterfeet) {
         maxZoomIn: 0.03,
         maxZoomOut: 4,
       },
-      crosshair: { orientation: "vertical", trigger: "focus", color: "gray" },
+      crosshair: {
+        orientation: "vertical",
+        trigger: "focus",
+        color: "gray",
+      },
       backgroundColor: "#f2f2f2",
       width: window.width,
       bottom: 0,
@@ -3543,7 +3458,9 @@ function drawChart(meterfeet) {
           title: "Solar Volts ",
           titleTextStyle: { fontSize: 20 },
         },
-        1: { gridlines: { color: "transparent", count: 16 } },
+        1: {
+          gridlines: { color: "transparent", count: 16 },
+        },
       },
       series: {
         0: { targetAxisIndex: 0 },
@@ -3674,7 +3591,9 @@ function drawChart(meterfeet) {
           title: "Horizontal Speed Km/h Chart. ",
           titleTextStyle: { fontSize: 20 },
         },
-        1: { gridlines: { color: "transparent", count: 16 } },
+        1: {
+          gridlines: { color: "transparent", count: 16 },
+        },
       },
       series: {
         0: { targetAxisIndex: 0 },
@@ -3764,7 +3683,9 @@ function drawChart(meterfeet) {
           title: "Horizontal Speed Knots Chart. ",
           titleTextStyle: { fontSize: 20 },
         },
-        1: { gridlines: { color: "transparent", count: 16 } },
+        1: {
+          gridlines: { color: "transparent", count: 16 },
+        },
       },
       series: {
         0: { targetAxisIndex: 0 },
@@ -3793,7 +3714,11 @@ function drawChart(meterfeet) {
 
   if (meterfeet == 5) {
     var options = {
-      crosshair: { orientation: "vertical", trigger: "focus", color: "gray" },
+      crosshair: {
+        orientation: "vertical",
+        trigger: "focus",
+        color: "gray",
+      },
       backgroundColor: "#f2f2f2",
       width: window.width,
       bottom: 0,
@@ -3808,7 +3733,9 @@ function drawChart(meterfeet) {
           title: "Ascent/Descent m/s",
           titleTextStyle: { fontSize: 20 },
         },
-        1: { gridlines: { color: "transparent", count: 16 } },
+        1: {
+          gridlines: { color: "transparent", count: 16 },
+        },
       },
       series: {
         0: { targetAxisIndex: 0 },
@@ -3858,7 +3785,9 @@ function drawChart(meterfeet) {
           titleTextStyle: { fontSize: 20 },
           pattern: "##C",
         },
-        1: { gridlines: { color: "transparent", count: 16 } },
+        1: {
+          gridlines: { color: "transparent", count: 16 },
+        },
       },
       series: {
         0: { targetAxisIndex: 0 },
@@ -3941,7 +3870,11 @@ function drawChart(meterfeet) {
         maxZoomIn: 0.03,
         maxZoomOut: 4,
       },
-      crosshair: { orientation: "vertical", trigger: "focus", color: "gray" },
+      crosshair: {
+        orientation: "vertical",
+        trigger: "focus",
+        color: "gray",
+      },
       selectionMode: "multiple",
       tooltip: { trigger: "selection" },
       aggregationTarget: "series",
@@ -3959,7 +3892,9 @@ function drawChart(meterfeet) {
           title: " Latitude ° ",
           titleTextStyle: { fontSize: 20 },
         },
-        1: { gridlines: { color: "transparent", count: 16 } },
+        1: {
+          gridlines: { color: "transparent", count: 16 },
+        },
       },
       series: {
         0: { targetAxisIndex: 0, lineWidth: 4 },
@@ -4105,7 +4040,9 @@ function drawChart(meterfeet) {
           titleTextStyle: { fontSize: 20 },
           pattern: "##F",
         },
-        1: { gridlines: { color: "transparent", count: 16 } },
+        1: {
+          gridlines: { color: "transparent", count: 16 },
+        },
       },
       series: {
         0: { targetAxisIndex: 0 },
@@ -4661,9 +4598,9 @@ function carga() {
     );
   }
   if (document.getElementById("map_canvas").style.height == "0px") {
-    document.getElementById("legend").style.visibility = "hidden";
+    //document.getElementById("legend").style.visibility = "hidden";
   } else {
-    document.getElementById("legend").style.visibility = "visible";
+    //document.getElementById("legend").style.visibility = "visible";
   }
   if (gqs("launch") && gqs("launch") != "") {
     launchc = gqs("launch");
@@ -4778,7 +4715,7 @@ function carga() {
   //document.getElementById("legend").style.left = viewportOffset.left + 40;
   //
   rutinaf = window.location.href.toLowerCase();
-  rutinaf = rutinaf.replace("http://", "");
+  rutinaf = rutinaf.replace("https://", "");
   rutinaf = rutinaf.replace(window.location.hostname, "");
   rutinaf = rutinaf.replace("/", "");
   rutinaf = rutinaf.replace(".asp", "");
@@ -4806,24 +4743,24 @@ function carga() {
     rutina = rutina + " Fast";
   }
   rutina = rutina + "</span>";
-  // document.getElementById("rutina").style.top =
-  //  viewportOffset.top + 50 + window.pageYOffset;
+  //document.getElementById("rutina").style.top =
+  // viewportOffset.top + 50 + window.pageYOffset;
   //document.getElementById("rutina").style.left = viewportOffset.left + 4; // alert("other"+document.getElementById("other").value);
   //document.getElementById("rutina").innerHTML = rutina;
   if (document.getElementById("other") != "") {
     // document.getElementById("rutina").style.visibility = "visible";
   }
   //document.getElementById("iconos").style.top =
-  // viewportOffset.top + 109 + window.pageYOffset;
+  //  viewportOffset.top + 109 + window.pageYOffset;
   //document.getElementById("iconos").style.left = viewportOffset.left + 12; // alert("other"+document.getElementById("other").value);
   if (document.getElementById("other") != "") {
     // document.getElementById("iconos").style.visibility = "visible";
   }
   //document.getElementById("iconos").style.top =
-  //  viewportOffset.top + 109 + window.pageYOffset;
-  // document.getElementById("iconos").style.left = viewportOffset.left + 12; // alert("other"+document.getElementById("other").value);
+  // viewportOffset.top + 109 + window.pageYOffset;
+  //document.getElementById("iconos").style.left = viewportOffset.left + 12; // alert("other"+document.getElementById("other").value);
   if (document.getElementById("other") != "") {
-    // document.getElementById("iconos").style.visibility = "visible";
+    //  document.getElementById("iconos").style.visibility = "visible";
   }
   //
   document.getElementById("launched").innerHTML =
@@ -5675,231 +5612,75 @@ function carga() {
       6;
     document.getElementById("chdiv").style.visibility = "visible";
     // document.getElementById("iconos").style.left =
-    //   `${document.getElementById("map_canvas").offsetLeft + 6}px`;
-    document.getElementById("gMapLoader").style.display = "none";
+    //  `${document.getElementById("map_canvas").offsetLeft + 6}px`;
+    //document.getElementById("gMapLoader").style.display = "none";
   }
 }
 qrpchange = false;
 function borrarother() {
   document.formu.other.value = "";
 }
+
 function setid() {
-  querystring = "http://" + window.location.hostname + window.location.pathname;
-  querystring =
-    querystring +
-    "?banda=" +
-    formu.banda.value +
-    "&other=" +
-    formu.other.value +
-    "&balloonid=" +
-    formu.balloonid.value +
-    "&timeslot=" +
-    formu.timeslot.value;
-  if (querystring.indexOf("tracker") == -1) {
-    if (formu.tracker.value != "") {
-      querystring + "&tracker=" + formu.tracker.value;
-    }
-  }
-  if (formu.repito) {
-    querystring = querystring + "&repito=on";
-  } else {
-    querystring = querystring + "&repito=";
-  }
-  if (formu.wide && formu.wide.checked == true) {
-    querystring = querystring + "&wide=on";
-  } else {
-    querystring = querystring + "&wide=";
-  }
-  if (formu.detail && formu.detail.checked == true) {
-    querystring = querystring + "&detail=on";
-  } else {
-    querystring = querystring + "&detail=";
-  }
-  if (qrpchange) {
-    querystring =
-      querystring +
-      "&qrpid=" +
-      document.getElementById("qrpchn").innerHTML.replace("?", "");
-  } else {
-    if (gqs("qrpid")) {
-      querystring = querystring + "&qrpid=" + gqs("qrpid");
-    } else {
-    }
-  }
-  if (ssidchange) {
-    querystring = querystring + "&SSID=" + newssid;
-    if (newssid.length > 0 && gqs("repito") != "on") {
-      querystring = querystring + "&repito=on";
-    }
-  } else {
-    if (gqs("SSID")) {
-      querystring = querystring + "&SSID=" + gqs("SSID");
-    } else {
-    }
-  }
-  if (gqs("launch")) {
-    querystring = querystring + "&launch=" + gqs("launch");
-  } else {
-  }
-  if (qrpchange) {
-    querystring = querystring + "&tracker=" + "traquito";
-  } else {
-    if (gqs("tracker")) {
-      querystring = querystring + "&tracker=" + gqs("tracker");
-    } else {
-    }
-  }
-  if (gqs("telen") && gqs("telen") == "on") {
-    querystring = querystring + "&telen=on";
-    formu.telen.checked = true;
-  }
-  if (gqs("qp") && gqs("qp") == "on") {
-    querystring = querystring + "&qp=on";
-  }
-  if (formu.limit.value != "") {
-    querystring = querystring + "&limit=" + formu.limit.value;
-  } else {
-  }
-  //if (formu.qp && formu.qp.checked == true) { querystring = querystring + "&qp=on" } else { querystring = querystring + "" };
-
-  // FIXME: No funciona el reload
-  //document.location.url = querystring; sleep(100); document.location.href = querystring; sleep(100);// document.location.href = querystring;
-  //    document.location.reload();
-}
-function solarflux() {
-  posleft = screen.availWidth / 2 + 6;
-  postop = screen.availHeight / 2 - 320;
-  if (popupwin != null) {
-    popupwin.close();
-  }
-  codata =
-    '<\/head><body style="margin-top:0px;margin-left:0px;margin-right:0;margin-bottom:0;background-color:#f8f8f8;\' color="#ffffff" onclick="self.close();")>';
-  codata =
-    codata +
-    "<center><img src='https://services.swpc.noaa.gov/images/swx-overview-small.gif' height='495px' style='background-color:#ffffff;'>";
-  codata = codata + "<\/body><\/html>";
-  var anchopantalla = 514;
-  var altopantalla = 505;
-  preferences =
-    "toolbar=no,width=" +
-    anchopantalla +
-    "px,height=" +
-    altopantalla +
-    "px,center,margintop=0,top=" +
-    postop +
-    ",left=" +
-    posleft +
-    ",status=no,scrollbars=no,resizable=no,dependent=yes,z-lock=yes";
-  if (popupwin != null) {
-    popupwin.close();
-  }
-  popupwin = window.open("", "win1", preferences);
-  popupwin.document.write(codata);
-  popupwin.setTimeout("self.close();", 120000);
-  for (g = 0; g < 14; g++) {
-    document.getElementById(g).style.backgroundColor = "transparent";
-  }
-  document.getElementById(13).style.backgroundColor = "orange";
-}
-
-function getHeightPercentage(x) {
-  if (typeof x !== "number" || x < 0) {
-    console.error("Input must be a non-negative number");
-    return 500;
-  }
-
-  const screenHeight = window.innerHeight; // Height of the viewport in pixels
-  const result = (x / 100) * screenHeight;
-  return result;
-}
-
-function getWidthPercentage(x) {
-  if (typeof x !== "number" || x < 0) {
-    console.error("Input must be a non-negative number");
-    return 500;
-  }
-
-  const screenWidth = window.innerWidth; // Width of the viewport in pixels
-  const result = (x / 100) * screenWidth;
-  return result;
-}
-
-function ponermapa(locator, licencia) {
-  let ifrh = getHeightPercentage(80);
-  let ifrw = getWidthPercentage(80);
-  document.getElementById("map_canvas").style.height = `${ifrh}px`;
-  document.getElementById("map_canvas").style.width = `${ifrw}px`;
-  if (isIOS) {
-    ifrh = getHeightPercentage(50);
-    ifrw = getWidthPercentage(50);
-    document.getElementById("map_canvas").style.height = `${ifrh}px`;
-    document.getElementById("map_canvas").style.width = `${ifrw}px`;
-  }
-  document.getElementById("map_canvas").style.align = "center";
-
-  const iframe = document.getElementById("map_canvas");
-  const jsonData = {
-    locator,
-    licencia,
-    beacon1: window.beacon1,
-    locations: window.locations,
-    flechas: window.flechas,
-    parentLocation: window.parent.document.location.href,
-    bcid: window.bcid,
-    lanzamiento: lanzamiento,
-    searchParams: window.parent.window.location.search,
-    iframeHeight: `${ifrh - 20}px`,
-    iframeWidth: `${ifrw - 20}px`,
-    addplusElementValue: window.addplusElementValue,
-    avgfreqElementValue: window.avgfreqElementValue,
-    proxElementValue: window.proxElementValue,
-    otherValues: {
-      saveglobo,
-      saveestaciones,
-      velest,
-      hide,
-      Kmrecorridos,
-      TZD4,
-      txt,
-      saveglobo,
-      saveestaciones,
-      velest,
-      meterfeet,
-      prevaltutext,
-      diaslaunch,
-      lica,
-      map,
-      distanciatotal,
-      rumboest,
-      velest,
-      sunlon,
-      sunlat,
-      savelato,
-      savelono,
-      sunarray,
-      balloonarray,
-      balloonCoords,
-      radian,
-      dt,
-      launchdate,
-    },
-  };
-  // Enviar JSON al iframe
-  iframe.contentWindow.postMessage(
-    JSON.stringify(jsonData),
-    "https://lu7aa.org",
+  console.log("SET-ID");
+  window.parent.postMessage(
+    { callbackName: "setid" },
+    "https://balloons.dev.browxy.com",
   );
 }
 
-function handleMapMessage(event) {
-  //console.log("[ RECIBE POST-MESSAGE ]", event);
-  const { callbackName, props } = event.data;
-  window[callbackName](props);
+function gohidet() {
+  console.log("GOHIDET");
+  window.parent.postMessage(
+    { callbackName: "gohidet" },
+    "https://balloons.dev.browxy.com",
+  );
 }
 
-function changesEstacionesHtml(props) {
-  //console.log("Función ejecutada");
-  document.getElementById("estaciones").innerHTML = props.text;
+function gohide() {
+  console.log("GO-HIDE");
+  window.parent.postMessage(
+    { callbackName: "gohide" },
+    "https://balloons.dev.browxy.com",
+  );
 }
 
-window.addEventListener("message", handleMapMessage);
+function gowinds() {
+  console.log("GO-WINDS");
+  window.parent.postMessage(
+    { callbackName: "gowinds" },
+    "https://balloons.dev.browxy.com",
+  );
+}
+
+function gowinds1() {
+  console.log("GO-WINDS1");
+  window.parent.postMessage(
+    { callbackName: "gowinds1" },
+    "https://balloons.dev.browxy.com",
+  );
+}
+
+function goplanes() {
+  console.log("GO-PLANES");
+  window.parent.postMessage(
+    { callbackName: "goplanes" },
+    "https://balloons.dev.browxy.com",
+  );
+}
+
+function goships() {
+  console.log("GO-SHIPS");
+  window.parent.postMessage(
+    { callbackName: "goships" },
+    "https://balloons.dev.browxy.com",
+  );
+}
+
+function showprop() {
+  console.log("SHOWPROP");
+  window.parent.postMessage(
+    { callbackName: "showprop" },
+    "https://balloons.dev.browxy.com",
+  );
+}

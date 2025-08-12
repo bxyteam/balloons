@@ -39,16 +39,8 @@
         <!-- <meta http-equiv="refresh" content=""> -->
         <title>WSPRX</title>
 
-        <!-- <link rel="stylesheet" href="css/styleWsprx.css" /> -->
+        <link rel="stylesheet" href="css/styleWsprx.css" />
 
-        <script type="text/javascript">
-            function initMap() {}
-        </script>
-        <!-- src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAACTum6vjLOeCDgGj6EFFnzJMe7r8xOII&loading=async&callback=initMap" -->
-        <script
-            type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOya7aI1WJfTmx9e5d7YY7RgueBwVhwrk&loading=async&callback=initMap"
-        ></script>
         <script
             type="text/javascript"
             src="https://www.gstatic.com/charts/loader.js"
@@ -64,7 +56,8 @@
             type="text/javascript"
             src="https://www.google.com/jsapi"
         ></script>
-        <script>
+
+        <!-- <script>
             const styleSheetUrls = [
                 "https://raw.githubusercontent.com/bxyteam/balloons/main/css/styleWsprx.css",
             ];
@@ -119,19 +112,21 @@
             // Call the function
             loadStylesSequentially(styleSheetUrls);
             loadScriptsSequentially(scriptUrls);
-        </script>
+        </script> -->
+
         <!-- <script src="js/beacon.js"></script>  -->
-        <!-- <script src="js/assetsSrc.js"></script>
+        <script src="js/assetsSrc.js"></script>
         <script src="js/datos.js"></script>
+        <!-- <script src="js/beacon.js"></script> -->
         <script src="js/commonWsprx.js"></script>
         <script src="js/indexWsprx.js"></script>
         <script src="js/balloonLinkMenu.js"></script>
-        <script src="js/balloonTrackerx.js"></script>
+        <!-- <script src="js/balloonTrackerx.js"></script> -->
         <script src="js/wsprxTelemetryUtils.js"></script>
         <script src="js/wsprxTelemetry1.js"></script>
         <script src="js/wsprxTelemetry2.js"></script>
         <script src="js/balloonLaunchedWsprx.js"></script>
-        <script src="js/suncalc.js"></script> -->
+        <script src="js/suncalc.js"></script>
     </head>
     <body>
         <!-- <body onload="loadMapState();carga()"> -->
@@ -191,8 +186,24 @@
                     opacity: 0.8;
                 "
             ></div>
+            <!
             <div style="position: relative; width: 100%; height: 100%">
-                <div id="gMapLoader" class="loader"></div>
+            <div id="gMapLoader" class="loader"></div>
+            <iframe
+                id="map_canvas"
+                src="https://lu7aa.org/balloonGmap.html"
+                style="
+                    border: none;
+                    height: 80%;
+                    width: 80%;
+                    margin-right: auto;
+                    margin-left: auto;
+                    background-color: #213468;
+                    display: block;
+                    visibility: hidden;
+                "
+            ></iframe>
+            <!--
                 <div
                     id="map_canvas"
                     style="
@@ -531,29 +542,25 @@
                         height="85px"
                         style="width: 27px; height: 85px; visibility: hidden"
                     />
-                </div>
-                <div
-                    id="chart_div"
-                    style="
-                        position: absolute;
-                        top: 30px;
-                        left: 210px;
-                        width: 1078px;
-                        height: 514px;
-                        visibility: hidden;
-                        background-color: #f2f2f2;
-                    "
-                ></div>
-                <div
-                    id="sacar"
-                    onclick="cerrar()"
-                    style="
-                        position: absolute;
-                        color: #ffffff;
-                        font-family: Tahoma;
-                    "
-                ></div>
-            </div>
+                </div> -->
+            <div
+                id="chart_div"
+                style="
+                    position: absolute;
+                    top: 30px;
+                    left: 210px;
+                    width: 1078px;
+                    height: 514px;
+                    visibility: hidden;
+                    background-color: #f2f2f2;
+                "
+            ></div>
+            <div
+                id="sacar"
+                onclick="cerrar()"
+                style="position: absolute; color: #ffffff; font-family: Tahoma"
+            ></div>
+            <!-- </div> -->
             <div
                 id="aprsfi"
                 style="
