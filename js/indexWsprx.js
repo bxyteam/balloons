@@ -4778,13 +4778,13 @@ function carga() {
   //document.getElementById("legend").style.left = viewportOffset.left + 40;
   //
   rutinaf = window.location.href.toLowerCase();
-  rutinaf = rutinaf.replace("http://", "");
+  rutinaf = rutinaf.replace("https://", "");
   rutinaf = rutinaf.replace(window.location.hostname, "");
   rutinaf = rutinaf.replace("/", "");
-  rutinaf = rutinaf.replace(".asp", "");
+  //rutinaf = rutinaf.replace(".asp", "");
   rutinafm = rutinaf.split("?");
   quewspr = rutinafm[0];
-  ("");
+
   rutina =
     "<a href=# onclick=\"mostrar('" +
     document.getElementById("other").value +
@@ -4806,26 +4806,30 @@ function carga() {
     rutina = rutina + " Fast";
   }
   rutina = rutina + "</span>";
-  // document.getElementById("rutina").style.top =
-  //  viewportOffset.top + 50 + window.pageYOffset;
-  //document.getElementById("rutina").style.left = viewportOffset.left + 4; // alert("other"+document.getElementById("other").value);
-  //document.getElementById("rutina").innerHTML = rutina;
+
+  window.rutinaElementValue = rutina;
+  /*
+  document.getElementById("rutina").style.top =
+    viewportOffset.top + 50 + window.pageYOffset;
+  document.getElementById("rutina").style.left = viewportOffset.left + 4; // alert("other"+document.getElementById("other").value);
+  document.getElementById("rutina").innerHTML = rutina;
   if (document.getElementById("other") != "") {
-    // document.getElementById("rutina").style.visibility = "visible";
+     document.getElementById("rutina").style.visibility = "visible";
   }
-  //document.getElementById("iconos").style.top =
-  // viewportOffset.top + 109 + window.pageYOffset;
-  //document.getElementById("iconos").style.left = viewportOffset.left + 12; // alert("other"+document.getElementById("other").value);
+  document.getElementById("iconos").style.top =
+   viewportOffset.top + 109 + window.pageYOffset;
+  document.getElementById("iconos").style.left = viewportOffset.left + 12; // alert("other"+document.getElementById("other").value);
   if (document.getElementById("other") != "") {
-    // document.getElementById("iconos").style.visibility = "visible";
+     document.getElementById("iconos").style.visibility = "visible";
   }
-  //document.getElementById("iconos").style.top =
-  //  viewportOffset.top + 109 + window.pageYOffset;
-  // document.getElementById("iconos").style.left = viewportOffset.left + 12; // alert("other"+document.getElementById("other").value);
+  document.getElementById("iconos").style.top =
+    viewportOffset.top + 109 + window.pageYOffset;
+   document.getElementById("iconos").style.left = viewportOffset.left + 12; // alert("other"+document.getElementById("other").value);
   if (document.getElementById("other") != "") {
-    // document.getElementById("iconos").style.visibility = "visible";
+     document.getElementById("iconos").style.visibility = "visible";
   }
-  //
+  */
+
   document.getElementById("launched").innerHTML =
     "&nbsp;Launch: " +
     lanzamiento.getFullYear() +
@@ -5853,6 +5857,8 @@ function ponermapa(locator, licencia) {
     addplusElementValue: window.addplusElementValue,
     avgfreqElementValue: window.avgfreqElementValue,
     proxElementValue: window.proxElementValue,
+    otherInputValue: document.getElementById("other").value,
+    rutinaElementValue: window.rutinaElementValue,
     otherValues: {
       saveglobo,
       saveestaciones,

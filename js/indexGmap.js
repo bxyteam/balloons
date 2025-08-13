@@ -31,9 +31,9 @@ window.getLaunchDate = () => {
   return `${fe.getFullYear()}-${pad(fe.getMonth() + 1)}-${pad(fe.getDate())} 00:00:00`;
 };
 
-var diaslaunch = Math.floor(
-  (new Date() - new Date(window.getLaunchDate())) / (1000 * 60 * 60 * 24),
-);
+// var diaslaunch = Math.floor(
+//   (new Date() - new Date(window.getLaunchDate())) / (1000 * 60 * 60 * 24),
+// );
 
 function handleErr(msg, url, l) {
   txt = "There was an error on this page.\n\n";
@@ -4178,6 +4178,7 @@ function ponersun1(fecha, locator, alturam) {
 }
 var hidet = false;
 var isIOS = false;
+/*/
 function carga() {
   var isIOS = (function () {
     var iosQuirkPresent = function () {
@@ -5616,10 +5617,12 @@ function carga() {
     //document.getElementById("gMapLoader").style.display = "none";
   }
 }
+*/
+
 qrpchange = false;
-function borrarother() {
-  document.formu.other.value = "";
-}
+// function borrarother() {
+//   document.formu.other.value = "";
+// }
 
 function setid() {
   console.log("SET-ID");

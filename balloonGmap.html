@@ -18,6 +18,7 @@
         ></script>
         <script src="https://cdn.jsdelivr.net/gh/bxyteam/balloons@main/js/assetsSrc.min.js"></script>
         <!-- <script src="https://cdn.jsdelivr.net/gh/bxyteam/balloons@main/js/indexGmap.min.js"></script> -->
+        <script src="indexGmap.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/bxyteam/balloons@main/js/suncalc.min.js"></script>
     </head>
     <body>
@@ -90,6 +91,7 @@
                     white-space: nowrap;
                 "
             ></div>
+
             <div
                 id="iconos"
                 style="position: absolute; top: 110px; left: 1px; width: 35px !important; height: 300px; visibility: hidden; color: #ffffff; font-size: 15px; line-height: 13px; font-family: &amp; quot; Arial Narrow&amp;quot; ! important; font-weight: normal; align-content: center; text-shadow: 1px 1px #000000;"
@@ -361,71 +363,111 @@
             <center>Day / Night<br />Change Line</center>
         </div>
         <script>
-            <script>
-                window.addEventListener(
-                    "message",
-                    (event) => {
-                        if (
-                            event.origin === "https://balloons.browxy.com" ||
-                            event.origin === "https://balloons.dev.browxy.com" ||
-                            event.origin === "http://localhost:5000"
-                        ) {
-                            const jsonData = JSON.parse(event.data);
-                            console.log("JSON recibido:", jsonData);
-                            //Procesar el JSON aquí
-                            window.locations = jsonData.locations;
-                            window.flechas = jsonData.flechas;
-                            window.beacon1 = jsonData.beacon1;
-                            window.parentLocation = jsonData.parentLocation;
-                            window.bcid = jsonData.bcid;
-                            window.lanzamiento = jsonData.lanzamiento;
-                            window.searchParams = jsonData.searchParams;
-                            window.iframeHeight = jsonData.iframeHeight;
-                            window.iframeWidth = jsonData.iframeWidth;
+            window.addEventListener(
+                "message",
+                (event) => {
+                    if (
+                        event.origin === "https://balloons.browxy.com" ||
+                        event.origin === "https://balloons.dev.browxy.com" ||
+                        event.origin === "http://localhost:5000"
+                    ) {
+                        const jsonData = JSON.parse(event.data);
+                        console.log("JSON recibido:", jsonData);
 
-                            saveglobo = jsonData.otherValues.saveglobo;
-                            saveestaciones = jsonData.otherValues.saveestaciones;
-                            velest = jsonData.otherValues.velest;
-                           hide = jsonData.otherValues.hide;
-                            Kmrecorridos = jsonData.otherValues.Kmrecorridos;
-                             TZD4 = jsonData.otherValues.TZD4;
-                              txt = jsonData.otherValues.txt;
-                            saveglobo = jsonData.otherValues.saveglobo;
-                             saveestaciones = jsonData.otherValues.saveestaciones;
-                              velest = jsonData.otherValues.velest;
-                               meterfeet = jsonData.otherValues.meterfeet;
-                                prevaltutext = jsonData.otherValues.prevaltutext;
-                                 diaslaunch = jsonData.otherValues.diaslaunch;
-                                   lica = jsonData.otherValues.lica;
-                                    map = jsonData.otherValues.map;
-                              distanciatotal = jsonData.otherValues.distanciatotal;
-                                  rumboest = jsonData.otherValues.rumboest;
-                                   velocidad = jsonData.otherValues.velocidad;
-                                     velocidad = jsonData.otherValues.velocidad;
-                                      sunlon = jsonData.otherValues.sunlon;
-                                           sunlat = jsonData.otherValues.sunlat;
-                                           savelato = jsonData.otherValues.savelato;
-                                            savelono = jsonData.otherValues.savelono;
-                            sunarray = jsonData.otherValues.sunarray;
-                            balloonarray = jsonData.otherValues.balloonarray;
-                           balloonCoords = jsonData.otherValues.balloonCoords;
-                           radian = jsonData.otherValues.radian;
-                           dt = jsonData.otherValues.dt;
-                           launchdate = jsonData.otherValues.launchdate;
+                        window.locations = jsonData.locations;
+                        window.flechas = jsonData.flechas;
+                        window.beacon1 = jsonData.beacon1;
+                        window.parentLocation = jsonData.parentLocation;
+                        window.bcid = jsonData.bcid;
+                        window.lanzamiento = jsonData.lanzamiento;
+                        window.searchParams = jsonData.searchParams;
+                        window.iframeHeight = jsonData.iframeHeight;
+                        window.iframeWidth = jsonData.iframeWidth;
+                        // window.otherInputValue =
+                        //  jsonData.otherValues.otherInputValue;
+                        saveglobo = jsonData.otherValues.saveglobo;
+                        saveestaciones = jsonData.otherValues.saveestaciones;
+                        velest = jsonData.otherValues.velest;
+                        hide = jsonData.otherValues.hide;
+                        Kmrecorridos = jsonData.otherValues.Kmrecorridos;
+                        TZD4 = jsonData.otherValues.TZD4;
+                        txt = jsonData.otherValues.txt;
+                        saveglobo = jsonData.otherValues.saveglobo;
+                        saveestaciones = jsonData.otherValues.saveestaciones;
+                        velest = jsonData.otherValues.velest;
+                        meterfeet = jsonData.otherValues.meterfeet;
+                        prevaltutext = jsonData.otherValues.prevaltutext;
+                        diaslaunch = jsonData.otherValues.diaslaunch;
+                        lica = jsonData.otherValues.lica;
+                        map = jsonData.otherValues.map;
+                        distanciatotal = jsonData.otherValues.distanciatotal;
+                        rumboest = jsonData.otherValues.rumboest;
+                        velocidad = jsonData.otherValues.velocidad;
+                        sunlon = jsonData.otherValues.sunlon;
+                        sunlat = jsonData.otherValues.sunlat;
+                        savelato = jsonData.otherValues.savelato;
+                        savelono = jsonData.otherValues.savelono;
+                        sunarray = jsonData.otherValues.sunarray;
+                        balloonarray = jsonData.otherValues.balloonarray;
+                        balloonCoords = jsonData.otherValues.balloonCoords;
+                        radian = jsonData.otherValues.radian;
+                        dt = jsonData.otherValues.dt;
+                        launchdate = jsonData.otherValues.launchdate;
+                        window.diaslaunch = Math.floor(
+                            (new Date() - new Date(window.getLaunchDate())) /
+                                (1000 * 60 * 60 * 24),
+                        );
 
-                            document.getElementById("addPlus").innerHTML = jsonData.addplusElementValue;
-                            document.getElementById("avgfreq").innerHTML = jsonData.avgfreqElementValue;
-                            document.getElementById("Prox").innerHTML = jsonData.proxElementValue;
-                            ponermapa(jsonData.locator, jsonData.licencia);
-                        } else {
-                            console.log(
-                                "Mensaje recibido desde una fuente no autorizada:",
-                                event,
-                            );
+                        document.getElementById("rutina").style.top =
+                            viewportOffset.top + 50 + window.pageYOffset;
+                        document.getElementById("rutina").style.left =
+                            viewportOffset.left + 4; //alert("other"+jsonData.otherValues.otherInputValue);
+                        document.getElementById("rutina").innerHTML =
+                            jsonData.rutinaElementValue;
+                        if (jsonData.otherValues.otherInputValue != "") {
+                            document.getElementById("rutina").style.visibility =
+                                "visible";
                         }
-                    },
-                    false,
-                );
+
+                        if (jsonData.otherValues.otherInputValue != "") {
+                            document.getElementById("rutina").style.visibility =
+                                "visible";
+                        }
+                        document.getElementById("iconos").style.top =
+                            viewportOffset.top + 109 + window.pageYOffset;
+                        document.getElementById("iconos").style.left =
+                            viewportOffset.left + 12;
+                        //alert("other" + jsonData.otherValues.otherInputValue);
+                        if (jsonData.otherValues.otherInputValue != "") {
+                            document.getElementById("iconos").style.visibility =
+                                "visible";
+                        }
+                        document.getElementById("iconos").style.top =
+                            viewportOffset.top + 109 + window.pageYOffset;
+                        document.getElementById("iconos").style.left =
+                            viewportOffset.left + 12;
+                        // alert("other" + jsonData.otherValues.otherInputValue);
+                        if (jsonData.otherValues.otherInputValue != "") {
+                            document.getElementById("iconos").style.visibility =
+                                "visible";
+                        }
+
+                        document.getElementById("addPlus").innerHTML =
+                            jsonData.addplusElementValue;
+                        document.getElementById("avgfreq").innerHTML =
+                            jsonData.avgfreqElementValue;
+                        document.getElementById("Prox").innerHTML =
+                            jsonData.proxElementValue;
+                        ponermapa(jsonData.locator, jsonData.licencia);
+                    } else {
+                        console.log(
+                            "Mensaje recibido desde una fuente no autorizada:",
+                            event,
+                        );
+                    }
+                },
+                false,
+            );
         </script>
     </body>
 </html>
