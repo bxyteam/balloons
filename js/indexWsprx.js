@@ -855,6 +855,7 @@ var monthNames = [
   "Nov",
   "Dec",
 ];
+/*
 if (window.addEventListener) {
   if (document.getElementById("legend")) {
     window.addEventListener("beforeunload", function (event) {
@@ -874,6 +875,7 @@ if (window.addEventListener) {
     };
   }
 }
+*/
 var popupwin;
 function mostrar(licencia, loc) {
   licencia = licencia.replace(/-/, "").replace(/:/, "");
@@ -3331,7 +3333,7 @@ function drawKm() {
   document.getElementById("chart_div").style.left =
     document.getElementById("map_canvas").offsetLeft + 74;
   document.getElementById("chart_div").style.top =
-    document.getElementById("map_canvas").offsetTop;
+    `${document.getElementById("map_canvas").getBoundingClientRect().top}px`;
   var options = {
     backgroundColor: "#f2f2f2",
     width: window.width,
@@ -3440,7 +3442,7 @@ function drawChart(meterfeet) {
   formatter.format(data4, 0);
   let mapCanvas = document.getElementById("map_canvas").getBoundingClientRect();
   document.getElementById("chart_div").style.left = `${mapCanvas.left}px`;
-  document.getElementById("chart_div").style.top = `0px`;
+  document.getElementById("chart_div").style.top = `${mapCanvas.top}px`;
   document.getElementById("chart_div").style.height = `${mapCanvas.height}px`;
   document.getElementById("chart_div").style.width = `${mapCanvas.width}px`;
 
@@ -4561,6 +4563,8 @@ function carga() {
         document.getElementById("map_canvas").clientWidth;
       document.getElementById("chart_div").style.height =
         document.getElementById("map_canvas").clientHeight;
+      document.getElementById("chart_div").style.top =
+        `${document.getElementById("map_canvas").getBoundingClientRect().top}px`;
     }
     if (!isNaN(data3[1][5])) {
       // Horiz velocity
@@ -4660,11 +4664,13 @@ function carga() {
       "Fewer recent points than required.\n Try [+] selection. Will be slower.",
     );
   }
+  /*
   if (document.getElementById("map_canvas").style.height == "0px") {
     document.getElementById("legend").style.visibility = "hidden";
   } else {
     document.getElementById("legend").style.visibility = "visible";
   }
+  */
   if (gqs("launch") && gqs("launch") != "") {
     launchc = gqs("launch");
     document.getElementById("launched").innerHTML =
@@ -5681,6 +5687,7 @@ function carga() {
     // document.getElementById("iconos").style.left =
     //   `${document.getElementById("map_canvas").offsetLeft + 6}px`;
     document.getElementById("gMapLoader").style.display = "none";
+    document.getElementById("map_canvas").style.visibility = "visible";
   }
 }
 qrpchange = false;
@@ -5865,7 +5872,7 @@ function ponermapa(locator, licencia) {
       velest,
       hide,
       Kmrecorridos,
-      TZD4,
+      TZD,
       txt,
       saveglobo,
       saveestaciones,
@@ -5904,8 +5911,7 @@ function handleMapMessage(event) {
 }
 
 function changesEstacionesHtml(props) {
-  //console.log("Función ejecutada");
-  document.getElementById("estaciones").innerHTML = props.text;
+  document.getElementById("estaciones").innerHTML = props.html;
 }
 
 window.addEventListener("message", handleMapMessage);

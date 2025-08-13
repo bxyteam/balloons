@@ -1,3 +1,4 @@
+//window.HOST_URL = "http://localhost:5000";
 window.addEventListener("load", async () => {
   window.dataTracker = await loadDataTrackerjson();
   window.bj = JSON.parse(dataTracker.jsonArray);

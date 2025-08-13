@@ -94,7 +94,7 @@
 
             <div
                 id="iconos"
-                style="position: absolute; top: 110px; left: 1px; width: 35px !important; height: 300px; visibility: hidden; color: #ffffff; font-size: 15px; line-height: 13px; font-family: &amp; quot; Arial Narrow&amp;quot; ! important; font-weight: normal; align-content: center; text-shadow: 1px 1px #000000;"
+                style="position: absolute; top: 120px; left: 15px; width: 35px !important; height: 300px; visibility: hidden; color: #ffffff; font-size: 15px; line-height: 13px; font-family: &amp; quot; Arial Narrow&amp;quot; ! important; font-weight: normal; align-content: center; text-shadow: 1px 1px #000000;"
             >
                 <img
                     alt="UPDATE"
@@ -390,7 +390,7 @@
                         velest = jsonData.otherValues.velest;
                         hide = jsonData.otherValues.hide;
                         Kmrecorridos = jsonData.otherValues.Kmrecorridos;
-                        TZD4 = jsonData.otherValues.TZD4;
+                        TZD = jsonData.otherValues.TZD;
                         txt = jsonData.otherValues.txt;
                         saveglobo = jsonData.otherValues.saveglobo;
                         saveestaciones = jsonData.otherValues.saveestaciones;
@@ -418,10 +418,10 @@
                                 (1000 * 60 * 60 * 24),
                         );
 
-                        document.getElementById("rutina").style.top =
-                            viewportOffset.top + 50 + window.pageYOffset;
-                        document.getElementById("rutina").style.left =
-                            viewportOffset.left + 4; //alert("other"+jsonData.otherValues.otherInputValue);
+                        document.getElementById("rutina").style.top = 10;
+                        //  viewportOffset.top + 50 + window.pageYOffset;
+                        document.getElementById("rutina").style.left = 80;
+                        //viewportOffset.left + 4; //alert("other"+jsonData.otherValues.otherInputValue);
                         document.getElementById("rutina").innerHTML =
                             jsonData.rutinaElementValue;
                         if (jsonData.otherValues.otherInputValue != "") {
@@ -433,20 +433,15 @@
                             document.getElementById("rutina").style.visibility =
                                 "visible";
                         }
-                        document.getElementById("iconos").style.top =
-                            viewportOffset.top + 109 + window.pageYOffset;
-                        document.getElementById("iconos").style.left =
-                            viewportOffset.left + 12;
-                        //alert("other" + jsonData.otherValues.otherInputValue);
+
+                        // document.getElementById("iconos").style.top = "120px";
+                        // document.getElementById("iconos").style.left = "20px";
+
                         if (jsonData.otherValues.otherInputValue != "") {
                             document.getElementById("iconos").style.visibility =
                                 "visible";
                         }
-                        document.getElementById("iconos").style.top =
-                            viewportOffset.top + 109 + window.pageYOffset;
-                        document.getElementById("iconos").style.left =
-                            viewportOffset.left + 12;
-                        // alert("other" + jsonData.otherValues.otherInputValue);
+
                         if (jsonData.otherValues.otherInputValue != "") {
                             document.getElementById("iconos").style.visibility =
                                 "visible";

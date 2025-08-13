@@ -1220,9 +1220,6 @@ function ponermapa(locator, licencia) {
       if (i < 6 && locations.length > 5) {
         if (hide) {
           icono1 = imageSrcUrl["none"];
-          // document.getElementById(
-          //     "estaciones",
-          // ).innerHTML = "";
           window.parent.postMessage(
             {
               callbackName: "changesEstacionesHtml",
@@ -1232,9 +1229,6 @@ function ponermapa(locator, licencia) {
           );
         } else {
           icono1 = imageSrcUrl["yellow-dot"];
-          // document.getElementById(
-          //     "estaciones",
-          // ).innerHTML = saveestaciones;
           window.parent.postMessage(
             {
               callbackName: "changesEstacionesHtml",
@@ -1247,9 +1241,6 @@ function ponermapa(locator, licencia) {
       } else {
         if (hide) {
           icono1 = imageSrcUrl["none"];
-          // document.getElementById(
-          //     "estaciones",
-          // ).innerHTML = "";
           window.parent.postMessage(
             {
               callbackName: "changesEstacionesHtml",
@@ -1259,9 +1250,6 @@ function ponermapa(locator, licencia) {
           );
         } else {
           icono1 = imageSrcUrl["red-dot"];
-          // document.getElementById(
-          //     "estaciones",
-          // ).innerHTML = saveestaciones;
           window.parent.postMessage(
             {
               callbackName: "changesEstacionesHtml",
