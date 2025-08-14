@@ -6,7 +6,8 @@ window.getParamSafe = (key, defaultValue = "", encode = false) => {
   if (value === null || value.trim() === "") return defaultValue;
   return encode ? encodeURIComponent(value) : value.trim();
 };
-
+window.homeloc = "";
+window.et = [];
 // 1. Array de meses (índices del 1 al 12)
 const mes = [
   "", // Para que mes[1] sea "January"
@@ -45,20 +46,20 @@ const oloc = 7;
 const tpwr = 7;
 
 // Inicialización de arrays
-let datos = Array(3000)
-  .fill(null)
-  .map(() => Array(3).fill(null));
-let estaciones = Array(3000)
-  .fill(null)
-  .map(() => Array(7).fill(null));
-const estacion = Array(3000).fill(null);
+// let datos = Array(3001)
+//   .fill()
+//   .map(() => Array(4).fill(""));
+// let estaciones = Array(3001)
+//   .fill()
+//   .map(() => Array(8).fill(""));
+const estacion = Array(3001).fill("");
 // Inicializar array bidimensional estac (equivalente a Dim estac(20,20))
 const estac = Array(21)
   .fill()
-  .map(() => Array(21).fill(0));
+  .map(() => Array(21).fill(""));
 
 // Inicializar array bande
-const bande = Array(21).fill(0);
+const bande = Array(21).fill("");
 let lastz = -1;
 let n = 0;
 let o = 0;
@@ -345,48 +346,8 @@ function right(str, length) {
 
 // Función para obtener el contenido desde la URL remota
 async function fetchReporters(params) {
-  const baseUrl = "/api/v1/wsprNetwork";
-  //  const bs = window.getParamSafe("bs", "");
-  // let callParam = "";
-  // let reporterParam = "";
-
-  // if (bs === "A" || bs === "") {
-  //   callParam = callsearch;
-  //   reporterParam = callsearch;
-  // } else if (bs === "B") {
-  //   callParam = callsearch.toUpperCase();
-  //   reporterParam = "";
-  // } else {
-  //   callParam = "";
-  //   reporterParam = callsearch.toUpperCase();
-  // }
-
-  // const params = new URLSearchParams({
-  //   band: band,
-  //   count: "300",
-  //   call: callParam,
-  //   reporter: reporterParam,
-  //   timeLimit: "604800",
-  //   sortBy: "date",
-  //   sortRev: "1",
-  //   unique: "0",
-  //   excludespecial: "0",
-  //   mode: "All",
-  // });
-
-  // const params = {
-  //   band: band,
-  //   count: "300",
-  //   call: callParam,
-  //   reporter: reporterParam,
-  //   timeLimit: "604800",
-  //   sortBy: "date",
-  //   sortRev: "1",
-  //   unique: "0",
-  //   excludespecial: "0",
-  //   mode: "All",
-  // };
-  //const fullUrl = `${baseUrl}?${params.toString()}`;
+  //const baseUrl = "/api/v1/wsprNetwork";
+  const baseUrl = "https://balloons.dev.browxy.com/api/v1/wsprNetwork";
 
   try {
     const response = await fetch(baseUrl, {
@@ -401,6 +362,20 @@ async function fetchReporters(params) {
     return pag;
   } catch (error) {
     console.error("Error al obtener datos:", error);
+    return "";
+  }
+}
+
+async function getURL(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const text = await response.text();
+    return text;
+  } catch (error) {
+    console.error("Error fetching URL:", error);
     return "";
   }
 }
@@ -438,7 +413,7 @@ function procesarTabla(pag, ocall, tcall) {
 
   // Buscar la tabla
   const tabla = buscarTag("<table>", "</table>", pag, posicion);
-  console.log("tabla", tabla);
+
   if (!tabla) {
     console.log("No se encontró tabla");
     return estacion;
@@ -650,43 +625,43 @@ function buildReporterParameters({ band, callsign, callsign1, limit, omit }) {
     //getURLreporters = `http://wsprnetwork.browxy.com/?band=${band}&count=3000&call=${callsign}&reporter=${callsign1}&timeLimit=${limit}&sortBy=date&sortRev=1&unique=0&mode=All&excludespecial=${omit}`;
     return {
       band,
-      count: 3000,
+      count: "3000",
       call: callsign,
       reporter: callsign1,
-      timeLimit: limit,
+      timeLimit: `${limit}`,
       sortBy: "date",
-      sortRev: 1,
-      unique: 0,
+      sortRev: "1",
+      unique: "0",
       mode: "All",
-      excludespecial: omit,
+      excludespecial: `${omit}`,
     };
   } else if (bs === "B") {
     //getURLreporters = `http://wsprnetwork.browxy.com/?band=${band}&count=3000&call=${callsign}&reporter=&timeLimit=${limit}&sortBy=date&sortRev=1&unique=0&mode=All&excludespecial=${omit}`;
     return {
       band,
-      count: 3000,
+      count: "3000",
       call: callsign,
       reporter: "",
-      timeLimit: limit,
+      timeLimit: `${limit}`,
       sortBy: "date",
-      sortRev: 1,
-      unique: 0,
+      sortRev: "1",
+      unique: "0",
       mode: "All",
-      excludespecial: omit,
+      excludespecial: `${omit}`,
     };
   } else {
     // getURLreporters = `http://wsprnetwork.browxy.com/?band=${band}&count=3000&reporter=${callsign}&call=&timeLimit=${limit}&sortBy=date&sortRev=1&unique=0&mode=All&excludespecial=${omit}`;
     return {
       band,
-      count: 3000,
+      count: "3000",
       call: "",
       reporter: callsign,
-      timeLimit: limit,
+      timeLimit: `${limit}`,
       sortBy: "date",
-      sortRev: 1,
-      unique: 0,
+      sortRev: "1",
+      unique: "0",
       mode: "All",
-      excludespecial: omit,
+      excludespecial: `${omit}`,
     };
   }
 }
@@ -771,7 +746,7 @@ async function processReporters({ band, callsign, callsign1, limit, omit }) {
     limit,
     omit,
   });
-
+  console.log("params>>> ", paramsReporters);
   // Verificar si es callsign especial X1
   if (callsign.toLowerCase().startsWith("x1")) {
     paramsReporters["reporter"] = "";
@@ -790,26 +765,40 @@ async function processReporters({ band, callsign, callsign1, limit, omit }) {
   // Verificar si hay mantenimiento
   if (pag.length < 500) {
     handleCallNotFound(callsign.trim().toUpperCase());
-    await delay(1);
+    // await delay(1);
 
     // En lugar de Response.Write y Response.End, retornamos un objeto de error
     return {
       error: true,
       message: "Sorry.... On Maintenance.... Will return soon...",
       redirect: `${HOST_URL}/dx`,
+      pag: "",
+      bandArrays: bandArrays,
+      bandCounters: bandCounters,
+      bandas: bandas,
+      bp: bp,
+      posicion: posicion,
+      paramsReporters: paramsReporters,
     };
   }
 
   // Segunda verificación de longitud
   if (pag.length < 17150) {
     handleCallNotFound(callsign.trim().toUpperCase());
-    await delay(1);
-    handleCallNotFound(callsign.trim().toUpperCase());
+    // await delay(1);
+    //handleCallNotFound(callsign.trim().toUpperCase());
 
     // En lugar de Response.redirect, retornamos información de redirección
     return {
       error: true,
       redirect: `${HOST_URL}/dx?nocall=${callsign.trim().toUpperCase()}`,
+      pag: "",
+      bandArrays: bandArrays,
+      bandCounters: bandCounters,
+      bandas: bandas,
+      bp: bp,
+      posicion: posicion,
+      paramsReporters: paramsReporters,
     };
   }
 
@@ -877,12 +866,12 @@ function procesarTablaDatos(pag, posicion) {
   const calli = window.getParamSafe("call", "").trim().toUpperCase();
 
   // Inicializar arrays
-  const datos = Array(1000)
+  const datos = Array(tablam.length)
     .fill()
-    .map(() => Array(10).fill(0));
-  const estaciones = Array(1000)
+    .map(() => Array(4).fill(0));
+  const estaciones = Array(tablam.length)
     .fill()
-    .map(() => Array(10).fill(""));
+    .map(() => Array(7).fill(""));
 
   let ultimo = "";
   let home = "";
@@ -924,10 +913,10 @@ function procesarTablaDatos(pag, posicion) {
 
       // Si no está ok, manejar redirección
       if (!ok) {
-        const serverName = window.location.hostname;
-        const scriptName = window.location.pathname;
-        const queryString = window.location.search.substring(1);
-        const reloadUrl = `http://${serverName}${scriptName}?${queryString}`;
+        const serverName = window.parent.window.location.hostname;
+        const scriptName = window.parent.window.location.pathname;
+        const queryString = window.parent.window.location.search.substring(1);
+        const reloadUrl = `https://${serverName}${scriptName}?${queryString}`;
 
         return {
           error: true,
@@ -1084,6 +1073,533 @@ function procesarTablaDatos(pag, posicion) {
   };
 }
 
+// Migración ASP a JavaScript - Parte 5
+
+// Función para calcular horas activo (equivalente a horasactivo)
+function horasactivo(toDate, fromDate) {
+  // Convertir fechas de formato "2021-10-30 18:32" a Date objects
+  const toDateObj = new Date(toDate.replace(/-/g, "/"));
+  const fromDateObj = new Date(fromDate.replace(/-/g, "/"));
+
+  // Calcular diferencia en horas
+  const diffMs = fromDateObj.getTime() - toDateObj.getTime();
+  const hs = Math.floor(diffMs / (1000 * 60 * 60));
+
+  if (hs > 0) {
+    if (hs > 48) {
+      return Math.floor((hs + 12) / 24) + "d";
+    } else {
+      return hs + "h";
+    }
+  } else if (hs < 1) {
+    // Calcular diferencia en minutos
+    const mins = Math.floor(diffMs / (1000 * 60));
+    return Math.floor(mins) + "'";
+  }
+  return "";
+}
+
+function fh(fechaStr) {
+  // Retorna la hora de la cadena si es válida, o 0 si no lo es
+  if (typeof fechaStr !== "string") return 0;
+  const hora = parseInt(fechaStr.substring(11, 13));
+  return isNaN(hora) ? 0 : hora;
+}
+
+function fd(fechaStr) {
+  // Retorna el día de la cadena si es válida, o 0 si no lo es
+  if (typeof fechaStr !== "string") return 0;
+  const dia = parseInt(fechaStr.substring(8, 10));
+  return isNaN(dia) ? 0 : dia;
+}
+// Función para obtener nombres de meses (equivalente a mes() de ASP)
+function getMes(numeroMes) {
+  const meses = [
+    "",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const num = parseInt(numeroMes, 10);
+  return meses[num] || "";
+}
+
+// Función getMes completa con nombres largos también (opcional)
+function getMesCompleto(numeroMes, formato = "corto") {
+  const mesesCortos = [
+    "",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const mesesLargos = [
+    "",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const num = parseInt(numeroMes, 10);
+
+  if (formato === "largo") {
+    return mesesLargos[num] || "";
+  } else {
+    return mesesCortos[num] || "";
+  }
+}
+
+// Función principal de procesamiento
+function procesarReportesDeDatos(
+  horainicial,
+  horafinal,
+  iib,
+  iis,
+  bana,
+  estac,
+  bande,
+  lastz,
+  did,
+  datos,
+  j,
+  ultimo,
+  home,
+  estaciones,
+  n,
+) {
+  // Calcular horas activo
+  const hactivo = horasactivo(horainicial, horafinal);
+
+  // Calcular porcentajes de Beacon/Spotter
+  let rf = "";
+  if (iis === 0 && iib === 0) {
+    rf = " ";
+  } else {
+    const totals = iib + iis;
+    if (iib > 0) {
+      rf = Math.round((iib / totals) * 100) + "% as Beacon";
+      if (iis > 0) rf += "<br>";
+    }
+    if (iis > 0) {
+      rf += Math.round((iis / totals) * 100) + "% as Spotter";
+    }
+  }
+
+  // Asignar contadores de bandas (equivalente a bac=bana(1,32), etc.)
+  const bandCounters = {
+    bac: (bana[1] && bana[1][32]) || 0,
+    b0c: (bana[2] && bana[2][32]) || 0,
+    b1c: (bana[3] && bana[3][32]) || 0,
+    b3c: (bana[4] && bana[4][32]) || 0,
+    b5c: (bana[5] && bana[5][32]) || 0,
+    b7c: (bana[6] && bana[6][32]) || 0,
+    b10c: (bana[7] && bana[7][32]) || 0,
+    b13c: (bana[8] && bana[8][32]) || 0,
+    b14c: (bana[9] && bana[9][32]) || 0,
+    b18c: (bana[10] && bana[10][32]) || 0,
+    b21c: (bana[11] && bana[11][32]) || 0,
+    b24c: (bana[12] && bana[12][32]) || 0,
+    b28c: (bana[13] && bana[13][32]) || 0,
+    b40c: (bana[14] && bana[14][32]) || 0,
+    b50c: (bana[15] && bana[15][32]) || 0,
+    b70c: (bana[16] && bana[16][32]) || 0,
+    b144c: (bana[17] && bana[17][32]) || 0,
+    b432c: (bana[18] && bana[18][32]) || 0,
+    b1296c: (bana[19] && bana[19][32]) || 0,
+  };
+
+  // Crear arrays de bandas
+  const bandArrays = {
+    ba: new Array(32),
+    b0: new Array(32),
+    b1: new Array(32),
+    b3: new Array(32),
+    b5: new Array(32),
+    b7: new Array(32),
+    b10: new Array(32),
+    b13: new Array(32),
+    b14: new Array(32),
+    b18: new Array(32),
+    b21: new Array(32),
+    b24: new Array(32),
+    b28: new Array(32),
+    b40: new Array(32),
+    b50: new Array(32),
+    b70: new Array(32),
+    b144: new Array(32),
+    b432: new Array(32),
+    b1296: new Array(32),
+  };
+
+  // Llenar arrays de bandas
+  for (let p = 0; p < 32; p++) {
+    bandArrays.ba[p] = (bana[1] && bana[1][p]) || 0;
+    bandArrays.b0[p] = (bana[2] && bana[2][p]) || 0;
+    bandArrays.b1[p] = (bana[3] && bana[3][p]) || 0;
+    bandArrays.b3[p] = (bana[4] && bana[4][p]) || 0;
+    bandArrays.b5[p] = (bana[5] && bana[5][p]) || 0;
+    bandArrays.b7[p] = (bana[6] && bana[6][p]) || 0;
+    bandArrays.b10[p] = (bana[7] && bana[7][p]) || 0;
+    bandArrays.b13[p] = (bana[8] && bana[8][p]) || 0;
+    bandArrays.b14[p] = (bana[9] && bana[9][p]) || 0;
+    bandArrays.b18[p] = (bana[10] && bana[10][p]) || 0;
+    bandArrays.b21[p] = (bana[11] && bana[11][p]) || 0;
+    bandArrays.b24[p] = (bana[12] && bana[12][p]) || 0;
+    bandArrays.b28[p] = (bana[13] && bana[13][p]) || 0;
+    bandArrays.b40[p] = (bana[14] && bana[14][p]) || 0;
+    bandArrays.b50[p] = (bana[15] && bana[15][p]) || 0;
+    bandArrays.b70[p] = (bana[16] && bana[16][p]) || 0;
+    bandArrays.b144[p] = (bana[17] && bana[17][p]) || 0;
+    bandArrays.b432[p] = (bana[18] && bana[18][p]) || 0;
+    bandArrays.b1296[p] = (bana[19] && bana[19][p]) || 0;
+  }
+
+  // Ordenar bandas (bubble sort)
+  for (let v = 0; v < lastz - 1; v++) {
+    for (let w = v + 1; w <= lastz; w++) {
+      if (bande[w] < bande[v]) {
+        const savev = bande[v];
+        bande[v] = bande[w];
+        bande[w] = savev;
+      }
+    }
+  }
+
+  // Generar datos para gráfico de distancia (dxkm)
+  let smax = 0;
+  let dxkm = "\n";
+  const feh = new Date();
+  const fed = `[new Date(${feh.getFullYear()}, ${String(feh.getMonth() + 1).padStart(2, "0")}, ${String(feh.getDate()).padStart(2, "0")}, `;
+
+  for (let s = 0; s < 20; s++) {
+    dxkm += `\t[${Math.floor(s * 1000)}, `;
+    const ini = lastz > 5 ? 1 : 0;
+
+    for (let k = 0; k <= lastz; k++) {
+      if (estac[s][bande[k]] !== 0) {
+        dxkm += `${estac[s][bande[k]]}, 'At ${s * 1000} Km.\\n${estac[s][bande[k]]} Reports\\n On ${did.get(bande[k])} MHz', `;
+        if (s > smax) smax = s;
+      } else {
+        dxkm += `0, 'At ${s * 1000} Km.\\n${estac[s][bande[k]]} Reports\\n On ${did.get(bande[k])} MHz', `;
+      }
+    }
+    dxkm = dxkm.substring(0, dxkm.length - 2) + "],\n";
+  }
+  dxkm = dxkm.substring(0, dxkm.length - 3) + "\n";
+  const dxkm1 = dxkm.replace(/\n/g, "").replace(/\t/g, "");
+
+  // Preparar datos de estaciones
+  n = n - 1;
+  const fracciondia =
+    (parseInt(ultimo.substring(11, 13)) +
+      parseInt(ultimo.substring(14, 16)) / 60) /
+    24;
+
+  // Generar matriz et (estaciones)
+  /*
+  let et = `var homeloc="${home}"; var et=[\n`;
+  for (let w = 0; w <= n; w++) {
+    et += "[";
+    for (let u = 0; u < 8; u++) {
+      et += `"${estaciones[w][u] || ""}"${u < 7 ? "," : ""}`;
+    }
+    et += `]${w < n ? "," : ""}\n`;
+  }
+  et += "]";
+*/
+  //let et = `var homeloc="${home}"; var et=[\n`;
+  window.homeloc = home;
+
+  for (let w = 0; w <= n; w++) {
+    window.et[w] = []; //et += "[";
+    for (let u = 0; u < 8; u++) {
+      window.et[w].push(estaciones[w][u] || "");
+    }
+    //et += `]${w < n ? "," : ""}\n`;
+  }
+  //et += "]";
+  const last = j - 1;
+
+  // Determinar rango de fechas/horas
+  const por = window.getParamSafe("por", "");
+  let dmax, dmin;
+  if (por === "" || por.toUpperCase() === "H") {
+    dmax = fh(datos[3][0]);
+    dmin = fh(datos[last][0]);
+  }
+
+  return {
+    hactivo,
+    rf,
+    bandCounters,
+    bandArrays,
+    dxkm1,
+    et,
+    fracciondia,
+    smax,
+    last,
+    dmax,
+    dmin,
+  };
+}
+
+// Función agregar (equivalente a la función ASP)
+function agregarBanda(banda, k, nombre, columns, cols, bandas, bp) {
+  const result = {
+    columns: columns + `\tdata.addColumn('number', '${nombre}');\n`,
+    cols: cols,
+    bandas: [...bandas],
+    bp: bp,
+  };
+
+  result.columns += `\tdata.addColumn({type: 'string', role: 'tooltip'});\n`;
+  result.bandas[bp] = banda;
+  result.bp = bp + 1;
+
+  if (nombre === "LF") nombre = "LF 0.137 MHz";
+  if (nombre === "MF") nombre = "MF 0.475 MHz";
+
+  result.cols += `\t\t\t['${nombre}',${k}],\n`;
+
+  return result;
+}
+
+// Función para generar minutos (equivalente a función minutos ASP)
+function generarMinutos(
+  banda,
+  bandas,
+  bp,
+  datos,
+  last,
+  delta,
+  fracciondia,
+  bandArrays,
+) {
+  const por = window.getParamSafe("por", "");
+  let desde, hasta;
+  let datas = "";
+
+  if (por === "" || por.toUpperCase() === "H") {
+    desde = 0;
+    hasta = 23;
+  } else {
+    desde = fd(datos[last][0]);
+    hasta = fd(datos[3][0]);
+  }
+
+  for (let i = desde; i <= hasta; i++) {
+    let resulta = "";
+
+    if (por === "" || por.toUpperCase() === "H") {
+      let nv = i + delta;
+      if (nv > 23) nv = nv - 24;
+      if (nv < 0) nv = nv + 24;
+      const anio = new Date(datos[last][0].substring(0, 10)).getFullYear();
+      resulta = `\t[new Date(${anio}, 12, 31, ${String(nv).padStart(2, "0")}, 00, 00), `;
+    } else {
+      const nv = i - desde;
+      const fech = new Date(datos[last][0]);
+      fech.setDate(fech.getDate() + nv);
+      const nuevafech = `${fech.getFullYear()}, ${String(fech.getMonth()).padStart(2, "0")}, ${String(fech.getDate()).padStart(2, "0")}, ${String(fech.getHours()).padStart(2, "0")}, 00, 00`;
+      resulta = `\t[new Date(${nuevafech}), `;
+    }
+
+    for (let j = 0; j < bp; j++) {
+      const nv = i - desde;
+      let valor;
+
+      if (por === "" || por.toUpperCase() === "H") {
+        const matriz = bandArrays[bandas[j]];
+        valor = matriz[nv] || 0;
+      } else {
+        const fech = new Date(datos[last][0]);
+        fech.setDate(fech.getDate() + nv);
+        valor =
+          bandArrays[bandas[j]][String(fech.getDate()).padStart(2, "0")] || 0;
+        if (fracciondia < 0.95 && fracciondia > 0.05 && i === hasta) {
+          valor = Math.floor(valor / fracciondia);
+        }
+      }
+
+      resulta += valor + ", ";
+
+      const hr = por.toUpperCase() === "D" ? "Day" : "Hour";
+      let dh;
+
+      if (por.toUpperCase() === "D") {
+        const fech = new Date(datos[last][0]);
+        fech.setDate(fech.getDate() + nv);
+        dh = String(fech.getDate()).padStart(2, "0");
+      } else {
+        let t = i + delta;
+        if (t > 23) t = t - 24;
+        if (t < 0) t = t + 24;
+        dh = String(t).padStart(2, "0");
+      }
+
+      let bandasb = bandas[j].replace("b", "");
+      if (bandasb === "1") bandasb = "1.8";
+      if (bandasb === "3") bandasb = "3.5";
+      if (bandasb === "0") bandasb = "0.475";
+      if (bandasb === "a") bandasb = "0.137";
+
+      resulta += `'For ${bandasb} MHz\\nAt ${hr}: ${dh}\\n${valor} Reports', `;
+    }
+
+    resulta = resulta.substring(0, resulta.length - 2) + "],\n";
+    datas += resulta;
+  }
+
+  return datas;
+}
+
+// Función principal para configurar gráficos
+function configurarGraficos(bandCounters, bandArrays, datos, j) {
+  const mesNum1 = parseInt(datos[2][0].substring(5, 7));
+  const mesNum2 = parseInt(datos[j - 1][0].substring(5, 7));
+
+  let mesdereporte = getMes(mesNum1);
+  if (mesNum2 !== mesNum1) {
+    mesdereporte = getMes(mesNum2) + " / " + getMes(mesNum1);
+  }
+  mesdereporte += " " + datos[2][0].substring(0, 4);
+
+  let columns = "";
+  let datas = "";
+  let cols = "";
+  let bandas = [];
+  let bp = 0;
+
+  // Agregar bandas que tienen datos
+  const bandasConfig = [
+    { key: "bac", name: "ba", label: "LF" },
+    { key: "b0c", name: "b0", label: "MF" },
+    { key: "b1c", name: "b1", label: "1.8 MHz" },
+    { key: "b3c", name: "b3", label: "3.5 MHz" },
+    { key: "b5c", name: "b5", label: "5 MHz" },
+    { key: "b7c", name: "b7", label: "7 MHz" },
+    { key: "b10c", name: "b10", label: "10 MHz" },
+    { key: "b13c", name: "b13", label: "13 MHz" },
+    { key: "b14c", name: "b14", label: "14 MHz" },
+    { key: "b18c", name: "b18", label: "18 MHz" },
+    { key: "b21c", name: "b21", label: "21 MHz" },
+    { key: "b24c", name: "b24", label: "24 MHz" },
+    { key: "b28c", name: "b28", label: "28 MHz" },
+    { key: "b40c", name: "b40", label: "40 MHz" },
+    { key: "b50c", name: "b50", label: "50 MHz" },
+    { key: "b70c", name: "b70", label: "70 MHz" },
+    { key: "b144c", name: "b144", label: "144 MHz" },
+    { key: "b432c", name: "b432", label: "432 MHz" },
+    { key: "b1296c", name: "b1296", label: "1296 MHz" },
+  ];
+
+  for (const banda of bandasConfig) {
+    if (bandCounters[banda.key] > 0) {
+      const result = agregarBanda(
+        banda.name,
+        bandCounters[banda.key],
+        banda.label,
+        columns,
+        cols,
+        bandas,
+        bp,
+      );
+      columns = result.columns;
+      cols = result.cols;
+      bandas = result.bandas;
+      bp = result.bp;
+    }
+  }
+
+  const delta = parseInt(window.getParamSafe("tz", "0")) || 0;
+  const fracciondia = 0; // Esto viene del procesamiento anterior
+  datas = generarMinutos(
+    " ",
+    bandas,
+    bp,
+    datos,
+    0,
+    delta,
+    fracciondia,
+    bandArrays,
+  );
+
+  // Generar texto de emisión
+  let bemit = "On ";
+  for (let bb = 0; bb < bp; bb++) {
+    let bbb = bandas[bb].replace("b", "");
+    if (bbb === "3") bbb = "3.5";
+    if (bbb === "1") bbb = "1.8";
+    if (bbb === "0") bbb = "0.475";
+    if (bbb === "a") bbb = "0.136";
+
+    if (bbb !== "") bemit += bbb;
+    if (bb === bp - 2) {
+      bemit += " and ";
+    } else if (bb < bp - 1) {
+      bemit += ", ";
+    }
+  }
+  bemit = bemit.substring(0, bemit.length - 2) + " MHz";
+
+  return {
+    mesdereporte,
+    columns,
+    datas,
+    cols,
+    bemit,
+    bandas,
+    bp,
+  };
+}
+
+async function obtenerBeaconCsvDatos() {
+  let texto = "";
+
+  // Intenta obtener la primera URL
+  texto = await getURL(
+    "https://raw.githubusercontent.com/HB9VQQ/WSPRBeacon/main/Beacon%20List.csv",
+  );
+
+  // Verifica si el texto no empieza con "ID,Call"
+  if (!texto.startsWith("ID,Call")) {
+    // Si no, intenta con la segunda URL
+    texto = await getUrl("http://lu7aa.org.ar/text/ibp.txt");
+  }
+
+  // Divide el texto por líneas (como split con vbCrLf)
+  const lineas = texto.split(/\r?\n/); // Maneja \r\n o \n
+
+  // Ahora `lineas` contiene un array con cada línea del archivo
+  return lineas;
+}
+
 async function initApp() {
   // Llenar con ceros: bana[0][0] hasta bana[19][32]
   for (let j = 0; j <= 19; j++) {
@@ -1193,7 +1709,8 @@ async function initApp() {
   let estacionesProcesadas = procesarEstaciones(estaciones, o);
 
   const callSignProcesado = procesarCallsign();
-
+  console.log("estaciones procesadas", estacionesProcesadas);
+  console.log("estaciones", estaciones);
   if (callSignProcesado.error) {
     window.parent.window.alert(callSignProcesado.error);
     return;
@@ -1212,52 +1729,45 @@ async function initApp() {
     return;
   }
 
-  const resultado = procesarTablaDatos(
+  const resultadoProcesadoDeDatos = procesarTablaDatos(
     processReports2.pag,
     processReports2.posicion,
   );
 
-  if (resultado.error) {
-    console.error("Error:", resultado.message);
-    if (resultado.redirect) {
-      window.location.href = resultado.redirect;
+  if (resultadoProcesadoDeDatos.error) {
+    console.error("Error:", resultadoProcesadoDeDatos.message);
+    if (resultadoProcesadoDeDatos.redirect) {
+      window.location.href = resultadoProcesadoDeDatos.redirect;
     }
   }
+  console.log("resultadoProcesadoDeDatos", resultadoProcesadoDeDatos);
+  const reporteDeDatosProcessor = procesarReportesDeDatos(
+    resultadoProcesadoDeDatos.horainicial,
+    resultadoProcesadoDeDatos.horafinal,
+    resultadoProcesadoDeDatos.iib,
+    resultadoProcesadoDeDatos.iis,
+    bana,
+    estac,
+    bande,
+    lastz,
+    did,
+    resultadoProcesadoDeDatos.datos,
+    resultadoProcesadoDeDatos.j,
+    resultadoProcesadoDeDatos.ultimo,
+    resultadoProcesadoDeDatos.home,
+    resultadoProcesadoDeDatos.estaciones,
+    resultadoProcesadoDeDatos.n,
+  );
 
-  /*
-  let urlReporters = `http://wsprnetwork.browxy.com/?band=${params.band}&count=3000&call=${params.call}&reporter=${params.reporter}&timeLimit=${params.timeLimit}&sortBy=date&sortRev=1&unique=0&mode=All&excludespecial=${params.excludespecial}`;
-  console.log(urlReporters);
-  let pag = await getURL(urlReporters);
+  console.log("reporteDeDatosProcessor", reporteDeDatosProcessor);
+  const graficosConfigurados = configurarGraficos(
+    reporteDeDatosProcessor.bandCounters,
+    reporteDeDatosProcessor.bandArrays,
+    resultadoProcesadoDeDatos.datos,
+    reporteDeDatosProcessor.last, //j
+  );
 
-  if (contenidoHTML.length < 500) {
-    alert("Sorry.... On Maintenance.... Will return soon...");
-    return;
-  }
-
-  // Segunda verificación de longitud
-  if (contenidoHTML.length < 17150) {
-    window.location.href = `http://localhost:5000/dx.html?nocall=${params.call.trim().toUpperCase()}`;
-  }
-
-  document.getElementById("reporter").innerHTML = contenidoHTML;
-  estaciones = procesarTabla(contenidoHTML, ocall, tcall);
-  console.log("estaciones", estaciones, o);
-  let estacionesProcesadas = procesarEstaciones(estaciones, o);
-  console.log("estaciones proc ", estacionesProcesadas);
-  */
+  console.log("graficosConfigurados", graficosConfigurados);
+  await obtenerBeaconCsvDatos();
 }
 window.addEventListener("load", initApp);
-
-async function getURL(url) {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const text = await response.text();
-    return text;
-  } catch (error) {
-    console.error("Error fetching URL:", error);
-    return "";
-  }
-}

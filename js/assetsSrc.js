@@ -65,4 +65,13 @@ var imageSrcUrl = {
   zachtek: "https://i.postimg.cc/v8kRsZ48/zachtek.gif",
   zachtekplus: "https://i.postimg.cc/6pxD8bVD/zachtekplus.jpg",
   zl1rs: "https://i.postimg.cc/y8h2chvW/zl1rs.jpg",
+  amsatb: "https://i.postimg.cc/tCgJPRGx/amsatb.gif",
+  c: "https://i.postimg.cc/MTxKGqYX/c.png",
+  loading: "https://i.postimg.cc/2SsSP4bQ/loading.gif",
+  OQ: "https://i.postimg.cc/rw0pnhmy/OQ.gif",
+  p: "https://i.postimg.cc/pTZVh40C/p.png",
+  parabola: "https://i.postimg.cc/yx81FjtH/parabola.gif",
+  solarvhf: "https://i.postimg.cc/7YQ6NvqQ/solarvhf.gif",
+  sun1: "https://i.postimg.cc/nLqhZCB6/sun1.gif",
+  world2: "https://iili.io/FDq8dZJ.jpg",
 };
