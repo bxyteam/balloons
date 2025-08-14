@@ -3332,8 +3332,8 @@ function drawKm() {
   }
   document.getElementById("chart_div").style.left =
     document.getElementById("map_canvas").offsetLeft + 74;
-  document.getElementById("chart_div").style.top =
-    `${document.getElementById("map_canvas").getBoundingClientRect().top}px`;
+  //document.getElementById("chart_div").style.top =
+  // `${document.getElementById("map_canvas").getBoundingClientRect().top}px`;
   var options = {
     backgroundColor: "#f2f2f2",
     width: window.width,
@@ -3442,7 +3442,7 @@ function drawChart(meterfeet) {
   formatter.format(data4, 0);
   let mapCanvas = document.getElementById("map_canvas").getBoundingClientRect();
   document.getElementById("chart_div").style.left = `${mapCanvas.left}px`;
-  document.getElementById("chart_div").style.top = `${mapCanvas.top}px`;
+  //document.getElementById("chart_div").style.top = `${mapCanvas.top}px`;
   document.getElementById("chart_div").style.height = `${mapCanvas.height}px`;
   document.getElementById("chart_div").style.width = `${mapCanvas.width}px`;
 
@@ -4563,8 +4563,8 @@ function carga() {
         document.getElementById("map_canvas").clientWidth;
       document.getElementById("chart_div").style.height =
         document.getElementById("map_canvas").clientHeight;
-      document.getElementById("chart_div").style.top =
-        `${document.getElementById("map_canvas").getBoundingClientRect().top}px`;
+      // document.getElementById("chart_div").style.top =
+      // `${document.getElementById("map_canvas").getBoundingClientRect().top}px`;
     }
     if (!isNaN(data3[1][5])) {
       // Horiz velocity

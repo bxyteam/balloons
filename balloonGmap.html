@@ -368,8 +368,7 @@
                 (event) => {
                     if (
                         event.origin === "https://balloons.browxy.com" ||
-                        event.origin === "https://balloons.dev.browxy.com" ||
-                        event.origin === "http://localhost:5000"
+                        event.origin === "https://balloons.dev.browxy.com"
                     ) {
                         const jsonData = JSON.parse(event.data);
                         console.log("JSON recibido:", jsonData);
@@ -383,8 +382,7 @@
                         window.searchParams = jsonData.searchParams;
                         window.iframeHeight = jsonData.iframeHeight;
                         window.iframeWidth = jsonData.iframeWidth;
-                        // window.otherInputValue =
-                        //  jsonData.otherValues.otherInputValue;
+
                         saveglobo = jsonData.otherValues.saveglobo;
                         saveestaciones = jsonData.otherValues.saveestaciones;
                         velest = jsonData.otherValues.velest;
@@ -419,9 +417,8 @@
                         );
 
                         document.getElementById("rutina").style.top = 10;
-                        //  viewportOffset.top + 50 + window.pageYOffset;
                         document.getElementById("rutina").style.left = 80;
-                        //viewportOffset.left + 4; //alert("other"+jsonData.otherValues.otherInputValue);
+
                         document.getElementById("rutina").innerHTML =
                             jsonData.rutinaElementValue;
                         if (jsonData.otherValues.otherInputValue != "") {
@@ -433,9 +430,6 @@
                             document.getElementById("rutina").style.visibility =
                                 "visible";
                         }
-
-                        // document.getElementById("iconos").style.top = "120px";
-                        // document.getElementById("iconos").style.left = "20px";
 
                         if (jsonData.otherValues.otherInputValue != "") {
                             document.getElementById("iconos").style.visibility =
