@@ -344,6 +344,10 @@ function right(str, length) {
   return String(str).slice(-length);
 }
 
+function left(str, length) {
+  return str.substring(0, length);
+}
+
 // Función para obtener el contenido desde la URL remota
 async function fetchReporters(params) {
   //const baseUrl = "/api/v1/wsprNetwork";
@@ -486,10 +490,13 @@ function procesarTabla(pag, ocall, tcall) {
     }
   }
 
-  return estacion;
+  return { estacion, o };
 }
 
 function procesarEstaciones(estacion, o) {
+  if (!estacion.length) {
+    return { estaselect: "", o };
+  }
   // Decrementar o como en el código original
   o = o - 1;
 
@@ -560,10 +567,10 @@ function procesarEstaciones(estacion, o) {
     // Completar el select
     estaselect += `</select><br>Recent ${o + 1}${addaster}<br>${tipob} Calls</b></i>\n`;
 
-    return estaselect;
+    return { estaselect, o };
   }
 
-  return "";
+  return { estaselect: "", o };
 }
 
 // Procesar parámetros de llamada
@@ -1070,6 +1077,8 @@ function procesarTablaDatos(pag, posicion) {
     pwro: pwro,
     n: n,
     j: j,
+    tabla: tabla,
+    tablam: tablam,
   };
 }
 
@@ -1113,24 +1122,42 @@ function fd(fechaStr) {
   return isNaN(dia) ? 0 : dia;
 }
 // Función para obtener nombres de meses (equivalente a mes() de ASP)
+// function getMes(numeroMes) {
+//   const meses = [
+//     "",
+//     "Jan",
+//     "Feb",
+//     "Mar",
+//     "Apr",
+//     "May",
+//     "Jun",
+//     "Jul",
+//     "Aug",
+//     "Sep",
+//     "Oct",
+//     "Nov",
+//     "Dec",
+//   ];
+//   const num = parseInt(numeroMes, 10);
+//   return meses[num] || "";
+// }
+
 function getMes(numeroMes) {
   const meses = [
-    "",
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
+    "January",
+    "February",
+    "March",
+    "April",
     "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
-  const num = parseInt(numeroMes, 10);
-  return meses[num] || "";
+  return meses[numeroMes - 1] || "";
 }
 
 // Función getMes completa con nombres largos también (opcional)
@@ -1311,7 +1338,7 @@ function procesarReportesDeDatos(
     }
     dxkm = dxkm.substring(0, dxkm.length - 2) + "],\n";
   }
-  dxkm = dxkm.substring(0, dxkm.length - 3) + "\n";
+  dxkm = dxkm.substring(0, dxkm.length - 2) + "\n";
   const dxkm1 = dxkm.replace(/\n/g, "").replace(/\t/g, "");
 
   // Preparar datos de estaciones
@@ -1337,7 +1364,8 @@ function procesarReportesDeDatos(
   window.homeloc = home;
 
   for (let w = 0; w <= n; w++) {
-    window.et[w] = []; //et += "[";
+    // window.et[w] = []; //et += "[";
+    window.et.push([]);
     for (let u = 0; u < 8; u++) {
       window.et[w].push(estaciones[w][u] || "");
     }
@@ -1360,12 +1388,14 @@ function procesarReportesDeDatos(
     bandCounters,
     bandArrays,
     dxkm1,
+    dxkm,
     et,
     fracciondia,
     smax,
     last,
     dmax,
     dmin,
+    n,
   };
 }
 
@@ -1481,14 +1511,15 @@ function generarMinutos(
 
 // Función principal para configurar gráficos
 function configurarGraficos(bandCounters, bandArrays, datos, j) {
-  const mesNum1 = parseInt(datos[2][0].substring(5, 7));
+  const mesNum1 = parseInt(datos[1][0].substring(5, 7));
   const mesNum2 = parseInt(datos[j - 1][0].substring(5, 7));
 
   let mesdereporte = getMes(mesNum1);
+
   if (mesNum2 !== mesNum1) {
     mesdereporte = getMes(mesNum2) + " / " + getMes(mesNum1);
   }
-  mesdereporte += " " + datos[2][0].substring(0, 4);
+  mesdereporte = mesdereporte + " " + datos[1][0].substring(0, 4);
 
   let columns = "";
   let datas = "";
@@ -1538,7 +1569,7 @@ function configurarGraficos(bandCounters, bandArrays, datos, j) {
   }
 
   const delta = parseInt(window.getParamSafe("tz", "0")) || 0;
-  const fracciondia = 0; // Esto viene del procesamiento anterior
+  const fracciondia = 0;
   datas = generarMinutos(
     " ",
     bandas,
@@ -1581,23 +1612,543 @@ function configurarGraficos(bandCounters, bandArrays, datos, j) {
 
 async function obtenerBeaconCsvDatos() {
   let texto = "";
-
-  // Intenta obtener la primera URL
   texto = await getURL(
     "https://raw.githubusercontent.com/HB9VQQ/WSPRBeacon/main/Beacon%20List.csv",
   );
 
-  // Verifica si el texto no empieza con "ID,Call"
   if (!texto.startsWith("ID,Call")) {
-    // Si no, intenta con la segunda URL
-    texto = await getUrl("http://lu7aa.org.ar/text/ibp.txt");
+    texto = await getShareResource("ibp.txt");
   }
 
-  // Divide el texto por líneas (como split con vbCrLf)
   const lineas = texto.split(/\r?\n/); // Maneja \r\n o \n
 
-  // Ahora `lineas` contiene un array con cada línea del archivo
   return lineas;
+}
+
+async function readShareAsset({ assetOutputType, assetUrl }) {
+  try {
+    return await window.parent.window.readAssetFile({
+      assetOutputType,
+      assetUrl,
+    });
+  } catch (error) {
+    return { statusCode: 400, data: null, error: "Something went wrong." };
+  }
+}
+
+async function getShareResource(file) {
+  try {
+    window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
+    const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
+    let serverResponse;
+    const response = await readAsset({
+      assetOutputType: "txt",
+      assetUrl,
+    });
+    serverResponse = response.data;
+
+    return serverResponse;
+  } catch (error) {
+    console.error(error);
+    return "";
+  }
+}
+
+function procesarWsprBeacon(bm) {
+  // Inicializar array bidimensional esta (450,5)
+  const esta = Array(450)
+    .fill()
+    .map(() => Array(6).fill(""));
+  let estacuenta = 0;
+
+  // Array de estaciones inactivas
+  const inactive = [
+    "5T5PA",
+    "BX6AP",
+    "D4Z",
+    "VE8PAT",
+    "ZS1WAC",
+    "YB3PET",
+    "VK3AGB",
+    "PY7ZC",
+    "GT0SP",
+    "4Z4SI",
+    "PR7DEE",
+    "CALL",
+  ];
+
+  // Procesar cada elemento del array bm (empezando desde índice 1 como en ASP)
+  for (let i = 1; i < bm.length; i++) {
+    // Dividir la línea por comas (equivalente a split(bm(i),",",100,1))
+    const bl = splitASP(bm[i], ",", 100, 1);
+
+    // Verificar si la estación está activa
+    let activo = true;
+    for (let k = 0; k < inactive.length; k++) {
+      if (inactive[k] === bl[1]) {
+        activo = false;
+        break;
+      }
+    }
+
+    // Si está activa, procesarla
+    if (activo && bl.length > 9) {
+      // esta(estacuenta,0) = bl(1)
+      esta[estacuenta][0] = bl[1] || "";
+
+      // esta(estacuenta,1) = replace(replace(replace(bl(9),chr(34),""),"vertical","vert."),"inverted","inv.")
+      let antenna = bl[9] || "";
+      antenna = replaceAll(antenna, '"', ""); // chr(34) = comillas dobles
+      antenna = replaceAll(antenna, "vertical", "vert.");
+      antenna = replaceAll(antenna, "inverted", "inv.");
+      esta[estacuenta][1] = antenna;
+
+      // esta(estacuenta,2) = replace(bl(8),chr(34),"")
+      esta[estacuenta][2] = replaceAll(bl[8] || "", '"', "");
+
+      // esta(estacuenta,3) = replace(bl(5),chr(34),"")
+      esta[estacuenta][3] = replaceAll(bl[5] || "", '"', "");
+
+      // esta(estacuenta,4) = replace(bl(2),chr(34),"")
+      esta[estacuenta][4] = replaceAll(bl[2] || "", '"', "");
+
+      estacuenta++;
+    }
+  }
+
+  // Línea comentada en el original (por si la necesitas):
+  // esta[estacuenta][0] = "LU1ESY";
+  // esta[estacuenta][1] = "Long Wire";
+  // esta[estacuenta][2] = "0 dBi";
+  // esta[estacuenta][3] = "6";
+  // esta[estacuenta][4] = "GF05QI";
+
+  const estalast = estacuenta;
+
+  // Ordenamiento burbuja (bubble sort)
+  for (let i = 0; i < estalast - 1; i++) {
+    for (let j = i + 1; j < estalast; j++) {
+      if (esta[i][0] > esta[j][0]) {
+        // Intercambiar todas las columnas
+        const estasave = [
+          esta[i][0],
+          esta[i][1],
+          esta[i][2],
+          esta[i][3],
+          esta[i][4],
+        ];
+
+        esta[i][0] = esta[j][0];
+        esta[i][1] = esta[j][1];
+        esta[i][2] = esta[j][2];
+        esta[i][3] = esta[j][3];
+        esta[i][4] = esta[j][4];
+
+        esta[j][0] = estasave[0];
+        esta[j][1] = estasave[1];
+        esta[j][2] = estasave[2];
+        esta[j][3] = estasave[3];
+        esta[j][4] = estasave[4];
+      }
+    }
+  }
+
+  return {
+    esta: esta,
+    estacuenta: estacuenta,
+    estalast: estalast,
+  };
+}
+
+// Función auxiliar para replaceAll (si no la tienes ya)
+// function replaceAll(cadena, buscar, reemplazar) {
+//     if (!cadena) return "";
+//     return cadena.split(buscar).join(reemplazar);
+// }
+
+// Función auxiliar para splitASP (si no la tienes ya)
+// function splitASP(cadena, delimitador, limite = -1, modo = 0) {
+//     if (!cadena) return [];
+
+//     let partes = cadena.split(delimitador);
+
+//     if (limite > 0 && partes.length > limite) {
+//         const extras = partes.slice(limite - 1).join(delimitador);
+//         partes = partes.slice(0, limite - 1);
+//         partes.push(extras);
+//     }
+
+//     return partes;
+// }
+
+// Función para verificar si una estación está inactiva
+function isInactiveStation(callSign) {
+  const inactive = [
+    "5T5PA",
+    "BX6AP",
+    "D4Z",
+    "VE8PAT",
+    "ZS1WAC",
+    "YB3PET",
+    "VK3AGB",
+    "PY7ZC",
+    "GT0SP",
+    "4Z4SI",
+    "PR7DEE",
+    "CALL",
+  ];
+  return inactive.includes(callSign);
+}
+
+// Función para obtener información de una estación específica
+function getStationInfo(esta, callSign, estacuenta) {
+  for (let i = 0; i < estacuenta; i++) {
+    if (esta[i][0] === callSign) {
+      return {
+        found: true,
+        call: esta[i][0],
+        antenna: esta[i][1],
+        gain: esta[i][2],
+        power: esta[i][3],
+        locator: esta[i][4],
+      };
+    }
+  }
+  return { found: false };
+}
+
+// Función para obtener todas las estaciones como array simple
+function getStationsArray(esta, estacuenta) {
+  const stations = [];
+  for (let i = 0; i < estacuenta; i++) {
+    stations.push({
+      call: esta[i][0],
+      antenna: esta[i][1],
+      gain: esta[i][2],
+      power: esta[i][3],
+      locator: esta[i][4],
+    });
+  }
+  return stations;
+}
+
+function generarComboHTML(
+  esta,
+  estalast,
+  datos1,
+  ocall,
+  tcall,
+  n,
+  rf,
+  bemit,
+  last,
+  pwro,
+  iib,
+  estaselect,
+) {
+  // Inicializar combo con div principal
+  let combo = `<div id='beac' style='position:absolute;top:0px;left:2px;z-index:999;width:122px;line-height:12px;'>
+    <center><i><div id='espacios'><br style='line-height:63px;'></div><b><span title='Graph by Hours' style='cursor:pointer;'>
+    &nbsp;By Hours<input type='radio' id='por' name='por' value='H' checked onchange="enviando();document.getElementById('enviar').submit();"></span><br><span title='Graph by Days' style='cursor:pointer;'>&nbsp;&nbsp;&nbsp;By Days<input type='radio' id='por' name='por' value='D' onchange="enviando();document.getElementById('enviar').submit();"></span><br>
+    <br style='line-height:3px;'>TZone:<input type='text' id='tz' name='tz' onclick="this.value=''" title='Enter here your Hours TimeZone difference, will show in your local Time' style='cursor:pointer;font-weight:bold;' size='1' value='0' maxlength='3'><br><div id='intn' style='white-space:nowrap;'><i><b>28 Intn. WSPR<br>Beacon Project</b></i></div>
+    <select id='be' name='be' style='width:84px;text-align:center;font-weight:bold;font-size:12px;line-height:12px;' onchange="javascript:enviando();document.getElementById('call').value=document.getElementById('be').value; document.getElementById('bs').value=0; setSelectedIndex(document.getElementById('bs'), '0'); document.getElementById('bs').value='B';document.getElementById('enviar').submit();">`;
+
+  // Agregar "Select" como primera opción
+  esta[0][0] = "Select";
+
+  // Agregar opciones del select
+  for (let i = 0; i <= estalast; i++) {
+    if (i === 0) {
+      combo += `<option value='${esta[i][1] || ""}'>${esta[i][0]}</option>\n`;
+    } else {
+      combo += `<option value='${esta[i][0] || ""}'>${esta[i][0]}</option>\n`;
+    }
+  }
+  combo += "</select>\n";
+
+  // Obtener parámetros
+  const selParam = window.getParamSafe("sel", "0");
+  let selx = selParam === "" ? "0" : selParam;
+  if (parseInt(selx) < 0) selx = "0";
+
+  const selxNum = parseInt(selx);
+
+  // Obtener datos de la estación seleccionada
+  const cual = esta[selxNum] ? esta[selxNum][1] || "" : "";
+  const cual1 = esta[selxNum] ? esta[selxNum][2] || "" : "";
+  const cual2 = esta[selxNum] ? esta[selxNum][3] || "" : "";
+  const cual3 = esta[selxNum] ? esta[selxNum][4] || "" : "";
+
+  // Determinar cantidad de reportes
+  const canti = last === 9998 ? "+10K" : last.toString();
+
+  const licencia = window.getParamSafe("call", "").trim();
+  const beParam = window.getParamSafe("be", "");
+
+  combo += "<div id='ant'><center>";
+
+  // Mostrar información de antena si corresponde
+  if (licencia.trim() === beParam && selxNum > 0) {
+    const locatorFormatted =
+      cual3.length >= 6
+        ? cual3.substring(0, 4) + cual3.substring(4, 6).toLowerCase()
+        : cual3;
+
+    combo += `<i><b>Antena used:<br>${cual}<br>Gain: ${cual1}<br>Height: ${cual2}m.<br>Pwr: 200mW<br>Loc: <a href='http://k7fry.com/grid/?qth=${cual3}' target='_blank' title='See Location'>${locatorFormatted}</a></i>`;
+  }
+
+  // Determinar banda
+  const bandParam = window.getParamSafe("band", "");
+  let bandai;
+  if (bandParam !== "All" && bandParam !== "") {
+    if (bandParam === "3") {
+      bandai = "3.5 MHz";
+    } else if (bandParam === "1") {
+      bandai = "1.8 MHz";
+    } else if (bandParam === "0") {
+      bandai = "MF";
+    } else if (bandParam === "-1") {
+      bandai = "LF";
+    } else {
+      bandai = bandParam + " MHz";
+    }
+  } else {
+    bandai = bandParam === "" ? "All" : bandParam;
+  }
+
+  // Determinar tipo de estación
+  const bsParam = window.getParamSafe("bs", "");
+  let ley;
+  if (bsParam === "B" || bsParam === "") {
+    ley = "Spotters";
+  } else if (bsParam === "A") {
+    ley = "Stations";
+  } else {
+    ley = "Beacons";
+  }
+
+  // Información principal
+  combo += `<hr style='margin-top:5px;margin-bottom:0px;'><span style='font-weight:bold'><i>For ${licencia.toUpperCase()}<br>${n + 1} ${ley}<br><a href='#' onclick='goto10()' title=' # of Reports Read&#13Click for 10K reports&#13...Will be slower....&#13But shows all data' style='text-decoration:none;'>${canti} Reports</a>`;
+
+  // Agregar información de RF si existe
+  if (rf && rf.length > 1) {
+    combo += `<br><span style='color:#00000;font-size:15px;line-height:13px;font-weight:bold;'>${rf}</span>`;
+  }
+
+  // Procesar bandas
+  const bandq = bemit.replace(/On\s*/i, "").trim();
+  const bandqm = splitASP(bandq, " ", 20, 1);
+  const bandsh = bandqm.length === 2 ? `${bandqm[0]} ${bandqm[1]}` : "All";
+
+  combo += `<br>Band: ${bandsh}`;
+
+  // Determinar localizador según tipo de estación
+  let locati = "";
+  if (
+    bsParam === "B" &&
+    licencia.trim().toUpperCase() === (datos1[ocall] || "")
+  ) {
+    locati = datos1[6] || "";
+  }
+  if (
+    bsParam === "S" &&
+    licencia.trim().toUpperCase() === (datos1[tcall] || "")
+  ) {
+    locati = datos1[9] || "";
+  }
+  if (
+    (bsParam === "A" || bsParam === "") &&
+    licencia.trim().toUpperCase() === (datos1[ocall] || "")
+  ) {
+    locati = datos1[6] || "";
+  }
+  if (
+    (bsParam === "A" || bsParam === "") &&
+    licencia.trim().toUpperCase() === (datos1[tcall] || "")
+  ) {
+    locati = datos1[9] || "";
+  }
+
+  // Información de potencia
+  const pwri = iib > 0 ? `<br>Pwr: ${pwro} Watts` : "";
+
+  // Agregar información de ubicación si no es beacon
+  if (licencia.trim() !== beParam) {
+    combo += `${pwri}<br>Loc: <a target='_blank' title='See Location' href='http://k7fry.com/grid/?qth=${locati}'>${locati}</a></i></span>\n`;
+  }
+
+  // Separador
+  combo += `<hr style='margin-top:3px;margin-bottom:2px;'>\n`;
+
+  // Botones de navegación
+  const buttonStyle = `onmouseover="javascript:this.style.border='inset';" onmouseout="this.style.border='outset';" style='height:25px;width:80px;font-size:16px;line-height:11px;border:outset;border-width:4px;background-color:#4e7330;color:white;border-radius: 22px;border-color:white;cursor:pointer;text-shadow: 2px 2px 0 black, 4px 3px 0 gray;'`;
+  const buttonStyle2 = `onmouseover="javascript:this.style.border='inset';" onmouseout="this.style.border='outset';" style='height:24px;width:80px;font-size:15px;line-height:11px;border:outset;border-width:4px;background-color:#4e7330;color:white;border-radius: 22px;border-color:white;cursor:pointer;text-shadow: 2px 2px 0 black, 4px 3px 0 gray;'`;
+  const buttonStyle3 = `onmouseover="javascript:this.style.border='inset';" onmouseout="this.style.border='outset';" style='height:24px;width:80px;font-size:15px;line-height:11px;border:outset;border-width:3px;background-color:#4e7330;color:white;border-radius: 22px;border-color:white;cursor:pointer;text-shadow: 2px 2px 0 black, 4px 3px 0 gray;'`;
+
+  combo = `${combo} <input type='button' name='mapa' id='mapa' title='See Map' ${buttonStyle} value='MAP' onclick='vermapa()'>
+     <br style='line-height:2px;'><input type='button' name='chart' id='chart' title='See Bands Chart' ${buttonStyle2} value='CHART' onclick='verchart()'>
+     <br style='line-height:2px;'><input type='button' id='km' name='km' value='DX-Km' title='See Km Chart' ${buttonStyle3} onclick='drawdxkm()'>
+     <br style='line-height:2px;'><input type='button' id='pie' name='pie' value='Bands-%' title='See Pie Chart' ${buttonStyle3} onclick='verpiechart()'>
+     <br style='line-height:2px;'><input type='button' id='li' name='li' value='CALLS' title='See Callsigns' ${buttonStyle3} onclick='ponercallsign()'>
+     <hr style='margin-top:2px;margin-bottom:1px;'>`;
+
+  // Agregar estaselect si existe
+  if (estaselect && estaselect.length > 0) {
+    combo += estaselect;
+  }
+
+  combo = `${combo} <br style='line-height:2px;'>&nbsp;&nbsp;<a href='#' target='_blank'><img title='Comment' alt='Comment' src='${imageSrcUrl["contact"]}' width='35px' height='19px' style='width:35px;height:19px;'></a>&nbsp;&nbsp;
+      <a href="dxx.asp" title='Refresh User List' target=_blank style='font-size:16px;cursor:pointer;line-height:13px;vertical-align: super;text-decoration:none;font-weight:normal;'>&#x29C7;</a>
+    <br><br style='line-height:1px;'><span style='font-size:16px;font-weight:bold;line-height:17px;'>
+    <a href='http://wspr.rocks/topbeacons/' target='_phil'><i>Top Beacons</i></a>
+    <br><a href='http://wspr.rocks/topspotters/' target='_phil'><i>Top Spotters</i></a></span>
+    <span style='font-size:11px;line-height:13px;'><i><br>Courtesy of </i><a href='http://wspr.rocks/' target='_phil'><i>Phil VK7JJ</i></a></span>
+    </center></div>
+    </div>`;
+
+  return combo;
+}
+
+// Función auxiliar para splitASP (si no la tienes ya definida)
+// function splitASP(cadena, delimitador, limite = -1, modo = 0) {
+//     if (!cadena) return [];
+
+//     let partes = cadena.split(delimitador);
+
+//     if (limite > 0 && partes.length > limite) {
+//         const extras = partes.slice(limite - 1).join(delimitador);
+//         partes = partes.slice(0, limite - 1);
+//         partes.push(extras);
+//     }
+
+//     return partes;
+//}
+
+// Función para actualizar el combo en el DOM
+function actualizarComboUI(
+  esta,
+  estalast,
+  datos1,
+  ocall,
+  tcall,
+  n,
+  rf,
+  bemit,
+  last,
+  pwro,
+  iib,
+  estaselect,
+) {
+  const comboHTML = generarComboHTML(
+    esta,
+    estalast,
+    datos1,
+    ocall,
+    tcall,
+    n,
+    rf,
+    bemit,
+    last,
+    pwro,
+    iib,
+    estaselect,
+  );
+
+  // Buscar el elemento contenedor y actualizar
+  const contenedor = document.getElementById("beac");
+  if (contenedor) {
+    contenedor.outerHTML = comboHTML;
+  } else {
+    // Si no existe, agregarlo al body
+    document.body.insertAdjacentHTML("beforeend", comboHTML);
+  }
+
+  return comboHTML;
+}
+
+// Función para configurar los radio buttons según parámetros URL
+function configurarRadioButtons() {
+  const porParam = window.getParamSafe("por", "H");
+  const tzParam = window.getParamSafe("tz", "0");
+
+  // Configurar radio button seleccionado
+  const radioH = document.getElementById("por");
+  const radioD = document.querySelector('input[name="por"][value="D"]');
+
+  if (porParam === "D" && radioD) {
+    radioD.checked = true;
+    if (radioH) radioH.checked = false;
+  } else if (radioH) {
+    radioH.checked = true;
+    if (radioD) radioD.checked = false;
+  }
+
+  // Configurar timezone
+  const tzInput = document.getElementById("tz");
+  if (tzInput) {
+    tzInput.value = tzParam;
+  }
+}
+
+function agregarTablaAlDOM(tabla, tablam) {
+  let tablal;
+  if (tabla.length > 50000) {
+    tablal = 700000;
+  } else {
+    tablal = tabla.length;
+  }
+
+  if (tabla.length > 170) {
+    let i;
+    for (i = tablal; i >= 1; i--) {
+      if (tabla.substring(i - 1, i + 4) === "</tr>") {
+        break;
+      }
+    }
+
+    let agregadot;
+    if (tabla.length > 1387500) {
+      let maxlen;
+      if (tablam.length === 3000) {
+        maxlen = "over 3000";
+      } else {
+        maxlen = tablam.length;
+      }
+      agregadot =
+        "<i style='font-weight:bold;color:#333;'>Listing too large.... " +
+        maxlen +
+        " Reports...  Listing first 1500 Reports ...</i>";
+    } else {
+      let reportes;
+      if (tablam.length - 1 < 1500) {
+        reportes = tablam.length - 1;
+      } else {
+        reportes = 1500;
+      }
+      agregadot =
+        "<i>Total Reports " +
+        (tablam.length - 1) +
+        "... Listing first " +
+        reportes +
+        " Reports....</i>";
+    }
+
+    const htmlContent =
+      "<div id='lista' style='position:absolute;top:632px;left:128px;width:1079px;z-index:1;'><center><table style='line-height:10px;'>" +
+      tabla.substring(0, i + 4) +
+      "</table>" +
+      agregadot +
+      "</center></div>";
+
+    document.getElementById("tablaContainer").innerHTML = htmlContent;
+  }
+}
+
+function formatDateTime4() {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  return hours + ":" + minutes;
 }
 
 async function initApp() {
@@ -1621,6 +2172,8 @@ async function initApp() {
     callsign = callTemp.substring(0, 12);
   }
 
+  window.parent.document.title =
+    callsign === "*" ? "DX Report" : `${callsign} DX Report`;
   // Configuración de banda
   if (getParamSafe("band") === "" || !getParamSafe("band")) {
     band = "All";
@@ -1705,12 +2258,16 @@ async function initApp() {
   //   return;
   // }
 
-  estaciones = procesarTabla(processReports1.pag, ocall, tcall);
-  let estacionesProcesadas = procesarEstaciones(estaciones, o);
+  const procesarTabla1 = procesarTabla(processReports1.pag, ocall, tcall);
+  console.log("procesarTabla1", procesarTabla1);
+  let procesarEstaciones1 = procesarEstaciones(
+    procesarTabla1.estacion,
+    procesarTabla1.o,
+  );
 
   const callSignProcesado = procesarCallsign();
-  console.log("estaciones procesadas", estacionesProcesadas);
-  console.log("estaciones", estaciones);
+  console.log("estaciones procesadas 1", procesarEstaciones1);
+
   if (callSignProcesado.error) {
     window.parent.window.alert(callSignProcesado.error);
     return;
@@ -1759,15 +2316,96 @@ async function initApp() {
     resultadoProcesadoDeDatos.n,
   );
 
+  window.dxkm1 = reporteDeDatosProcessor.dxkm1;
+  window.dxkm = reporteDeDatosProcessor.dxkm;
+
+  let procesarEstaciones2 = procesarEstaciones(
+    resultadoProcesadoDeDatos.estaciones,
+    procesarTabla1.o,
+  );
+  //estaselect = procesarEstaciones(resultadoProcesadoDeDatos.estaciones, o);
   console.log("reporteDeDatosProcessor", reporteDeDatosProcessor);
   const graficosConfigurados = configurarGraficos(
     reporteDeDatosProcessor.bandCounters,
     reporteDeDatosProcessor.bandArrays,
     resultadoProcesadoDeDatos.datos,
-    reporteDeDatosProcessor.last, //j
+    reporteDeDatosProcessor.last,
+  );
+  console.log("graficosConfigurados", graficosConfigurados);
+
+  document.getElementById("mesDeReporte").innerText =
+    graficosConfigurados.mesdereporte;
+  window.columns = graficosConfigurados.columns;
+  window.datas = graficosConfigurados.datas;
+
+  const bm = await obtenerBeaconCsvDatos();
+  const resultadoProcesadoWsprBeacon = procesarWsprBeacon(bm);
+
+  console.log(
+    "Estaciones procesadas:",
+    resultadoProcesadoWsprBeacon.estacuenta,
+  );
+  console.log("Array de estaciones:", resultadoProcesadoWsprBeacon.esta);
+
+  // Buscar una estación específica
+  // const stationInfo = getStationInfo(
+  //   resultadoProcesadoWsprBeacon.esta,
+  //   "LU1ESY",
+  //   resultadoProcesadoWsprBeacon.estacuenta,
+  // );
+  // if (stationInfo.found) {
+  //   console.log("Estación encontrada:", stationInfo);
+  // }
+
+  // Obtener todas las estaciones como array de objetos
+  // const allStations = getStationsArray(
+  //   resultadoProcesadoWsprBeacon.esta,
+  //   resultadoProcesadoWsprBeacon.estacuenta,
+  // );
+  // console.log("Todas las estaciones:", allStations);
+
+  const comboHtml = generarComboHTML(
+    resultadoProcesadoWsprBeacon.esta,
+    resultadoProcesadoWsprBeacon.estalast,
+    resultadoProcesadoDeDatos.datos,
+    ocall,
+    tcall,
+    //resultadoProcesadoDeDatos.n,
+    reporteDeDatosProcessor.n,
+    procesarReportesDeDatos.rf,
+    graficosConfigurados.bemit,
+    reporteDeDatosProcessor.last,
+    resultadoProcesadoDeDatos.pwro,
+    resultadoProcesadoDeDatos.iib,
+    //procesarEstaciones2.estaselect,
+    procesarEstaciones1.estaselect,
   );
 
-  console.log("graficosConfigurados", graficosConfigurados);
-  await obtenerBeaconCsvDatos();
+  window.n = reporteDeDatosProcessor.n;
+  window.bemit = graficosConfigurados.bemit;
+  document.getElementById("comboHtmlTemplate").innerHTML = comboHtml;
+
+  window.ultimoreport = window.et[window.et.length - 1][0] + "z to ";
+  if (
+    window.et[window.et.length - 1][0].substring(0, 6) ==
+    window.et[0][0].substring(0, 6)
+  ) {
+    window.ultimoreport = window.ultimoreport + window.et[0][0].slice(-5) + "z";
+  } else {
+    window.ultimoreport = window.ultimoreport + window.et[0][0] + "z";
+  }
+  window.max = 0;
+  for (i = 0; i < window.et.length; i++) {
+    if (window.et[i][7] * 1 > window.max) {
+      window.max = window.et[i][7] * 1;
+    }
+  }
+  window.avg = window.max * 0.666;
+
+  agregarTablaAlDOM(
+    resultadoProcesadoDeDatos.tabla,
+    resultadoProcesadoDeDatos.tablam,
+  );
+  carga();
 }
 window.addEventListener("load", initApp);

@@ -29,25 +29,25 @@ pixsol = (document.getElementById('<%=n + 2 %>').style.left).replace(/px/, ""); 
 
 //Preload Images
 Image0 = new Image(310, 28);
-Image0.src = "loading.gif";
+Image0.src = imageSrcUrl["loading"];
 Image1 = new Image(60, 60);
-Image1.src = "images/amsatb.gif";
+Image1.src = imageSrcUrl["amsatb"];
 Image2 = new Image(35, 38);
-Image2.src = "contact.gif";
+Image2.src = imageSrcUrl["contact"];
 Image3 = new Image(2160, 1080);
-Image3.src = "world2.jpg";
+Image3.src = imageSrcUrl["world2"];
 Image4 = new Image(4320, 2160);
-Image4.src = "icon/p.png";
+Image4.src = imageSrcUrl["p"];
 Image5 = new Image(13, 12);
-Image5.src = "icon/c.gif";
+Image5.src = imageSrcUrl["c"];
 Image6 = new Image(16, 16);
-Image6.src = "sun1.gif";
+Image6.src = imageSrcUrl["sun1"];
 Image7 = new Image(43, 43);
-Image7.src = "balloon.gif";
+Image7.src = imageSrcUrl["balloon"];
 Image8 = new Image(38, 46);
-Image8.src = "parabola.gif";
+Image8.src = imageSrcUrl["parabola"];
 Image9 = new Image(38, 15);
-Image9.src = "images/OQ.gif";
+Image9.src = imageSrcUrl["OQ"];
 // <%=et %>
 function escapeUnicode(str) {
   return [...str]
@@ -283,19 +283,20 @@ function goto10() {
     .replace(/dx.asp/, "dx10k.asp")
     .replace(/#/g, "");
 }
-ultimoreport = et[et.length - 1][0] + "z to ";
-if (et[et.length - 1][0].substring(0, 6) == et[0][0].substring(0, 6)) {
-  ultimoreport = ultimoreport + et[0][0].slice(-5) + "z";
-} else {
-  ultimoreport = ultimoreport + et[0][0] + "z";
-}
-max = 0;
-for (i = 0; i < et.length; i++) {
-  if (et[i][7] * 1 > max) {
-    max = et[i][7] * 1;
-  }
-}
-avg = max * 0.666;
+
+// ultimoreport = et[et.length - 1][0] + "z to ";
+// if (et[et.length - 1][0].substring(0, 6) == et[0][0].substring(0, 6)) {
+//   ultimoreport = ultimoreport + et[0][0].slice(-5) + "z";
+// } else {
+//   ultimoreport = ultimoreport + et[0][0] + "z";
+// }
+// max = 0;
+// for (i = 0; i < et.length; i++) {
+//   if (et[i][7] * 1 > max) {
+//     max = et[i][7] * 1;
+//   }
+// }
+// avg = max * 0.666;
 function help() {
   alert(
     "This function takes data from wsprnet.org\nand shows for a specified callsign graphics\nwith amount of reports that received this\ncallsign for the specified period and band.\nAllowing see condx for every hour & band\n from the place where emiting Callsign is.\n\nTry select any of the Intl. WSPR Beacons\n from your area to see local conditions.",
@@ -413,7 +414,9 @@ function creadivi() {
 
     if (gqs("bs") == "B" || gqs("bs") == "") {
       div.innerHTML =
-        "<img src='icon/p.png' title=' " +
+        "<img src='" +
+        imageSrcUrl["p"] +
+        "' title=' " +
         et[d][2] +
         "&nbsp;@" +
         ban +
@@ -430,7 +433,9 @@ function creadivi() {
         ")'>";
     } else {
       div.innerHTML =
-        "<img src='icon/p.png' title=' " +
+        "<img src='" +
+        imageSrcUrl["p"] +
+        "' title=' " +
         et[d][2] +
         "&nbsp;" +
         et[d][6] +
@@ -475,7 +480,9 @@ function creadivi() {
       posileft +
       ";z-index:1000;opacity:0.85;visibility:visible;width:12px;height:12px;";
     div.innerHTML =
-      "<img title='  <%=lichome%> Beacon @<%=loc2tz(home)%>&#13Xmit Pwr <%=pwr%> Watt&#13<%=bemit%>' src='icon/c.gif' onclick='cambiartz(this.title,<%=loc2tz1(home)%>)'>";
+      "<img title='  <%=lichome%> Beacon @<%=loc2tz(home)%>&#13Xmit Pwr <%=pwr%> Watt&#13<%=bemit%>' src='" +
+      imageSrcUrl["c"] +
+      "' onclick='cambiartz(this.title,<%=loc2tz1(home)%>)'>";
     body.appendChild(div);
   } else {
     div.style.cssText =
@@ -486,7 +493,9 @@ function creadivi() {
       ";z-index:1000;opacity:0.85;visibility:visible;width:12px;height:12px;";
     body.appendChild(div);
     div.innerHTML =
-      "<img title='<%=lichome%> Spotter @<%=loc2tz(home)%>&#13<%=bemit%>' src='icon/c.gif' onclick='cambiartz(this.title,<%=loc2tz1(home)%>)'>";
+      "<img title='<%=lichome%> Spotter @<%=loc2tz(home)%>&#13<%=bemit%>' src='" +
+      imageSrcUrl["c"] +
+      "' onclick='cambiartz(this.title,<%=loc2tz1(home)%>)'>";
   }
   var div = document.createElement("div");
   div.id = et.length + 1;
@@ -502,7 +511,9 @@ function creadivi() {
     sunla.toFixed(2) +
     "º&#13Lon: " +
     sunlo.toFixed(2) +
-    "º' src='sun1.gif' onclick='graficarsuncoverage()'>";
+    "º' src='" +
+    imageSrcUrl["sun1"] +
+    "' onclick='graficarsuncoverage()'>";
   body.appendChild(div);
 }
 function creadiv() {
@@ -576,7 +587,9 @@ function creadiv() {
     }
     if (gqs("bs") == "B" || gqs("bs") == "") {
       div.innerHTML =
-        "<img src='icon/p.png' title=' " +
+        "<img src='" +
+        imageSrcUrl["p"] +
+        "' title=' " +
         et[d][2] +
         "&nbsp;@" +
         ban +
@@ -594,7 +607,9 @@ function creadiv() {
         ")'>";
     } else {
       div.innerHTML =
-        "<img src='icon/p.png' title=' " +
+        "<img src='" +
+        imageSrcUrl["p"] +
+        "' title=' " +
         et[d][2] +
         "&nbsp;" +
         et[d][6] +
@@ -775,7 +790,7 @@ function carga() {
     "'><br><br style='line-height:6px;'><span style='font-size:14px;line-height:12px;'>" +
     getdate() +
     "<br>Local time: " +
-    "<%=FormatDateTime(Now(),4)%>" +
+    formatDateTime4() +
     "</span>";
   document.getElementById("beac").innerHTML =
     document.getElementById("beac").innerHTML +
@@ -862,7 +877,7 @@ function carga() {
   if (gqs("call")) {
     document.getElementById("rayas").style.opacity = "0.75";
     graficarsuncoverage();
-    lineam(homeloc);
+    lineam(window.homeloc);
   }
   if (gqs("vl") && gqs("vl") == "y") {
     document.getElementById("daynight").innerHTML = "";
@@ -933,24 +948,28 @@ function vermapa() {
   if (document.getElementById("mapa").value == "MAP") {
     document.getElementById("st").style.visibility = "hidden";
     document.getElementById("t").value = "m";
-    for (i = 0; i < "<%= n + 3 %>"; i++) {
+    //for (i = 0; i < "<%= n + 3 %>"; i++) {
+    for (i = 0; i < window.n + 3; i++) {
       document.getElementById(i).style.visibility = "visible";
     }
     document.getElementById("mapa").value = "MAP";
     document.getElementById("container").style.top = "70px";
   }
   document.getElementById("daynight").style.visibility = "hidden";
-  pixsol = document.getElementById("<%=n + 2 %>").style.left.replace(/px/, "");
+  //pixsol = document.getElementById("<%=n + 2 %>").style.left.replace(/px/, "");
+  pixsol = document.getElementById(window.n + 2).style.left.replace(/px/, "");
   if (pixsol > 1400) {
-    document.getElementById("<%=n + 2 %>").style.left = "20px";
-    document.getElementById("<%=n + 2 %>").style.top = "20px";
+    //document.getElementById("<%=n + 2 %>").style.left = "20px";
+    //document.getElementById("<%=n + 2 %>").style.top = "20px";
+    document.getElementById(window.n + 2).style.left = "20px";
+    document.getElementById(window.n + 2).style.top = "20px";
   }
   document.getElementById("resumen").style.visibility = "visible";
   document.getElementById("vl").value = "";
   document.getElementById("container").innerHTML = "";
   document.getElementById("rayas").style.visibility = "visible";
   document.getElementById("container").style.backgroundImage =
-    "url('world2.jpg')";
+    `url(${imageSrcUrl["world2"]})`;
   document.getElementById("container").style.backgroundPositionX =
     548 - hx * z + "px";
   document.getElementById("container").style.backgroundPositionY =
@@ -977,18 +996,22 @@ function vermapa() {
     "<center><span style='font-size:16px;font-weight:bold;'><i>Map shows " +
     decodeURIComponent(gqs("call")).toUpperCase() +
     " " +
-    "<img onclick=\"nolinea()\" onmouseover=\"lineam(homeloc)\" title='Home Location' src='icon/c.png' height=14px style='height:14px;'>" +
+    "<img onclick='nolinea()' onmouseover='lineam(window.homeloc)' title='Home Location' src='" +
+    imageSrcUrl["c"] +
+    "' height=14px style='height:14px;'>" +
     " and his " +
-    "<%=n+1%>" +
+    (window.n + 1) +
     " spoters " +
-    "<img title='Spots' src='icon/p.png' height=10px style='height:10px;'> " +
-    "<%=bemit%>".replace(/On/, "on") +
+    "<img title='Spots' src='" +
+    imageSrcUrl["p"] +
+    "' height=10px style='height:10px;'> " +
+    window.bemit.replace(/On/, "on") +
     ". From " +
     fromto +
     "." +
     "</i></span></center>";
   document.getElementById("arribatext").style.visibility = "visible";
-  lineam(homeloc);
+  lineam(window.homeloc);
   if (document.getElementById("daynight")) {
     graficarsuncoverage();
     document.getElementById("daynight").style.visibility = "visible";
@@ -1395,9 +1418,12 @@ function drawdxkm() {
     ")";
   var data = new google.visualization.DataTable();
   data.addColumn("number", "Distance in Km.");
-  //<%=left(columns,len(columns)-2)%>
-  dxkk = new Array("<%=dxkm1%>");
-  data.addRows(["<%=dxkm&vbTab%>"]);
+  const columnasLimpias = left(columns, columns.length - 2);
+
+  //dxkk = new Array("<%=dxkm1%>");
+  dxkk = new Array(window.dxkm1);
+  //data.addRows(["<%=dxkm&vbTab%>"]);
+  data.addRows([window.dxkm + "\t"]);
   var tipohora = "GMT";
   // Set chart options
   var options = {
@@ -1501,8 +1527,13 @@ function drawChart() {
     ")";
   var data = new google.visualization.DataTable();
   data.addColumn("date", "Hour");
-  ("<%=left(columns,len(columns)-2)%>");
-  data.addRows(["<%=left(datas,len(datas)-3)%>"]);
+
+  const columnasLimpias = left(columns, columns.length - 2);
+  eval(columnasLimpias);
+  const datosLimpios = left(datas, datas.length - 2);
+  const filasArray = eval(`[${datosLimpios}]`);
+  data.addRows(filasArray);
+
   var tipohora = "GMT";
   // Set chart options
   var options = {
@@ -1606,9 +1637,9 @@ function lineam(/*'<%=home%>'*/) {
   var area = new jxGraphics(document.getElementById("rayas"));
   var col = new jxColor("yellow");
   var pen = new jxPen(col, "2px");
-  px = lll(homeloc).lon - 119;
+  px = lll(window.homeloc).lon - 119;
   if (z == 1) {
-    px = px + 540 - homexy(homeloc).x;
+    px = px + 540 - homexy(window.homeloc).x;
   }
   if (z == 1 && px < 120) {
     px = px + 1080;
@@ -1616,16 +1647,16 @@ function lineam(/*'<%=home%>'*/) {
   if (z == 1 && px > 1200) {
     px = px - 1080;
   }
-  py = lll(homeloc).lat - 69;
-  for (k = 0; k < et.length; k++) {
+  py = lll(window.homeloc).lat - 69;
+  for (k = 0; k < window.et.length; k++) {
     var pen = new jxPen(col, "1px");
     var pt1 = new jxPoint(px, py);
-    pxlo = lll(et[k][3]).lon;
-    pxla = lll(et[k][3]).lat;
+    pxlo = lll(window.et[k][3]).lon;
+    pxla = lll(window.et[k][3]).lat;
     if (z == 1) {
-      pxlo = lll(et[k][3]).lon + 540 - homexy(homeloc).x;
+      pxlo = lll(window.et[k][3]).lon + 540 - homexy(window.homeloc).x;
     } else {
-      pxlo = lll(et[k][3]).lon;
+      pxlo = lll(window.et[k][3]).lon;
     }
     if (z == 1 && pxlo < 120) {
       pxlo = pxlo + 1080;

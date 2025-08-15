@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>%callsign% DX Report</title>
+        <title>DX Report</title>
         <meta
             http-equiv="Content-Type"
             content="text/html;charset=ISO-8859-1"
@@ -39,7 +39,7 @@
         </script>
 
         <style>
-            > .img {
+            .img {
                 -webkit-filter: invert(100%);
                 filter: progid:DXImageTransform.Microsoft.BasicImage(invert='1');
             }
@@ -135,7 +135,7 @@
 
         <script src="js/assetsSrc.js"></script>
         <script src="js/dx.js"></script>
-        <script src="js/indexDx.js"></script>
+        <script src="js/indexDx.js" defer></script>
     </head>
     <!-- <body style="margin-left: 0;margin-right: 0;margin-top: 0;margin-bottom: 0;margin: 0;background-color:#ffffff;" onload="carga()"> -->
     <body
@@ -166,10 +166,10 @@
             <img
                 id="solar"
                 class="img"
-                onerror="this.onerror=null;this.src='null.png';this.style.height='20px';"
+                onerror="this.onerror=null;this.src='https://i.postimg.cc/QCYD19jm/null.png';this.style.height='20px';"
                 height="500px;"
                 style="width: 134px; height: 346px; cursor: pointer"
-                src="http://www.hamqsl.com/solarvhf.php"
+                src="https://www.hamqsl.com/solarvhf.php"
                 title="What is this ?"
                 alt="What is this ?"
                 onclick="alert('Solar-Terrestial Data terms explanation:\nSFI index: Solar Flux >100 good prop\nSN: Sunspot Numbers > 50 good prop.\nA Index: geomagnetic activity last 24h\nK-Index: geomagnetic activity relative\nX-Ray: Intensity of X-Ray on ionosphere\n304A: Strength of Solar Radiation~SN\nPtn Flx: Density of charged protons\nElc Flx: Density of charged electrons\nMUF: Maximum Usable Frequency')"
@@ -187,7 +187,7 @@
                         ><img
                             title="track WSPR Balloons"
                             alt="track WSPR Balloons"
-                            src="balloon.gif"
+                            src="https://i.postimg.cc/FHqkbcz5/balloon.png"
                             width="23px"
                             height="23px" /></a
                 ></span>
@@ -197,7 +197,7 @@
                         target="_blank"
                         ><img
                             title="track satellites"
-                            src="parabola.gif"
+                            src="https://i.postimg.cc/yx81FjtH/parabola.gif"
                             width="19px"
                             height="23px" /></a
                     >&nbsp;&nbsp;</span
@@ -224,7 +224,10 @@
             style="margin-bottom: 0; margin-top: 0"
             onsubmit="return enviando()"
         >
-            %=combo%
+            <div
+                id="comboHtmlTemplate"
+                style="position: relative; top: 60px"
+            ></div>
             <div
                 id="arriba"
                 style="
@@ -242,35 +245,36 @@
                     <a href="http://amsat.org.ar" target="_blank"
                         ><img
                             title="AMSAT Argentina"
-                            src="images/amsatb.gif"
+                            src="https://i.postimg.cc/tCgJPRGx/amsatb.gif"
                             style="vertical-align: middle; height: 40px" /></a
                     >&nbsp;
-                    <a
-                        href="#"
+                    <button
                         title="Screen Size"
                         id="sz"
-                        onclick="screensize()"
+                        onclick="event.preventDefault(); screensize();"
                         style="
+                            all: unset;
                             cursor: pointer;
                             font-size: 22px;
                             font-weight: bold;
                             color: #0066cc;
                         "
-                        >&#9651;</a
+                    >
+                        &#9651;</button
                     >&nbsp;
-                    <span
+                    <!-- <span
                         >%if callsign="*" then Response.Write "" else
                         Response.Write "" end if%</span
-                    >
-                    <span style="font-size: 21px"
-                        ><a
-                            href="#"
-                            onclick="mostrar('%=callsign%')"
+                    > -->
+                    <!-- <span style="font-size: 21px"
+                        ><button
+                            onclick="event.preventDefault();mostrar('%=callsign%');"
                             title="See %=callsign% Data at HamCall"
-                            style="font-family: monospace"
-                            ><b>%=callsign%</b></a
-                        ></span
-                    >&nbsp;
+                            style="all: unset; font-family: monospace"
+                        >
+                            <b>%=callsign%</b>
+                        </button></span
+                    >&nbsp; -->
                     <span style="font-size: 18px; font-weight: bold"
                         ><i>DX Report as:</i></span
                     >
@@ -280,7 +284,7 @@
                             position: absolute;
                             left: 2px;
                             top: 470px;
-                            visibility: visible;
+                            visibility: hidden;
                         "
                     >
                         <span title="Graph Logarithmic" style="cursor: pointer">
@@ -415,7 +419,7 @@
                     </select>
                     &nbsp;<img
                         style="vertical-align: text-bottom"
-                        src="images/OQ.gif"
+                        src="https://i.postimg.cc/rw0pnhmy/OQ.gif"
                     /><input
                         value="1"
                         type="checkbox"
@@ -597,13 +601,13 @@
             id="top"
             style="
                 position: absolute;
-                top: 1px;
+                top: 2x;
                 z-index: 999;
                 width: 107px;
                 border-color: #dddddd;
                 background-color: lightyellow;
                 left: 7px;
-                height: 60px;
+                height: 70px;
                 line-height: 15px;
                 border-style: outset;
                 border-width: 2px;
@@ -628,13 +632,21 @@
                             <center>
                                 <b
                                     ><i
+                                        style="
+                                            display: flex;
+                                            flex-direction: column;
+                                            align-items: center;
+                                            justify-content: center;
+                                            gap: 6px;
+                                        "
                                         ><span
                                             style="
                                                 line-height: 8px;
                                                 font-size: 12px;
+                                                margin-top: 1px;
                                             "
                                             >WSPR</span
-                                        ><br style="line-height: 1px" /><span
+                                        ><span
                                             style="
                                                 font-size: 22px;
                                                 color: #add8e6;
@@ -644,13 +656,11 @@
                                                     1px 2px 0 #777777;
                                             "
                                             >QRP DX</span
-                                        ><br /><span style="line-height: 12px"
-                                            ><br
-                                                style="line-height: 5px"
-                                            />"&mesdereporte& "</span
-                                        ></i
-                                    ></b
-                                >
+                                        ><span
+                                            id="mesDeReporte"
+                                            style="line-height: 12px"
+                                        ></span></i
+                                ></b>
                             </center>
                         </td>
                     </tr>
@@ -666,22 +676,7 @@
             </center>
         </div>
         <div id="timezone"></div>
-        <div
-            id="lista"
-            style="
-                position: absolute;
-                top: 632px;
-                left: 128px;
-                width: 1079px;
-                z-index: 1;
-            "
-        >
-            <center>
-                <table style="line-height: 10px"></table>
-                %agregadot%
-            </center>
-        </div>
-        "
+        <div id="tablaContainer"></div>
     </body>
 </html>
 <!-- http://localhost:5000/dx.html?call=ab9lm&band=14&bs=B -->
