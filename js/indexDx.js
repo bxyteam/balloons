@@ -1,33 +1,4 @@
-/*
-<%=et %>
-
-'<%=mid(cols, 4, len(cols) - 6) %>']);
-
-//<%=left(columns,len(columns)-2)%>
-    dxkk = new Array ('<%=dxkm1%>')
-    data.addRows(['<%=dxkm&vbTab%>']);
-
-    data.addColumn('date', 'Hour');
-'<%=left(columns,len(columns)-2)%>'
-    data.addRows([
-'<%=left(datas,len(datas)-3)%>'
-    ]);
-
-function lineam('<%=home%>') {
-
-    document.getElementById("st").style.visibility = "hidden"; document.getElementById("t").value = "m"; for (i = 0; i < '<%= n + 3 %>'; i++)
-
-pixsol = (document.getElementById('<%=n + 2 %>').style.left).replace(/px/, ""); if (pixsol > 1400) { document.getElementById('<%=n + 2 %>').style.left = "20px"; document.getElementById(<%=n + 2 %>).style.top = "20px"; }
-
-  document.getElementById("st").style.visibility = "visible"; document.getElementById("t").value = "c"; document.getElementById("daynight").innerHTML = ""; document.getElementById("daynight").style.zIndex = "-1"; for (i = 0; i <'<%= n + 3 %>'; i++) { document.getElementById(i).style.visibility = "hidden"; } document.getElementById("mapa").value = "MAP"; document.getElementById("container").style.top = "20px"; document.getElementById("container").style.left = "127px"; google.charts.setOnLoadCallback(drawChart1);
-
-    document.getElementById("st").style.visibility = "visible";document.getElementById("t").value="c";document.getElementById("daynight").innerHTML="";document.getElementById("daynight").style.zIndex="-1";for (i=0;i<'<%=n+3%>';i++){document.getElementById(i).style.visibility="hidden";} document.getElementById("mapa").value="MAP";document.getElementById("container").style.top="-70px";document.getElementById("container").style.left="127px";google.charts.setOnLoadCallback(drawChart);
-
-    document.getElementById("st").style.visibility = "visible";document.getElementById("t").value="c";document.getElementById("daynight").innerHTML="";document.getElementById("daynight").style.zIndex="-1";for (i=0;i<'<%=n+3%>';i++){document.getElementById(i).style.visibility="hidden";} document.getElementById("mapa").value="MAP";document.getElementById("container").style.top="-70px";document.getElementById("container").style.left="127px";
-
-*/
-
-//Preload Images
+//"http://lu7aa.org/hc2.asp?licencia=" + licencia + "&loc=" + "<%=locati%>",//Preload Images
 Image0 = new Image(310, 28);
 Image0.src = imageSrcUrl["loading"];
 Image1 = new Image(60, 60);
@@ -48,7 +19,7 @@ Image8 = new Image(38, 46);
 Image8.src = imageSrcUrl["parabola"];
 Image9 = new Image(38, 15);
 Image9.src = imageSrcUrl["OQ"];
-// <%=et %>
+
 function escapeUnicode(str) {
   return [...str]
     .map((c) =>
@@ -65,7 +36,7 @@ function ira(donde) {
   enviar.call.value = donde.toUpperCase();
   document.location.href =
     document.location.origin +
-    "/dx.asp?call=" +
+    "/dx?call=" +
     donde.toUpperCase().trim() +
     "&timelimit=1209600";
 }
@@ -79,11 +50,16 @@ function drawChart1() {
   function drawChart1() {
     var data = google.visualization.arrayToDataTable([
       ["Task", "Hours per Day"],
-      "<%=mid(cols, 4, len(cols) - 6) %>",
+      ...JSON.parse(
+        `[${mid(window.colsChart, 1, window.colsChart.length - 1)
+          .replaceAll("\t", "")
+          .replaceAll("\n", "")}]`,
+      ),
     ]);
+
     var options = {
       chartArea: { left: 320, top: 95, width: "100%", height: "100%" },
-      title: calla + " Reports %, Percent by Band, for " + "<%=hactivo%>" + ".",
+      title: calla + " Reports %, Percent by Band, for " + window.hactivo + ".",
       titleTextStyle: {
         color: "black",
         fontSize: 28,
@@ -108,8 +84,8 @@ function drawChart1() {
 function poneroriginal() {
   document.getElementById("top").innerHTML =
     "<center><table title='See GMT/UTC Calendar' cellpadding=0 cellspacing=0 style='height:100%;line-height:19px;background-color:lightyellow;width:107px;text-shadow: 1px 1px 0 #777777, 1px 2px 0 #777777;'><tr><td><center><b><i><span style='line-height:9px;font-size:12px;'>WSPR</span><br style='line-height:1px;'><span style='font-size:22px;color:#ADD8E6;line-height:19px;text-shadow: 1px 1px 0 #777777, 1px 2px 0 #777777;'>QRP DX<\/span><br><span style='line-height:12px;'><br style='line-height: 5px;'>" +
-    "<%=mesdereporte%>" +
-    "<\/span><\/i><\/b><\/center><\/td><\/tr><\/table><\/center>";
+    window.mesdereporte +
+    "</span></i></b></center></td></tr></table></center>";
   swit = false;
 }
 function changeyear() {
@@ -456,14 +432,14 @@ function creadivi() {
     body.appendChild(div);
   }
   var div = document.createElement("div");
-  div.id = et.length;
+  div.id = window.et.length;
   div.setAttribute("onmouseover", "lineam()");
   div.setAttribute("onmouseout", "nolinea()");
-  div.setAttribute("className", "dv");
-  positop = lll(homeloc).lat - 6 + "px";
-  posileft = lll(homeloc).lon;
+  div.setAttribute("class", "dv");
+  positop = lll(window.homeloc).lat - 6 + "px";
+  posileft = lll(window.homeloc).lon;
   if (z == 1) {
-    posileft = posileft + 540 - homexy(homeloc).x;
+    posileft = posileft + 540 - homexy(window.homeloc).x;
   }
   if (posileft < 0) {
     posileft = posileft + 1080;
@@ -479,10 +455,7 @@ function creadivi() {
       ";left:" +
       posileft +
       ";z-index:1000;opacity:0.85;visibility:visible;width:12px;height:12px;";
-    div.innerHTML =
-      "<img title='  <%=lichome%> Beacon @<%=loc2tz(home)%>&#13Xmit Pwr <%=pwr%> Watt&#13<%=bemit%>' src='" +
-      imageSrcUrl["c"] +
-      "' onclick='cambiartz(this.title,<%=loc2tz1(home)%>)'>";
+    div.innerHTML = `<img title='${window.lichome} Beacon @${window.loc2tz(window.home)}&#13;Xmit Pwr $window.pwr%} Watt&#13;${window.bemit}' src='${imageSrcUrl["c"]}' onclick='cambiartz(this.title,${window.loc2tz1(window.home)})'>`;
     body.appendChild(div);
   } else {
     div.style.cssText =
@@ -492,14 +465,11 @@ function creadivi() {
       posileft +
       ";z-index:1000;opacity:0.85;visibility:visible;width:12px;height:12px;";
     body.appendChild(div);
-    div.innerHTML =
-      "<img title='<%=lichome%> Spotter @<%=loc2tz(home)%>&#13<%=bemit%>' src='" +
-      imageSrcUrl["c"] +
-      "' onclick='cambiartz(this.title,<%=loc2tz1(home)%>)'>";
+    div.innerHTML = `<img title='${window.lichome} Spotter @${loc2tz(window.home)}&#13;${window.bemit}' src='${imageSrcUrl["c"]}' onclick='cambiartz(this.title,${loc2tz1(window.home)})'>`;
   }
   var div = document.createElement("div");
   div.id = et.length + 1;
-  div.setAttribute("className", "dv");
+  div.setAttribute("class", "dv");
   div.style.cssText =
     "visibility:hidden;position:absolute;z-index:0;cursor:pointer;top:" +
     sunlat +
@@ -509,7 +479,7 @@ function creadivi() {
   div.innerHTML =
     "<img title='Sun Click for&#13 Day / Night&#13 Lat: " +
     sunla.toFixed(2) +
-    "º&#13Lon: " +
+    "º&#13;Lon: " +
     sunlo.toFixed(2) +
     "º' src='" +
     imageSrcUrl["sun1"] +
@@ -630,24 +600,37 @@ function creadiv() {
     }
   }
 }
-function gqs(nombre) {
-  //Retrieve Document location and tear off the QueryString values for processing.
-  var url = document.location + "";
-  q = url.split("?");
-  if (q[1]) {
-    //Get all Name/Value pairs from the QueryString
-    var pairs = q[1].split("&");
-    for (i = 0; i < pairs.length; i++) {
-      //Get the Name from given Name/Value pair
-      var keyval = pairs[i].split("=");
-      if (keyval[0] == nombre) {
-        //Get the Value from given Name/Value pair and set to the return ID
-        var valor = keyval[1];
-      }
+function gqs(e) {
+  const location = window.parent.window.location.href;
+  let c = "";
+  if ((q = location.split("?"))[1]) {
+    var a = q[1].split("&");
+    for (i = 0; i < a.length; i++) {
+      var l = a[i].split("=");
+      if (l[0] == e) c = l[1];
     }
   }
-  return valor;
+  return c;
 }
+// function gqs(nombre) {
+//   //Retrieve Document location and tear off the QueryString values for processing.
+//   //var url = document.location + "";
+//   const location = window.parent.window.location;
+//   q = location.split("?");
+//   if (q[1]) {
+//     //Get all Name/Value pairs from the QueryString
+//     var pairs = q[1].split("&");
+//     for (i = 0; i < pairs.length; i++) {
+//       //Get the Name from given Name/Value pair
+//       var keyval = pairs[i].split("=");
+//       if (keyval[0] == nombre) {
+//         //Get the Value from given Name/Value pair and set to the return ID
+//         var valor = keyval[1];
+//       }
+//     }
+//   }
+//   return valor;
+// }
 var s;
 function setSelectedIndex(s, v) {
   for (var i = 0; i < s.options.length; i++) {
@@ -889,7 +872,7 @@ function carga() {
   }
   //    if (gqs("t") && gqs("t") == "p") { document.getElementById("daynight").innerHTML = ""; verpiechart(); }
   document.getElementById("intn").innerHTML =
-    "<%=estalast%>" + " Intn. WSPR<br>Beacon Project";
+    window.estalast + " Intn. WSPR<br>Beacon Project";
   graficarsuncoverage();
   document.getElementById("daynight").style.visibility = "visible";
   if (gqs("t") && gqs("t") == "c") {
@@ -929,7 +912,7 @@ function mostrar(licencia) {
     popupwin.close();
   }
   popupwin = window.open(
-    "http://lu7aa.org/hc2.asp?licencia=" + licencia + "&loc=" + "<%=locati%>",
+    "http://lu7aa.org/hc2.asp?licencia=" + licencia + "&loc=" + window.locati,
     "win",
     preferences,
   );
@@ -948,19 +931,15 @@ function vermapa() {
   if (document.getElementById("mapa").value == "MAP") {
     document.getElementById("st").style.visibility = "hidden";
     document.getElementById("t").value = "m";
-    //for (i = 0; i < "<%= n + 3 %>"; i++) {
-    for (i = 0; i < window.n + 3; i++) {
-      document.getElementById(i).style.visibility = "visible";
-    }
+    document
+      .querySelectorAll(".dv")
+      .forEach((el) => (el.style.visibility = "visible"));
     document.getElementById("mapa").value = "MAP";
     document.getElementById("container").style.top = "70px";
   }
   document.getElementById("daynight").style.visibility = "hidden";
-  //pixsol = document.getElementById("<%=n + 2 %>").style.left.replace(/px/, "");
   pixsol = document.getElementById(window.n + 2).style.left.replace(/px/, "");
   if (pixsol > 1400) {
-    //document.getElementById("<%=n + 2 %>").style.left = "20px";
-    //document.getElementById("<%=n + 2 %>").style.top = "20px";
     document.getElementById(window.n + 2).style.left = "20px";
     document.getElementById(window.n + 2).style.top = "20px";
   }
@@ -1011,6 +990,9 @@ function vermapa() {
     "." +
     "</i></span></center>";
   document.getElementById("arribatext").style.visibility = "visible";
+  document
+    .querySelectorAll(".dv")
+    .forEach((el) => (el.style.visibility = "visible"));
   lineam(window.homeloc);
   if (document.getElementById("daynight")) {
     graficarsuncoverage();
@@ -1028,9 +1010,9 @@ function verpiechart() {
   document.getElementById("t").value = "c";
   document.getElementById("daynight").innerHTML = "";
   document.getElementById("daynight").style.zIndex = "-1";
-  for (i = 0; i < "<%= n + 3 %>"; i++) {
-    document.getElementById(i).style.visibility = "hidden";
-  }
+  document
+    .querySelectorAll(".dv")
+    .forEach((el) => (el.style.visibility = "hidden"));
   document.getElementById("mapa").value = "MAP";
   document.getElementById("container").style.top = "20px";
   document.getElementById("container").style.left = "127px";
@@ -1070,9 +1052,9 @@ function verchart() {
   document.getElementById("t").value = "c";
   document.getElementById("daynight").innerHTML = "";
   document.getElementById("daynight").style.zIndex = "-1";
-  for (i = 0; i < "<%=n+3%>"; i++) {
-    document.getElementById(i).style.visibility = "hidden";
-  }
+  document
+    .querySelectorAll(".dv")
+    .forEach((el) => (el.style.visibility = "hidden"));
   document.getElementById("mapa").value = "MAP";
   document.getElementById("container").style.top = "-70px";
   document.getElementById("container").style.left = "127px";
@@ -1097,8 +1079,8 @@ function verchart() {
   document.getElementById("daynight").style.visibility = "hidden";
 }
 function ponercallsign() {
-  if (et.length > 800) {
-    document.getElementById("solar").src = "null.png";
+  if (window.et.length > 800) {
+    document.getElementById("solar").src = imageSrcUrl["null"];
   }
   nolinea();
   document.getElementById("pie").style.color = "white";
@@ -1110,21 +1092,19 @@ function ponercallsign() {
   document.getElementById("li").style.color = "orange";
   document.getElementById("resumen").style.visibility = "hidden";
   document.getElementById("st").style.visibility = "hidden";
-  for (k = 0; k < 1200; k++) {
-    if (document.getElementById(k)) {
-      document.getElementById(k).style.visibility = "hidden";
-    }
-  }
+  document
+    .querySelectorAll(".dv")
+    .forEach((el) => (el.style.visibility = "hidden"));
   document.getElementById("container").style.backgroundImage =
-    "url('none.jpg')";
-  document.getElementById("container").style.top = "-70px";
+    `url(${imageSrcUrl["none"]})`;
+  document.getElementById("container").style.top = "-105px"; //"-70px";
   document.getElementById("container").style.left = "127px";
-  if (et.length > 0) {
+  if (window.et.length > 0) {
     estacio =
       "<u><span onclick='ir(this)'>" +
-      et[0][2] +
+      window.et[0][2] +
       " " +
-      et[0][7] +
+      window.et[0][7] +
       "</span></u><br><br><br>";
   }
   if (ed.length < 80) {
@@ -1404,9 +1384,12 @@ function drawdxkm() {
   document.getElementById("t").value = "c";
   document.getElementById("daynight").innerHTML = "";
   document.getElementById("daynight").style.zIndex = "-1";
-  for (i = 0; i < "<%=n+3%>"; i++) {
-    document.getElementById(i).style.visibility = "hidden";
-  }
+  // for (i = 0; i < window.n + 3; i++) {
+  //   document.getElementById(i).style.visibility = "hidden";
+  // }
+  document
+    .querySelectorAll(".dv")
+    .forEach((el) => (el.style.visibility = "hidden"));
   document.getElementById("mapa").value = "MAP";
   document.getElementById("container").style.top = "-70px";
   document.getElementById("container").style.left = "127px";
@@ -1419,11 +1402,9 @@ function drawdxkm() {
   var data = new google.visualization.DataTable();
   data.addColumn("number", "Distance in Km.");
   const columnasLimpias = left(columns, columns.length - 2);
+  eval(columnasLimpias);
 
-  //dxkk = new Array("<%=dxkm1%>");
-  dxkk = new Array(window.dxkm1);
-  //data.addRows(["<%=dxkm&vbTab%>"]);
-  data.addRows([window.dxkm + "\t"]);
+  data.addRows(window.dxkm);
   var tipohora = "GMT";
   // Set chart options
   var options = {
@@ -1450,12 +1431,12 @@ function drawdxkm() {
       textStyle: { fontSize: 15, fontName: "Times New Roman", bold: true },
       title:
         "Distance in Km. Using Last <%if totals=2998 or totals=9998 then Response.Write totals+2 else Response.Write totals end if%> Reports, from " +
-        "<%=n+1%>" +
+        (window.n + 1) +
         " Stations.",
       format: "#####",
       gridlines: { count: 19 },
       viewWindowMode: "explicit",
-      viewWindow: { max: "<%=(smax + 1) * 1000 %>" },
+      viewWindow: { max: (window.smax + 1) * 1000 },
     },
     height: 700,
     curveType: "function",
@@ -1715,7 +1696,7 @@ function armarec() {
   } else {
     fromto = fromto + et[0][0] + "z";
   }
-  fromto = fromto + " " + "<%=hactivo%>";
+  fromto = fromto + " " + window.hactivo;
   et.sort(sortFunction);
   function sortFunction(a, b) {
     if (a[2] === b[2]) {
@@ -1738,58 +1719,58 @@ function armarec() {
         " Stations received " +
         stat +
         " for # times " +
-        "<%=bemit%>".replace(/On/, "on") +
+        window.bemit.replace(/On/, "on") +
         " ~ " +
-        ultimoreport +
+        window.ultimoreport +
         " " +
-        "<%=hactivo%>" +
+        window.hactivo +
         ".";
     } else {
       ley =
         " Stations were received by " +
         stat +
         " for # times " +
-        "<%=bemit%>".replace(/On/, "on") +
+        window.bemit.replace(/On/, "on") +
         " ~ " +
-        ultimoreport +
+        window.ultimoreport +
         " " +
-        "<%=hactivo%>" +
+        window.hactivo +
         ".";
     }
-    if (gqs("bs") == "A" && "<%=iis%>" == 0) {
+    if (gqs("bs") == "A" && window.iis == 0) {
       ley =
         " Stations received " +
         stat +
         " for # times " +
-        "<%=bemit%>".replace(/On/, "on") +
+        window.bemit.replace(/On/, "on") +
         " ~ " +
-        ultimoreport +
+        window.ultimoreport +
         " " +
-        "<%=hactivo%>" +
+        window.hactivo +
         ".";
     }
-    if (gqs("bs") == "A" && "<%=iib%>" == 0) {
+    if (gqs("bs") == "A" && window.iib == 0) {
       ley =
         " Stations spotted by " +
         stat +
         " for # times " +
-        "<%=bemit%>".replace(/On/, "on") +
+        window.bemit.replace(/On/, "on") +
         " ~ " +
-        ultimoreport +
+        window.ultimoreport +
         " " +
-        "<%=hactivo%>" +
+        window.hactivo +
         ".";
     }
-    if (gqs("bs") == "A" && "<%=iib%>" > 0 && "<%=iis%>" > 0) {
+    if (gqs("bs") == "A" && window.iib > 0 && window.iis > 0) {
       ley =
         " Stations Received / Spotted by " +
         stat +
         " for # times " +
-        "<%=bemit%>".replace(/On/, "on") +
+        window.bemit.replace(/On/, "on") +
         " ~ " +
-        ultimoreport +
+        window.ultimoreport +
         " " +
-        "<%=hactivo%>" +
+        window.hactivo +
         ".";
     }
     ed =
@@ -1856,36 +1837,36 @@ if (gqs("bs") == "B" || !gqs("bs")) {
   tipo = "Spotter";
 }
 getsunpos();
-sunla = sunlat;
-sunlo = sunlon;
-sunlat = 602 - (270 + sunlat * 3);
-sunlon = 1080 - (540 - sunlon * 3) + 126;
-if (z == 1) {
-  sunlon = sunlon + 540 - homexy(homeloc).x;
-  if (sunlon > 1080) {
-    sunlon = sunlon - 1080;
-  }
-  if (sunlon < 0) {
-    sunlon = sunlon + 1080;
-  }
-  if (sunlon < 125) {
-    sunlon = sunlon + 1080;
-  }
-}
+// sunla = sunlat;
+// sunlo = sunlon;
+// sunlat = 602 - (270 + sunlat * 3);
+// sunlon = 1080 - (540 - sunlon * 3) + 126;
+// if (z == 1) {
+//   sunlon = sunlon + 540 - homexy(homeloc).x;
+//   if (sunlon > 1080) {
+//     sunlon = sunlon - 1080;
+//   }
+//   if (sunlon < 0) {
+//     sunlon = sunlon + 1080;
+//   }
+//   if (sunlon < 125) {
+//     sunlon = sunlon + 1080;
+//   }
+// }
 ec = "";
 
-if (gqs("bs") == "A" || !gqs("bs")) {
-  document.getElementById("resumen").innerHTML =
-    "<center><table class='transparent' style='width:110px;color:#ffffff;font-family:Tahoma,Arial;font-size:12px;text-shadow: 2px 2px 0 black;'><tr class='none'><td align=center onclick='mostrar(\"<%=lichome%>\")' title='See <%=lichome%>&#13 at HamCall' onmouseout=\"this.style.backgroundColor='';\" onmouseover=\"this.style.backgroundColor='#335c6e';\"><span style='font-size:20px;font-weight'><u><%=lichome%></u></span><br>Sent / Received<br><%=n+1%> Callsigns<br><%=bemit%></center></td></tr></table>";
-} else {
-  if (gqs("bs") == "B" || !gqs("bs")) {
-    document.getElementById("resumen").innerHTML =
-      "<center><table class='transparent' style='width:110px;color:#ffffff;font-family:Tahoma,Arial;font-size:12px;text-shadow: 2px 2px 0 black;'><tr class='none'><td align=center onclick='mostrar(\"<%=lichome%>\")' title='See <%=lichome%>&#13 at HamCall' onmouseout=\"this.style.backgroundColor='transparent';\" onmouseover=\"this.style.backgroundColor='#012d52';\"><span style='font-size:20px;font-weight'><u><%=lichome%></u></span><br>Pwr <%=pwr%> Watt<br><%=bemit%><br><%=n+1%> Spotters</center></td></tr></table>";
-  } else {
-    document.getElementById("resumen").innerHTML =
-      "<center><table class='transparent' style='width:110px;color:#ffffff;font-family:Tahoma,Arial;font-size:12px;text-shadow: 2px 2px 0 black;'><tr class='none'><td align=center onclick='mostrar(\"<%=lichome%>\")' title='See <%=lichome%>&#13 at HamCall' onmouseout=\"this.style.backgroundColor='';\" onmouseover=\"this.style.backgroundColor='#335c6e';\"><span style='font-size:20px;font-weight'><%=lichome%></span><br>Spots Received<br><%=bemit%><br><%=n+1%> Beacons</center></td></tr></table>";
-  }
-}
+// if (gqs("bs") == "A" || !gqs("bs")) {
+//   document.getElementById("resumen").innerHTML =
+//     `<center><table class='transparent' style='width:110px;color:#ffffff;font-family:Tahoma,Arial;font-size:12px;text-shadow: 2px 2px 0 black;'><tr class='none'><td align=center onclick='mostrar(${window.lichome})' title='See ${window.lichome}&#13; at HamCall' onmouseout="this.style.backgroundColor='';" onmouseover="this.style.backgroundColor='#335c6e';"><span style='font-size:20px;font-weight'><u>${window.lichome}</u></span><br>Sent / Received<br>${window.n + 1} Callsigns<br>${window.bemit}</center></td></tr></table>`;
+// } else {
+//   if (gqs("bs") == "B" || !gqs("bs")) {
+//     document.getElementById("resumen").innerHTML =
+//       `<center><table class='transparent' style='width:110px;color:#ffffff;font-family:Tahoma,Arial;font-size:12px;text-shadow: 2px 2px 0 black;'><tr class='none'><td align=center onclick='mostrar(${window.lichome})' title='See ${window.lichome}&#13; at HamCall' onmouseout="this.style.backgroundColor='transparent';" onmouseover="this.style.backgroundColor='#012d52';"><span style='font-size:20px;font-weight'><u>${window.lichome}</u></span><br>Pwr ${window.pwr} Watt<br>${window.bemit}<br>${window.n + 1} Spotters</center></td></tr></table>`;
+//   } else {
+//     document.getElementById("resumen").innerHTML =
+//       `<center><table class='transparent' style='width:110px;color:#ffffff;font-family:Tahoma,Arial;font-size:12px;text-shadow: 2px 2px 0 black;'><tr class='none'><td align=center onclick='mostrar(${window.lichome})' title='See ${window.lichome}&#13; at HamCall' onmouseout="this.style.backgroundColor='';" onmouseover="this.style.backgroundColor='#335c6e';"><span style='font-size:20px;font-weight'>${window.lichome}</span><br>Spots Received<br>${window.bemit}<br>${window.n + 1} Beacons</center></td></tr></table>`;
+//   }
+// }
 function jsDraw2DX() {}
 jsDraw2DX._RefID = 0;
 jsDraw2DX._isVML = false;
