@@ -34,8 +34,8 @@ function escapeUnicode(str) {
 }
 function ira(donde) {
   enviar.call.value = donde.toUpperCase();
-  document.location.href =
-    document.location.origin +
+  window.parent.window.location.href =
+    window.parent.window.location.origin +
     "/dx?call=" +
     donde.toUpperCase().trim() +
     "&timelimit=1209600";
@@ -255,7 +255,7 @@ function getDay(date) {
 }
 function goto10() {
   titilar();
-  document.location.href = document.location.href
+  window.parent.window.location.href = window.parent.window.location.href
     .replace(/dx.asp/, "dx10k.asp")
     .replace(/#/g, "");
 }
@@ -660,6 +660,7 @@ function enviando() {
   enviar.call.value = enviar.call.value.replace(/\t/g, "");
   enviar.call.value = enviar.call.value.replace(/\n/g, "");
   enviar.call.value = enviar.call.value.replace(/\r/g, "");
+
   if (enviar.call.value.indexOf("=") > -1) {
     alert("Invalid characters in call .. Reenter");
     enviar.call.focus();

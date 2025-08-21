@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Balloon Height M Chart from EOSS & Findu</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta
+            name="TITLE"
+            content="AMSAT Argentina provides usefull info for radio amateurs interested in the amateur satellite program, latest AMSAT bulletins, keps and Argentina AMSAT and LUSAT history."
+        />
+        <meta name="GENERATOR" content="Amsat Argentina AMSAT-LU Site" />
+        <meta name="AUTHOR" content="Amsat Argentina WebMasters lu7abf" />
+        <meta name="rating" content="General" />
+        <meta
+            name="DESCRIPTION"
+            content="AMSAT-LU is the organisation representing Argentina radio operators interests in design, build, launch and communicate through amateur satellites orbiting the earth. Amsat Argentina es una organizacion orientada a proyectar, armar, lanzar y operar satelites y comunicaciones espaciales. Ha lanzado el LUSAT y proximamente el VoxSat y el Lusac."
+        />
+        <meta
+            name="abstract"
+            content="Amsat Argentina Radio Amateur Satellites site: LUSAT, VoxSat, Experiments, Ballons, Space Comms, Diagrams, Circuits, Operation, Education"
+        />
+        <meta
+            name="KEYWORDS"
+            content="AMSAT Argentina,AMSAT-LU,AMSAT,Argentina,Amateur Satellites,satelites,Amateur Radio,Space,LUSAT,LUSAT-1,VOXSAT,LUSAC,Telemetry,Telemetria,CW,telegraphy,telegrafia,morse,Globos,Ballons,Diagrams,Diagramas,Circuits,Circuitos,CETRA,Encuestas, Encuesta, Poll, Polls, Experiments,Experimentos,CONEA,Retina,Tracking,Orbits,Orbita,Orbitas,South,Sud,Shuttle,ISS,AO-19,Oscar,Rocket,Packet,downlink,uplink,frecuency,antenna,equipment,kepler,keplerian,iaru,wireless,repeater,transponder,digital,education,hsg,speed,projects,launch,satellite,ham,amsat-na,amsat-dl,amsat-uk,amsat-ce,amsat-ea,amsat-i,amsat-france,amsat-zl,jamsat,sa-amsat,surrey,sweeting,jan king,uosat,surrey,echo,microsat,nanosat,lu7aa,kb5mu,a0-40,pcsat,weber,pacsat,lu1esy,lw7dxf,lu7dsu,lu2amw,lw2dtz,lu7abf,lu7jcn,lu6dyd,lu6elo,lu4enq,carou,lu6dwc,lu8dyf,lu7xac,lu2aoq,lu5abm,lu4aey,lu3agj,rca,lu2fhe,lu2fcy,lu1sm,lu8yyn,lu1vd,lu2fgn,lu6eeg,aluar,ibm,showlog,sunsat,itrack,gridsquare,locator,gateway,ans,ariss,cubesat,amrad,g3ruh,Buenos Aires"
+        />
+        <meta
+            name="COPYRIGHT"
+            content="Copyright 1985-2025 Amsat Argentina on amsat.org.ar www.amsat.org.ar All rights Reserved. Todos los derechos Reservados"
+        />
+        <meta name="Robots" content="Index,Follow" />
+        <meta name="revisit-after" content="1 days" />
+
+        <meta http-equiv="Expires" content="Fri, Jun 12 1981 08:20:00 GMT" />
+        <style type="text/css">
+            .titc {
+                font-family: tahoma, arial, trebuchet;
+                font-size: 14px;
+                font-weight: normal;
+                line-height: 20px;
+                text-align: absmiddle;
+                height: 20px;
+            }
+            a:visited {
+                text-decoration: none;
+                color: #000000;
+            }
+            a:link {
+                text-decoration: none;
+                color: #067ab0;
+            }
+            a:hover {
+                color: #000000;
+                text-decoration: underline;
+                background: lightblue;
+                border: normal;
+            }
+            a:active {
+                text-decoration: none;
+                color: #067ab0;
+                background: lightblue;
+                border: normal;
+            }
+            body {
+                scrollbar-base-color: #eeeeee;
+                scrollbar-arrow-color: #000000;
+            }
+            .monkey {
+                width: 200px;
+                height: 100px;
+                position: absolute; /* we want to set an absolute position so the div can be moved in reference to the screen */
+                top: 21px; /* this sets the positioning of the element in reference to the top left of your window. it will space it 50 pixels from the top */
+                left: screen.availWidth-180; /* this will set the position of the element 50 pixels to right of the top left of your window. */
+                z-index: 5; /* this will position it above anything with a lower z-index, sort of like layers. So you could layer these divs using z-index and have them stack on each other. */
+                text-align: justify;
+                font-size: 10px;
+                line-height: 11px;
+            }
+        </style>
+        <script
+            type="text/javascript"
+            src="https://www.google.com/jsapi"
+        ></script>
+        <script src="js/balloonchartFn.js"></script>
+        <script src="js/balloonchart.js"></script>
+    </head>
+    <!-- <body class=titc style="margin-left: 0;margin-right: 0;margin-top: 0;margin-bottom: 0;margin: 0;vertical-align:absmiddle;" onload="markbutton();" onMouseMove="mouser(event);"> -->
+    <body
+        class="titc"
+        style="
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin: 0;
+            vertical-align: absmiddle;
+        "
+        onMouseMove="mouser(event);"
+    >
+        <center>
+            <form name="showgraph" style="margin-bottom: 0; margin-top: 0">
+                <!--
+    <% if validdata and len(vorloc) > 1500 then%>
+    <table border=0 cellpadding=0 cellspacing=0 style="height:'92%';"><tr><td align=center><center><div id="chart_div" style="border:0;width:1360px;height:580px;"></div></center></td></tr></table>
+    <%end if%>
+    -->
+                <font style="font-size: 11px">CALL</font
+                ><input
+                    type="text"
+                    name="callsign"
+                    id="callsign"
+                    onrowenter="this.form.submit();"
+                    value="%=callsign%"
+                    size="10"
+                    style="font-size: 9px; font-weight: normal; width: 58px"
+                    title="Enter Callsign-SSID of APRS or Balloon station and hit Enter"
+                />
+                <input
+                    type="button"
+                    name="grafico"
+                    value="Height f"
+                    title="Chart Height in feet"
+                    style="
+                        cursor: hand;
+                        width: 51px;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                    "
+                    onclick="letsgo('height f');"
+                />
+                <input
+                    type="button"
+                    name="grafico"
+                    value="Height m"
+                    title="Chart Height in meters"
+                    style="
+                        cursor: hand;
+                        width: 56px;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                    "
+                    onclick="letsgo('height m');"
+                />
+                <input
+                    type="button"
+                    name="grafico"
+                    value="Speed n"
+                    title="Chart Speed in knots"
+                    style="
+                        cursor: hand;
+                        width: 53px;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                    "
+                    onclick="letsgo('speed n');"
+                />
+                <input
+                    type="button"
+                    name="grafico"
+                    value="Speed k"
+                    title="Chart Speed in Km/h"
+                    style="
+                        cursor: hand;
+                        width: 53px;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                    "
+                    onclick="letsgo('speed k');"
+                />
+                <input
+                    type="button"
+                    name="grafico"
+                    value="Sp/hght"
+                    title="Chart Speed in Height versus Km/h"
+                    style="
+                        cursor: hand;
+                        width: 51px;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                    "
+                    onclick="letsgo('sp/hght');"
+                />
+                <input
+                    type="button"
+                    name="grafico"
+                    value="Direction"
+                    title="Chart Direction in degrees"
+                    style="
+                        cursor: hand;
+                        width: 53px;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                    "
+                    onclick="letsgo('direction');"
+                />
+                <input
+                    type="button"
+                    name="grafico"
+                    value="Ascent"
+                    title="Chart Ascent/Descent in feet/second"
+                    style="
+                        cursor: hand;
+                        width: 44px;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                    "
+                    onclick="letsgo('ascent');"
+                />
+                <input
+                    type="button"
+                    name="grafico"
+                    value="Asc/hght"
+                    title="Chart Ascent vs Height in feet/second"
+                    style="
+                        cursor: hand;
+                        width: 56px;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                    "
+                    onclick="letsgo('asc/h');"
+                />
+                <input
+                    type="button"
+                    name="grafico"
+                    value="Lat"
+                    title="Chart Latitude in degrees"
+                    style="
+                        cursor: hand;
+                        width: 20px;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                    "
+                    onclick="letsgo('lat');"
+                />
+                <input
+                    type="button"
+                    name="grafico"
+                    value="Lon"
+                    title="Chart Longitude in degrees"
+                    style="
+                        cursor: hand;
+                        width: 24px;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                    "
+                    onclick="letsgo('lon');"
+                />
+                <input
+                    type="button"
+                    name="grafico"
+                    value="Reach"
+                    title="Chart Reach in Km."
+                    style="
+                        cursor: hand;
+                        width: 38px;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                    "
+                    onclick="letsgo('reach');"
+                />
+                <!--
+    <%if lcase(callsign)="lu7aa-11" or lcase(Request("callsign"))="lu7aa-12" then %>
+    <input type=button name=grafico value="Temperaturas y Voltaje" title="Chart Temperaturas y Voltaje" style="cursor:hand;width:41px;font-size:12px;padding:0 0 0 0;" onclick="letsgo('temp');">
+    <%end if%>
+   -->
+                <input
+                    type="button"
+                    name="grafico"
+                    value="Map"
+                    title="Go see Map & trajectory"
+                    style="
+                        cursor: hand;
+                        width: 33px;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                    "
+                    onclick="map('%=callsign%');"
+                />
+                <!-- <%if Request("flights")="1" or Request("flights") <> "" then Response.Write "checked"%>  -->
+                <input
+                    type="checkbox"
+                    name="flights"
+                    value="0"
+                    onclick="javascript:document.forms.showgraph.submit();"
+                    title="Mark here to get older data than a week"
+                    style="
+                        vertical-align: inherit;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                    "
+                /><font
+                    style="
+                        font-family: Tahoma;
+                        font-weight: normal;
+                        font-size: 12px;
+                        vertical-align: inherit;
+                    "
+                    >All Flights
+                </font>
+                <font style="font-size: 11px">
+                    <!--
+    <%if ssavempointer>1 then
+        Response.Write "<font style='font-size:14px;line-height:14px;font-weight:normal;vertical-align:inherit;'>+Flights:</font>"
+        for m=1 to ssavempointer
+            nombrefecha= day(cDate(ssavem(m,1)))& "/" & month(cDate(ssavem(m,1)))& "/" & right(year(cDate(ssavem(m,1))),2)
+            fvlo=cDate(ssavem(m,1))
+            fvloc="Flight-" & m & "  " & day(fvlo) & mes(month(fvlo))&"-"&"-" & year(fvlo) & " " & right("00"&hour(fvlo),2)&":"&right("00"&minute(fvlo),2)&"z"
+            Response.Write "<input type=button name=vuelos value='"&nombrefecha&"' Title='"&fvloc&"' style='cursor:hand; width:44px;height:20px;font-size:10px;line-height:11px;vertical-align:inherit;padding:0 0 0 0;' onclick='ira("&m&")'>"
+        next
+    end if%>
+     -->
+                </font>
+            </form>
+        </center>
+
+        <div
+            id="chartdata"
+            class="monkey"
+            onMouseOver="cursor:move;"
+            style="cursor: move"
+            onMouseDown="mouse_down('chartdata')"
+            onMouseUp="mouse_up()"
+        >
+            <b>%=ucase(callsign) & " " & launchdate & " Flight Synopsis</b>
+            <br />From: "&launchtime&" Duration: "&duracionhms&"
+            <br />MaxHeight: "&formatnumber(maxheight*.3048,0)&" m. /
+            "&formatnumber(maxheight-feetdelta,0)& " feet <br />At: " &
+            maxtimehms & "&nbsp;&nbsp;Horizont: "&coverage&" Km. <br />Average
+            up: "&avgupm&" m/s / "&avgupf&" feet/s <br />Avg. down: "&avgdom&"
+            m/s / "&avgdof&" feet/s<br />Wind speed: "&avgwsm&" Km/h /
+            "&avgwsf&" knots <br />Land at: "&formatnumber(recorrido,0)&" Km /
+            "&formatnumber(recorrido*0.53996,0)&" nMiles <br />Launch to Land
+            azimuth: "& formatnumber(diraverage,2) & "&#176; <br />From:
+            "&left(getciudad(latii1,lonii1),27)&" <br />To:
+            "&left(getciudad(lati2,loni2),30)&"<br />&nbsp;&nbsp;&nbsp;
+            <i>(This legend could be moved)</i>"%>
+        </div>
+    </body>
+</html>
+
+<!-- https://lu7aa.org/balloonchart.asp?callsign=ab9lm-11&flights=0&grafico=height%20m -->
+<!-- https://lu7aa.org/vor.asp?callsign=ab9lm-11&flights=1&Vuelo= -->

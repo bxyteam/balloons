@@ -338,7 +338,7 @@ async function initApp() {
         break;
     }
 
-    estaselect = `<i><b>On ${bandi} MHz<br><br style='line-height:1px;'><select id='multiplecalls' name='multiplecalls' style='width: 80px !important;max-width:80px important!;text-align:center;font-weight:bold;font-size:12px;line-height:10px;' onchange="javascript:enviando();document.getElementById('call').value=document.getElementById('multiplecalls').value; document.getElementById('enviar').submit();">\n<option>Select</option>\n`;
+    estaselect = `<i><b>On ${bandi} MHz<br><br style='line-height:1px;'><select id='multiplecalls' name='multiplecalls' style='width: 80px !important;max-width:80px important!;text-align:center;font-weight:bold;font-size:12px;line-height:10px;' onchange="javascript:enviando();document.getElementById('call').value=document.getElementById('multiplecalls').value; fireSubmitFormEvent();">\n<option>Select</option>\n`;
 
     if (estacion.length > 0) {
       for (let d = 0; d < o; d++) {
@@ -423,6 +423,12 @@ async function initApp() {
   document.getElementById("call").value = calli;
   document.getElementById("t").value = window.getParamSafe("t", "").trim();
   document.getElementById("vl").value = window.getParamSafe("vl", "").trim();
+  //if (callsign !== "*") {
+  document.getElementById("showCallsignButton").innerHTML =
+    `<button  onclick="event.preventDefault();mostrar('${callsign}');"
+      title="See ${callsign} Data at HamCall" style="all: unset; font-family: monospace">
+     <b>${callsign}</b></button>`;
+  //}
 
   datos = Array(tablam.length)
     .fill()
@@ -869,16 +875,44 @@ async function initApp() {
       <span style='font-size:20px;font-weight'>
       <u>${window.lichome}</u>
       </span>
-      <br>Sent / Received<br>${window.n + 1} Callsigns<br>${window.bemit}</td></tr></table></center>`;
+      <br>Sent / Received<br>${window.n + 1} Callsigns<br>${window.bemit
+        .split(",")
+        .reduce((acc, val, idx) => {
+          if (idx !== 0 && idx % 3 === 2) {
+            return `${acc} ${val},<br>`;
+          }
+          return `${acc} ${val},`;
+        }, "")
+        .slice(0, -5)}</td></tr></table></center>`;
   } else {
     if (gqs("bs") == "B" || !gqs("bs")) {
       document.getElementById("resumen").innerHTML =
-        `<center><table class='transparent' style='width:110px;color:#ffffff;font-family:Tahoma,Arial;font-size:12px;text-shadow: 2px 2px 0 black;'><tr class='none'><td align=center onclick='mostrar(${window.lichome})' title='See ${window.lichome}&#13; at HamCall' onmouseout="this.style.backgroundColor='transparent';" onmouseover="this.style.backgroundColor='#012d52';"><span style='font-size:20px;font-weight'><u>${window.lichome}</u></span><br>Pwr ${window.pwr} Watt<br>${window.bemit}<br>${window.n + 1} Spotters</td></tr></table></center>`;
+        `<center><table class='transparent' style='width:110px;color:#ffffff;font-family:Tahoma,Arial;font-size:12px;text-shadow: 2px 2px 0 black;'><tr class='none'><td align=center onclick='mostrar(${window.lichome})' title='See ${window.lichome}&#13; at HamCall' onmouseout="this.style.backgroundColor='transparent';" onmouseover="this.style.backgroundColor='#012d52';"><span style='font-size:20px;font-weight'><u>${window.lichome}</u></span><br>Pwr ${window.pwr} Watt<br>${window.bemit
+          .split(",")
+          .reduce((acc, val, idx) => {
+            if (idx !== 0 && idx % 3 === 2) {
+              return `${acc} ${val},<br>`;
+            }
+            return `${acc} ${val},`;
+          }, "")
+          .slice(
+            0,
+            -5,
+          )}<br>${window.n + 1} Spotters</td></tr></table></center>`;
     } else {
       document.getElementById("resumen").innerHTML =
-        `<center><table class='transparent' style='width:110px;color:#ffffff;font-family:Tahoma,Arial;font-size:12px;text-shadow: 2px 2px 0 black;'><tr class='none'><td align=center onclick='mostrar(${window.lichome})' title='See ${window.lichome}&#13; at HamCall' onmouseout="this.style.backgroundColor='';" onmouseover="this.style.backgroundColor='#335c6e';"><span style='font-size:20px;font-weight'>${window.lichome}</span><br>Spots Received<br>${window.bemit}<br>${window.n + 1} Beacons</td></tr></table></center>`;
+        `<center><table class='transparent' style='width:110px;color:#ffffff;font-family:Tahoma,Arial;font-size:12px;text-shadow: 2px 2px 0 black;'><tr class='none'><td align=center onclick='mostrar(${window.lichome})' title='See ${window.lichome}&#13; at HamCall' onmouseout="this.style.backgroundColor='';" onmouseover="this.style.backgroundColor='#335c6e';"><span style='font-size:20px;font-weight'>${window.lichome}</span><br>Spots Received<br>${window.bemit
+          .split(",")
+          .reduce((acc, val, idx) => {
+            if (idx !== 0 && idx % 3 === 2) {
+              return `${acc} ${val},<br>`;
+            }
+            return `${acc} ${val},`;
+          }, "")
+          .slice(0, -5)}<br>${window.n + 1} Beacons</td></tr></table></center>`;
     }
   }
+
   sunla = sunlat;
   sunlo = sunlon;
   sunlat = 602 - (270 + sunlat * 3);
@@ -897,6 +931,20 @@ async function initApp() {
   }
 
   carga();
+}
+
+function submitForm(event) {
+  event.preventDefault();
+  const form = event.target;
+  const formData = new FormData(form);
+  const params = new URLSearchParams(formData).toString();
+  window.parent.window.location.href = `${HOST_URL}/dx?${params}`;
+}
+
+function fireSubmitFormEvent() {
+  const form = document.getElementById("enviar");
+  const event = new Event("submit", { bubbles: true, cancelable: true });
+  form.dispatchEvent(event);
 }
 
 window.addEventListener("load", initApp);

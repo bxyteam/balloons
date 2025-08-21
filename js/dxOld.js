@@ -1041,16 +1041,15 @@ function procesarTablaDatos(pag, posicion) {
         if (!found) {
           bande[z] = banx;
           lastz = lastz + 1;
-
-          const s1 = parseInt(
-            datos[j - 1][0].substring(datos[j - 1][0].length - 2),
-          );
-          const s2 = datos[j - 1][2];
-
-          if (!window.bana[banx]) window.bana[banx] = {};
-          window.bana[banx][s1] = (window.bana[banx][s1] || 0) + s2;
-          window.bana[banx][32] = (window.bana[banx][32] || 0) + s2;
         }
+        const s1 = parseInt(
+          datos[j - 1][0].substring(datos[j - 1][0].length - 2),
+        );
+        const s2 = datos[j - 1][2];
+
+        if (!window.bana[banx]) window.bana[banx] = {};
+        window.bana[banx][s1] = (window.bana[banx][s1] || 0) + s2;
+        window.bana[banx][32] = (window.bana[banx][32] || 0) + s2;
       }
 
       j = j + 1;

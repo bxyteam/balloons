@@ -146,7 +146,6 @@
         <script src="js/dx.js"></script>
         <script src="js/indexDx.js" defer></script>
     </head>
-    <!-- <body style="margin-left: 0;margin-right: 0;margin-top: 0;margin-bottom: 0;margin: 0;background-color:#ffffff;" onload="carga()"> -->
     <body
         style="
             margin-left: 0;
@@ -157,17 +156,6 @@
             background-color: #ffffff;
         "
     >
-        <!-- <div
-            id="arribatext"
-            style="
-                position: absolute;
-                top: 55px;
-                left: 130px;
-                width: 1070px;
-                height: 30px;
-                z-index: 3;
-            "
-        ></div> -->
         <div
             id="propa"
             style="position: absolute; left: 1205px; top: 1px; width: 135px"
@@ -187,8 +175,8 @@
                 <span style="line-height: 14px; font-size: 15px"
                     ><br style="line-height: 2px" /><i><b>Alternate Site:</b></i
                     ><br />
-                    <a href="https://balloons.dev.browxy.com/dx" target="_blank"
-                        ><i>https://balloons.dev.browxy.com/dx</i></a
+                    <a href="https://lu7aa.org/dx.asp" target="_blank"
+                        ><i>https://lu7aa.org/dx.asp</i></a
                     ><br /><br style="line-height: 6px" />
                     <a
                         href="https://balloons.dev.browxy.com/wsprx"
@@ -228,10 +216,9 @@
         <form
             name="enviar"
             id="enviar"
-            action="dx"
             accept-charset="utf-8"
             style="margin-bottom: 0; margin-top: 0"
-            onsubmit="return enviando()"
+            onsubmit="submitForm(event)"
         >
             <div
                 id="comboHtmlTemplate"
@@ -270,20 +257,11 @@
                         "
                     >
                         &#9651;</button
+                    >&nbsp;<span
+                        id="showCallsignButton"
+                        style="font-size: 21px"
+                    ></span
                     >&nbsp;
-                    <!-- <span
-                        >%if callsign="*" then Response.Write "" else
-                        Response.Write "" end if%</span
-                    > -->
-                    <!-- <span style="font-size: 21px"
-                        ><button
-                            onclick="event.preventDefault();mostrar('%=callsign%');"
-                            title="See %=callsign% Data at HamCall"
-                            style="all: unset; font-family: monospace"
-                        >
-                            <b>%=callsign%</b>
-                        </button></span
-                    >&nbsp; -->
                     <span style="font-size: 18px; font-weight: bold"
                         ><i>DX Report as:</i></span
                     >
@@ -341,7 +319,7 @@
                             font-weight: bold;
                         "
                         title="Select either:&#13;Beacon: Xmit. Only&#13;Spotter: Recev Only&#13;Any: Recev and Xmit"
-                        onchange="javascript:enviando();document.getElementById('enviar').submit();"
+                        onchange="enviando();fireSubmitFormEvent();"
                     >
                         <option
                             value="B"
@@ -367,7 +345,7 @@
                         title="Enter Callsign or Alias&#13;Wild cards accepted, as LU*"
                         onclick="borro()"
                         size="6"
-                        onrowenter="document.submit()"
+                        onrowenter="fireSubmitFormEvent()"
                         maxlength="12"
                         style="
                             line-height: 14px;
@@ -384,7 +362,7 @@
                             text-align: center;
                             font-weight: bold;
                         "
-                        onchange="enviando();document.getElementById('enviar').submit();"
+                        onchange="enviando();fireSubmitFormEvent();"
                     >
                         <option value="All" selected="selected">All</option>
                         <option title="Low Freq" value="-1">LF</option>
@@ -416,7 +394,7 @@
                             text-align: center;
                             font-weight: bold;
                         "
-                        onchange="javascript:document.getElementById('enviar').submit();enviando();"
+                        onchange="javascript:fireSubmitFormEvent();"
                     >
                         <option value="3600">Hour</option>
                         <option value="43200">12 Hours</option>
@@ -435,7 +413,7 @@
                         title="Excludes calls starting with Q and 0&#13;typically used for balloon telemetry"
                         name="omit"
                         id="omit"
-                        onchange="javascript:document.getElementById('enviar').submit();enviando();"
+                        onchange="fireSubmitFormEvent();enviando();"
                     />
                     &nbsp;<input
                         type="submit"
