@@ -108,7 +108,7 @@
                     name="callsign"
                     id="callsign"
                     onrowenter="this.form.submit();"
-                    value="%=callsign%"
+                    value=""
                     size="10"
                     style="font-size: 9px; font-weight: normal; width: 58px"
                     title="Enter Callsign-SSID of APRS or Balloon station and hit Enter"
@@ -314,7 +314,7 @@
         <div
             id="chartdata"
             class="monkey"
-            onMouseOver="cursor:move;"
+            onMouseOver="this.style.cursor='move';"
             style="cursor: move"
             onMouseDown="mouse_down('chartdata')"
             onMouseUp="mouse_up()"
@@ -338,3 +338,6 @@
 
 <!-- https://lu7aa.org/balloonchart.asp?callsign=ab9lm-11&flights=0&grafico=height%20m -->
 <!-- https://lu7aa.org/vor.asp?callsign=ab9lm-11&flights=1&Vuelo= -->
+
+<!-- http://localhost:5000/balloonchart.html?callsign=lu1esy-53&flights=0&grafico=height%20m -->
+<!-- u9mab-1 y lu1esy-53 -->

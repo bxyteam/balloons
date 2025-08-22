@@ -1,6 +1,1316 @@
+window.Posicion = 1;
 window.getParamSafe = (key, defaultValue = "", encode = false) => {
   const params = new URLSearchParams(window.parent.window.location.search);
   const value = params.get(key);
   if (value === null || value.trim() === "") return defaultValue;
   return encode ? encodeURIComponent(value) : value.trim();
 };
+
+function ucase(str) {
+  return str ? str.toString().toUpperCase() : "";
+}
+
+function trim(str) {
+  return str ? str.toString().trim() : "";
+}
+
+function mid(str, start, length) {
+  return str.toString().substr(start - 1, length);
+}
+
+function left(str, length) {
+  return str.toString().substring(0, length);
+}
+
+function right(str, length) {
+  return str.toString().slice(-length);
+}
+
+function replace(
+  str,
+  find,
+  replaceWith,
+  start = 1,
+  count = -1,
+  compareType = 0,
+) {
+  if (!str) return "";
+  let result = str.toString();
+  if (count === -1) {
+    // Replace all occurrences
+    result = result.split(find).join(replaceWith);
+  } else {
+    // Replace limited occurrences
+    let replaceCount = 0;
+    let index = result.indexOf(find);
+    while (index !== -1 && replaceCount < count) {
+      result =
+        result.substring(0, index) +
+        replaceWith +
+        result.substring(index + find.length);
+      replaceCount++;
+      index = result.indexOf(find, index + replaceWith.length);
+    }
+  }
+  return result;
+}
+
+const isNumeric = (n) => !isNaN(parseFloat(n)) && isFinite(n);
+
+function mouser(event) {
+  if (event.offsetX || event.offsetY) {
+    x = event.clientX - 90;
+    y = event.clientY - 50;
+  } else {
+    x = event.pageX;
+    y = event.pageY;
+  }
+  if (being_dragged == true) {
+    document.getElementById(element).style.left = x + "px";
+    document.getElementById(element).style.top = y + "px";
+  }
+}
+function mouse_down(ele_name) {
+  being_dragged = true;
+  element = ele_name;
+  document.getElementById(element).style.cursor = "move";
+}
+function mouse_up() {
+  being_dragged = false;
+  document.getElementById(element).style.top = y + "px";
+  document.getElementById(element).style.left = x + "px";
+  document.getElementById(element).style.cursor = "auto";
+}
+function letsgo(wheretogo) {
+  var flights = "";
+  if (document.showgraph.flights.checked) {
+    var flights = "&flights=1";
+  }
+  var nowgo =
+    "balloonchart?callsign=" +
+    callsign +
+    "&grafico=" +
+    wheretogo +
+    flights +
+    "&Vuelo=" +
+    Vuelo;
+  document.location.href = nowgo;
+}
+function map(wheretogo) {
+  var flights = "";
+  if (document.showgraph.flights.checked) {
+    var flights = "&flights=1";
+  }
+
+  if ("<%=ucase(left(callsign,1))%>" != "L")
+    if ("<%=ssavempointer%>" > 1) {
+      var nowgo = "vor?callsign=" + wheretogo + flights + "&Vuelo=" + Vuelo;
+    } else {
+      var nowgo = "vor?callsign=" + wheretogo + flights + "&Vuelo=" + Vuelo;
+    }
+  else {
+    var nowgo = "vor?callsign=" + wheretogo + flights + "&Vuelo=" + Vuelo;
+  }
+  document.location.href = nowgo;
+}
+function loadPageVar(sVar) {
+  return unescape(
+    window.parent.window.location.search.replace(
+      new RegExp(
+        "^(?:.*[&\\?]" +
+          escape(sVar).replace(/[\.\+\*]/g, "\\$&") +
+          "(?:\\=([^&]*))?)?.*$",
+        "i",
+      ),
+      "$1",
+    ),
+  );
+}
+function markbutton() {
+  if (loadPageVar("grafico") != "") {
+    var grafico = loadPageVar("grafico");
+  } else {
+    var grafico = "Height f";
+  }
+  for (t = 0; t < 8; t++) {
+    if (document.showgraph[t].value.toUpperCase() == grafico.toUpperCase()) {
+      document.showgraph[t].style.textDecoration = "underline";
+      document.showgraph[t].style.fontWeight = "bold";
+    }
+  }
+}
+
+async function getURL(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const text = await response.text();
+    return text;
+  } catch (error) {
+    console.error("Error fetching URL:", error);
+    return "";
+  }
+}
+
+async function getURLXform(url, body = null, headers = {}) {
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        ...headers,
+      },
+      body: body,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const text = await response.text();
+    return text;
+  } catch (error) {
+    console.error("Error fetching URL:", error);
+    return "";
+  }
+}
+
+async function readShareAsset({ assetOutputType, assetUrl }) {
+  try {
+    return await window.parent.window.readAssetFile({
+      assetOutputType,
+      assetUrl,
+    });
+  } catch (error) {
+    return { statusCode: 400, data: null, error: "Something went wrong." };
+  }
+}
+
+async function getShareResource(file) {
+  try {
+    //const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
+    const assetUrl = `https://balloons.dev.browxy.com/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
+    let serverResponse;
+    const response = await readShareAsset({
+      assetOutputType: "txt",
+      assetUrl,
+    });
+    serverResponse = response.data;
+
+    return serverResponse;
+  } catch (error) {
+    console.error(error);
+    return "";
+  }
+}
+
+function buscarTag(tagInicio, tagFin, texto) {
+  let tagFinalEncontrado = false;
+  let k = window.Posicion;
+  let resultado = "";
+
+  while (!tagFinalEncontrado && k < texto.length) {
+    if (texto.substring(k, k + tagInicio.length) === tagInicio) {
+      let j = k + tagInicio.length;
+      let tagFinalLocalEncontrado = false;
+
+      while (!tagFinalLocalEncontrado && j < texto.length) {
+        if (texto.substring(j, j + tagFin.length) === tagFin) {
+          resultado = texto.substring(k + tagInicio.length, j);
+          tagFinalLocalEncontrado = true;
+          tagFinalEncontrado = true;
+          window.Posicion = j + tagFin.length;
+        } else {
+          j++;
+        }
+      }
+
+      if (!tagFinalLocalEncontrado) {
+        k++;
+      }
+    } else {
+      k++;
+    }
+  }
+
+  if (k >= texto.length) {
+    window.Posicion = texto.length;
+  }
+
+  return resultado;
+}
+
+function mayusculaPrimeras(cadena) {
+  // Verificar si la cadena tiene más de 1 carácter
+  if (cadena.length > 1) {
+    // Convertir a minúsculas y dividir por espacios
+    const palabraMatriz = cadena.toLowerCase().split(" ");
+
+    // Array de palabras que deben permanecer en minúsculas
+    const palabrasMinusculas = ["de", "del", "y", "o", "a", "al", "m.náuticas"];
+
+    let palabraMayuscula = "";
+
+    // Iterar sobre cada palabra
+    for (let n = 0; n < palabraMatriz.length; n++) {
+      const palabra = palabraMatriz[n];
+
+      // Si la palabra está en la lista de excepciones
+      if (palabrasMinusculas.includes(palabra)) {
+        palabraMayuscula += palabra + " ";
+      } else {
+        // Si la palabra tiene contenido, capitalizar primera letra
+        if (palabra.length > 0) {
+          palabraMayuscula +=
+            palabra.charAt(0).toUpperCase() + palabra.slice(1) + " ";
+        }
+      }
+    }
+
+    // Remover el último espacio
+    return palabraMayuscula.trim();
+  } else {
+    // Si la cadena tiene 1 carácter o menos, devolverla tal como está
+    return cadena;
+  }
+}
+
+async function getAltura(lat, lon) {
+  const url = `http://veloroutes.org/elevation/?location=${lat},${lon}&units=f`;
+  console.log(url);
+  body = new URLSearchParams({ url }).toString();
+  const pag = await getURLXform(
+    "https://balloons.dev.browxy.com/api/v1/finduFetcher",
+    body,
+  );
+  window.Posicion = 1;
+  console.log("Pagina", pag);
+  return pag === ""
+    ? 0
+    : buscarTag('is <span style="font-size:20px">', "</span>", pag);
+}
+
+async function getTerrain(lat, lon) {
+  // Get terrain height above sea level in meters given lat lon
+  let accion = "pedirterrain";
+
+  // Verificar en caché primero
+  const latlonentry = llheightCache;
+
+  if (latlonentry) {
+    const latlonentrym = latlonentry.split(";");
+
+    for (let i = 0; i < latlonentrym.length - 1; i++) {
+      const latlonm = latlonentrym[i].split(",");
+
+      // Comparar primeros 6 caracteres de lat y lon
+      if (
+        latlonm[0] === lat.toString().substring(0, 6) &&
+        latlonm[1] === lon.toString().substring(0, 6)
+      ) {
+        return parseFloat(latlonm[2]);
+      }
+    }
+  }
+
+  // Si no está en caché, hacer petición a la API
+  if (accion === "pedirterrain") {
+    const geturl1 = `https://maps.googleapis.com/maps/api/elevation/xml?sensor=true&locations=${lat},${lon}&key=${GOOGLE_API_KEY}`;
+
+    try {
+      const pag = await getURL(geturl1);
+      window.Posicion = 1;
+      let terrain = buscarTag("<elevation>", "</elevation>", pag);
+
+      if (terrain === "" || terrain === null || terrain === undefined) {
+        terrain = "90";
+      }
+
+      // Agregar al caché
+      llheightCache += `${lat.toString().substring(0, 6)},${lon.toString().substring(0, 6)},${terrain};`;
+
+      return parseFloat(terrain);
+    } catch (error) {
+      console.error("Error obteniendo elevación:", error);
+      return 90; // Valor por defecto en caso de error
+    }
+  }
+}
+
+async function getTimezone(lat, lon, timezoneDate) {
+  // Get timezone hours given lat lon
+  let accion = "pedirtimezone";
+
+  // Verificar en caché primero
+  const latlonentry = lltimezoneCache;
+
+  if (latlonentry) {
+    const latlonentrym = latlonentry.split(";");
+
+    for (let i = 0; i < latlonentrym.length - 1; i++) {
+      const latlonm = latlonentrym[i].split(",");
+
+      // Comparar primeros 6 caracteres de lat y lon
+      if (
+        latlonm[0] === lat.toString().substring(0, 6) &&
+        latlonm[1] === lon.toString().substring(0, 6)
+      ) {
+        let timezone = latlonm[2];
+        if (timezone === "" || timezone === undefined) {
+          timezone = 0;
+        }
+        return parseFloat(timezone);
+      }
+    }
+  }
+
+  // Si no está en caché, hacer petición a la API
+  if (accion === "pedirtimezone") {
+    try {
+      // Calcular timestamp desde epoch (1/1/1970)
+      const time1970 = new Date("1970-01-01T12:00:00Z");
+      const targetDate = new Date(timezoneDate);
+      const seconds1970 = Math.floor(
+        (targetDate.getTime() - time1970.getTime()) / 1000,
+      );
+
+      const timezoneUrl = `https://maps.googleapis.com/maps/api/timezone/json?location=${lat},${lon}&timestamp=${seconds1970}&sensor=true&key=${GOOGLE_API_KEY}`;
+
+      const pag2 = await getURL(timezoneUrl);
+
+      // Parsear la respuesta JSON
+      let jsonResponse;
+      try {
+        jsonResponse = JSON.parse(pag2);
+      } catch (error) {
+        // Si no es JSON válido, usar las funciones buscarTag originales
+        window.Posicion = 1;
+        const dstOffset =
+          parseFloat(buscarTag('"dstOffset" : ', ",", pag2).trim()) / 3600;
+        const rawOffset =
+          parseFloat(buscarTag('"rawOffset" : ', ",", pag2).trim()) / 3600;
+
+        let gettimezone = rawOffset + dstOffset;
+
+        if (isNaN(gettimezone) || gettimezone === "") {
+          gettimezone = 0;
+        }
+
+        // Agregar al caché
+        lltimezoneCache += `${lat.toString().substring(0, 6)},${lon.toString().substring(0, 6)},${gettimezone};`;
+
+        return gettimezone;
+      }
+
+      // Procesar respuesta JSON
+      const dstOffset = (jsonResponse.dstOffset || 0) / 3600;
+      const rawOffset = (jsonResponse.rawOffset || 0) / 3600;
+
+      let gettimezone = rawOffset + dstOffset;
+
+      if (isNaN(gettimezone) || gettimezone === "") {
+        gettimezone = 0;
+      }
+
+      // Agregar al caché
+      lltimezoneCache += `${lat.toString().substring(0, 6)},${lon.toString().substring(0, 6)},${gettimezone};`;
+
+      return gettimezone;
+    } catch (error) {
+      console.error("Error obteniendo timezone:", error);
+      return 0; // Valor por defecto en caso de error
+    }
+  } else {
+    return 0;
+  }
+}
+
+function latlonTra(latlon) {
+  // Dividir la cadena por "/"
+  const latlons = latlon.split("/");
+
+  // Verificar que tengamos exactamente 2 elementos (índices 0 y 1)
+  if (latlons.length === 2) {
+    const lat = latlons[0];
+    const lon = latlons[1];
+
+    // Verificar si termina con direcciones cardinales
+    const latLastChar = lat.slice(-1);
+    const lonLastChar = lon.slice(-1);
+
+    if (
+      (latLastChar === "S" || latLastChar === "N") &&
+      (lonLastChar === "W" || lonLastChar === "E")
+    ) {
+      let latdata = "";
+      let londata = "";
+
+      // Determinar el signo según la dirección
+      if (latLastChar === "S") latdata = "-";
+      if (lonLastChar === "W") londata = "-";
+
+      // Procesar latitud: formato DDMMSS
+      // Grados: primeros 2 caracteres
+      // Minutos: caracteres 3-4 (posición 2-3)
+      // Segundos: caracteres 6-7 (posición 5-6) multiplicados por 0.6
+      const latGrados = lat.substring(0, 2);
+      const latMinutos = lat.substring(2, 4);
+      const latSegundosRaw = lat.substring(5, 7);
+      const latSegundos = Math.floor(parseInt(latSegundosRaw) * 0.6);
+      const latSegundosFormatted = latSegundos.toString().padStart(2, "0");
+
+      latdata += `${latGrados}&ordm; ${latMinutos}' ${latSegundosFormatted}"`;
+
+      // Procesar longitud: formato DDDMMSS
+      // Grados: primeros 3 caracteres
+      // Minutos: caracteres 4-5 (posición 3-4)
+      // Segundos: caracteres 7-8 (posición 6-7) multiplicados por 0.6
+      const lonGrados = parseInt(lon.substring(0, 3)); // Convertir a número para quitar ceros
+      const lonMinutos = lon.substring(3, 5);
+      const lonSegundosRaw = lon.substring(6, 8);
+      const lonSegundos = Math.floor(parseInt(lonSegundosRaw) * 0.6);
+      const lonSegundosFormatted = lonSegundos.toString().padStart(2, "0");
+
+      londata += `${lonGrados}&ordm; ${lonMinutos}' ${lonSegundosFormatted}"`;
+
+      // Verificar que ambas cadenas tengan más de 8 caracteres
+      if (latdata.length > 8 && londata.length > 8) {
+        return `Latitud: ${latdata}&nbsp;&nbsp;&nbsp;Longitud: ${londata}`;
+      }
+    }
+  }
+
+  // Si no cumple las condiciones, retornar undefined o cadena vacía
+  return "";
+}
+
+function cuantosDias(fecha) {
+  // Extraer componentes de la fecha en formato YYYYMMDDHHMMSS
+  // Año: caracteres 1-4 (posición 0-3)
+  // Mes: caracteres 5-6 (posición 4-5)
+  // Día: caracteres 7-8 (posición 6-7)
+  // Hora: caracteres 9-10 (posición 8-9)
+  // Minuto: caracteres 11-12 (posición 10-11)
+  // Segundo: caracteres 13-14 (posición 12-13)
+
+  const year = fecha.substring(0, 4);
+  const month = fecha.substring(4, 6);
+  const day = fecha.substring(6, 8);
+  const hour = fecha.substring(8, 10);
+  const minute = fecha.substring(10, 12);
+  const second = fecha.substring(12, 14);
+
+  // Crear y retornar objeto Date
+  // Nota: Los meses en JavaScript van de 0-11, por eso restamos 1
+  return new Date(
+    parseInt(year),
+    parseInt(month) - 1,
+    parseInt(day),
+    parseInt(hour),
+    parseInt(minute),
+    parseInt(second),
+  );
+}
+
+// Función para convertir radianes a grados
+function degrees(valor) {
+  return (valor * 180) / Math.PI;
+}
+
+// Función para convertir grados a radianes
+function radians(valor) {
+  return (valor * Math.PI) / 180;
+}
+
+// Función para calcular distancia entre dos puntos geográficos (Haversine)
+function distancia(lat1, lon1, lat2, lon2) {
+  // Convertir grados a radianes si es necesario
+  const lat1Rad = typeof lat1 === "number" ? radians(lat1) : lat1;
+  const lon1Rad = typeof lon1 === "number" ? radians(lon1) : lon1;
+  const lat2Rad = typeof lat2 === "number" ? radians(lat2) : lat2;
+  const lon2Rad = typeof lon2 === "number" ? radians(lon2) : lon2;
+
+  // Fórmula de distancia geodésica
+  let dist =
+    Math.acos(
+      Math.sin(lat1Rad) * Math.sin(lat2Rad) +
+        Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.cos(lon2Rad - lon1Rad),
+    ) * 6371; // Radio de la Tierra en km
+
+  // Asegurar que la distancia sea positiva
+  if (dist < 0) {
+    dist = dist * -1;
+  }
+
+  return dist;
+}
+
+// Función para calcular el rumbo (bearing) entre dos puntos
+function bearing1(lat1, lat2, lon1, lon2) {
+  // Convertir a radianes
+  const lat1Rad = lat1 * DEG2RAD;
+  const lon1Rad = lon1 * DEG2RAD;
+  const lat2Rad = lat2 * DEG2RAD;
+  const lon2Rad = lon2 * DEG2RAD;
+
+  let adjust = 0;
+  const a = Math.cos(lat2Rad) * Math.sin(lon2Rad - lon1Rad);
+  const b =
+    Math.cos(lat1Rad) * Math.sin(lat2Rad) -
+    Math.sin(lat1Rad) * Math.cos(lat2Rad) * Math.cos(lon2Rad - lon1Rad);
+
+  let bearing = 0;
+
+  if (a === 0 && b === 0) {
+    bearing = 0;
+  } else if (b === 0) {
+    if (a < 0) {
+      bearing = (3 * PI) / 2;
+    } else {
+      bearing = PI / 2;
+    }
+  } else {
+    if (b < 0) {
+      adjust = PI;
+    } else {
+      if (a < 0) {
+        adjust = 2 * PI;
+      } else {
+        adjust = 0;
+      }
+    }
+    bearing = Math.atan(a / b) + adjust;
+  }
+
+  // Convertir a grados
+  bearing = bearing * RAD2DEG;
+
+  // Normalizar a 0-360 grados
+  const multip = Math.floor(bearing / 360);
+  bearing = bearing - multip * 360;
+
+  // Asegurar que esté en el rango 0-360
+  if (bearing < 0) {
+    bearing += 360;
+  }
+
+  return bearing;
+}
+
+// Función arcocoseno (JavaScript tiene Math.acos nativo, pero mantengo compatibilidad)
+function acos(x) {
+  // Validar rango de entrada
+  if (x < -1 || x > 1) {
+    return NaN;
+  }
+  return Math.acos(x);
+}
+
+// Función atan2 (JavaScript tiene Math.atan2 nativo, pero implemento la lógica original)
+function atan2(x, y) {
+  if (y > 0) {
+    return Math.atan(x / y);
+  }
+  if (x >= 0 && y < 0) {
+    return Math.atan(x / y) + PI;
+  }
+  if (x < 0 && y < 0) {
+    return Math.atan(x / y) - PI;
+  }
+  if (x > 0 && y === 0) {
+    return PI / 2;
+  }
+  if (x < 0 && y === 0) {
+    return -1 * (PI / 2);
+  }
+  if (x === 0 && y === 0) {
+    return 0;
+  }
+
+  // Fallback usando la función nativa de JavaScript
+  return Math.atan2(x, y);
+}
+
+// Función atan (JavaScript tiene Math.atan nativo)
+function atan(x) {
+  return Math.atan(x);
+}
+
+// Función arcoseno (JavaScript tiene Math.asin nativo, pero mantengo compatibilidad)
+function asin(x) {
+  // Validar rango de entrada
+  if (x < -1 || x > 1) {
+    return NaN;
+  }
+  return Math.asin(x);
+}
+
+// Funciones auxiliares para formateo (equivalentes a formatnumber de ASP)
+function formatNumber(number, decimals) {
+  return parseFloat(number).toFixed(decimals);
+}
+
+// Función mejorada de distancia con más precisión usando Haversine
+function distanciaHaversine(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Radio de la Tierra en kilómetros
+
+  const lat1Rad = radians(lat1);
+  const lon1Rad = radians(lon1);
+  const lat2Rad = radians(lat2);
+  const lon2Rad = radians(lon2);
+
+  const dLat = lat2Rad - lat1Rad;
+  const dLon = lon2Rad - lon1Rad;
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1Rad) *
+      Math.cos(lat2Rad) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return R * c;
+}
+
+// Función para convertir segundos a formato días, horas, minutos, segundos
+function seconds2hms(seconds) {
+  let dias = 0;
+  let horas = 0;
+  let minutos = 0;
+  let segundos = 0;
+
+  // Calcular días si hay más de 86400 segundos (24 horas)
+  if (seconds >= 86400) {
+    dias = Math.floor(seconds / 86400);
+    seconds = seconds - dias * 86400;
+    seconds = seconds % 86400;
+  }
+
+  // Calcular horas
+  if (seconds >= 3600) {
+    horas = Math.floor(seconds / 3600);
+    seconds = seconds % 3600;
+  }
+
+  // Calcular minutos
+  if (seconds >= 60) {
+    minutos = Math.floor(seconds / 60);
+    segundos = seconds % 60;
+  } else {
+    segundos = seconds;
+  }
+
+  // Formatear resultado
+  let resultado = "";
+  if (dias > 0) {
+    resultado = dias + "d ";
+  }
+
+  // Formatear con ceros a la izquierda
+  resultado +=
+    String(horas).padStart(2, "0") +
+    ":" +
+    String(minutos).padStart(2, "0") +
+    ":" +
+    String(Math.floor(segundos)).padStart(2, "0");
+
+  return resultado;
+}
+
+// Función asíncrona para obtener ciudad más cercana usando API de Overpass
+async function getCiudad(lat2, lon2) {
+  let ajustes = 0;
+  const latsearch = lat2;
+  const lonsearch = lon2;
+
+  // Array de ajustes para intentar con diferentes radios de búsqueda
+  const ajustesArray = [0.3, 0.8, 1.8, 4, 8];
+
+  let pag = "";
+  let getURLcity = "";
+
+  // Intentar con diferentes radios hasta encontrar resultados
+  for (let i = 0; i < ajustesArray.length; i++) {
+    ajustes = ajustesArray[i];
+
+    const latslo = latsearch - ajustes;
+    const latshi = latsearch + ajustes;
+    const lonslo = lonsearch - ajustes;
+    let lonshi = lonsearch + ajustes;
+
+    // Ajustar longitud si excede 180 grados
+    if (lonshi > 180) {
+      lonshi = lonshi - 360;
+    }
+
+    try {
+      getURLcity = `https://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
+      console.log(getURLcity);
+      pag = await getURL(getURLcity);
+
+      // Si obtenemos suficientes datos, salir del bucle
+      if (pag.length >= 500) {
+        break;
+      }
+    } catch (error) {
+      console.error("Error en petición Overpass:", error);
+      continue;
+    }
+  }
+
+  // Si no obtuvimos datos suficientes, retornar vacío
+  if (pag.length < 500) {
+    return "";
+  }
+
+  let posicion = 1;
+  let distanciaminima = 10000;
+  let instates = "";
+  let cityname = "";
+  let countrycode = "";
+  let instate = "";
+
+  // Procesar la respuesta JSON
+  try {
+    // Si la respuesta es JSON válido, procesarla directamente
+    const jsonResponse = JSON.parse(pag);
+
+    if (jsonResponse.elements && jsonResponse.elements.length > 0) {
+      for (const element of jsonResponse.elements) {
+        const latciudads = element.lat;
+        const lonciudads = element.lon;
+
+        if (element.tags) {
+          // Obtener información del estado/provincia si no la tenemos
+          if (instates === "" && element.tags.is_in) {
+            instates = element.tags.is_in
+              .replace(/"/g, "")
+              .replace(/:/g, "")
+              .trim();
+          }
+
+          const names = element.tags.name || "";
+
+          if (latciudads !== undefined && lonciudads !== undefined) {
+            const distanciaactual = distancia(
+              latciudads,
+              lonciudads,
+              latsearch,
+              lonsearch,
+            );
+
+            if (distanciaactual < distanciaminima) {
+              cityname = names;
+              instate = instates;
+              // countrycode se podría obtener de element.tags["ISO3166-1"] o similar
+              distanciaminima = distanciaactual;
+            }
+          }
+        }
+      }
+    }
+  } catch (jsonError) {
+    // Fallback: usar las funciones buscarTag originales
+    while (window.Posicion < pag.length - 30) {
+      const latciudads = buscarTag('"lat": "', '",', pag);
+      const lonciudads = buscarTag('"lon": "', '",', pag);
+
+      if (instates === "") {
+        instates = buscarTag('"is_in"', '"', pag)
+          .replace(/"/g, "")
+          .replace(/:/g, "")
+          .trim();
+      }
+
+      const names = buscarTag('"name": "', '",', pag).replace(/"/g, "").trim();
+
+      if (latciudads !== "" && lonciudads !== "") {
+        const distanciaactual = distancia(
+          parseFloat(latciudads),
+          parseFloat(lonciudads),
+          latsearch,
+          lonsearch,
+        );
+
+        if (distanciaactual < distanciaminima) {
+          cityname = names;
+          instate = instates;
+          distanciaminima = distanciaactual;
+        }
+      }
+
+      window.Posicion++;
+    }
+  }
+
+  // Construir el resultado
+  let resultado = cityname;
+  if (instate) {
+    resultado += ", " + instate;
+  }
+  if (countrycode) {
+    resultado += ", " + countrycode;
+  }
+
+  // Aplicar las abreviaciones y limpiezas
+  const replacements = [
+    ["General", "Gral."],
+    ["Teniente", "Tte."],
+    ["Argentina", "Arg."],
+    ["South America", "SA"],
+    ["country", ""],
+    ["continent", ""],
+    ["Rio Grande", "RG"],
+    ["state", ""],
+    ["gmina", ""],
+    ["powiat", ""],
+    ["province", ""],
+    ["town", ""],
+    ["village", ""],
+    ["Region", ""],
+    ["county", ""],
+    ["city", ""],
+    ["_code", ""],
+    [":", ""],
+  ];
+
+  // Aplicar todos los reemplazos
+  for (const [search, replace] of replacements) {
+    const regex = new RegExp(search, "gi");
+    resultado = resultado.replace(regex, replace);
+  }
+
+  // Limpiar espacios extra y comas duplicadas
+  resultado = resultado
+    .replace(/\s+/g, " ")
+    .replace(/,\s*,/g, ",")
+    .replace(/,\s*$/, "")
+    .trim();
+
+  return resultado;
+}
+
+function parseStations(htmlString) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString.toLowerCase(), "text/html");
+
+  const tableRows = doc.querySelectorAll("table tr");
+
+  const stations = Array(11)
+    .fill()
+    .map(() => Array(5).fill(""));
+
+  for (let i = 0; i < tableRows.length && i <= 10; i++) {
+    const row = tableRows[i + 1]; // i + 1 to skip headers
+    const cells = row.querySelectorAll("td");
+
+    if (cells.length >= 7) {
+      const stationNameLink = cells[0].querySelector("a");
+      const stationName = stationNameLink
+        ? stationNameLink.textContent.trim().toUpperCase()
+        : "";
+
+      const latitude = cells[3].textContent.trim();
+      const longitude = cells[4].textContent.trim();
+      const distance = cells[5].textContent.trim();
+      const heardSince = cells[6].textContent.trim();
+
+      stations[i] = [stationName, latitude, longitude, distance, heardSince];
+    }
+  }
+
+  return stations;
+}
+
+// Función para procesar datos APRS
+function processAprsData(rawdata, pag) {
+  // Extraer datos del div específico
+  rawdata = buscarTag("<div class='browselist_data'>", "</div>", rawdata);
+
+  // Limpiar las etiquetas HTML
+  rawdata = rawdata.replace(/<span class='raw_line'>/g, "");
+  rawdata = rawdata.replace(/<span class='raw_line_err'>/g, "");
+  rawdata = rawdata.replace(/<\/span><br \/>/g, "<br>");
+
+  // Construir el token dinámicamente usando el callsign
+  const callsign = window.getParamSafe("callsign", "").toUpperCase();
+  const token = `<b><a href='?c=raw&amp;limit=&amp;call=${callsign}'>`;
+
+  // Reemplazar el token y cerrar la etiqueta
+  rawdata = rawdata.replace(new RegExp(token, "g"), " ");
+  rawdata = rawdata.replace(/<\/a><\/b>&gt;/g, " ");
+
+  // Combinar con pag
+  rawdata = pag + rawdata;
+
+  // Dividir por <br> para obtener líneas individuales
+  const dataaprsfim = rawdata.split("<br>");
+
+  // Array para almacenar temperaturas [fecha, valores]
+  const temperaturas = [];
+
+  // Procesar cada línea de datos
+  for (let n = 1; n < dataaprsfim.length - 1; n++) {
+    const linea = dataaprsfim[n].trim();
+
+    if (linea.length < 22) continue; // Saltar líneas muy cortas
+
+    try {
+      // Extraer y procesar la fecha (primeros 22 caracteres)
+      const fechaStr = linea.substring(0, 23).trim();
+      let fechaaprs = parseAprsDate(fechaStr);
+
+      // Verificar si la fecha es válida
+      if (!fechaaprs || isNaN(fechaaprs.getTime())) {
+        console.error(`Fecha inválida en línea ${n}: "${fechaStr}"`);
+        continue;
+      }
+
+      // Agregar 3 horas (3/24 del día)
+      fechaaprs = new Date(fechaaprs.getTime() + 3 * 60 * 60 * 1000);
+
+      // Formatear fecha como YYYYMMDDHHMMSS
+      const year = fechaaprs.getFullYear();
+      const month = String(fechaaprs.getMonth() + 1).padStart(2, "0");
+      const day = String(fechaaprs.getDate()).padStart(2, "0");
+      const hour = String(fechaaprs.getHours()).padStart(2, "0");
+      const minute = String(fechaaprs.getMinutes()).padStart(2, "0");
+      const second = String(fechaaprs.getSeconds()).padStart(2, "0");
+
+      const fechaaprsc = year + month + day + hour + minute + second;
+
+      // Procesar telemetría dividiendo por "}"
+      const telemetriam = linea.split("}");
+
+      if (telemetriam.length > 1) {
+        // Dividir la segunda parte por "="
+        const telem = telemetriam[1].split("=");
+
+        let T1 = "",
+          T2 = "",
+          T3 = "";
+
+        // Extraer T1 (temperatura interna)
+        if (telem.length > 1) {
+          T1 = telem[1].replace(/Ti/g, "").trim();
+        }
+
+        // Extraer T2 (temperatura externa)
+        if (telem.length > 2) {
+          T2 = telem[2].replace(/Te/g, "").replace(/V/g, "").trim();
+        }
+
+        // Extraer T3 (voltaje)
+        if (telem.length > 3) {
+          const T3m = telem[3].split(" ");
+          if (T3m.length > 0) {
+            T3 = T3m[0].substring(0, 4).replace(/V/g, "");
+          }
+        }
+
+        // Determinar el orden de temperaturas según la fecha
+        let valoresTemperatura;
+        const fechaComparacion = `${month}/${day}/${year}`;
+
+        if (fechaComparacion !== "03/24/2018") {
+          // Orden normal: T1, T2, T3
+          valoresTemperatura = `${parseFloat(T1) || 0},${parseFloat(T2) || 0},${parseFloat(T3) || 0}`;
+        } else {
+          // Orden especial para 24/03/2018: T2, T1, T3
+          valoresTemperatura = `${parseFloat(T2) || 0},${parseFloat(T1) || 0},${parseFloat(T3) || 0}`;
+        }
+
+        // Agregar al array de temperaturas
+        temperaturas.push({
+          fecha: fechaaprs,
+          fechaFormateada: fechaaprsc,
+          valores: valoresTemperatura,
+          T1: parseFloat(T1) || 0,
+          T2: parseFloat(T2) || 0,
+          T3: parseFloat(T3) || 0,
+        });
+      }
+    } catch (error) {
+      console.error(`Error procesando línea ${n}:`, error);
+      continue;
+    }
+  }
+
+  return temperaturas;
+}
+
+// Función auxiliar para parsear fechas APRS con diferentes formatos
+function parseAprsDate(fechaStr) {
+  // Limpiar la cadena
+  fechaStr = fechaStr.trim();
+
+  // Formato: "2014-03-07 16:53:41 ART"
+  if (fechaStr.includes(" ART")) {
+    const fechaSinTimezone = fechaStr.replace(" ART", "");
+    return new Date(fechaSinTimezone);
+  }
+
+  // Formato: "2014-03-07 16:53:41"
+  if (fechaStr.match(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/)) {
+    return new Date(fechaStr);
+  }
+
+  // Formato ISO: "2014-03-07T16:53:41"
+  if (fechaStr.includes("T")) {
+    return new Date(fechaStr);
+  }
+
+  // Otros formatos comunes
+  try {
+    return new Date(fechaStr);
+  } catch (error) {
+    console.error(`Error parsing fecha: "${fechaStr}"`);
+    return null;
+  }
+}
+
+// Función auxiliar para formatear fecha como en ASP
+function formatDateAsAsp(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hour = String(date.getHours()).padStart(2, "0");
+  const minute = String(date.getMinutes()).padStart(2, "0");
+  const second = String(date.getSeconds()).padStart(2, "0");
+
+  return year + month + day + hour + minute + second;
+}
+
+// Función para procesar una sola línea de telemetría (versión modular)
+function processTelemetryLine(linea) {
+  if (linea.length < 22) return null;
+
+  try {
+    const fechaStr = linea.substring(0, 22).trim();
+    let fechaaprs = parseAprsDate(fechaStr);
+
+    // Verificar si la fecha es válida
+    if (!fechaaprs || isNaN(fechaaprs.getTime())) {
+      console.error(`Fecha inválida: "${fechaStr}"`);
+      return null;
+    }
+
+    // Agregar 3 horas
+    fechaaprs = new Date(fechaaprs.getTime() + 3 * 60 * 60 * 1000);
+
+    const telemetriam = linea.split("}");
+    if (telemetriam.length <= 1) return null;
+
+    const telem = telemetriam[1].split("=");
+
+    const T1 = (telem[1] || "").replace(/Ti/g, "").trim();
+    const T2 = (telem[2] || "").replace(/Te/g, "").replace(/V/g, "").trim();
+
+    let T3 = "";
+    if (telem[3]) {
+      const T3m = telem[3].split(" ");
+      T3 = T3m[0].substring(0, 4).replace(/V/g, "");
+    }
+
+    const month = String(fechaaprs.getMonth() + 1).padStart(2, "0");
+    const day = String(fechaaprs.getDate()).padStart(2, "0");
+    const year = fechaaprs.getFullYear();
+    const fechaComparacion = `${month}/${day}/${year}`;
+
+    let valores;
+    if (fechaComparacion !== "03/24/2018") {
+      valores = `${parseFloat(T1) || 0},${parseFloat(T2) || 0},${parseFloat(T3) || 0}`;
+    } else {
+      valores = `${parseFloat(T2) || 0},${parseFloat(T1) || 0},${parseFloat(T3) || 0}`;
+    }
+
+    return {
+      fecha: fechaaprs,
+      fechaFormateada: formatDateAsAsp(fechaaprs),
+      valores: valores,
+      T1: parseFloat(T1) || 0,
+      T2: parseFloat(T2) || 0,
+      T3: parseFloat(T3) || 0,
+      linea: linea,
+    };
+  } catch (error) {
+    console.error("Error procesando línea de telemetría:", error);
+    return null;
+  }
+}
+
+// Función simplificada para casos específicos
+function extractTemperatureData(htmlData, pagData) {
+  const cleanedData = cleanAprsHtml(htmlData, pagData);
+  const lines = cleanedData.split("<br>");
+
+  return lines
+    .map((line, index) => {
+      if (index === 0) return null; // Saltar primera línea
+      return processTelemetryLine(line.trim());
+    })
+    .filter((item) => item !== null);
+}
+
+// Función para limpiar HTML de datos APRS
+function cleanAprsHtml(rawdata, pag) {
+  window.Posicion = 1;
+  let cleanData = buscarTag(
+    "<div class='browselist_data'>",
+    "</div>",
+    rawdata,
+    posicion,
+  );
+
+  // Aplicar todas las limpiezas
+  const replacements = [
+    [/<span class='raw_line'>/g, ""],
+    [/<span class='raw_line_err'>/g, ""],
+    [/<\/span><br \/>/g, "<br>"],
+  ];
+
+  for (const [regex, replacement] of replacements) {
+    cleanData = cleanData.replace(regex, replacement);
+  }
+
+  // Limpiar enlaces con callsign
+  const callsign = window.getParamSafe("callsign", "").toUpperCase();
+  if (callsign) {
+    const token = `<b><a href='?c=raw&amp;limit=&amp;call=${callsign}'>`;
+    cleanData = cleanData.replace(new RegExp(token, "g"), " ");
+    cleanData = cleanData.replace(/<\/a><\/b>&gt;/g, " ");
+  }
+
+  return pag + cleanData;
+}
+
+// Función auxiliar para reemplazar texto (equivalente al replace de ASP)
+function replaceText(
+  text,
+  searchValue,
+  replaceValue,
+  start = 0,
+  count = -1,
+  compareMode = 0,
+) {
+  if (count === -1) {
+    // Reemplazar todas las ocurrencias
+    return text.replace(
+      new RegExp(escapeRegExp(searchValue), "g"),
+      replaceValue,
+    );
+  } else {
+    // Reemplazar un número específico de ocurrencias
+    let result = text;
+    let replacements = 0;
+    let index = start;
+
+    while (replacements < count && index !== -1) {
+      index = result.indexOf(searchValue, index);
+      if (index !== -1) {
+        result =
+          result.substring(0, index) +
+          replaceValue +
+          result.substring(index + searchValue.length);
+        index += replaceValue.length;
+        replacements++;
+      }
+    }
+    return result;
+  }
+}
+
+// Función para escapar caracteres especiales en regex
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// Función split personalizada (JavaScript ya tiene split nativo, pero mantengo consistencia)
+function splitText(text, delimiter, limit = -1) {
+  if (limit === -1) {
+    return text.split(delimiter);
+  } else {
+    return text.split(delimiter, limit);
+  }
+}
+
+function procesarPagHm(pag, pag1) {
+  // Reemplazar el texto específico
+  pag = replaceText(
+    pag,
+    "20180326000333,-36.20850,-65.41633,328.0,2.0,439<br>",
+    "",
+    0,
+    20,
+    1,
+  );
+
+  window.Posicion = 1;
+
+  // Buscar y extraer datospath (asumiendo que tienes la función buscarTag)
+  let datospath = "20" + buscarTag("20", "</BODY>", pag);
+  datospath = pag1 + "\r\n" + datospath; // \r\n es el equivalente a vbCr
+
+  // Split de datospath
+  let pathx = splitText(datospath, "<br>", 2500);
+
+  // Buscar límite
+  let limitefound = false;
+  let limite;
+
+  for (let b = pathx.length - 2; b >= 1; b--) {
+    // ubound(pathx)-1 to 1 step -1
+    if (!limitefound) {
+      // Obtener los últimos 31 caracteres de cada elemento
+      let currentRight = pathx[b].slice(-31);
+      let previousRight = pathx[b - 1].slice(-31);
+
+      if (currentRight === previousRight) {
+        limite = b;
+      } else {
+        limitefound = true;
+      }
+    }
+  }
+
+  // Reemplazos específicos
+  datospath = replaceText(
+    datospath,
+    "20151003175427,-35.66650,-60.80083,68.0,62.0,20765",
+    "20151003175427,-35.66650,-60.80083,68.0,62.0,18873",
+    0,
+    10000,
+    1,
+  );
+
+  datospath = replaceText(
+    datospath,
+    "20151003175739,-35.63717,-60.72300,59.0,47.0,15084",
+    "20151003175739,-35.63717,-60.72300,59.0,47.0,15115",
+    0,
+    10000,
+    1,
+  );
+
+  // Split final
+  let pathm = splitText(
+    datospath.replace(/\r\n|\n\r|\n|\r/g, function (match) {
+      return "";
+    }),
+    "<br>",
+    10000,
+  );
+
+  // Retornar los resultados (ajusta según lo que necesites)
+  return {
+    pag: pag,
+    datospath: datospath,
+    pathx: pathx,
+    pathm: pathm,
+    limite: limite,
+  };
+}

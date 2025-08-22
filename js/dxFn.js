@@ -712,10 +712,9 @@ async function readShareAsset({ assetOutputType, assetUrl }) {
 
 async function getShareResource(file) {
   try {
-    window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
     const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
     let serverResponse;
-    const response = await readAsset({
+    const response = await readShareAsset({
       assetOutputType: "txt",
       assetUrl,
     });
