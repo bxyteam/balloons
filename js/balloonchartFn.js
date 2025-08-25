@@ -57,6 +57,18 @@ function replace(
 
 const isNumeric = (n) => !isNaN(parseFloat(n)) && isFinite(n);
 
+function cDate(dateString) {
+  try {
+    return new Date(dateString);
+  } catch (error) {
+    return new Date(); // Return current date on error
+  }
+}
+
+function isDate(date) {
+  return date instanceof Date && !isNaN(date.getTime());
+}
+
 function mouser(event) {
   if (event.offsetX || event.offsetY) {
     x = event.clientX - 90;
@@ -140,14 +152,15 @@ function markbutton() {
   }
 }
 
-async function getURL(url) {
+async function getURL(url, responseType = "text") {
   try {
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const text = await response.text();
-    return text;
+    const result =
+      responseType === "text" ? await response.text() : await response.json();
+    return result;
   } catch (error) {
     console.error("Error fetching URL:", error);
     return "";
@@ -277,19 +290,42 @@ function mayusculaPrimeras(cadena) {
   }
 }
 
+// async function getAltura(lat, lon) {
+//   const url = `http://veloroutes.org/elevation/?location=${lat},${lon}&units=f`;
+//   console.log(url);
+//   body = new URLSearchParams({ url }).toString();
+//   const pag = await getURLXform(
+//     "https://balloons.dev.browxy.com/api/v1/webFetcher",
+//     body,
+//   );
+//   window.Posicion = 1;
+//   console.log("Pagina", pag);
+//   return pag === ""
+//     ? 0
+//     : buscarTag('is <span style="font-size:20px">', "</span>", pag);
+// }
+
 async function getAltura(lat, lon) {
-  const url = `http://veloroutes.org/elevation/?location=${lat},${lon}&units=f`;
+  const url = `https://api.opentopodata.org/v1/srtm30m?locations=${lat},${lon}`;
   console.log(url);
-  body = new URLSearchParams({ url }).toString();
-  const pag = await getURLXform(
-    "https://balloons.dev.browxy.com/api/v1/finduFetcher",
+  const body = new URLSearchParams({ url }).toString();
+  const res = await getURLXform(
+    "https://balloons.dev.browxy.com/api/v1/webFetcher",
     body,
   );
-  window.Posicion = 1;
-  console.log("Pagina", pag);
-  return pag === ""
-    ? 0
-    : buscarTag('is <span style="font-size:20px">', "</span>", pag);
+  console.log(res);
+  try {
+    const data = JSON.parse(res);
+    const { results, status } = data;
+    if (status === "OK") {
+      const elevation = results[0].elevation;
+      return elevation;
+    }
+    return 0;
+  } catch (error) {
+    console.error(error);
+    return 0;
+  }
 }
 
 async function getTerrain(lat, lon) {
@@ -384,6 +420,7 @@ async function getTimezone(lat, lon, timezoneDate) {
       let jsonResponse;
       try {
         jsonResponse = JSON.parse(pag2);
+        console.log("@@@@@@@@@@@@@@@@", jsonResponse);
       } catch (error) {
         // Si no es JSON válido, usar las funciones buscarTag originales
         window.Posicion = 1;
@@ -423,6 +460,29 @@ async function getTimezone(lat, lon, timezoneDate) {
       return 0; // Valor por defecto en caso de error
     }
   } else {
+    return 0;
+  }
+}
+
+async function getTimezoneOffsetFromGeoTimeZone(lat, lon) {
+  try {
+    const url = `https://api.geotimezone.com/public/timezone?latitude=${lat}&longitude=${lon}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    console.log("Timezone data:", data);
+
+    // Get offset in hours
+    const offsetSeconds = data.offset.total_seconds || 0;
+    const offsetHours = offsetSeconds / 3600;
+
+    // Add to cache (simulate what you're doing)
+    const cacheKey = `${lat.toString().substring(0, 6)},${lon.toString().substring(0, 6)},${offsetHours};`;
+    lltimezoneCache += cacheKey;
+
+    return offsetHours;
+  } catch (error) {
+    console.error("Error fetching timezone from GeoTimeZone:", error);
     return 0;
   }
 }
@@ -1313,4 +1373,72 @@ function procesarPagHm(pag, pag1) {
     pathm: pathm,
     limite: limite,
   };
+}
+
+function loadGoogleChart() {
+  google.load("visualization", "1", { packages: ["corechart"] });
+  google.setOnLoadCallback(drawChart);
+}
+
+function drawChart() {
+  var data = new google.visualization.DataTable();
+  //data.addColumn("datetime", "Hour-Local");
+  //data.addColumn("datetime", "Hour-UTC");
+  window.columnsChart.forEach((column) => {
+    data.addColumn(column.type, column.value);
+  });
+
+  //   // Agregar datos a la tabla
+  //   pathm.forEach(function (row) {
+  //     var parts = row.split(",");
+  //     var date = new Date(parts[0]);
+  //     data.addRow([date, date]);
+  //   });
+
+  //   // Dibujar el gráfico
+  //   var chart = new google.visualization.BalloonChart(document.getElementById("chart_div"));
+  //   chart.draw(data, {
+  //     width: 800,
+  //     height: 600,
+  //     hAxis: { title: "Hour" },
+  //     vAxis: { title: "Value" },
+  //   });
+}
+
+function renderChartData({
+  callsign,
+  launchdate,
+  launchtime,
+  maxtimehms,
+  duracionhms,
+  maxheight,
+  feetdelta,
+  coverage,
+  avgupm,
+  avgupf,
+  avgdom,
+  avgwsm,
+  avgws,
+  avgdo,
+  recorrido,
+  diraverage,
+  latii1,
+  lonii1,
+  lati2,
+  loni2,
+}) {
+  document.getElementById("chartdata").innerHTML =
+    ` <b>${callsign.toUpperCase()} ${launchdate} Flight Synopsis</b>
+  <br />From: ${launchtime} Duration: ${duracionhms}
+  <br />MaxHeight: ${formatNumber(maxheight * 0.3048, 0)} m. /
+  ${formatNumber(maxheight - feetdelta, 0)} feet <br />At:
+  ${maxtimehms} Horizont: ${coverage} Km. <br />Average
+  up: ${avgupm} m/s / ${avgupf} feet/s <br />Avg. down: ${avgdom}
+  m/s / ${avgdo} feet/s<br />Wind speed: ${avgwsm} Km/h /
+  ${avgws} knots <br />Land at: ${formatNumber(recorrido, 0)} Km /
+  ${formatNumber(recorrido * 0.53996, 0)} nMiles <br />Launch to Land
+  azimuth: ${formatNumber(diraverage, 2)} &#176; <br />From:
+  ${left(getCiudad(latii1, lonii1), 27)} <br />To:
+  ${left(getCiudad(lati2, loni2), 30)}<br />&nbsp;&nbsp;&nbsp;
+  <i>(This legend could be moved)</i>`;
 }
