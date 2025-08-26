@@ -26,6 +26,10 @@ function right(str, length) {
   return str.toString().slice(-length);
 }
 
+function capitalizeWords(str) {
+  return str.replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
 function replace(
   str,
   find,
@@ -57,6 +61,21 @@ function replace(
 
 const isNumeric = (n) => !isNaN(parseFloat(n)) && isFinite(n);
 
+const dateToNewDateString = (date) =>
+  `new Date(${date.getFullYear()},${date.getMonth()},${date.getDate()},${date.getHours()},${date.getMinutes()},${date.getSeconds()})`;
+
+function vorlocArrayToString(array) {
+  return `[${array
+    .map((item) =>
+      item instanceof Date
+        ? dateToNewDateString(item)
+        : item
+          ? item.toString()
+          : "",
+    )
+    .join(",")}]`;
+}
+
 function cDate(dateString) {
   try {
     return new Date(dateString);
@@ -67,6 +86,27 @@ function cDate(dateString) {
 
 function isDate(date) {
   return date instanceof Date && !isNaN(date.getTime());
+}
+
+function dateFormatter(fechaHoraStr, full = false) {
+  // Validar que la cadena tenga 14 dígitos
+  if (!/^\d{14}$/.test(fechaHoraStr.trim())) {
+    console.error(
+      "La cadena debe tener 14 dígitos en formato 'yyyymmddHHMMSS'",
+    );
+    return "";
+  }
+
+  const year = fechaHoraStr.trim().substring(0, 4);
+  const month = fechaHoraStr.trim().substring(4, 6);
+  const day = fechaHoraStr.trim().substring(6, 8);
+  const hour = fechaHoraStr.trim().substring(8, 10);
+  const minute = fechaHoraStr.trim().substring(10, 12);
+  const second = fechaHoraStr.trim().substring(12, 14);
+
+  return full
+    ? `${year}/${month}/${day} ${hour}:${minute}:${second}`
+    : `${year}/${month}/${day} ${hour}:${minute}`;
 }
 
 function mouser(event) {
@@ -710,6 +750,29 @@ function asin(x) {
 // Funciones auxiliares para formateo (equivalentes a formatnumber de ASP)
 function formatNumber(number, decimals) {
   return parseFloat(number).toFixed(decimals);
+}
+
+function formatNumberV2(
+  number,
+  decimals = 0,
+  includeLeadingDigit = true,
+  useParensForNegative = false,
+  groupDigits = false,
+) {
+  if (isNaN(number)) return "0";
+
+  let result = parseFloat(number).toFixed(decimals);
+
+  if (groupDigits) {
+    // Agregar comas como separadores de miles
+    result = result.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  if (useParensForNegative && number < 0) {
+    result = "(" + result.substring(1) + ")";
+  }
+
+  return result;
 }
 
 // Función mejorada de distancia con más precisión usando Haversine
@@ -1388,21 +1451,128 @@ function drawChart() {
     data.addColumn(column.type, column.value);
   });
 
-  //   // Agregar datos a la tabla
-  //   pathm.forEach(function (row) {
-  //     var parts = row.split(",");
-  //     var date = new Date(parts[0]);
-  //     data.addRow([date, date]);
-  //   });
+  // Agrega los datos aquí si no vienen ya cargados
+  // data.addRows([...]);
 
-  //   // Dibujar el gráfico
-  //   var chart = new google.visualization.BalloonChart(document.getElementById("chart_div"));
-  //   chart.draw(data, {
-  //     width: 800,
-  //     height: 600,
-  //     hAxis: { title: "Hour" },
-  //     vAxis: { title: "Value" },
-  //   });
+  // Crea la vista
+  const view = new google.visualization.DataView(data);
+
+  // Selección dinámica de columnas para la vista
+  view.setColumns(getViewColumns(grafico, callsign));
+
+  // Dibuja el gráfico
+  const chart = new google.visualization.LineChart(
+    document.getElementById("chart_div"),
+  );
+  chart.draw(view, options);
+}
+
+function getViewColumns(grafico, callsign) {
+  const columna = 0;
+  let diraverage = 0; // Definir si lo necesitas
+  let speedaverage = 0;
+  let speedaveragek = 0;
+
+  switch (grafico) {
+    case "height f":
+    case "":
+      return [columna, 3];
+    case "height m":
+      return [columna, 2];
+    case "direction":
+      return [
+        columna,
+        4,
+        {
+          type: "number",
+          label: "Average direction in degrees for this flight",
+          calc: function (dt, row) {
+            return diraverage * 1;
+          },
+        },
+      ];
+    case "speed n":
+      return [
+        columna,
+        6,
+        {
+          type: "number",
+          label: "Average speed in knots for this flight",
+          calc: function (dt, row) {
+            return speedaverage * 1;
+          },
+        },
+      ];
+    case "ascent":
+      return [columna, 8];
+    case "lon":
+      return [columna, 10];
+    case "lat":
+      return [columna, 9];
+    case "speed k":
+      return [columna, 5, 4];
+    case "sp/hght":
+      return [
+        2,
+        {
+          type: "number",
+          label: "Speed/height up",
+          calc: function (dt, row) {
+            return dt.getValue(row, 5);
+          },
+        },
+        {
+          type: "number",
+          label: "Speed/height down",
+          calc: function (dt, row) {
+            if (dt.getValue(row, 8) <= 0) {
+              return dt.getValue(row, 5);
+            }
+            return null;
+          },
+        },
+        {
+          type: "number",
+          label: "Speed average",
+          calc: function (dt, row) {
+            return speedaveragek * 1;
+          },
+        },
+      ];
+    case "asc/h":
+      return [
+        3,
+        {
+          type: "number",
+          label: "Asc/desc feet/min. vs height",
+          calc: function (dt, row) {
+            return dt.getValue(row, 8) * 60;
+          },
+        },
+      ];
+    case "temp":
+      if (
+        callsign.toLowerCase() === "lu7aa-11" ||
+        callsign.toLowerCase() === "lu7aa-12"
+      ) {
+        return [columna, 12, 13, 14];
+      }
+      break;
+    case "reach":
+      return [
+        columna,
+        {
+          type: "number",
+          label: "Reach in Km. (coverage radius)",
+          calc: function (dt, row) {
+            return Math.floor(1.0 * 3.87 * Math.sqrt(dt.getValue(row, 2)));
+          },
+        },
+      ];
+  }
+
+  // Fallback (puedes personalizarlo)
+  return [columna, 1];
 }
 
 function renderChartData({
