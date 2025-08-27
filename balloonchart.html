@@ -102,6 +102,28 @@
     <table border=0 cellpadding=0 cellspacing=0 style="height:'92%';"><tr><td align=center><center><div id="chart_div" style="border:0;width:1360px;height:580px;"></div></center></td></tr></table>
     <%end if%>
     -->
+                <table
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    style="height: 92%"
+                >
+                    <tr>
+                        <td align="center">
+                            <center>
+                                <div
+                                    id="chart_div"
+                                    style="
+                                        border: 0;
+                                        width: 1360px;
+                                        height: 580px;
+                                    "
+                                ></div>
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+
                 <font style="font-size: 11px">CALL</font
                 ><input
                     type="text"
@@ -310,7 +332,9 @@
                 </font>
             </form>
         </center>
-
+        <font size="-2" style="line-height: 10px"
+            >Discarded data:<br /><span id="discardData"></span
+        ></font>
         <div
             id="chartdata"
             class="monkey"
@@ -318,21 +342,7 @@
             style="cursor: move"
             onMouseDown="mouse_down('chartdata')"
             onMouseUp="mouse_up()"
-        >
-            <b>%=ucase(callsign) & " " & launchdate & " Flight Synopsis</b>
-            <br />From: "&launchtime&" Duration: "&duracionhms&"
-            <br />MaxHeight: "&formatnumber(maxheight*.3048,0)&" m. /
-            "&formatnumber(maxheight-feetdelta,0)& " feet <br />At: " &
-            maxtimehms & "&nbsp;&nbsp;Horizont: "&coverage&" Km. <br />Average
-            up: "&avgupm&" m/s / "&avgupf&" feet/s <br />Avg. down: "&avgdom&"
-            m/s / "&avgdof&" feet/s<br />Wind speed: "&avgwsm&" Km/h /
-            "&avgwsf&" knots <br />Land at: "&formatnumber(recorrido,0)&" Km /
-            "&formatnumber(recorrido*0.53996,0)&" nMiles <br />Launch to Land
-            azimuth: "& formatnumber(diraverage,2) & "&#176; <br />From:
-            "&left(getciudad(latii1,lonii1),27)&" <br />To:
-            "&left(getciudad(lati2,loni2),30)&"<br />&nbsp;&nbsp;&nbsp;
-            <i>(This legend could be moved)</i>"%>
-        </div>
+        ></div>
     </body>
 </html>
 

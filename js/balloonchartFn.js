@@ -109,6 +109,41 @@ function dateFormatter(fechaHoraStr, full = false) {
     : `${year}/${month}/${day} ${hour}:${minute}`;
 }
 
+function dateDiff(interval, date1, date2) {
+  const ms1 =
+    date1 instanceof Date ? date1.getTime() : new Date(date1).getTime();
+  const ms2 =
+    date2 instanceof Date ? date2.getTime() : new Date(date2).getTime();
+  let diff = 0;
+
+  switch (interval) {
+    case "s": // segundos
+      diff = (ms2 - ms1) / 1000;
+      break;
+    case "n": // minutos
+      diff = (ms2 - ms1) / (1000 * 60);
+      break;
+    case "h": // horas
+      diff = (ms2 - ms1) / (1000 * 60 * 60);
+      break;
+    case "d": // días
+      diff = (ms2 - ms1) / (1000 * 60 * 60 * 24);
+      break;
+    case "m": // meses
+      diff =
+        (date2.getFullYear() - date1.getFullYear()) * 12 +
+        (date2.getMonth() - date1.getMonth());
+      break;
+    case "yyyy": // años
+      diff = date2.getFullYear() - date1.getFullYear();
+      break;
+    default:
+      throw new Error("Intervalo no soportado");
+  }
+
+  return Math.floor(diff);
+}
+
 function mouser(event) {
   if (event.offsetX || event.offsetY) {
     x = event.clientX - 90;
@@ -623,16 +658,44 @@ function degrees(valor) {
 function radians(valor) {
   return (valor * Math.PI) / 180;
 }
-
+/*
 // Función para calcular distancia entre dos puntos geográficos (Haversine)
 function distancia(lat1, lon1, lat2, lon2) {
+  //console.log("Calculando distancia entre", lat1, lon1, "y", lat2, lon2);
   // Convertir grados a radianes si es necesario
-  const lat1Rad = typeof lat1 === "number" ? radians(lat1) : lat1;
-  const lon1Rad = typeof lon1 === "number" ? radians(lon1) : lon1;
-  const lat2Rad = typeof lat2 === "number" ? radians(lat2) : lat2;
-  const lon2Rad = typeof lon2 === "number" ? radians(lon2) : lon2;
+  const lat1Rad =
+    typeof lat1 === "number" ? radians(lat1) : radians(Number(lat1));
+  const lon1Rad =
+    typeof lon1 === "number" ? radians(lon1) : radians(Number(lon1));
+  const lat2Rad =
+    typeof lat2 === "number" ? radians(lat2) : radians(Number(lat2));
+  const lon2Rad =
+    typeof lon2 === "number" ? radians(lon2) : radians(Number(lon2));
 
   // Fórmula de distancia geodésica
+  let dist =
+    Math.acos(
+      Math.sin(lat1Rad) * Math.sin(lat2Rad) +
+        Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.cos(lon2Rad - lon1Rad),
+    ) * 6371; // Radio de la Tierra en km
+
+  // Asegurar que la distancia sea positiva
+  if (dist < 0) {
+    dist = dist * -1;
+  }
+
+  return dist;
+}
+*/
+
+function distancia(lat1, lon1, lat2, lon2) {
+  // Convertir grados a radianes
+  const lat1Rad = lat1 * DEG2RAD;
+  const lat2Rad = lat2 * DEG2RAD;
+  const lon1Rad = lon1 * DEG2RAD;
+  const lon2Rad = lon2 * DEG2RAD;
+
+  // Calcular distancia usando la fórmula del gran círculo
   let dist =
     Math.acos(
       Math.sin(lat1Rad) * Math.sin(lat2Rad) +
@@ -1384,18 +1447,19 @@ function procesarPagHm(pag, pag1) {
   // Buscar límite
   let limitefound = false;
   let limite;
-
-  for (let b = pathx.length - 2; b >= 1; b--) {
+  let px = "";
+  for (let b = pathx.length - 1; b > 0; b--) {
     // ubound(pathx)-1 to 1 step -1
     if (!limitefound) {
       // Obtener los últimos 31 caracteres de cada elemento
       let currentRight = pathx[b].slice(-31);
       let previousRight = pathx[b - 1].slice(-31);
-
       if (currentRight === previousRight) {
-        limite = b;
+        limite = b + 1;
       } else {
-        limitefound = true;
+        if (currentRight.trim() !== "") {
+          limitefound = true;
+        }
       }
     }
   }
@@ -1452,12 +1516,15 @@ function drawChart() {
   });
 
   // Agrega los datos aquí si no vienen ya cargados
-  // data.addRows([...]);
-
+  data.addRows([...vorloc]);
+  //[new Date(2025,7,19,17,13,0),new Date(2025,7,19,17,13,0),12660,41535,126.9,136.5,73.72,0.0,0.1,-28.051,-56.966,'point'],
+  console.log("gata-g", data);
   // Crea la vista
   const view = new google.visualization.DataView(data);
 
   // Selección dinámica de columnas para la vista
+  console.log("grafico", grafico);
+  console.log("callsign", callsign);
   view.setColumns(getViewColumns(grafico, callsign));
 
   // Dibuja el gráfico
@@ -1571,8 +1638,7 @@ function getViewColumns(grafico, callsign) {
       ];
   }
 
-  // Fallback (puedes personalizarlo)
-  return [columna, 1];
+  return [columna, 3];
 }
 
 function renderChartData({
@@ -1597,6 +1663,22 @@ function renderChartData({
   lati2,
   loni2,
 }) {
+  // const city1 = await getCiudad(latii1, lonii1);
+  // const city2 = await getCiudad(lati2, loni2);
+  /// console.log(city1, city2);
+  document.getElementById("chartdata").innerHTML =
+    ` <b>${callsign.toUpperCase()} ${launchdate} Flight Synopsis</b>
+  <br />From: ${launchtime} Duration: ${duracionhms}
+  <br />MaxHeight: ${formatNumber(maxheight * 0.3048, 0)} m. /
+  ${formatNumber(maxheight - feetdelta, 0)} feet <br />At:
+  ${maxtimehms} Horizont: ${coverage} Km. <br />Average
+  up: ${avgupm} m/s / ${avgupf} feet/s <br />Avg. down: ${avgdom}
+  m/s / ${avgdo} feet/s<br />Wind speed: ${avgwsm} Km/h /
+  ${avgws} knots <br />Land at: ${formatNumber(recorrido, 0)} Km /
+  ${formatNumber(recorrido * 0.53996, 0)} nMiles <br />Launch to Land
+  azimuth: ${formatNumber(diraverage, 2)} &#176; <br />
+  <i>(This legend could be moved)</i>`;
+  /*
   document.getElementById("chartdata").innerHTML =
     ` <b>${callsign.toUpperCase()} ${launchdate} Flight Synopsis</b>
   <br />From: ${launchtime} Duration: ${duracionhms}
@@ -1608,7 +1690,8 @@ function renderChartData({
   ${avgws} knots <br />Land at: ${formatNumber(recorrido, 0)} Km /
   ${formatNumber(recorrido * 0.53996, 0)} nMiles <br />Launch to Land
   azimuth: ${formatNumber(diraverage, 2)} &#176; <br />From:
-  ${left(getCiudad(latii1, lonii1), 27)} <br />To:
-  ${left(getCiudad(lati2, loni2), 30)}<br />&nbsp;&nbsp;&nbsp;
+  ${left(city1, 27)} <br />To:
+  ${left(city2, 30)}<br />&nbsp;&nbsp;&nbsp;
   <i>(This legend could be moved)</i>`;
+  */
 }

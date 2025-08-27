@@ -37,7 +37,6 @@ var options = {
 
 // change Height title by search params selected
 window.parent.window.document.title = `${callsign} Balloon Height M Chart from EOSS & Findu`;
-
 window.columnsChart = [
   { type: "datetime", value: "Hour-Local" },
   { type: "datetime", value: "Hour-UTC" },
@@ -61,12 +60,10 @@ var x,
   VOR2Lo,
   GLatdeg,
   GLondeg,
-  Discarddata,
   posits,
-  um,
-  grafico,
   cityname;
 var Elapsed = 0;
+var Discarddata = "";
 var mes = [
   "",
   "Jan",
@@ -97,7 +94,7 @@ async function startApp() {
   if (callsign === "") {
     callsign = "AE0SS-11";
   }
-  let grafico = getParamSafe("grafico");
+  grafico = getParamSafe("grafico");
   if (grafico === "") {
     grafico = "height f";
   }
@@ -122,14 +119,14 @@ async function startApp() {
   }
   for (let z = 0; z <= stationlast; z++) {
     if (ucase(stations[z][0]) === ucase(callsign)) {
-      console.log("stations[z]", stations[z]);
+      //console.log("stations[z]", stations[z]);
       GLatdeg = stations[z][1];
       GLondeg = stations[z][2];
     }
   }
   // Now get latest points to draw path
   let spanhours = 900;
-  console.log("stations", stations);
+  //console.log("stations", stations);
   let pag1 = "";
   let temperaturas = [];
   if (
@@ -183,13 +180,8 @@ async function startApp() {
 
   let daysave = cuantosDias(pathm[0].split(",")[0]);
   let fecha1 = cuantosDias(pathm[pagHmResult.limite].split(",")[0]);
-  console.log("fecha1", fecha1);
-  console.log("daysave", daysave);
 
   let tx = 0;
-  // let ssavem = Array(131)
-  //   .fill()
-  //   .map(() => Array(2).fill(""));
   let ssavem = Array(pagHmResult.limite) //Array(pathm.length - 2)
     .fill()
     .map(() => Array(2).fill(""));
@@ -206,33 +198,13 @@ async function startApp() {
     .map(() => Array(2).fill(""));
   let heighpointer = 0;
   let heighp = 0;
-  //for (let s = pathm.length - 2; s >= 1; s--) {
-  /*
-  for (let s = pagHmResult.limite; s >= 1; s--) {
-    if (pathm[s].split(",")[0] !== "") {
-      let fecha2 = cuantosDias(pathm[s].split(",")[0]);
-      const diferenciaEnDias =
-        Math.abs(fecha1 - fecha2) / (1000 * 60 * 60 * 24);
-
-      if (diferenciaEnDias < 0.4) {
-        daysave = cuantosDias(pathm[s].split(",")[0]);
-        if (!heightvalid && isNumeric(right(pathm[s], 1))) {
-          heightvalid = true;
-        }
-      } else {
-        ssavem[ssavempointer][0] = s;
-        ssavem[ssavempointer][1] = cuantosDias(pathm[s + 1].split(",")[0]);
-        ssavempointer = ssavempointer + 1;
-      }
-      fecha1 = fecha2;
-    }
-  }*/
-  for (let s = pagHmResult.limite; s >= 1; s--) {
+  let fecha2 = "";
+  for (let s = pagHmResult.limite - 1; s > 0; s--) {
     // Verificar si la subcadena desde la posición 1 con longitud 13 no está vacía
     // mid(pathm(s), 2, 13) en VB equivale a substring(1, 14) en JS
     if (pathm[s].substring(1, 14) !== "") {
       // Extraer fecha (14 caracteres desde la posición 1)
-      const fecha2 = cuantosDias(pathm[s].split(",")[0]);
+      fecha2 = cuantosDias(pathm[s].split(",")[0]);
 
       // Calcular diferencia en días
       const diferenciaDias =
@@ -249,7 +221,7 @@ async function startApp() {
         }
       } else {
         // Guardar en ssavem
-        ssavem[ssavempointer] = [s, cuantosDias(pathm[s + 1].split(",")[0])];
+        ssavem[ssavempointer] = [s, fecha1]; // [s, cuantosDias(pathm[s + 1].split(",")[0])];
         ssavempointer++;
       }
 
@@ -257,8 +229,7 @@ async function startApp() {
     }
   }
 
-  ssavempointer = ssavempointer - 1;
-  console.log("ssavem", ssavem, ssavempointer);
+  // ssavempointer = ssavempointer - 1;
   ssavem[ssavempointer][0] = 0;
   ssavem[ssavempointer][1] = cuantosDias(pathm[1].split(",")[0]);
 
@@ -267,13 +238,7 @@ async function startApp() {
   if (Vuelo === "") {
     comienzo = ssavem[1][0];
     final = ssavem[0][0] - 1;
-    //let checkm = split(pathm[s], ",", 10, 1);
-    console.log(
-      ">>>>>>>>>> ",
-      pathm[0].split(",") + " *** " + splitText(pathm[0], ",", 10, 1),
-    );
     let checkm = pathm[0].split(",")[3];
-    console.log("checkm", checkm, pathm[0]);
     if (checkm[4] == "0.0") {
       final = final - 1;
     }
@@ -286,9 +251,9 @@ async function startApp() {
       final = ssavem[0][0] - 1;
     }
   }
-
+  console.log("COMINEZO " + comienzo + " FINAL " + final);
   let heightpointer = 0;
-  console.log("heightvalid", heightvalid);
+
   if (!heightvalid) {
     let heighturl = `http://www.findu.com/cgi-bin/rawposit.cgi?time=1&call=${callsign}&start=120&length=124`;
     body = new URLSearchParams({ url: heighturl }).toString();
@@ -311,6 +276,7 @@ async function startApp() {
   }
 
   let heightpointermax = heightpointer - 1;
+
   if (getParamSafe("flights") !== "") {
     comienzo = 0;
     final = pathm.length - 2;
@@ -349,16 +315,14 @@ async function startApp() {
   //   posdatad[2],
   //   new Date(cuantosDias(posdatad[0].split(",")[0])),
   // );
-  timezone = await getTimezoneOffsetFromGeoTimeZone(posdatad[1], posdatad[2]);
-  console.log("timezone", timezone, pathm[comienzo + 1], posdatad);
+  timezone = ""; //await getTimezoneOffsetFromGeoTimeZone(posdatad[1], posdatad[2]);
   Glatlaunchdeg = posdatad[1];
   Glonlaunchdeg = posdatad[2];
-  feetlaunch = (await getAltura(Glatlaunchdeg, Glonlaunchdeg)) * 3.28084;
+  feetlaunch = ""; //(await getAltura(Glatlaunchdeg, Glonlaunchdeg)) * 3.28084;
   if (feetlaunch * 1 < 0) {
     feetlaunch = 100;
   }
   feetdelta = feetlaunch;
-  console.log("feetdelta", feetdelta);
 
   if (
     callsign.toLowerCase() === "lu7aa-11" ||
@@ -471,12 +435,13 @@ async function startApp() {
   let deltaupdown = 0;
   let deltafeetpersecond = 0;
   let deltaMetersPerSecond = 0;
-  let timeinicial = "";
+  let timeinitial = "";
   let diainicial = "";
-  console.log("comienzo " + comienzo + " final " + final);
 
   for (let s = comienzo + 1; s <= final; s++) {
     let posdatam = pathm[s].split(",");
+
+    console.log("posdatam", posdatam);
 
     if (s > comienzo) {
       wdir = trim(posdatam[3]);
@@ -491,7 +456,7 @@ async function startApp() {
       value = value.replace(/\t/g, ""); // chr(9)
       wspeed = value;
     } else {
-      wspeed = "0";
+      wspeed = "0.0";
     }
 
     if (parseFloat(wspeed) > 300) {
@@ -508,8 +473,8 @@ async function startApp() {
     }
 
     if (s === comienzo) {
-      wdir = 0;
-      wspeed = 1;
+      wdir = "0.0";
+      wspeed = "1";
       if (previouslat === "") {
         previouslat = posdatam[1];
         previouslon = posdatam[2];
@@ -520,24 +485,22 @@ async function startApp() {
     } //end if (s === comienzo)
 
     if (wdir === "" || wdir === " " || wspeed == "0.0" || wspeed == "") {
-      /*
-      wdir = bearing1(
-        previouslat,
-        posdatam[1] * DEG2RAD,
-        previouslon,
-        posdatam[2] * DEG2RAD,
-      );
-      */
       wdir = bearing1(previouslat, posdatam[1], previouslon, posdatam[2]);
-      actualdatespeed = cuantosDias(pathm[s].split(",")[0]); //cDate(cuantosDias(pathm[s].split(",")[0]));
+      actualdatespeed = cuantosDias(pathm[s].split(",")[0]);
+      let prevDateSpeed = previousdatespeed == "0" ? 0 : previousdatespeed;
       distanciarecorrida = distancia(
         previouslat,
         previouslon,
-        posdatam[1] * DEG2RAD,
-        posdatam[2] * DEG2RAD,
+        posdatam[1],
+        posdatam[2],
       );
-      tiemposegundos = (actualdatespeed - previousdatespeed) * 86400;
-      Velociknots = (distanciarecorrida * 3600) / tiemposegundos / 1.852;
+      tiemposegundos =
+        (new Date(actualdatespeed) - new Date(prevDateSpeed)) / 1000;
+
+      Velociknots =
+        tiemposegundos !== 0
+          ? ((distanciarecorrida / tiemposegundos) * 3600) / 1.852
+          : 0;
       wspeed = formatNumber(Velociknots, 2);
       wspeed = replace(wspeed, ",", "", 1, 30, 1);
       wdir = formatNumber(wdir, 1);
@@ -582,7 +545,7 @@ async function startApp() {
     } // END if (wdir === "" || wdir === " " || wspeed == "0.0" || wspeed == "")
 
     if (s === comienzo + 1) {
-      console.log("posdatam[0]:", posdatam);
+      // console.log("posdatam[0]:", posdatam);
       if (posdatam[0].length === 14) {
         posdatam[0] = " " + posdatam[0];
       }
@@ -590,7 +553,7 @@ async function startApp() {
       loni1 = posdatam[2];
       latii1 = posdatam[1];
       lonii1 = posdatam[2];
-      timeinicial = cDate(
+      timeinitial = cDate(
         right("00" + mid(posdatam[0], 6, 2), 2) +
           "/" +
           right("00" + mid(posdatam[0], 8, 2), 2) +
@@ -604,11 +567,9 @@ async function startApp() {
           right("00" + mid(posdatam[0], 14, 2), 2),
       );
       diainicial = right("00" + mid(posdatam[0], 8, 2), 2);
-      console.log("diainicial:", diainicial);
-      console.log("timeinicial:", timeinicial);
     } // end s === comienzo + 1
 
-    if (!isDate(timeinicial)) {
+    if (!isDate(timeinitial)) {
       if (s === comienzo + 1) {
         lati1 = posdatam[1];
         loni1 = posdatam[2];
@@ -628,7 +589,6 @@ async function startApp() {
             ":" +
             right("00" + mid(posdatam[0], 14, 2), 2),
         );
-        console.log("timeinicial 2:", timeinicial);
       }
     } // end (isDate(timeinitial))
 
@@ -654,8 +614,6 @@ async function startApp() {
       diafinal = right("00" + mid(posdatam[0], 8, 2), 2);
       if (actualdateformated === "") {
         actualdateformated = dateFormatter(posdatam[0]);
-        console.log("actualdateformated empty", actualdateformated);
-        // actualdate = cDate(actualdateformated) - timezone / 24;
         actualdate = new Date(actualdateformated);
         actualdate.setTime(actualdate.getTime() + timezone * 60 * 60 * 1000);
       }
@@ -708,10 +666,10 @@ async function startApp() {
       }
     } // end (s > comienzo)
 
-    if (wdir.length > 1) {
+    if (`${wdir}`.length > 1) {
       wdir = wdir;
     } else {
-      wdir = "0";
+      wdir = "0.0";
     }
     if (posdatam1s === "") {
       posdatam1s = posdatam[1] - 0.05;
@@ -739,12 +697,13 @@ async function startApp() {
       T2 = posdatam[posdatam.length - 1];
       T3 = posdatam[posdatam.length - 0];
     }
-    if (wspeed.length > 0) {
+
+    if (`${wspeed}`.length > 0) {
       wspeed = wspeed;
     } else {
-      wspeed = "0";
+      wspeed = "0.0";
     }
-    console.log("posdatam[0]", posdatam);
+    console.log("posdatam[0] [5]", posdatam[0] + ", " + posdatam[5]);
 
     if (
       posdatam[0] != posdatam0s &&
@@ -756,7 +715,6 @@ async function startApp() {
       posdatam[5] != "53740" &&
       posdatam[5] * 1 > 36000
     ) {
-      //if 1=1 then
       posis[um][0] = trim(posdatam[1]);
       posis[um][1] = trim(posdatam[2]);
       posis[um][2] = trim(posdatam[0]);
@@ -765,13 +723,11 @@ async function startApp() {
         if (deltaaltura < 0) {
           deltaaltura = deltaaltura * -1;
         }
-        // if 1=1 then
-        console.log("############# ", posdatam);
+
         if (trim(posdatam[5]) != "&nbsp;") {
           actualdateformated = dateFormatter(posdatam[0]);
-
-          if (isDate(actualdateformated)) {
-            if (!firsdata) {
+          if (isDate(new Date(actualdateformated))) {
+            if (!firstdata) {
               if (right(callsign, 2) == "11" || right(callsign, 2) == "12") {
                 launch = " - Launched ";
               } else {
@@ -801,10 +757,10 @@ async function startApp() {
               launch = launch + right("0" + mid(pathm[s], 10, 2) * 1, 2) + ":";
               launch = launch + mid(pathm[s], 12, 2) + ":";
               launch = launch + mid(pathm[s], 14, 2) + " Z)";
-              firsdata = true;
+              firstdata = true;
             } // end if(!firsdata)
 
-            if (isDate(prevdateformated)) {
+            if (isDate(new Date(prevdateformated))) {
               actualheight = parseFloat(posdatam[5]); // Índice 5 en JavaScript (era 5 en ASP)
 
               deltaheight = actualheight - previousheight;
@@ -860,10 +816,19 @@ async function startApp() {
                 avgdom = avgdom + deltafeetpersecond * 0.3048;
                 avgdocount = avgdocount + 1;
               }
-              avgdir = avgdir + wdir;
-              avgwsf = avgwsf + wspeed;
-              avgwsm = avgwsm + wspeed / 0.539956803;
+              avgdir = avgdir + Number(wdir);
+              avgwsf = avgwsf + Number(wspeed);
+              avgwsm = avgwsm + Number(wspeed) / 0.539956803;
               avgwscount = avgwscount + 1;
+
+              console.log(
+                " Elapsed: " +
+                  Elapsed +
+                  " Sube/baja a: " +
+                  formatNumber(deltafeetpersecond, 1) +
+                  " pies/seg -- " +
+                  deltafeetpersecond,
+              );
             } //end if(isDate(prevdateformated))
           } // end if (isDate(actualdateformated))
 
@@ -880,14 +845,14 @@ async function startApp() {
             horalocal = horalocal + 24;
           }
 
-          console.log("actualdateformated", actualdateformated);
+          // console.log("actualdateformated", actualdateformated);
 
           datezulu = new Date(actualdateformated);
           datelocal = new Date(actualdateformated);
           datelocal.setTime(datelocal.getTime() + timezone * 60 * 60 * 1000);
 
-          console.log("datelocal:", datelocal);
-          console.log("datezulu:", datezulu);
+          // console.log("datelocal:", datelocal);
+          //console.log("datezulu:", datezulu);
 
           dates = [
             new Date(
@@ -913,97 +878,81 @@ async function startApp() {
             parseFloat(posdatam[5].toString().trim()) - feetdelta;
 
           // Formatear números y limpiar comas
-          let formattedPos5 = replaceText(
-            formatNumberV2(pos5InMeters, 0),
-            ",",
-            "",
-            0,
-            40,
+          let formattedPos5 = Number(
+            replaceText(formatNumberV2(pos5InMeters, 0), ",", "", 0, 40),
           );
-          let formattedPos5Delta = replaceText(
-            formatNumberV2(pos5DeltaInMeters, 0),
-            ",",
-            "",
-            0,
-            40,
+          let formattedPos5Delta = Number(
+            replaceText(formatNumberV2(pos5DeltaInMeters, 0), ",", "", 0, 40),
           );
-          let formattedWspeedConverted = formatNumberV2(
-            wspeed / 0.539956803,
-            1,
+
+          let formattedWspeedConverted = Number(
+            formatNumberV2(wspeed / 0.539956803, 1),
           );
+
+          const [delta1, delta2] = [...Delta.split(",").map((n) => Number(n))];
 
           // Crear normalvorloc
           normalvorloc = [
             ...dates,
             formattedPos5,
             formattedPos5Delta,
-            wdir,
+            Number(wdir),
             formattedWspeedConverted,
-            wspeed,
-            Delta,
+            Number(wspeed),
+            delta1,
+            delta2,
           ];
-
           if (
             callsign.toLowerCase() === "lu7aa-11" ||
             callsign.toLowerCase() === "lu7aa-12"
           ) {
-            normalvorloc.push(posdatam[1]);
-            normalvorloc.push(posdatam[2]);
+            normalvorloc.push(Number(posdatam[1]));
+            normalvorloc.push(Number(posdatam[2]));
             normalvorloc.push(icono);
             normalvorloc.push(T1);
             normalvorloc.push(T2);
             normalvorloc.push(T3);
           } else {
-            normalvorloc.push(posdatam[1]);
-            normalvorloc.push(posdatam[2]);
+            normalvorloc.push(Number(posdatam[1]));
+            normalvorloc.push(Number(posdatam[2]));
             normalvorloc.push(icono);
           }
 
           blastvorloc = dates.map((d) => d);
           blastvorloc.push(formattedPos5);
           blastvorloc.push(formattedPos5Delta);
-          blastvorloc.push(wdir);
+          blastvorloc.push(Number(wdir));
           blastvorloc.push(formattedWspeedConverted);
-          blastvorloc.push(wspeed);
+          blastvorloc.push(Number(wspeed));
 
           if (
             callsign.toLowerCase() === "lu7aa-11" ||
             callsign.toLowerCase() === "lu7aa-12"
           ) {
-            blastvorloc.push(wspeed);
-            blastvorloc.push(Delta);
-            blastvorloc.push(posdatam[1]);
-            blastvorloc.push(posdatam[2]);
+            blastvorloc.push(Number(wspeed));
+            blastvorloc.push(delta1);
+            blastvorloc.push(delta2);
+            blastvorloc.push(Number(posdatam[1]));
+            blastvorloc.push(Number(posdatam[2]));
             blastvorloc.push(iconblast);
             blastvorloc.push(T1);
             blastvorloc.push(T2);
             blastvorloc.push(T3);
           } else {
-            blastvorloc.push(wspeed);
-            blastvorloc.push(Delta);
-            blastvorloc.push(posdatam[1]);
-            blastvorloc.push(posdatam[2]);
+            blastvorloc.push(Number(wspeed));
+            blastvorloc.push(delta1);
+            blastvorloc.push(delta2);
+            blastvorloc.push(Number(posdatam[1]));
+            blastvorloc.push(Number(posdatam[2]));
             blastvorloc.push(iconblast);
           }
 
-          console.log("previousvorlocblast", previousvorlocblast);
-          console.log("normalvorloc", normalvorloc);
           let vlocPrevStr = vorlocArrayToString(previousvorlocblast);
           let vlocNormalStr = vorlocArrayToString(normalvorloc);
 
-          console.log(
-            "Elapsed",
-            s,
-            Elapsed,
-            splitText(vlocPrevStr, ",", 220, 1).length,
-          );
-          console.log("[5] * 1 - ", trim(posdatam[5]) * 1);
-          console.log("heightsave ", heightsave);
-          console.log("switcher", switcher);
-          console.log("ssss - idx  ", s);
           if (trim(posdatam[5]) * 1 < heightsave && !switcher && s > 0) {
             deltaupdown = deltafeetpersecond;
-            console.log("deltaupdown", deltaupdown);
+
             if (deltaupdown < 0) {
               deltaupdown = deltaupdown * -1;
             }
@@ -1015,11 +964,9 @@ async function startApp() {
               Elapsed != 0 &&
               Elapsed > 5
             ) {
-              console.log("[1] - ");
-              vorloc = [...vorloc, ...previousvorlocblast];
+              vorloc = [...vorloc, previousvorlocblast];
               previousvorlocblast = [];
             } else {
-              console.log("[1] - ELSE");
               if (s > comienzo) {
                 Discarddata = Discarddata + s + ":" + vlocPrevStr + "<br>";
               }
@@ -1028,15 +975,12 @@ async function startApp() {
             if (
               (splitText(vlocNormalStr, ",", 220, 1).length === 25 ||
                 splitText(vlocNormalStr, ",", 220, 1).length === 22) &&
-              // splitText(vlocPrevStr, ",", 220, 1).length === 22) &&
               deltaupdown < 500 &&
               Elapsed > 5
             ) {
-              console.log("[2] - ");
-              vorloc = [...vorloc, ...normalvorloc];
+              vorloc = [...vorloc, normalvorloc];
               normalvorloc = [];
             } else {
-              console.log("[2] - else");
               if (s > comienzo) {
                 Discarddata = Discarddata + s + ":" + vlocNormalStr + "<br>";
               }
@@ -1044,19 +988,15 @@ async function startApp() {
             }
             switcher = true;
           } else {
-            console.log("[ ELSE ] - ");
             if (
               (splitText(vlocNormalStr, ",", 220, 1).length === 25 ||
                 splitText(vlocNormalStr, ",", 220, 1).length === 22) &&
-              //   splitText(vlocPrevStr, ",", 220, 1).length === 22) &&
               deltaupdown < 500 &&
               Elapsed > 5
             ) {
-              console.log("[3] - ");
-              vorloc = [...vorloc, ...normalvorloc];
+              vorloc = [...vorloc, normalvorloc];
               normalvorloc = [];
             } else {
-              console.log("[3] - ELSE");
               if (s > comienzo) {
                 Discarddata = Discarddata + s + ":" + vlocNormalStr + "<br>";
               }
@@ -1064,8 +1004,8 @@ async function startApp() {
             }
           } // end if (trim(posdatam[5]) * 1 < heightsave && !switcher && s > 0)
           prevdateformated = dateFormatter(posdatam[0], true);
-          if (isDate(prevdateformated)) {
-            previousdate = cDate(prevdateformated);
+          if (isDate(new Date(prevdateformated))) {
+            previousdate = new Date(prevdateformated);
             previousheight = posdatam[5];
           }
           previousvorlocblast = [...dates.map((d) => d)];
@@ -1192,6 +1132,74 @@ async function startApp() {
 
   options.title = `${titulo}${tituloGrafico} Chart ${launch}`;
   console.log(options);
+
+  bearn = bearing1(lati1, lati2, loni1, loni2);
+  bearn = formatNumber(bearn, 1);
+  recorrido = distancia(lati1, loni1, lati2, loni2);
+  console.log(`Bearing: ${bearn}°`);
+  console.log(`Distance: ${recorrido} km`);
+
+  DuracionTotal = dateDiff("n", timeinitial, timefinal);
+  duracionhms = seconds2hms(DuracionTotal * 60);
+  Velocidad = avgwsm / avgwscount;
+  diraverage = avgdir / avgwscount;
+  horadellugar = right("00" + (mid(hightime, 10, 2) * 1 + timezone), 2);
+  if (horadellugar < 0) {
+    horadellugar = horadellugar + 24;
+  }
+  if (horadellugar > 24) {
+    horadellugar = horadellugar - 24;
+  }
+  maxtimehms =
+    horadellugar + ":" + mid(hightime, 12, 2) + ":" + mid(hightime, 14, 2);
+  coverage = formatNumber(1.0 * 3.87 * Math.sqrt(maxheight * 0.3048), 1);
+  avgupf = formatNumber(avgupf / avgupcount, 2); //average up in feet/sec
+  avgupm = formatNumber(avgupm / avgupcount, 2); //average up in meters/sec
+  avgdof = formatNumber((avgdof / avgdocount) * -1, 2); //average down in feet/sec
+  avgdom = formatNumber((avgdom / avgdocount) * -1, 2); //average down in meters/sec
+  avgwsf = formatNumber(avgwsf / avgwscount, 1); //average window speed in nM/hour
+  avgwsm = formatNumber(avgwsm / avgwscount, 1); //average window speed in Km/hour
+
+  renderChartData({
+    callsign,
+    launchdate,
+    launchtime,
+    maxtimehms,
+    duracionhms,
+    maxheight,
+    feetdelta,
+    coverage,
+    avgupm,
+    avgupf,
+    avgdom,
+    avgwsm,
+    avgws: 10,
+    avgdo: 5,
+    recorrido,
+    diraverage,
+    latii1,
+    lonii1,
+    lati2,
+    loni2,
+  });
+  loadGoogleChart();
+  document.getElementById("chart_div").style.width =
+    document.body.clientWidth - 30;
+  document.getElementById("chart_div").style.height =
+    document.body.clientHeight - 65;
+  document.getElementById("chartdata").style.left =
+    document.body.clientWidth - 202;
+  if (document.body.clientWidth > 800) {
+    document.getElementById("chartdata").style.fontSize = "14px";
+    document.getElementById("chartdata").style.lineHeight = "15px";
+    document.getElementById("chartdata").style.left =
+      document.body.clientWidth - 302;
+    document.getElementById("chartdata").style.width = 300;
+  }
+
+  if (Discarddata.length > 20) {
+    document.getElementById("discardData").innerHTML = Discarddata;
+  }
 }
 
 window.addEventListener("load", startApp);
