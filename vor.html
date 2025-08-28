@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Balloon</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta
+            name="TITLE"
+            content="AMSAT Argentina provides usefull info for radio amateurs interested in the amateur satellite program, latest AMSAT bulletins, keps and Argentina AMSAT and LUSAT history."
+        />
+        <meta name="GENERATOR" content="Amsat Argentina AMSAT-LU Site" />
+        <meta name="AUTHOR" content="Amsat Argentina WebMasters lu7abf" />
+        <meta name="rating" content="General" />
+        <meta
+            name="DESCRIPTION"
+            content="AMSAT-LU is the organisation representing Argentina radio operators interests in design, build, launch and communicate through amateur satellites orbiting the earth. Amsat Argentina es una organizacion orientada a proyectar, armar, lanzar y operar satelites y comunicaciones espaciales. Ha lanzado el LUSAT y proximamente el VoxSat y el Lusac."
+        />
+        <meta
+            name="abstract"
+            content="Amsat Argentina Radio Amateur Satellites site: LUSAT, VoxSat, Experiments, Ballons, Space Comms, Diagrams, Circuits, Operation, Education"
+        />
+        <meta
+            name="KEYWORDS"
+            content="AMSAT Argentina,AMSAT-LU,AMSAT,Argentina,Amateur Satellites,satelites,Amateur Radio,Space,LUSAT,LUSAT-1,VOXSAT,LUSAC,Telemetry,Telemetria,CW,telegraphy,telegrafia,morse,Globos,Ballons,Diagrams,Diagramas,Circuits,Circuitos,CETRA,Encuestas, Encuesta, Poll, Polls, Experiments,Experimentos,CONEA,Retina,Tracking,Orbits,Orbita,Orbitas,South,Sud,Shuttle,ISS,AO-19,Oscar,Rocket,Packet,downlink,uplink,frecuency,antenna,equipment,kepler,keplerian,iaru,wireless,repeater,transponder,digital,education,hsg,speed,projects,launch,satellite,ham,amsat-na,amsat-dl,amsat-uk,amsat-ce,amsat-ea,amsat-i,amsat-france,amsat-zl,jamsat,sa-amsat,surrey,sweeting,jan king,uosat,surrey,echo,microsat,nanosat,lu7aa,kb5mu,a0-40,pcsat,weber,pacsat,lu1esy,lw7dxf,lu7dsu,lu2amw,lw2dtz,lu7abf,lu7jcn,lu6dyd,lu6elo,lu4enq,carou,lu6dwc,lu8dyf,lu7xac,lu2aoq,lu5abm,lu4aey,lu3agj,rca,lu2fhe,lu2fcy,lu1sm,lu8yyn,lu1vd,lu2fgn,lu6eeg,aluar,ibm,showlog,sunsat,itrack,gridsquare,locator,gateway,ans,ariss,cubesat,amrad,g3ruh,Buenos Aires"
+        />
+        <meta
+            name="COPYRIGHT"
+            content="Copyright 1985-2004 Amsat Argentina on amsat.org.ar www.amsat.org.ar All rights Reserved. Todos los derechos Reservados"
+        />
+        <meta name="Robots" content="Index,Follow" />
+        <meta name="revisit-after" content="1 days" />
+        <meta http-equiv="Expires" content="Fri, Jun 12 1981 08:20:00 GMT" />
+        <style>
+            .tite {
+                font-family: tahoma, arial, trebuchet;
+                font-size: 14px;
+                font-weight: bold;
+                line-height: 15px;
+                text-align: absmiddle;
+                height: 18px;
+            }
+            .titc {
+                font-family: tahoma, arial, trebuchet;
+                font-size: 14px;
+                font-weight: normal;
+                line-height: 20px;
+                text-align: absmiddle;
+                height: 20px;
+            }
+            .dete {
+                font-family: tahoma, arial, trebuchet;
+                font-size: 11px;
+                font-weight: normal;
+                line-height: 10px;
+                height: 13px;
+            }
+            .dets {
+                font-family: tahoma, arial, trebuchet;
+                font-size: 11px;
+                font-weight: bold;
+                line-height: 10px;
+                height: 13px;
+            }
+            .bote {
+                font-family: tahoma, arial, trebuchet;
+                font-size: 11px;
+                color: #333333;
+                border: 1px #666666 solid;
+                background-color: #f2f2f2;
+                font-weight: normal;
+                line-height: 11px;
+                cursor: hand;
+            }
+            .rojo {
+                font-family: tahoma, arial, trebuchet;
+                font-size: 11px;
+                font-weight: bold;
+                line-height: 11px;
+                color: #ff0000;
+                text-decoration: underline;
+            }
+            .gray {
+                background-color: #dddddd;
+            }
+            a:visited {
+                text-decoration: none;
+                color: #000000;
+            }
+            a:link {
+                text-decoration: none;
+                color: #067ab0;
+            }
+            a:hover {
+                color: #000000;
+                text-decoration: underline;
+                background: lightblue;
+                border: normal;
+            }
+            a:active {
+                text-decoration: none;
+                color: #067ab0;
+                background: lightblue;
+                border: normal;
+            }
+            body {
+                scrollbar-base-color: #feedde;
+                scrollbar-arrow-color: #000000;
+                margin: 0;
+                padding: 0;
+            }
+
+            .loader {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #ffffff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+            }
+
+            .spinner {
+                width: 100px;
+                height: 100px;
+                border: 8px solid #ccc;
+                border-top-color: #24b686;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+        <script type="text/JavaScript" src="jsDraw2DX.js"></script>
+        <script
+            type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAACTum6vjLOeCDgGj6EFFnzJMe7r8xOII"
+        ></script>
+        <script src="js/assetsSrc.js"></script>
+        <script src="js/vor.js"></script>
+        <script src="js/vorFn.js"></script>
+    </head>
+    <!--<body background="fondo.gif" style="margin-left: 0;margin-right: 0;margin-top: 0;margin-bottom: 0;margin: 0;" class=tite onload="showvormap();">  -->
+    <body class="tite">
+        <div class="loader" id="loader">
+            <div class="spinner"></div>
+        </div>
+        <div id="load_error" style="margin: 40px auto"></div>
+        <form name="Resend" c style="margin-bottom: 0; margin-top: 0">
+            <center>
+                <font style="font-size: 12px; font-weight: normal">
+                    <a href="pronostico.asp" target="_self"><u>VIENTOS</u></a
+                    >&nbsp;&nbsp; VOR-1:
+                    <select
+                        name="VOR1"
+                        id="VOR1"
+                        onchange="this.form.submit();"
+                        style="font-size: 10px"
+                        title="Seleccione 1er VOR"
+                    >
+                        <!--
+
+                        <%
+                        for v=0 to lastm
+                            if left(ucase(Request("callsign")),2)="CX" then usevor="MJZ" else usevor="SRC" end if
+                            Response.Write "<option value=" & trim(vormatrix(v,0))
+                        '    if Request("VOR1")="" and vormatrix(v,0)="GPI" then
+                            if Request("VOR1")="" and vormatrix(v,0)=usevor then
+                                Response.Write " SELECTED"
+                                VOR1Loc=trim(vormatrix(v,4))
+                                VOR1Lat = vormatrix(v,1)
+                                VOR1Lon = vormatrix(v,2)
+                                Vor1Mag = vormatrix(v,3)
+                                VOR1LocCountry=VOR1Loc & " " & trim(vormatrix(v,5))
+                            else
+                                if vormatrix(v,0)=Request("VOR1") then
+                                    Response.Write " SELECTED"
+                                    VOR1Loc=trim(vormatrix(v,4))
+                                    VOR1Lat = vormatrix(v,1)
+                                    VOR1Lon = vormatrix(v,2)
+                                    Vor1Mag = vormatrix(v,3)
+                                    VOR1LocCountry=VOR1Loc & " " & trim(vormatrix(v,5))
+                                end if
+                            end if
+                            Response.Write ">" & trim(vormatrix(v,0)) & "</option>" & vbCrLf
+                        next
+                        %>
+
+                        -->
+                    </select>
+                    &nbsp;<a
+                        href="#"
+                        onclick="javascript:show();"
+                        title="Ver Lista de VORs"
+                        ><b
+                            style="
+                                background: #ffb577;
+                                font-size: 12px;
+                                border: outset;
+                            "
+                        >
+                            ?
+                        </b></a
+                    >&nbsp;&nbsp;
+                </font>
+                <font
+                    id="font_title"
+                    style="
+                        font-size: 15px;
+                        background: #123456;
+                        color: #ffffff;
+                        border: outset;
+                        padding: 0 3px;
+                    "
+                ></font
+                >&nbsp;&nbsp;
+                <font style="font-size: 12px; font-weight: normal"
+                    >VOR-2:
+                    <select
+                        name="VOR2"
+                        id="VOR2"
+                        onchange="this.form.submit();"
+                        style="font-size: 10px"
+                        title="Seleccione 2do VOR"
+                    >
+                        <!--
+
+                        <%
+                        for v=0 to lastm
+                            if left(ucase(Request("callsign")),2)="CX" then usevor="DUR" else usevor="MJZ" end if
+                            Response.Write "<option value=" & trim(vormatrix(v,0))
+                        '    if Request("VOR2")="" and vormatrix(v,0)="OSA" then
+                            if Request("VOR2")="" and vormatrix(v,0)=usevor then
+                                Response.Write " SELECTED"
+                                VOR2Loc=trim(vormatrix(v,4))
+                                VOR2Lat = vormatrix(v,1)
+                                VOR2Lon = vormatrix(v,2)
+                                Vor2Mag = vormatrix(v,3)
+                                VOR2LocCountry=VOR2Loc & " " & trim(vormatrix(v,5))
+                            else
+                                if vormatrix(v,0)=Request("VOR2") then
+                                    Response.Write " SELECTED"
+                                    VOR2Loc=trim(vormatrix(v,4))
+                                    VOR2Lat = vormatrix(v,1)
+                                    VOR2Lon = vormatrix(v,2)
+                                    Vor2Mag = vormatrix(v,3)
+                                    VOR2LocCountry=VOR2Loc & " " & trim(vormatrix(v,5))
+                                end if
+                            end if
+                            Response.Write ">" & trim(vormatrix(v,0)) & "</option>" & vbCrLf
+                        next
+                        %
+
+                        --></select
+                    >&nbsp;<a
+                        href="#"
+                        onclick="javascript:show();"
+                        title="Ver Lista de VORs"
+                        ><b
+                            style="
+                                background: #ffb577;
+                                font-size: 12px;
+                                border: outset;
+                            "
+                        >
+                            ?
+                        </b></a
+                    >&nbsp;&nbsp; CALL:<input
+                        type="text"
+                        name="callsign"
+                        id="callsign"
+                        onrowenter="this.form.submit();"
+                        value=""
+                        size="8"
+                        style="font-size: 10px; font-weight: normal"
+                        title="Ingrese Licencia y SSID estacion APRS o GLOBO y de Enter"
+                    />
+                </font>
+                <!--
+                <%
+                =getflights()
+                %>
+                -->
+                <br />
+                <div id="tables_content" style="width: 100dvw"></div>
+                <!--
+
+                <table border=0 cellspacing=2 cellpadding=0 width="90%" style="width:90%;"><tr><td align=center><a href="http://www.amsat.org.ar" target=_blank><img src="images/amsatblue.gif" width=100px border=0 title="Ir a Amsat-LU" ALT="Ir a Amsat-LU"></a></td><td align=center>
+                <table border=0 cellpadding=4 cellspacing=4 bgcolor="#eeeeee" style="border:none;font-size:16px;font-family:Tahoma;line-height:17px;"><tr><td align=center>
+                <%
+                if len(Tiempo)<>2 then
+                    Response.Write "<div id=actualizado name=actualizado>Al " & mes(month(Fechahoralocal))&"-"&day(Fechahoralocal)&" " & hour(Fechahoralocal)&":" & right(100+minute(FechaHoraLocal),2) & "(z) - Updated " & trim(Tiempo) & " ago<br>" & vbCrLf
+                    if len(latlon)>15 then
+                        Response.Write trim(latlontra(latlon)) & "<br></div>" & vbCrLf
+                    end if
+                '    if len(Curso)>15 then Response.Write trim(Curso) & "<br>" & vbCrLf
+                '    Response.Write "Est&aacute; a " & trim(Ubicacion) & "<br>" & vbCrLf
+                    'pag=getURL("http://www.findu.com/cgi-bin/vor.cgi?call=LU7AA-11!LU7AA-11&vor1=OSA&vor2=LYE&refresh=60")
+                    getURL3 = "http://www.findu.com/cgi-bin/vor.cgi?call="&callsign&"&vor1="&VOR1&"&vor2="&VOR2&"&refresh=60"
+                    pag=getURL(getURL3)
+                    posicion = 1
+                    LYERadial = buscarTag("<tr><td>"&VOR1&"</td><td>"&VOR1Loc&" </td><td>","</td>",pag,posicion)
+                    if LYERadial = "" then
+                        posicion = 1
+                        LYERadial = buscarTag("<tr><td>"&VOR1&"</td><td>"&VOR1LocCountry&"</td><td>","</td>",pag,posicion)
+                    end if
+                    if LYERadial = "" then LYERadial = "Map"
+                    LYE="VOR "&Vor1Loc&": radial=" & LYERadial
+                    posicion = posicion -2
+                    LYEDist = buscarTag("<td>","</td>",pag,posicion)
+                    if LYEDist <> "" then
+                        LYE=LYE & " " & " dist=" & LYEDist & " m.n&aacute;uticas"
+                    else
+                        LYE=LYE & " dist=Map"
+                    end if
+                    'LYERadial = buscarTag("<tr><td>LYE</td><td>Laboulaye AG</td><td>","</td>",pag,posicion)
+                    OSARadial = buscarTag("<tr><td>"&VOR2&"</td><td>"&VOR2Loc&" </td><td>","</td>",pag,posicion)
+                    if OSARadial = "" then
+                        posicion = 1
+                        OSARadial = buscarTag("<tr><td>"&VOR2&"</td><td>"&VOR2LocCountry&"</td><td>","</td>",pag,posicion)
+                    end if
+                    if OSARadial = "" then OSARadial = "Map"
+                    OSA="VOR "&Vor2Loc&": radial=" & OSARadial
+                    posicion = posicion -2
+                    OSADist = buscarTag("<td>","</td>",pag,posicion)
+                    if OSADist <> "" then
+                        OSA=OSA&" " & " dist=" & OSADist & " m.n&aacute;uticas"
+                    else
+                        OSA=OSA & " dist=Map"
+                    end if
+                    if LYEDist<800 and OSADist < 800 and lcase(callsign)<>"lu7aa-11" then
+                '        Response.Write LYE & "<br>" & vbCrLf   'cambiado
+                 '       Response.Write OSA & vbCrLf            'cambiado
+                    end if
+                    if ucase(left(Request("callsign"),2)) <> "CX" then
+                        Response.Write "</td></tr></table></td><td align=center><a href='http://www.anac.gob.ar/' target=_blank><img src=""images/vor.gif"" border=0 width=100px ALT=""Ir a la ANAC"" title=""Ir a la ANAC""></a></td></tr></table>"
+                    else
+                        Response.Write "</td></tr></table></td><td align=center><a href='https://dinacia.gub.uy//' target=_blank><img src=""rcu.gif"" border=0 width=100px ALT=""Ir a DINACIA"" title=""Ir a DINACIA""></a></td></tr></table>"
+                    end if
+                    SMSmsg = LYERadial & " "&VOR1&" " & LYEDist & " / " & OSARadial & " "&VOR2&" " & OSADist & " / "
+                    if len(Altura)> 2 then
+                        Alt = trim(replace(Altura,"feet","",1,100,1))
+                        Alt = "FL"& int(Alt/100) & " / "
+                        SMSmsg = SMSmsg & Alt
+                    else
+                        SMSmsg = SMSmsg & "FL0 / "
+                    end if
+                    if len(Course)>0 then
+                        CD = int(Cursom(1))
+                        if CD > 359 then CD=int(CD/10)
+                        SMSmsg = SMSmsg & " CD" & CD & " / "
+                    end if
+                    if len(Speed)>0 then
+                        SMSmsg = SMSmsg & " GS" & Speed & " / "
+                    end if
+                    SMSmsg = SMSmsg & day(Fechahoralocal)&"-"&mes(month(Fechahoralocal))&" " & right(100+hour(Fechahoralocal),2) & ":" & right(100+minute(FechaHoraLocal),2) & " hace " & Tiempo & " "
+                    if len(OSADist)>0 and len(OSADist) < 3 and len(LYEDist) > 0 and len(LYEDist) < 3 then
+                        Response.Write "<img src=""images/celulari.gif"" ALT=""Celular"" border=0>" & "SMS = " & SMSmsg & "<br>"
+                    end if
+                else
+                    Response.Write "No hay datos actualizados disponibles para "&callsign&"<br>Los datos para c&aacute;lculos de VORs se toman de findu.com<br><br>Posiblemente el vuelo ocurri&oacute; hace mas de 10 d&iacute;as<br>o el 'CALL' no corresponde a la licencia buscada<br><br>Puede haber gr&aacute;ficos disponibles dar click "
+                    Response.Write "click <a href=balloonchart.asp?callsign="&callsign&"><u>Aqu&iacute;</u></a>"
+                    Response.Write "</td></tr></table></td><td align=center><a href='http://www.anac.gob.ar/spanish/' target=_blank><img src=""images/vor.gif"" border=0 width=90px alt='Ir a la ANAC' title='Ir a la ANAC'></a></td></tr></table>"
+                end if
+
+                %>
+                -->
+                <div id="sms1"></div>
+
+                <table border="0" cellpadding="1" cellspacing="0">
+                    <tr>
+                        <td rowspan="2">
+                            <!--
+                <%if len(VOR1Lat)>2 then %>
+                    <%if LYEDist <>"" and OSADist <> "" and LYEDist<800 and OSADist < 800 then %>
+                        <div id="graphics" style="overflow:hidden;position:relative;width:180px;height:130px;"></div>
+                    <%end if %>
+                <% end if %>
+                 -->
+                        </td>
+                        <!--                 <% if left(callsign,1)="L" then %>
+                    <td colspan=2 align=center><center>
+                    <%if len(Tiempo)>2 then %>
+                    <font class=titc>
+                    Ingresar Celulares p/ envio SMS<font size=-2 style="color:#000000;"><br><em>Env&iacute;o SMS a Celulares <font style='color:#ff0000;'>(Excepto de Personal)</font></em></font></font>
+                    <% end if %>
+                    </center>
+                    </td></tr><tr>
+                    <td>
+                <%if LYEDist<>"" and OSADist <>"" then %>
+                        <table border=0 cellpadding=1 cellspacing=0 bgcolor="#eeeeee" align=center style="font-size:11px;line-height:10px;">
+                        <tr><td align=center colspan=2><center><b>Celulares de contacto</b></center></td></tr>
+                        <tr><td align=center>011-15-nnnnnnnn</td><td>&nbsp;Ignacio Mazzitelli</td><td></td></tr>
+                        <tr><td align=center>011-15-nnnnnnnn</td><td>&nbsp;Adrian Sinclair</td><td></td></tr>
+                        <tr><td align=center>011-15-nnnnnnnn</td><td>&nbsp;Pedro Converso</td><td></td></tr>
+                        <tr><td align=center>011-15-nnnnnnnn</td><td>&nbsp;Juan Carlos Parra</td><td></td></tr>
+                        <tr><td align=center>02302-15-nnnnnn</td><td>&nbsp;Jorge Mu\F1oz</td><td></td></tr>
+                        <tr><td align=center>02302-15-nnnnnn</td><td>&nbsp;Marcelo Mackenzie</td><td></td></tr>
+                        </table>
+                <%end if %>
+                   </td>
+
+                    <td>
+                    <table border=0 cellpadding=0 cellspacing=0><tr>
+                    <%if len(Tiempo)>2 then %>
+                    <td>&nbsp;&nbsp;Celular-1 : <input type=text name=HCel1 maxlength=5 value="<%if Request("HCel1") = "" then Response.Write "011" else Response.Write Request("HCel1") end if%>" class=titc style="width:45px;height:23px;text-align:right;">-15-<input type=text name=Cel1 maxlength=8 value="<%=Request("Cel1")%>" class=titc style="width:70px;height:23px;">
+                    <% end if %>
+                    </td><td>
+
+                    </td></tr><tr><td>
+                    <%if len(Tiempo)>2 then %>
+                    &nbsp;&nbsp;Celular-2 : <input type=text name=HCel2 maxlength=5 value="<%if Request("HCel2") = "" then Response.Write "011" else Response.Write Request("HCel2") end if%>" class=titc style="width:45px;height:23px;text-align:right;">-15-<input type=text name=Cel2 maxlength=8 value="<%=Request("Cel2")%>" class=titc style="width:70px;height:23px;">
+                    <%end if %>
+                    </td><td>
+                    </td></tr><tr><td>
+                    <%if len(Tiempo)>2 then %>
+                    &nbsp;&nbsp;Celular-3 : <input type=text name=HCel3 maxlength=5 value="<%if Request("HCel3") = "" then Response.Write "02302" else Response.Write Request("HCel3") end if%>" class=titc style="width:45px;height:23px;text-align:right;">-15-<input type=text name=Cel3 maxlength=8 value="<%=Request("Cel3")%>" class=titc style="width:70px;height:23px;">
+                    <%end if %>
+                <%end if %>
+                <%
+                SMS1SMS = laspos1 & distanciaciudad & city
+                %>
+                </td><td>
+                </td>
+                </tr></table>
+
+                </td>
+                            -->
+                    </tr>
+                </table>
+                <!--
+<%if len(Tiempo)<2 then Tiempo="0d 0h 0' 0''" %>
+<%if len(Tiempo)>2 then %>
+<%
+if len(datataken) > 10 then
+    urlaprsfi = "http://www.aprs.fi?call="&callsign
+    Response.Write "<a href='"&datataken& "' target=_blank><font size=-2 style=""vertical-align:text-top;""><u>DATA</u></font></a>&nbsp;"
+    Response.Write "<a href='"&urlaprsfi& "' target=_blank><font size=-2 style=""vertical-align:text-top;""><u>APRSFI</u></font></a>&nbsp;"
+    Response.Write "<a href='http://www.flightradar24.com/"&formatnumber(Glatdeg,2)&","&formatnumber(Glondeg,2)&"/7' target=_blank><font size=-2 style=""vertical-align:text-top;""><u>RADAR</u></font></a>&nbsp;"
+end if
+%>
+<input type=button name=seechart value="Chart" style="cursor:hand;width:41px;height:20px;line-height:12px;" onclick="javascript:document.location.href='balloonchart.asp?callsign=<%=callsign%>&flights=<%=Request("flights")%>&Vuelo=<%=Request("Vuelo")%>'">
+<% if left(callsign,1)="L" then %>
+    <%if LYEDist <>"" and OSADist <> "" and LYEDist<800 and OSADist < 800 then %>
+        <input type=submit name=Validar value="Validar Celulares" style="cursor:hand;width:108px;height:20px;line-height:12px;">
+        <input type=submit name=Enviar value="Enviar SMSs" style="cursor:hand;width:82px;height:20px;line-height:12px;">
+    <%end if %>
+<%end if %>
+<%end if %>
+<%if len(Tiempo)>2 then %>
+<input type=button name=vermapa value="Findu Map" style="cursor:hand;width:78px;height:20px;line-height:12px;" onclick="javascript:document.location.href='http://www.findu.com/cgi-bin/find.cgi?call=<%=callsign%>'">
+<input type=button name=verfindu value="Findu Page" style="cursor:hand;width:76px;height:20px;line-height:12px;" onclick="javascript:document.location.href='http://www.findu.com/cgi-bin/vor.cgi?call=<%=callsign%>&vor1=<%=VOR1%>&vor2=<%=VOR2%>&refresh=60'">
+<%end if %>
+<input type=submit oncliock="saveMapState()" name=Refresh value="Refresh" style="cursor:pointer;width:66px;height:20px;line-height:12px;">
+<font style="font-weight:normal;font-size:14px;vertical-align:inherit;">Auto-Refr:</font><input type=checkbox name="AutoRef" value="" style="vertical-align:inherit;" <%if Request("AutoRef")=1 then Response.Write "checked"%> onclick="javascript:saveMapState;document.Resend.submit();">
+<font style="font-family:Tahoma;font-weight:normal;font-size:14px;vertical-align:inherit;">All:</font><input type=checkbox name="flights" value="0" onclick="javascript:document.Resend.submit();" style="vertical-align:inherit;" <%if Request("flights")=1 or Request("flights") <> "" then Response.Write "checked"%>>
+<%if ssavempointer>1 then
+    Response.Write "<font style='font-size:14px;line-height:14px;font-weight:normal;vertical-align:inherit;'>+Flights:</font>"
+    for m=1 to ssavempointer
+        nombrefecha=month(cDate(ssavem(m,1)))&"/"&day(cDate(ssavem(m,1)))
+        fvlo=cDate(ssavem(m,1))
+        fvloc="Vuelo-" & m & "  " & day(fvlo)& "-" & mes(month(fvlo)) & "-" & year(fvlo) & " " & right("00"&hour(fvlo),2)&":"&right("00"&minute(fvlo),2)&"z"
+        Response.Write "<input type=button name=vuelos value='"&nombrefecha&"' Title='"&fvloc&"' style='cursor:hand; width:34px;height:20px;font-size:10px;line-height:11px;vertical-align:inherit;' onclick='ira("&m&")'>"
+    next
+end if%>
+-->
+            </center>
+        </form>
+    </body>
+</html>

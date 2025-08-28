@@ -46,7 +46,6 @@ window.rowsChart = [];
 var x,
   y,
   element,
-  posicion,
   pag,
   m,
   lastm,
@@ -100,7 +99,7 @@ async function startApp() {
   }
 
   let estaciones = "http://www.findu.com/cgi-bin/map-near.cgi?call=" + callsign;
-  //console.log(estaciones);
+
   // estaciones proximas escuchadas la ultima hora hasta 550 millas = "http://www.findu.com/cgi-bin/near.cgi?call=lu7aa-11&last=1&n=300&distance=550"
   let body = new URLSearchParams({ url: estaciones }).toString();
   pag = await getURLXform(
@@ -119,14 +118,12 @@ async function startApp() {
   }
   for (let z = 0; z <= stationlast; z++) {
     if (ucase(stations[z][0]) === ucase(callsign)) {
-      //console.log("stations[z]", stations[z]);
       GLatdeg = stations[z][1];
       GLondeg = stations[z][2];
     }
   }
   // Now get latest points to draw path
   let spanhours = 900;
-  //console.log("stations", stations);
   let pag1 = "";
   let temperaturas = [];
   if (
@@ -150,13 +147,12 @@ async function startApp() {
 
     window.Posicion = 1;
     temperaturas = processAprsData(rawdata, pag);
-    console.log("temperaturas", temperaturas);
   }
 
   pag = "";
   window.Posicion = 1;
 
-  let validdata = true;
+  //let validdata = true;
   let urlpath = `http://www.findu.com/cgi-bin/posit.cgi?call=${callsign}&comma=1&start=${spanhours}&time=1`;
 
   body = new URLSearchParams({ url: urlpath }).toString();
@@ -176,7 +172,6 @@ async function startApp() {
   }
   const pagHmResult = procesarPagHm(pag, pag1);
   let pathm = pagHmResult.pathm;
-  console.log("pagHmResult", pagHmResult);
 
   let daysave = cuantosDias(pathm[0].split(",")[0]);
   let fecha1 = cuantosDias(pathm[pagHmResult.limite].split(",")[0]);
@@ -251,7 +246,7 @@ async function startApp() {
       final = ssavem[0][0] - 1;
     }
   }
-  console.log("COMINEZO " + comienzo + " FINAL " + final);
+
   let heightpointer = 0;
 
   if (!heightvalid) {
@@ -432,17 +427,24 @@ async function startApp() {
   let heightsave = 0;
   let diafinal = "";
   let launch = "";
+  let launchdate = "";
+  let launchtime = "";
   let deltaupdown = 0;
   let deltafeetpersecond = 0;
   let deltaMetersPerSecond = 0;
   let timeinitial = "";
   let diainicial = "";
+  let lati1 = "";
+  let loni1 = "";
+  let latii1 = "";
+  let lonii1 = "";
+  let lati2 = "";
+  let loni2 = "";
+  let timefinal = "";
+  let hightime = "";
 
   for (let s = comienzo + 1; s <= final; s++) {
     let posdatam = pathm[s].split(",");
-
-    console.log("posdatam", posdatam);
-
     if (s > comienzo) {
       wdir = trim(posdatam[3]);
     } else {
@@ -545,7 +547,6 @@ async function startApp() {
     } // END if (wdir === "" || wdir === " " || wspeed == "0.0" || wspeed == "")
 
     if (s === comienzo + 1) {
-      // console.log("posdatam[0]:", posdatam);
       if (posdatam[0].length === 14) {
         posdatam[0] = " " + posdatam[0];
       }
@@ -553,20 +554,21 @@ async function startApp() {
       loni1 = posdatam[2];
       latii1 = posdatam[1];
       lonii1 = posdatam[2];
+      const fullDate = cuantosDias(pathm[s].split(",")[0]);
       timeinitial = cDate(
-        right("00" + mid(posdatam[0], 6, 2), 2) +
+        right("00" + (fullDate.getMonth() + 1), 2) +
           "/" +
-          right("00" + mid(posdatam[0], 8, 2), 2) +
+          right("00" + fullDate.getDate(), 2) +
           "/" +
-          right("00" + mid(posdatam[0], 2, 4), 4) +
+          right("00" + fullDate.getFullYear(), 4) +
           " " +
-          right("00" + mid(posdatam[0], 10, 2), 2) +
+          right("00" + fullDate.getHours(), 2) +
           ":" +
-          right("00" + mid(posdatam[0], 12, 2), 2) +
+          right("00" + fullDate.getMinutes(), 2) +
           ":" +
-          right("00" + mid(posdatam[0], 14, 2), 2),
+          right("00" + fullDate.getSeconds(), 2),
       );
-      diainicial = right("00" + mid(posdatam[0], 8, 2), 2);
+      diainicial = right("00" + fullDate.getDate(), 2);
     } // end s === comienzo + 1
 
     if (!isDate(timeinitial)) {
@@ -576,18 +578,19 @@ async function startApp() {
         if (posdatam[0].length === 14) {
           posdatam[0] = " " + posdatam[0];
         }
+        const fullDate = cuantosDias(pathm[s].split(",")[0]);
         timeinitial = cDate(
-          right("00" + mid(posdatam[0], 6, 2), 2) +
+          right("00" + (fullDate.getMonth() + 1), 2) +
             "/" +
-            right("00" + mid(posdatam[0], 8, 2), 2) +
+            right("00" + fullDate.getDate(), 2) +
             "/" +
-            right("00" + mid(posdatam[0], 2, 4), 4) +
+            right("00" + fullDate.getFullYear(), 4) +
             " " +
-            right("00" + mid(posdatam[0], 10, 2), 2) +
+            right("00" + fullDate.getHours(), 2) +
             ":" +
-            right("00" + mid(posdatam[0], 12, 2), 2) +
+            right("00" + fullDate.getMinutes(), 2) +
             ":" +
-            right("00" + mid(posdatam[0], 14, 2), 2),
+            right("00" + fullDate.getSeconds(), 2),
         );
       }
     } // end (isDate(timeinitial))
@@ -598,20 +601,21 @@ async function startApp() {
       if (posdatam[0].length === 14) {
         posdatam[0] = " " + posdatam[0];
       }
+      const launchFullDate = cuantosDias(pathm[s].split(",")[0]);
       timefinal = cDate(
-        right("00" + mid(trim(posdatam[0]), 6, 2), 2) +
+        right("00" + (launchFullDate.getMonth() + 1), 2) +
           "/" +
-          right("00" + mid(trim(posdatam[0]), 8, 2), 2) +
+          right("00" + launchFullDate.getDate(), 2) +
           "/" +
-          right("00" + mid(trim(posdatam[0]), 2, 4), 4) +
+          right("00" + launchFullDate.getFullYear(), 4) +
           " " +
-          right("00" + mid(trim(posdatam[0]), 10, 2), 2) +
+          right("00" + launchFullDate.getHours(), 2) +
           ":" +
-          right("00" + mid(trim(posdatam[0]), 12, 2), 2) +
+          right("00" + launchFullDate.getMinutes(), 2) +
           ":" +
-          right("00" + mid(trim(posdatam[0]), 14, 2), 2),
+          right("00" + launchFullDate.getSeconds(), 2),
       );
-      diafinal = right("00" + mid(posdatam[0], 8, 2), 2);
+      diafinal = right("00" + launchFullDate.getDate(), 2);
       if (actualdateformated === "") {
         actualdateformated = dateFormatter(posdatam[0]);
         actualdate = new Date(actualdateformated);
@@ -623,25 +627,35 @@ async function startApp() {
         } else {
           launch = " from ";
         }
-        launch = launch + mes[mid(pathm[s], 6, 2)] + "-";
-        launch = launch + mid(pathm[s], 8, 2) + " at ";
-        hourlocaldetail = mid(pathm[s], 10, 2) * 1 + timezone;
+        launch = launch + mes[launchFullDate.getMonth() + 1] + "-";
+        launch =
+          launch +
+          right("0" + launchFullDate.getDate(), 2) +
+          "-" +
+          launchFullDate.getFullYear() +
+          " at ";
+        hourlocaldetail = launchFullDate.getHours(); //(mid(pathm[s], 10, 2) * 1 + timezone) % 24;
         if (hourlocaldetail < 0) {
           hourlocaldetail = hourlocaldetail + 24;
         }
         launch = launch + right("0" + hourlocaldetail, 2) + ":";
-        launchdate = mid(pathm[s], 6, 2) + "/" + mid(pathm[s], 8, 2);
+        launchdate =
+          launchFullDate.getMonth() + 1 + "/" + launchFullDate.getDate();
         launchtime =
           right("0" + hourlocaldetail, 2) +
           ":" +
-          mid(pathm[s], 12, 2) +
+          right("0" + launchFullDate.getMinutes(), 2) +
           ":" +
-          mid(pathm[s], 14, 2);
-        launch = launch + mid(pathm[s], 12, 2) + ":";
-        launch = launch + mid(pathm[s], 14, 2) + " local = (";
-        launch = launch + right("0" + mid(pathm[s], 10, 2) * 1, 2) + ":";
-        launch = launch + mid(pathm[s], 12, 2) + ":";
-        launch = launch + mid(pathm[s], 14, 2) + " Z)";
+          right("0" + launchFullDate.getSeconds(), 2);
+        launch =
+          launch +
+          right("0" + launchFullDate.getMinutes(), 2) +
+          ":" +
+          right("0" + launchFullDate.getSeconds(), 2) +
+          " local = (";
+        launch = launch + right("0" + launchFullDate.getHours(), 2) + ":";
+        launch = launch + right("0" + launchFullDate.getMinutes(), 2) + ":";
+        launch = launch + right("0" + launchFullDate.getSeconds(), 2) + " Z)";
       }
     } // end (s === final)
 
@@ -703,7 +717,6 @@ async function startApp() {
     } else {
       wspeed = "0.0";
     }
-    console.log("posdatam[0] [5]", posdatam[0] + ", " + posdatam[5]);
 
     if (
       posdatam[0] != posdatam0s &&
@@ -733,30 +746,39 @@ async function startApp() {
               } else {
                 launch = " from ";
               }
-              launch = launch + mes[mid(pathm[s], 6, 2)] + "-";
+              const launchFullDate = cuantosDias(pathm[s].split(",")[0]);
+              launch = launch + mes[launchFullDate.getMonth() + 1] + "-";
               launch =
                 launch +
-                mid(pathm[s], 8, 2) +
+                right("0" + launchFullDate.getDate(), 2) +
                 "-" +
-                mid(pathm[s], 2, 4) +
+                launchFullDate.getFullYear() +
                 " at ";
-              hourlocaldetail = (mid(pathm[s], 10, 2) * 1 + timezone) % 24;
+              hourlocaldetail = launchFullDate.getHours(); //(mid(pathm[s], 10, 2) * 1 + timezone) % 24;
               if (hourlocaldetail < 0) {
                 hourlocaldetail = hourlocaldetail + 24;
               }
               launch = launch + right("0" + hourlocaldetail, 2) + ":";
-              launchdate = mid(pathm[s], 6, 2) + "/" + mid(pathm[s], 8, 2);
+              launchdate =
+                launchFullDate.getMonth() + 1 + "/" + launchFullDate.getDate();
               launchtime =
-                (right("0" + hourlocaldetail, 2) % 24) +
+                right("0" + hourlocaldetail, 2) +
                 ":" +
-                mid(pathm[s], 12, 2) +
+                right("0" + launchFullDate.getMinutes(), 2) +
                 ":" +
-                mid(pathm[s], 14, 2);
-              launch = launch + mid(pathm[s], 12, 2) + ":";
-              launch = launch + mid(pathm[s], 14, 2) + " local = (";
-              launch = launch + right("0" + mid(pathm[s], 10, 2) * 1, 2) + ":";
-              launch = launch + mid(pathm[s], 12, 2) + ":";
-              launch = launch + mid(pathm[s], 14, 2) + " Z)";
+                right("0" + launchFullDate.getSeconds(), 2);
+
+              launch =
+                launch +
+                right("0" + launchFullDate.getMinutes(), 2) +
+                ":" +
+                right("0" + launchFullDate.getSeconds(), 2) +
+                " local = (";
+              launch = launch + right("0" + launchFullDate.getHours(), 2) + ":";
+              launch =
+                launch + right("0" + launchFullDate.getMinutes(), 2) + ":";
+              launch =
+                launch + right("0" + launchFullDate.getSeconds(), 2) + " Z)";
               firstdata = true;
             } // end if(!firsdata)
 
@@ -820,15 +842,6 @@ async function startApp() {
               avgwsf = avgwsf + Number(wspeed);
               avgwsm = avgwsm + Number(wspeed) / 0.539956803;
               avgwscount = avgwscount + 1;
-
-              console.log(
-                " Elapsed: " +
-                  Elapsed +
-                  " Sube/baja a: " +
-                  formatNumber(deltafeetpersecond, 1) +
-                  " pies/seg -- " +
-                  deltafeetpersecond,
-              );
             } //end if(isDate(prevdateformated))
           } // end if (isDate(actualdateformated))
 
@@ -845,14 +858,9 @@ async function startApp() {
             horalocal = horalocal + 24;
           }
 
-          // console.log("actualdateformated", actualdateformated);
-
           datezulu = new Date(actualdateformated);
           datelocal = new Date(actualdateformated);
           datelocal.setTime(datelocal.getTime() + timezone * 60 * 60 * 1000);
-
-          // console.log("datelocal:", datelocal);
-          //console.log("datezulu:", datezulu);
 
           dates = [
             new Date(
@@ -909,8 +917,8 @@ async function startApp() {
             normalvorloc.push(Number(posdatam[1]));
             normalvorloc.push(Number(posdatam[2]));
             normalvorloc.push(icono);
-            normalvorloc.push(T1);
-            normalvorloc.push(T2);
+            normalvorloc.push(Number(NumberT1));
+            normalvorloc.push(Number(T2));
             normalvorloc.push(T3);
           } else {
             normalvorloc.push(Number(posdatam[1]));
@@ -935,9 +943,9 @@ async function startApp() {
             blastvorloc.push(Number(posdatam[1]));
             blastvorloc.push(Number(posdatam[2]));
             blastvorloc.push(iconblast);
-            blastvorloc.push(T1);
-            blastvorloc.push(T2);
-            blastvorloc.push(T3);
+            blastvorloc.push(Number(T1));
+            blastvorloc.push(Number(T2));
+            blastvorloc.push(Number(T3));
           } else {
             blastvorloc.push(Number(wspeed));
             blastvorloc.push(delta1);
@@ -1011,26 +1019,28 @@ async function startApp() {
           previousvorlocblast = [...dates.map((d) => d)];
           previousvorlocblast.push(formattedPos5);
           previousvorlocblast.push(formattedPos5Delta);
-          previousvorlocblast.push(wdir);
+          previousvorlocblast.push(Number(wdir));
           previousvorlocblast.push(formattedWspeedConverted);
-          previousvorlocblast.push(wspeed);
+          previousvorlocblast.push(Number(wspeed));
           if (
             callsign.toLowerCase() === "lu7aa-11" ||
             callsign.toLowerCase() === "lu7aa-12"
           ) {
             previousvorlocblast = [...previousvorlocblast.map((d) => d)];
-            previousvorlocblast.push(Delta);
-            previousvorlocblast.push(posdatam[1]);
-            previousvorlocblast.push(posdatam[2]);
+            previousvorlocblast.push(delta1);
+            previousvorlocblast.push(delta2);
+            previousvorlocblast.push(Number(posdatam[1]));
+            previousvorlocblast.push(Number(posdatam[2]));
             previousvorlocblast.push(iconblast);
-            previousvorlocblast.push(T1);
-            previousvorlocblast.push(T2);
-            previousvorlocblast.push(T3);
+            previousvorlocblast.push(Number(NT1));
+            previousvorlocblast.push(Number(T2));
+            previousvorlocblast.push(Number(T3));
           } else {
             previousvorlocblast = [...previousvorlocblast.map((d) => d)];
-            previousvorlocblast.push(Delta);
-            previousvorlocblast.push(posdatam[1]);
-            previousvorlocblast.push(posdatam[2]);
+            previousvorlocblast.push(delta1);
+            previousvorlocblast.push(delta2);
+            previousvorlocblast.push(Number(posdatam[1]));
+            previousvorlocblast.push(Number(posdatam[2]));
             previousvorlocblast.push(iconblast);
           }
           posdatam0s = posdatam[0];
@@ -1122,22 +1132,22 @@ async function startApp() {
     " F": " feet",
     " K": " Km/h",
     " N": " Knots",
-    Ascent: "Ascent/Descent",
+    ASCENT: "Ascent/Descent",
   };
 
   let tituloGrafico = grafico;
   for (let key in replacements) {
-    tituloGrafico = tituloGrafico.replace(key, replacements[key]);
+    tituloGrafico = tituloGrafico.replace(
+      key.toLocaleLowerCase(),
+      replacements[key.toUpperCase()],
+    );
   }
 
-  options.title = `${titulo}${tituloGrafico} Chart ${launch}`;
-  console.log(options);
+  options.title = `${titulo}${capitalizeFirstLetter(tituloGrafico)} Chart ${launch}`;
 
   bearn = bearing1(lati1, lati2, loni1, loni2);
   bearn = formatNumber(bearn, 1);
   recorrido = distancia(lati1, loni1, lati2, loni2);
-  console.log(`Bearing: ${bearn}°`);
-  console.log(`Distance: ${recorrido} km`);
 
   DuracionTotal = dateDiff("n", timeinitial, timefinal);
   duracionhms = seconds2hms(DuracionTotal * 60);
@@ -1173,8 +1183,8 @@ async function startApp() {
     avgupf,
     avgdom,
     avgwsm,
-    avgws: 10,
-    avgdo: 5,
+    avgwsf,
+    avgdof,
     recorrido,
     diraverage,
     latii1,
@@ -1182,24 +1192,65 @@ async function startApp() {
     lati2,
     loni2,
   });
-  loadGoogleChart();
+
+  const formClientRects = document
+    .querySelector("form")
+    .getBoundingClientRect();
   document.getElementById("chart_div").style.width =
-    document.body.clientWidth - 30;
+    `${formClientRects.width - 30}px`;
   document.getElementById("chart_div").style.height =
-    document.body.clientHeight - 65;
+    `${formClientRects.height - 65}px`;
   document.getElementById("chartdata").style.left =
-    document.body.clientWidth - 202;
-  if (document.body.clientWidth > 800) {
+    `${formClientRects.width - 202}px`;
+  if (formClientRects.width > 800) {
     document.getElementById("chartdata").style.fontSize = "14px";
     document.getElementById("chartdata").style.lineHeight = "15px";
     document.getElementById("chartdata").style.left =
-      document.body.clientWidth - 302;
-    document.getElementById("chartdata").style.width = 300;
+      `${formClientRects.width - 302}px`;
+    document.getElementById("chartdata").style.width = `300px`;
+  }
+
+  if (vorloc.length > 0) {
+    loadGoogleChart();
+  } else {
+    document.getElementById("chart_table").display = "none";
+  }
+
+  if (getParamSafe("flights") !== "") {
+    document.getElementById("flights").setAttribute("checked", "checked");
+  }
+  if (ssavempointer > 1) {
+    let html =
+      "<font style='font-size:14px;line-height:14px;font-weight:normal;vertical-align:inherit;'>+Flights:</font>";
+    for (let m = 1; m <= ssavempointer; m++) {
+      const fecha = ssavem[m][1];
+      const nombrefecha = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear().toString().slice(-2)}`;
+      const fvloc = `Flight-${m}  ${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear().toString().slice(-2)} ${fecha.getHours().toString().padStart(2, "0")}:${fecha.getMinutes().toString().padStart(2, "0")}z`;
+      html += `<input type=button name=vuelos value='${nombrefecha}' Title='${fvloc}' style='cursor:hand; width:44px;height:20px;font-size:10px;line-height:11px;vertical-align:inherit;padding:0 0 0 0;margin-left:4px;' onclick='ira(${m})'>`;
+    }
+    document.getElementById("flightInfo").innerHTML = html;
   }
 
   if (Discarddata.length > 20) {
     document.getElementById("discardData").innerHTML = Discarddata;
   }
+  if (
+    callsign.toLowerCase() === "lu7aa-11" ||
+    callsign.toLowerCase() === "lu7aa-12"
+  ) {
+    document.getElementById("chart_temp_voltage").style.display = "block";
+  }
+  markbutton();
 }
 
-window.addEventListener("load", startApp);
+async function onloadApp() {
+  try {
+    await startApp();
+  } catch (error) {
+    console.error(error);
+    showError(error.message || "An error occurred");
+  } finally {
+    document.getElementById("loader").style.display = "none";
+  }
+}
+window.addEventListener("load", onloadApp);

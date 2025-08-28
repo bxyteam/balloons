@@ -29,6 +29,10 @@ function right(str, length) {
 function capitalizeWords(str) {
   return str.replace(/\b\w/g, (char) => char.toUpperCase());
 }
+function capitalizeFirstLetter(str) {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 function replace(
   str,
@@ -1517,14 +1521,11 @@ function drawChart() {
 
   // Agrega los datos aquí si no vienen ya cargados
   data.addRows([...vorloc]);
-  //[new Date(2025,7,19,17,13,0),new Date(2025,7,19,17,13,0),12660,41535,126.9,136.5,73.72,0.0,0.1,-28.051,-56.966,'point'],
-  console.log("gata-g", data);
+
   // Crea la vista
   const view = new google.visualization.DataView(data);
 
   // Selección dinámica de columnas para la vista
-  console.log("grafico", grafico);
-  console.log("callsign", callsign);
   view.setColumns(getViewColumns(grafico, callsign));
 
   // Dibuja el gráfico
@@ -1536,7 +1537,7 @@ function drawChart() {
 
 function getViewColumns(grafico, callsign) {
   const columna = 0;
-  let diraverage = 0; // Definir si lo necesitas
+  //let diraverage = 0; // Definir si lo necesitas
   let speedaverage = 0;
   let speedaveragek = 0;
 
@@ -1654,8 +1655,8 @@ function renderChartData({
   avgupf,
   avgdom,
   avgwsm,
-  avgws,
-  avgdo,
+  avgwsf,
+  avgdof,
   recorrido,
   diraverage,
   latii1,
@@ -1667,17 +1668,17 @@ function renderChartData({
   // const city2 = await getCiudad(lati2, loni2);
   /// console.log(city1, city2);
   document.getElementById("chartdata").innerHTML =
-    ` <b>${callsign.toUpperCase()} ${launchdate} Flight Synopsis</b>
+    `<b>${callsign.toUpperCase()} ${launchdate} Flight Synopsis</b>
   <br />From: ${launchtime} Duration: ${duracionhms}
   <br />MaxHeight: ${formatNumber(maxheight * 0.3048, 0)} m. /
-  ${formatNumber(maxheight - feetdelta, 0)} feet <br />At:
-  ${maxtimehms} Horizont: ${coverage} Km. <br />Average
-  up: ${avgupm} m/s / ${avgupf} feet/s <br />Avg. down: ${avgdom}
-  m/s / ${avgdo} feet/s<br />Wind speed: ${avgwsm} Km/h /
-  ${avgws} knots <br />Land at: ${formatNumber(recorrido, 0)} Km /
+  ${formatNumber(maxheight - feetdelta, 0)} feet <br />At: ${maxtimehms} Horizont: ${coverage} Km. <br />Average
+  up:${avgupm} m/s / ${avgupf} feet/s <br />Avg. down:${avgdom}
+  m/s / ${avgdof} feet/s<br />Wind speed: ${avgwsm} Km/h /
+  ${avgwsf} knots <br />Land at: ${formatNumber(recorrido, 0)} Km /
   ${formatNumber(recorrido * 0.53996, 0)} nMiles <br />Launch to Land
-  azimuth: ${formatNumber(diraverage, 2)} &#176; <br />
+  azimuth: ${formatNumber(diraverage, 2)}&#176; <br />
   <i>(This legend could be moved)</i>`;
+
   /*
   document.getElementById("chartdata").innerHTML =
     ` <b>${callsign.toUpperCase()} ${launchdate} Flight Synopsis</b>
@@ -1694,4 +1695,18 @@ function renderChartData({
   ${left(city2, 30)}<br />&nbsp;&nbsp;&nbsp;
   <i>(This legend could be moved)</i>`;
   */
+}
+
+function showError(msg) {
+  document.querySelector("form").style.height = "75dvh";
+  document.getElementById("load_error").innerHTML =
+    `<div style="border: 3px solid red;
+        padding: 10px;
+        border-radius: 5px;
+        width: 300px;
+        margin-top: 40px;
+        box-shadow: 4px 10px 22px -17px;">
+    <h3>Error initializing app:</h3>
+    <p>${msg}</p>
+    </div>`;
 }

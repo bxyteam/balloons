@@ -74,6 +74,32 @@
                 font-size: 10px;
                 line-height: 11px;
             }
+            .loader {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #ffffff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+            }
+
+            .spinner {
+                width: 100px;
+                height: 100px;
+                border: 8px solid #ccc;
+                border-top-color: #24b686;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
         </style>
         <script
             type="text/javascript"
@@ -82,7 +108,6 @@
         <script src="js/balloonchartFn.js"></script>
         <script src="js/balloonchart.js"></script>
     </head>
-    <!-- <body class=titc style="margin-left: 0;margin-right: 0;margin-top: 0;margin-bottom: 0;margin: 0;vertical-align:absmiddle;" onload="markbutton();" onMouseMove="mouser(event);"> -->
     <body
         class="titc"
         style="
@@ -95,18 +120,26 @@
         "
         onMouseMove="mouser(event);"
     >
+        <div class="loader" id="loader">
+            <div class="spinner"></div>
+        </div>
         <center>
-            <form name="showgraph" style="margin-bottom: 0; margin-top: 0">
-                <!--
-    <% if validdata and len(vorloc) > 1500 then%>
-    <table border=0 cellpadding=0 cellspacing=0 style="height:'92%';"><tr><td align=center><center><div id="chart_div" style="border:0;width:1360px;height:580px;"></div></center></td></tr></table>
-    <%end if%>
-    -->
+            <div id="load_error"></div>
+            <form
+                name="showgraph"
+                style="
+                    margin-bottom: 0;
+                    margin-top: 0;
+                    height: 92dvh;
+                    width: 100%;
+                "
+            >
                 <table
                     border="0"
                     cellpadding="0"
                     cellspacing="0"
                     style="height: 92%"
+                    id="chart_table"
                 >
                     <tr>
                         <td align="center">
@@ -116,7 +149,7 @@
                                     style="
                                         border: 0;
                                         width: 1360px;
-                                        height: 580px;
+                                        height: 100%;
                                     "
                                 ></div>
                             </center>
@@ -278,11 +311,23 @@
                     "
                     onclick="letsgo('reach');"
                 />
-                <!--
-    <%if lcase(callsign)="lu7aa-11" or lcase(Request("callsign"))="lu7aa-12" then %>
-    <input type=button name=grafico value="Temperaturas y Voltaje" title="Chart Temperaturas y Voltaje" style="cursor:hand;width:41px;font-size:12px;padding:0 0 0 0;" onclick="letsgo('temp');">
-    <%end if%>
-   -->
+
+                <input
+                    type="button"
+                    id="chart_temp_voltage"
+                    name="grafico"
+                    value="Temperaturas y Voltaje"
+                    title="Chart Temperaturas y Voltaje"
+                    style="
+                        cursor: hand;
+                        width: 41px;
+                        font-size: 12px;
+                        padding: 0 0 0 0;
+                        display: none;
+                    "
+                    onclick="letsgo('temp');"
+                />
+
                 <input
                     type="button"
                     name="grafico"
@@ -294,11 +339,12 @@
                         font-size: 12px;
                         padding: 0 0 0 0;
                     "
-                    onclick="map('%=callsign%');"
+                    onclick="map(getParamSafe(callsign));"
                 />
-                <!-- <%if Request("flights")="1" or Request("flights") <> "" then Response.Write "checked"%>  -->
+
                 <input
                     type="checkbox"
+                    id="flights"
                     name="flights"
                     value="0"
                     onclick="javascript:document.forms.showgraph.submit();"
@@ -317,19 +363,7 @@
                     "
                     >All Flights
                 </font>
-                <font style="font-size: 11px">
-                    <!--
-    <%if ssavempointer>1 then
-        Response.Write "<font style='font-size:14px;line-height:14px;font-weight:normal;vertical-align:inherit;'>+Flights:</font>"
-        for m=1 to ssavempointer
-            nombrefecha= day(cDate(ssavem(m,1)))& "/" & month(cDate(ssavem(m,1)))& "/" & right(year(cDate(ssavem(m,1))),2)
-            fvlo=cDate(ssavem(m,1))
-            fvloc="Flight-" & m & "  " & day(fvlo) & mes(month(fvlo))&"-"&"-" & year(fvlo) & " " & right("00"&hour(fvlo),2)&":"&right("00"&minute(fvlo),2)&"z"
-            Response.Write "<input type=button name=vuelos value='"&nombrefecha&"' Title='"&fvloc&"' style='cursor:hand; width:44px;height:20px;font-size:10px;line-height:11px;vertical-align:inherit;padding:0 0 0 0;' onclick='ira("&m&")'>"
-        next
-    end if%>
-     -->
-                </font>
+                <font style="font-size: 11px" id="flightInfo"></font>
             </form>
         </center>
         <font size="-2" style="line-height: 10px"
