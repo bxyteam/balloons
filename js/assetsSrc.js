@@ -74,4 +74,12 @@ var imageSrcUrl = {
   solarvhf: "https://i.postimg.cc/7YQ6NvqQ/solarvhf.gif",
   sun1: "https://i.postimg.cc/nLqhZCB6/sun1.gif",
   world2: "https://iili.io/FDq8dZJ.jpg",
+  amsatblue: "https://i.postimg.cc/SRT3L1gg/amsatblue.gif",
+  blast: "https://i.postimg.cc/3R9c7bQ3/blast.png",
+  blast1: "https://i.postimg.cc/J7PfWtRj/blast1.png",
+  down: "https://i.postimg.cc/sDxtfy2q/down.png",
+  fondo: "https://i.postimg.cc/s2d8JhJC/fondo.gif",
+  pin: "https://i.postimg.cc/vmrK2ZPg/pin.png",
+  point: "https://i.postimg.cc/SsmvBb5Z/point.png",
+  vor: "https://i.postimg.cc/VLh2dTr6/vor.gif",
 };

@@ -180,7 +180,7 @@ async function startApp() {
   let ssavem = Array(pagHmResult.limite) //Array(pathm.length - 2)
     .fill()
     .map(() => Array(2).fill(""));
-  let ssavempointer = 0;
+  var ssavempointer = 0;
   ssavem[ssavempointer][0] = pagHmResult.limite; //pathm.length - 2;
   ssavem[ssavempointer][1] = cuantosDias(
     pathm[pagHmResult.limite].split(",")[0],
@@ -237,6 +237,7 @@ async function startApp() {
     if (checkm[4] == "0.0") {
       final = final - 1;
     }
+    // comienzo=0 //Ojo agregado para que tome desde el comienzo
   } else {
     if (Vuelo * 1 < ssavempointer + 1) {
       comienzo = ssavem[Vuelo * 1][0];
@@ -292,9 +293,9 @@ async function startApp() {
   }
   */
   um = 0;
-  icono = "point";
-  iconblast = "blast";
-  iconblast1 = "blast1";
+  icono = imageSrcUrl["point"];
+  iconblast = imageSrcUrl["blast"];
+  iconblast1 = imageSrcUrl["blast1"];
   Delta = "0,0";
   switcher = false;
   wdir = " ";

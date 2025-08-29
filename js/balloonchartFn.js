@@ -185,16 +185,17 @@ function letsgo(wheretogo) {
     flights +
     "&Vuelo=" +
     Vuelo;
-  document.location.href = nowgo;
+  window.parent.window.location.href = nowgo;
 }
+
 function map(wheretogo) {
   var flights = "";
   if (document.showgraph.flights.checked) {
     var flights = "&flights=1";
   }
 
-  if ("<%=ucase(left(callsign,1))%>" != "L")
-    if ("<%=ssavempointer%>" > 1) {
+  if (ucase(left(callsign, 1)) !== "L")
+    if (ssavempointer > 1) {
       var nowgo = "vor?callsign=" + wheretogo + flights + "&Vuelo=" + Vuelo;
     } else {
       var nowgo = "vor?callsign=" + wheretogo + flights + "&Vuelo=" + Vuelo;
@@ -202,7 +203,7 @@ function map(wheretogo) {
   else {
     var nowgo = "vor?callsign=" + wheretogo + flights + "&Vuelo=" + Vuelo;
   }
-  document.location.href = nowgo;
+  window.parent.window.location.href = `${HOST_URL}/${nowgo}`;
 }
 function loadPageVar(sVar) {
   return unescape(
@@ -499,7 +500,6 @@ async function getTimezone(lat, lon, timezoneDate) {
       let jsonResponse;
       try {
         jsonResponse = JSON.parse(pag2);
-        console.log("@@@@@@@@@@@@@@@@", jsonResponse);
       } catch (error) {
         // Si no es JSON válido, usar las funciones buscarTag originales
         window.Posicion = 1;
