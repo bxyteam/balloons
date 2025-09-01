@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" style="overflow: hidden">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vor Gmap</title>
+        <style></style>
+        <script type="text/javascript">
+            function initMap() {
+                console.log("initMap called");
+            }
+        </script>
+        <script type="text/JavaScript" src="js/jsDraw2DX.js"></script>
+        <script
+            type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAACTum6vjLOeCDgGj6EFFnzJMe7r8xOII&loading=async&callback=initMap"
+        ></script>
+
+        <!--<script
+            type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAACTum6vjLOeCDgGj6EFFnzJMe7r8xOII&loading=async&callback=initMap"
+        ></script>
+        <script
+            type="text/javascript"
+            src="https://www.google.com/jsapi"
+        ></script>-->
+        <script src="js/assetsSrc.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/gh/bxyteam/balloons@main/js/indexGmap.min.js"></script> -->
+        <script src="js/vorGmap.js"></script>
+    </head>
+    <body>
+        <div
+            id="map"
+            style="
+                width: 770px;
+                height: 420px;
+                font-size: 12px;
+                font-weight: normal;
+            "
+        ></div>
+
+        <script>
+            window.addEventListener("message", (event) => {
+                if (
+                    event.origin === "http://localhost:5000" ||
+                    event.origin === "https://balloons.browxy.com" ||
+                    event.origin === "https://balloons.dev.browxy.com"
+                ) {
+                    try {
+                        const jsonData = JSON.parse(event.data);
+                        processJsonData(jsonData);
+                    } catch (error) {
+                        console.error("Error al analizar el JSON:", error);
+                    }
+                } else {
+                    console.log(
+                        "Mensaje recibido desde una fuente no autorizada:",
+                        event,
+                    );
+                }
+            });
+        </script>
+    </body>
+</html>

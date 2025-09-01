@@ -135,11 +135,7 @@
                 }
             }
         </style>
-        <script type="text/JavaScript" src="jsDraw2DX.js"></script>
-        <script
-            type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAACTum6vjLOeCDgGj6EFFnzJMe7r8xOII"
-        ></script>
+        <script src="js/jsDraw2DX.js"></script>
         <script src="js/assetsSrc.js"></script>
         <script src="js/vor.js"></script>
         <script src="js/vorFn.js"></script>
@@ -149,7 +145,7 @@
         <div class="loader" id="loader">
             <div class="spinner"></div>
         </div>
-        <div id="load_error" style="margin: 40px auto"></div>
+        <div id="load_error" style="margin: 40px auto; width: 305px"></div>
         <form name="Resend" c style="margin-bottom: 0; margin-top: 0">
             <center>
                 <font style="font-size: 12px; font-weight: normal">
@@ -161,37 +157,7 @@
                         onchange="this.form.submit();"
                         style="font-size: 10px"
                         title="Seleccione 1er VOR"
-                    >
-                        <!--
-
-                        <%
-                        for v=0 to lastm
-                            if left(ucase(Request("callsign")),2)="CX" then usevor="MJZ" else usevor="SRC" end if
-                            Response.Write "<option value=" & trim(vormatrix(v,0))
-                        '    if Request("VOR1")="" and vormatrix(v,0)="GPI" then
-                            if Request("VOR1")="" and vormatrix(v,0)=usevor then
-                                Response.Write " SELECTED"
-                                VOR1Loc=trim(vormatrix(v,4))
-                                VOR1Lat = vormatrix(v,1)
-                                VOR1Lon = vormatrix(v,2)
-                                Vor1Mag = vormatrix(v,3)
-                                VOR1LocCountry=VOR1Loc & " " & trim(vormatrix(v,5))
-                            else
-                                if vormatrix(v,0)=Request("VOR1") then
-                                    Response.Write " SELECTED"
-                                    VOR1Loc=trim(vormatrix(v,4))
-                                    VOR1Lat = vormatrix(v,1)
-                                    VOR1Lon = vormatrix(v,2)
-                                    Vor1Mag = vormatrix(v,3)
-                                    VOR1LocCountry=VOR1Loc & " " & trim(vormatrix(v,5))
-                                end if
-                            end if
-                            Response.Write ">" & trim(vormatrix(v,0)) & "</option>" & vbCrLf
-                        next
-                        %>
-
-                        -->
-                    </select>
+                    ></select>
                     &nbsp;<a
                         href="#"
                         onclick="javascript:show();"
@@ -226,36 +192,7 @@
                         onchange="this.form.submit();"
                         style="font-size: 10px"
                         title="Seleccione 2do VOR"
-                    >
-                        <!--
-
-                        <%
-                        for v=0 to lastm
-                            if left(ucase(Request("callsign")),2)="CX" then usevor="DUR" else usevor="MJZ" end if
-                            Response.Write "<option value=" & trim(vormatrix(v,0))
-                        '    if Request("VOR2")="" and vormatrix(v,0)="OSA" then
-                            if Request("VOR2")="" and vormatrix(v,0)=usevor then
-                                Response.Write " SELECTED"
-                                VOR2Loc=trim(vormatrix(v,4))
-                                VOR2Lat = vormatrix(v,1)
-                                VOR2Lon = vormatrix(v,2)
-                                Vor2Mag = vormatrix(v,3)
-                                VOR2LocCountry=VOR2Loc & " " & trim(vormatrix(v,5))
-                            else
-                                if vormatrix(v,0)=Request("VOR2") then
-                                    Response.Write " SELECTED"
-                                    VOR2Loc=trim(vormatrix(v,4))
-                                    VOR2Lat = vormatrix(v,1)
-                                    VOR2Lon = vormatrix(v,2)
-                                    Vor2Mag = vormatrix(v,3)
-                                    VOR2LocCountry=VOR2Loc & " " & trim(vormatrix(v,5))
-                                end if
-                            end if
-                            Response.Write ">" & trim(vormatrix(v,0)) & "</option>" & vbCrLf
-                        next
-                        %
-
-                        --></select
+                    ></select
                     >&nbsp;<a
                         href="#"
                         onclick="javascript:show();"
@@ -287,6 +224,24 @@
                 -->
                 <br />
                 <div id="tables_content" style="width: 100dvw"></div>
+                <div id="other_content" style="width: 100dvw"></div>
+                <!--<center>
+                    <div id="gMapLoader" class="loader"></div>
+                    <iframe
+                        id="map_canvas"
+                        src="vorGmap.html"
+                        style="
+                            border: none;
+                            height: 80%;
+                            width: 80%;
+                            margin-right: auto;
+                            margin-left: auto;
+                            /*background-color: #213468;*/
+                            display: block;
+                            visibility: hidden;
+                        "
+                    ></iframe>
+                </center>-->
                 <!--
 
                 <table border=0 cellspacing=2 cellpadding=0 width="90%" style="width:90%;"><tr><td align=center><a href="http://www.amsat.org.ar" target=_blank><img src="images/amsatblue.gif" width=100px border=0 title="Ir a Amsat-LU" ALT="Ir a Amsat-LU"></a></td><td align=center>
@@ -373,63 +328,15 @@
 
                 <table border="0" cellpadding="1" cellspacing="0">
                     <tr>
-                        <td rowspan="2">
+                        <td id="td_graphics" rowspan="2">
                             <!--
                 <%if len(VOR1Lat)>2 then %>
                     <%if LYEDist <>"" and OSADist <> "" and LYEDist<800 and OSADist < 800 then %>
                         <div id="graphics" style="overflow:hidden;position:relative;width:180px;height:130px;"></div>
                     <%end if %>
                 <% end if %>
-                 -->
-                        </td>
-                        <!--                 <% if left(callsign,1)="L" then %>
-                    <td colspan=2 align=center><center>
-                    <%if len(Tiempo)>2 then %>
-                    <font class=titc>
-                    Ingresar Celulares p/ envio SMS<font size=-2 style="color:#000000;"><br><em>Env&iacute;o SMS a Celulares <font style='color:#ff0000;'>(Excepto de Personal)</font></em></font></font>
-                    <% end if %>
-                    </center>
-                    </td></tr><tr>
-                    <td>
-                <%if LYEDist<>"" and OSADist <>"" then %>
-                        <table border=0 cellpadding=1 cellspacing=0 bgcolor="#eeeeee" align=center style="font-size:11px;line-height:10px;">
-                        <tr><td align=center colspan=2><center><b>Celulares de contacto</b></center></td></tr>
-                        <tr><td align=center>011-15-nnnnnnnn</td><td>&nbsp;Ignacio Mazzitelli</td><td></td></tr>
-                        <tr><td align=center>011-15-nnnnnnnn</td><td>&nbsp;Adrian Sinclair</td><td></td></tr>
-                        <tr><td align=center>011-15-nnnnnnnn</td><td>&nbsp;Pedro Converso</td><td></td></tr>
-                        <tr><td align=center>011-15-nnnnnnnn</td><td>&nbsp;Juan Carlos Parra</td><td></td></tr>
-                        <tr><td align=center>02302-15-nnnnnn</td><td>&nbsp;Jorge Mu\F1oz</td><td></td></tr>
-                        <tr><td align=center>02302-15-nnnnnn</td><td>&nbsp;Marcelo Mackenzie</td><td></td></tr>
-                        </table>
-                <%end if %>
-                   </td>
 
-                    <td>
-                    <table border=0 cellpadding=0 cellspacing=0><tr>
-                    <%if len(Tiempo)>2 then %>
-                    <td>&nbsp;&nbsp;Celular-1 : <input type=text name=HCel1 maxlength=5 value="<%if Request("HCel1") = "" then Response.Write "011" else Response.Write Request("HCel1") end if%>" class=titc style="width:45px;height:23px;text-align:right;">-15-<input type=text name=Cel1 maxlength=8 value="<%=Request("Cel1")%>" class=titc style="width:70px;height:23px;">
-                    <% end if %>
-                    </td><td>
-
-                    </td></tr><tr><td>
-                    <%if len(Tiempo)>2 then %>
-                    &nbsp;&nbsp;Celular-2 : <input type=text name=HCel2 maxlength=5 value="<%if Request("HCel2") = "" then Response.Write "011" else Response.Write Request("HCel2") end if%>" class=titc style="width:45px;height:23px;text-align:right;">-15-<input type=text name=Cel2 maxlength=8 value="<%=Request("Cel2")%>" class=titc style="width:70px;height:23px;">
-                    <%end if %>
-                    </td><td>
-                    </td></tr><tr><td>
-                    <%if len(Tiempo)>2 then %>
-                    &nbsp;&nbsp;Celular-3 : <input type=text name=HCel3 maxlength=5 value="<%if Request("HCel3") = "" then Response.Write "02302" else Response.Write Request("HCel3") end if%>" class=titc style="width:45px;height:23px;text-align:right;">-15-<input type=text name=Cel3 maxlength=8 value="<%=Request("Cel3")%>" class=titc style="width:70px;height:23px;">
-                    <%end if %>
-                <%end if %>
-                <%
-                SMS1SMS = laspos1 & distanciaciudad & city
-                %>
-                </td><td>
-                </td>
-                </tr></table>
-
-                </td>
-                            -->
+                        --></td>
                     </tr>
                 </table>
                 <!--

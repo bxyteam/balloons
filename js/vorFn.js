@@ -44,6 +44,7 @@ function crsdist(lat1, lon1, lat2, lon2) {
   out = new MakeArray(0);
   out.distance = distance;
   out.bearing = bearing;
+  console.log("Distance:", distance, "Bearing:", bearing);
   return out;
 }
 function MakeArray(n) {
@@ -233,6 +234,9 @@ function setParamValues() {
     }
   }
   Vuelo = window.getParamSafe("Vuelo");
+  autoRefParam = window.getParamSafe("AutoRef");
+  flightsParam = window.getParamSafe("flights");
+  refreshParam = window.getParamSafe("Refresh");
 }
 
 async function getURLXform(url, body = null, headers = {}) {
@@ -509,7 +513,7 @@ async function getTimezoneOffsetFromGeoTimeZone(lat, lon) {
     return 0;
   }
 }
-
+/*
 function latlonTra(latlon) {
   // Dividir la cadena por "/"
   const latlons = latlon.split("/");
@@ -567,6 +571,34 @@ function latlonTra(latlon) {
 
   // Si no cumple las condiciones, retornar undefined o cadena vacía
   return "";
+}
+*/
+
+function latlonTra(latlon) {
+  // Dividir la cadena por "/" y limitar a 2 elementos
+  let latlons = latlon.split("/");
+
+  // Verificar que tengamos exactamente 2 elementos (equivalente a ubound=1 en ASP)
+  if (latlons.length === 2) {
+    let lat = latlons[0];
+    let lon = latlons[1];
+
+    // Construir la cadena resultado (asumiendo que degtodms existe)
+    let result =
+      "Latitude: " +
+      degToDMS(lat) +
+      "&nbsp;&nbsp;&nbsp;Longitude: " +
+      degToDMS(lon);
+
+    // Realizar los reemplazos
+    result = result.replace(/\\BA/g, "\\BA "); // Reemplazar todas las ocurrencias
+    result = result.replace(/'/g, "' "); // Reemplazar todas las ocurrencias
+
+    return result;
+  }
+
+  // Si no se cumple la condición, retornar undefined (equivalente a no asignar valor en ASP)
+  return undefined;
 }
 
 function decompress(tipo, datos) {
@@ -1358,474 +1390,67 @@ function showError(msg) {
     </div>`;
 }
 
-function showvormap() {
-  if (GLatdeg != 0) {
-    var map = new google.maps.Map(document.getElementById("map"), {
-      mapId: "DEMO_MAP_ID",
-      zoom: deltapos > 1 ? 8 : 10,
-      mapTypeControlOptions: {
-        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-      },
-      center: new google.maps.LatLng(`${GLatdeg}`, `${GLondeg}`),
-      scaleControl: true,
-      scaleControlOptions: {
-        position: google.maps.ControlPosition.BOTTOM_LEFT,
-        style: google.maps.ScaleControlStyle.STANDARD,
-      },
-      streetViewControl: true,
-      streetViewControlOptions: {
-        position: google.maps.ControlPosition.LEFT_TOP,
-      },
-      streetViewControl: true,
-      overviewMapControl: true,
-      rotateControl: true,
-      mapTypeId: google.maps.MapTypeId.HYBRID,
-    });
-    var infowindow = new google.maps.InfoWindow({ maxWidth: 220 });
-    var image = "globo.png";
-    if (iconomapa) {
-      var image = {
-        url: iconomapa,
-        scaledSize: new google.maps.Size(32, 32),
-      };
-    }
-    marker1 = new google.maps.Marker({
-      position: new google.maps.LatLng(`${GLatdegf}`, `${GLondegf}`),
-      Title:
-        GLondegf * 1 > -61 &&
-        GLondegf * 1 < -56 &&
-        GLatdegf * 1 > -36 &&
-        GLatdegf * 1 < -31 &&
-        ucase(callsign) === "LU7AA-11"
-          ? "Avion\nHeight\n" +
-            replace(
-              formatNumberV2((heightsave - feetlaunchfinal) * 0.3048, 0),
-              ",",
-              "",
-              1,
-              10,
-            ) +
-            " m."
-          : "Balloon\nHeight\n" +
-            replace(
-              formatNumberV2((heightsave - feetlaunchfinal) * 0.3048, 0),
-              ",",
-              "",
-              1,
-              10,
-            ) +
-            " m.",
-      map: map,
-      icon:
-        GLondegf * 1 > -61 &&
-        GLondegf * 1 < -56 &&
-        GLatdegf * 1 > -36 &&
-        GLatdegf * 1 < -31 &&
-        ucase(callsign) === "LU7AA-11"
-          ? {
-              path: "M 0,0 1,1 1,2 5,3 5,5 1,5 1,8 3,9 3,10 -3,10 -3,9 -1,8 -1,5 -5,5 -5,3 -1,2 -1,1 z",
-              strokeColor: "#FFFF00",
-              strokeWeight: 2,
-              fillColor: "#CC6666",
-              fillOpacity: 0.6,
-              scale: 3,
-              rotation: wdir,
-            }
-          : image,
-    });
-    var image = new google.maps.MarkerImage(
-      imageSrcUrl["pin"],
-      null,
-      new google.maps.Point(0, 0),
-      new google.maps.Point(10, 30),
-    );
-    marker7 = new google.maps.Marker({
-      position: new google.maps.LatLng(latciudad, lonciudad),
-      Title: "Balloon reference City",
-      map: map,
-      icon: image,
-    });
-    var altact = "<%=heightsave%>";
-    altact = altact - "<%=feetlaunchfinal%>";
-    var deltaact = -"<%=saveddeltafeetpersecond%>";
-    var deltac = parseInt(altact / deltaact);
-    if (deltac < 0) {
-      deltac = deltac * -1;
-    }
+function plot(V1n, V1x, V1y, V2n, V2x, V2y, Gn, Bx, By) {
+  var gr = new jxGraphics(document.getElementById("graphics"));
+  //Define pens to draw outline of the shapes
+  var penRed = new jxPen(new jxColor("red"), "2px");
+  var penGreen = new jxPen(new jxColor("green"), "1px");
+  var penWhite = new jxPen(new jxColor("white"), "2px");
+  var penBlack = new jxPen(new jxColor("black"), "1px");
+  //Define brushes to fill the shapes
+  var brushYellow = new jxBrush(new jxColor("yellow"));
+  brushYellow.fillType = "linear-gradient";
+  var brushBlue = new jxBrush(new jxColor("blue"));
+  brushBlue.fillType = "linear-gradient";
+  var brushRed = new jxBrush(new jxColor("red"));
+  brushRed.fillType = "linear-gradient";
+  var brushBlack = new jxBrush(new jxColor("black"));
+  var brushWhite = new jxBrush(new jxColor("white"));
+  //Define font to draw the text
+  var font = new jxFont("tahoma");
+  font.size = "14px";
+  //Draw the color filled text string at specified point and angle
+  var text = new jxText(
+    new jxPoint(5, 130),
+    "Radiales VORs a <%=callsign%>",
+    font,
+    penBlack,
+    brushWhite,
+    0,
+  );
+  text.draw(gr);
+  //Modify font object properties
+  font.size = "10px";
+  font.family = "arial";
+  font.style = "italic";
+  //Draw first VOR circle
+  var VOR1 = new jxCircle(new jxPoint(V1x, V1y), 7, penRed, brushYellow);
+  VOR1.draw(gr);
+  //Draw text strings at specified points with changed font
+  var text1 = new jxText(new jxPoint(V1x + 10, V1y + 5), V1n, font, penBlack);
+  text1.draw(gr);
+  //Draw 2nd VOR circle
+  var VOR2 = new jxCircle(new jxPoint(V2x, V2y), 7, penRed, brushYellow);
+  VOR2.draw(gr);
+  //Draw text strings at specified points with changed font
+  var text1 = new jxText(new jxPoint(V2x + 10, V2y + 5), V2n, font, penBlack);
+  text1.draw(gr);
+  //Draw balloon circle
+  var B = new jxCircle(new jxPoint(Bx, By), 7, penGreen, brushRed);
+  B.draw(gr);
+  var text1 = new jxText(new jxPoint(Bx + 10, By + 5), Gn, font, penBlack);
+  text1.draw(gr);
+  //Draw Vor Radials
+  var V1R = new jxLine(new jxPoint(V1x, V1y), new jxPoint(Bx, By), penRed);
+  V1R.draw(gr);
+  var V2R = new jxLine(new jxPoint(V2x, V2y), new jxPoint(Bx, By), penRed);
+  V2R.draw(gr);
+}
 
-    var hours = Math.floor(deltac / 3600);
-    var minutes = Math.floor((deltac - hours * 3600) / 60);
-    var seconds = deltac - hours * 3600 - minutes * 60;
-    var spandias = 0;
-    if (hours > 24) {
-      spandias = Math.floor(hours / 24);
-      hours = hours - Math.floor(hours / 24) * 24;
-    }
-    if (hours < 10) {
-      hours = "0" + hours;
-    }
-    if (minutes < 10) {
-      minutes = "0" + minutes;
-    }
-    if (seconds < 10) {
-      seconds = "0" + seconds;
-    }
-    var time = hours + ":" + minutes + ":" + seconds;
-    if (spandias > 0) {
-      time = spandias + "d + " + time;
-    }
-    //       if (deltac<0){time="00:00:00";}
-    if (altact < 120000 && !isNaN(hours)) {
-      var touchdown =
-        "<br>Terrain at <%=FormatNumber(feetlaunchfinal*.3048,0,,,0)%> m. above sea level<br>Estimated land in " +
-        time;
-    } else {
-      var touchdown =
-        "<br>Terrain at <%=FormatNumber(feetlaunchfinal*.3048,0,,,0)%> m. above sea level";
-    }
-    //    var lastpos = "<%=callsign & " " & right("0"&horalocal,2) & ":" & right("0" & minute(actualdate),2) & " " & FormatNumber(AlturaNumber*.3048-feetlaunch*.3048,0,,,0) & "m." & " " & formatnumber(deltafeetpersecond*.3048,1,,,0) & " m/s hacia " & FormatNumber(wdir,0,,,0) & "\BA a " & FormatNumber(wspeed/0.539956803,1,,,0) & " Km/h en " & latdeg & " " & londeg & " " & Delta%>"+touchdown;
-    //     alert (lastpos);
-    horam = horalocal * 1 + timezoneoffset * 1;
-    if (horam > 23) {
-      horam = horam - 24;
-    }
-    if (horam < 0) {
-      horam = horam + 24;
-    }
-    horam = right("00" + horam, 2);
-    var iw = new google.maps.InfoWindow({
-      maxWidth: 249,
-      content: `<div style='line-height:1.2;overflow:hidden;white-space:nowrap;'>${callsign} ${horam} : ${right("0" + actualdate.getMinutes(), 2)} : $right("0" + actualdate.getSeconds(), 2)} / ${right("0" + actualdate.getHours(), 2)} : ${right("0" + actualdate.getMinutes(), 2)} : ${right("0" + actualdate.getSeconds(), 2)} z<br>On ${mes[actualdate.getMonth() + 1]} - $actualdate.targetDate()} of  ${actualdate.getFullYear()} <br>Lat: ${formatNumber(GLatdeg, 6)} Lon: ${formatNumber(GLondeg, 6)} <br>Altitude: ${formatNumberV2(AlturaNumber * 0.3048, 0)} m. / ${AlturaNumber} feet<br>RF reach radio: ${formatnumberV2(1.0 * 3.87 * Math.sqrt(Math.abs(posdatam[5] - feetlaunch) * 0.3048), 0)} Km. (Coverage)<br>Toward ${wdir} ordm; @ ${formatNumber(wspeed / 0.539956803, 1)} Km/h /  ${wspeed} knots<br> ${Delta} ${touchdown}</div>`,
-      //content: "<div style='line-height:1.2;overflow:hidden;white-space:nowrap;'>" + callsign + " " + horam + ":" + right("0" + actualdate.getMinutes(), 2) + ":" + right("0" + actualdate.getSeconds(), 2) + "/" + right("0" + actualdate.getHours(), 2) + ":" + right("0" + actualdate.getMinutes(), 2) + ":" + right("0" + actualdate.getSeconds(), 2) + " z<br>On " + mes[actualdate.getMonth() + 1] + "-" + actualdate.targetDate() + " of " + actualdate.getFullYear() + "<br>Lat: " + formatNumber(GLatdeg, 6) + "Lon: " + formatNumber(GLondeg, 6) + "<br>Altitude:" + formatNumberV2(AlturaNumber * .3048, 0 + " m. / " + AlturaNumber + " feet<br>RF reach radio: " + formatnumberV2(1.00 * 3.87 * Math.sqrt(Math.abs((posdatam[5] - feetlaunch)) * .3048), 0) + " Km. (Coverage)<br>Toward " + wdir + "ordm; @ " + formatNumber(wspeed / 0.539956803, 1) + " Km/h / " + wspeed + " knots<br>" + Delta + " " + touchdown + "</div>"
-    });
-    google.maps.event.addListener(marker1, "click", function (e) {
-      iw.open(map, this);
-    });
-    google.maps.event.addListener(marker7, "click", function () {
-      //create a new InfoWindow instance
-      crsdist(latciudad, lonciudad, latsearch, lonsearch);
-      var infowindow = new google.maps.InfoWindow({
-        maxWidth: 220,
-        content:
-          "<div style='line-height:1.2;overflow:hidden;white-space:nowrap;'>" +
-          cityname +
-          "<br>Lat: " +
-          deg_to_dms(latciudad) +
-          "<br>Lon " +
-          deg_to_dms(lonciudad) +
-          "<br>" +
-          (out.distance * 1.852).toFixed(1) +
-          " Km > " +
-          out.bearing.toFixed(0) +
-          "\BA</div>",
-      });
-      infowindow.open(map, marker7);
-    });
+function show() {
+  alert(help);
+}
 
-    google.maps.event.addListener(map, "rightclick", function (event) {
-      marker.setMap(null);
-    });
-
-    google.maps.event.addListener(map, "rightclick", function (event) {
-      var lat = event.latLng.lat();
-      var lng = event.latLng.lng();
-      crsdist(lat, lng, latsearch, lonsearch);
-      var distaldesc = out.distance;
-      var azimaldesc = out.bearing;
-      crsdist(lat, lng, GLatdegf, GLondegf);
-      distalglobo = out.distance;
-      azimalglobo = out.bearing;
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(lat, lng),
-        map: map,
-        Title:
-          "     Lat " +
-          deg_to_dms(event.latLng.lat()) +
-          '"\n     Lon ' +
-          deg_to_dms(event.latLng.lng()) +
-          '"\nDistDesc  ' +
-          (distaldesc * 1.852).toFixed(2) +
-          " Km\nAzimDesc " +
-          azimaldesc.toFixed(0) +
-          "\BA\n   --------------------\nDistGlobo  " +
-          (distalglobo * 1.852).toFixed(2) +
-          " Km\nAzimGlobo " +
-          azimalglobo.toFixed(0) +
-          "\BA",
-        icon: "icon/green_arrow.png",
-      });
-    });
-    altact1 = heightsave;
-    altact1 = altact1 - feetlaunchfinal;
-    deltaact1 = -deltafeetpersecond;
-    deltac1 = altact1 / deltaact1;
-    if (deltac1 < 0) {
-      deltac1 = deltac1 * -1;
-    }
-    getlatlon(GLatdeg, GLondegf, wdir, (wspeed / 3600) * deltac1);
-    var cityballoon = [
-      deltafeetpersecond < 0
-        ? new google.maps.LatLng(out.lat2, out.lon2)
-        : new google.maps.LatLng(`${GLatdeg}`, `${GLondegf}`),
-
-      new google.maps.LatLng(latciudad, lonciudad),
-    ];
-    var cityPath = new google.maps.Polyline({
-      path: cityballoon,
-      strokeColor: "#00FF00",
-      strokeOpacity: 0.6,
-      strokeWeight: 2,
-    });
-    cityPath.setMap(map);
-    crsdist(VOR1La, VOR1Lo, GLatdegf, GLondegf);
-    var d1 = out.distance;
-    crsdist(VOR2La, VOR2Lo, GLatdegf, GLondegf);
-    var d2 = out.distance;
-    if (d1 < 800 && d2 < 800) {
-      var flightPlanCoordinates = [
-        new google.maps.LatLng(VOR1La, VOR1Lo),
-        new google.maps.LatLng(GLatdeg, GLondeg),
-        new google.maps.LatLng(VOR2La, VOR2Lo),
-      ];
-      var flightPath = new google.maps.Polyline({
-        path: flightPlanCoordinates,
-        strokeColor: "#FF0000",
-        strokeOpacity: 1.0,
-        strokeWeight: 2,
-      });
-      flightPath.setMap(map);
-    }
-    if (um > 1) {
-      altact1 = heightsave;
-      altact1 = altact1 - feetlaunchfinal;
-      deltaact1 = -deltafeetpersecond;
-      deltac1 = altact1 / deltaact1;
-      if (deltac1 < 0) {
-        deltac1 = deltac1 * -1;
-      }
-      //    getlatlon (<%=GLatdeg%>,<%=Glondeg%>,<%=wdir%>,<%=(wspeed/3600)%>*deltac1)
-      // ojo cambio
-      getlatlon(GLatdeg, GLondeg, 0, 0);
-      var tempCoordsArr = [];
-      for (let h = 0; h < um; h++) {
-        tempCoordsArr.push(new google.maps.LatLng(posis[h][0], posis[h][1]));
-      }
-      var positionCoordinates = [
-        ...tempCoordsArr,
-        new google.maps.LatLng(posis[h - 1][0], posis[h - 1][1]),
-      ];
-      var positionPath = new google.maps.Polyline({
-        path: positionCoordinates,
-        strokeColor: "#FFFF00",
-        strokeOpacity: 1.0,
-        strokeWeight: 2,
-      });
-      positionPath.setMap(map);
-
-      var lineSymbol = {
-        path: "M 0,3 0,-3",
-        strokeOpacity: 1,
-        scale: 2,
-      };
-
-      var lastpositionCoordinates = [
-        new google.maps.LatLng(GLatdeg, GLondeg),
-        new google.maps.LatLng(out.lat2, out.lon2),
-      ];
-
-      var flightLand = new google.maps.Polyline({
-        path: lastpositionCoordinates,
-        strokeColor: "#FFFF00",
-        strokeOpacity: 0,
-        icons: [
-          {
-            icon: lineSymbol,
-            offset: "0",
-            repeat: "18px",
-          },
-        ],
-        strokeWeight: 1,
-      });
-      flightLand.setMap(map);
-
-      var widePath = new google.maps.Polyline({
-        path: lastpositionCoordinates,
-        strokeColor: "#FFFF00",
-        strokeOpacity: 0.01,
-        strokeWeight: 21,
-      });
-      widePath.setMap(map);
-
-      crsdist(GLatdeg, GLondeg, out.lat2, out.lon2);
-      google.maps.event.addListener(widePath, "click", function (event) {
-        marker2 = new google.maps.Marker({
-          position: new google.maps.LatLng(
-            event.latLng.lat(),
-            event.latLng.lng(),
-          ),
-        });
-        idesc.open(map, marker2);
-      });
-      marker2 = new google.maps.Marker({
-        position: new google.maps.LatLng(GLatdegf, GLondegf),
-      });
-      var distkm = out.distance * 1.85;
-      if (distkm > 1) {
-        var tiempodown = distkm.toFixed(2) + " Km.";
-      } else {
-        tiempodown = (distkm * 1000).toFixed(0) + " m.";
-      }
-      var idesc = new google.maps.InfoWindow({
-        content:
-          "<div style='line-height:1.2;overflow:hidden;white-space:nowrap;'>Aterrizaje estimado en<br>" +
-          time +
-          " " +
-          timel +
-          " local a los <br>" +
-          tiempodown +
-          " de &uacute;ltima posici&oacute;n<br> Toward direcci&oacute;n " +
-          out.bearing.toFixed(1) +
-          " \BA</div>",
-      });
-    }
-    var marker, i;
-    for (i = 0; i < locations.length - 1; i++) {
-      if (i == 0) {
-        marker = new google.maps.Marker({
-          position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-          map: map,
-          icon: locations[i][3],
-          Title:
-            "   Aterrizaje estimado " +
-            fechadescmesdia +
-            "\nA las " +
-            timel +
-            " local / " +
-            timez +
-            " z",
-        });
-      }
-
-      if (i > 0) {
-        marker = new google.maps.Marker({
-          position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-          map: map,
-          icon: locations[i][3],
-        });
-      }
-      var circulo;
-      google.maps.event.addListener(
-        marker,
-        "click",
-        (function (marker, i) {
-          return function () {
-            var radio = 0;
-            if (locations[i][0].search("lcance") > 0) {
-              var datauno = locations[i][0].split("lcance");
-              datados = datauno[1].split(" ");
-              radio = datados[1] * 1000;
-            }
-            var CoverageOptions = {
-              strokeColor: "#00FFFF",
-              strokeOpacity: 0.5,
-              strokeWeight: 1,
-              fillColor: "#00FFFF",
-              fillOpacity: 0.08,
-              map: map,
-              center: new google.maps.LatLng(locations[i][1], locations[i][2]),
-              radius: radio,
-            };
-            if (circulo == null) {
-              circulo = new google.maps.Circle(CoverageOptions);
-              latsc = locations[i][1];
-              lonsc = locations[i][2];
-            } else {
-              circulo.setMap(null);
-              circulo = new google.maps.Circle(CoverageOptions);
-            }
-
-            if (i == "<%=vorloc1m%>") {
-              locations[i][0] = locations[i][0].replace(
-                "xQpZ1",
-                parseInt(r1) + " \BA",
-              );
-              locations[i][0] = locations[i][0].replace("ZpQx1", parseInt(d1));
-            }
-            if (i == "<%=vorloc2m%>") {
-              locations[i][0] = locations[i][0].replace(
-                "xQpZ2",
-                parseInt(r2) + " \BA",
-              );
-              locations[i][0] = locations[i][0].replace("ZpQx2", parseInt(d2));
-            }
-            infowindow.setContent(
-              "<div style='line-height:1.2;overflow:hidden;white-space:nowrap;'>" +
-                locations[i][0],
-            ) + "</div>";
-            infowindow.open(map, marker);
-          };
-        })(marker, i),
-      );
-    }
-    if (getParamSafe("Refresh") === "Refresh") {
-      loadMapState();
-    }
-
-    google.maps.event.addListener(map, "tilesloaded", tilesLoaded);
-    function tilesLoaded() {
-      google.maps.event.clearListeners(map, "tilesloaded");
-      google.maps.event.addListener(map, "zoom_changed", saveMapState);
-      google.maps.event.addListener(map, "dragend", saveMapState);
-    }
-    function saveMapState() {
-      var mapZoom = map.getZoom();
-      var mapCentre = map.getCenter();
-      var mapLat = mapCentre.lat();
-      var mapLng = mapCentre.lng();
-      var cookiestring = mapLat + "_" + mapLng + "_" + mapZoom;
-      setCookie("myMapCookie", cookiestring, 30);
-    }
-    function loadMapState() {
-      var gotCookieString = getCookie("myMapCookie");
-      var splitStr = gotCookieString.split("_");
-      var savedMapLat = parseFloat(splitStr[0]);
-      var savedMapLng = parseFloat(splitStr[1]);
-      var savedMapZoom = parseFloat(splitStr[2]);
-      if (!isNaN(savedMapLat) && !isNaN(savedMapLng) && !isNaN(savedMapZoom)) {
-        map.setCenter(new google.maps.LatLng(savedMapLat, savedMapLng));
-        map.setZoom(savedMapZoom);
-      }
-    }
-    function setCookie(c_name, value, exdays) {
-      var exdate = new Date();
-      exdate.setDate(exdate.getDate() + exdays);
-      var c_value =
-        escape(value) +
-        (exdays == null ? "" : "; expires=" + exdate.toUTCString());
-      document.cookie = c_name + "=" + c_value;
-    }
-    function getCookie(c_name) {
-      var i,
-        x,
-        y,
-        ARRcookies = document.cookie.split(";");
-      for (i = 0; i < ARRcookies.length; i++) {
-        x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
-        y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
-        x = x.replace(/^\s+|\s+$/g, "");
-        if (x == c_name) {
-          return unescape(y);
-        }
-      }
-      return "";
-    }
-    if (getParamSafe("AutoRef") == 1) {
-      google.maps.event.addListenerOnce(map, "idle", function () {
-        google.maps.event.trigger(marker1, "click");
-      });
-    } else {
-      document.getElementById("map").innerHTML =
-        "Invalid Balloon Location Detected, can't show VOR's map";
-    }
-  }
+function saveMapState() {
+  console.log("Map state saved");
 }

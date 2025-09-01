@@ -1,3 +1,4 @@
+window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
 var TZDiff = new Date().getTimezoneOffset();
 //var GOOGLE_API_KEY = "AIzaSyAACTum6vjLOeCDgGj6EFFnzJMe7r8xOII";
 var GOOGLE_API_KEY = "AIzaSyCOya7aI1WJfTmx9e5d7YY7RgueBwVhwrk";
@@ -12,12 +13,21 @@ var pag,
   help,
   help1,
   vorloc,
+  ajustes,
   VOR1,
   VOR2,
   VOR1La,
   VOR1Lo,
   VOR2La,
   VOR2Lo,
+  VOR1LocCountry,
+  VOR2LocCountry,
+  Vor1Loc,
+  Vor2Loc,
+  Vor1mag,
+  Vor2mag,
+  OSADist,
+  OSARadial,
   Ubicacion,
   Ubicacionm,
   Tiempo,
@@ -41,6 +51,18 @@ var pag,
   GLondeg,
   Glatdeg,
   Glondeg,
+  Glatdegf,
+  Glondegf,
+  GLatdegf,
+  GLondegf,
+  Gy,
+  Gx,
+  LYE,
+  OSA,
+  R,
+  lon1,
+  lat1,
+  brng,
   posits,
   um,
   vorloc1m,
@@ -50,10 +72,21 @@ var pag,
   cityname,
   city,
   chequeo,
-  callsign;
+  callsign,
+  autoRefParam,
+  flightsParam,
+  refreshParam;
 var Elapsed = 0;
+var LYEDist = "";
+var LYERadial = "";
+var LyeDist = "";
+var LyeRadial = "";
+var OSADist = 0;
+var OsaDist = "";
+var OsaRadial = 0;
 var timezoneoffset = -TZDiff / 60;
 var locations = [];
+var actualseconds = 0;
 var mes = [
   "",
   "Janauary",
@@ -69,11 +102,14 @@ var mes = [
   "November",
   "December",
 ];
+var abrev = "";
+var abrevi = "";
+var abrevim = new Array(401).fill().map(() => Array(2).fill(0));
 var posis = new Array(80001).fill().map(() => Array(6).fill(0));
 var heardnn = new Array(301).fill().map(() => Array(2).fill(0));
 var heard = new Array(301).fill().map(() => Array(2).fill(0));
 var stations = new Array(150).fill().map(() => Array(5).fill(0));
-var out = new Array(3).fill(0);
+var outAsp = new Array(3).fill(0);
 var datataken = "";
 var alturacount = 0;
 var vormatrix = new Array(301).fill().map(() => Array(7).fill(0));
@@ -103,7 +139,43 @@ var previousvorlocblast = [];
 var normalvorloc = [];
 var blastvorloc = [];
 var vorloc = "";
-
+var heightvalid = false;
+var heightp = 0;
+var heighpointer = 0;
+var heighp = 0;
+var posdatam0s = "";
+var posdatam1s = "";
+var posdatam2s = "";
+var posdatam3s = "";
+var posdatam4s = "";
+var posdatam5s = "";
+var prevdateformated = "";
+var deltafeetpersecond = 0;
+var saveddeltafeetpersecond = 0;
+var switcher = false;
+var savewdir = "0";
+var savewspeed = "0";
+var saveheight = "0";
+var deltaheight = "0";
+var posdatad = "";
+var posdata;
+var feetdelta;
+var feetlaunch;
+var timefinal = "";
+var diafinal = "";
+var deltaMetersPerSecond = 0;
+var alturasobretierra = "";
+var heightsave = "";
+var diflat = 0;
+var diflon = 0;
+var deltapos = 0;
+var posdatam = [];
+var iconomapa = "";
+var altactj, deltaactj, altact1, deltaact1, deltacj, d1, d2, r1, r2;
+var feetlaunchfinal = "";
+var distanciaminima = 10000;
+var savepos = 1;
+var instates = false;
 async function initApp() {
   setParamValues();
 
@@ -116,7 +188,7 @@ async function initApp() {
     "https://balloons.dev.browxy.com/api/v1/webFetcher",
     body,
   );
-  //console.log(pag);
+  console.log(url1);
   let chequeo = buscarTag("Sorry, no position known", "<", pag);
   let latlon;
   if (chequeo === "") {
@@ -201,10 +273,14 @@ async function initApp() {
 
     Fechahoralocal = cDate(trim(left(Fechahora, 19)));
     Fechahoralocal = Fechahoralocal - 3 / 24;
+
+    console.log("Fechahoralocal:", Fechahoralocal);
+
     Tiempo = replace(Tiempo, " days", "d ", 1, 1, 1);
     Tiempo = replace(Tiempo, " hours", "h ", 1, 1, 1);
     Tiempo = replace(Tiempo, " minutes", "' ", 1, 1, 1);
     Tiempo = replace(Tiempo, " seconds", '"', 1, 1, 1);
+    console.log("Tiempo-replace:", Tiempo);
   }
 
   let pag1 = "";
@@ -242,16 +318,6 @@ async function initApp() {
   ssavem[ssavempointer][0] = pathm.length - 1;
   ssavem[ssavempointer][1] = fecha1;
   ssavempointer = ssavempointer + 1;
-  let heightvalid = false;
-  let heightp = 0;
-  let heighpointer = 0;
-  let heighp = 0;
-  var posdatam0s = "";
-  var posdatam1s = "";
-  var posdatam2s = "";
-  var prevdateformated = "";
-  var deltafeetpersecond = 0;
-  var saveddeltafeetpersecond = 0;
 
   for (let s = pathm.length - 1; s >= 0; s--) {
     // Verificar si la subcadena desde la posición 1 con longitud 13 no está vacía
@@ -349,7 +415,6 @@ async function initApp() {
   icono = imageSrcUrl["point"];
   iconblast = imageSrcUrl["blast"];
   iconblast1 = imageSrcUrl["blast1"];
-  var switcher = false;
   maxlat = 0;
   minlat = 90;
   maxlon = 0;
@@ -357,30 +422,13 @@ async function initApp() {
   avgdof = 0;
   avgdom = 0;
   avgdocount = 0;
-  var savewdir = "0";
-  var savewspeed = "0";
-  var saveheight = "0";
-  var deltaheight = "0";
-  var posdatad = "";
-  var posdata;
-  var feetdelta;
-  var feetlaunch;
-  var timefinal = "";
-  var diafinal = "";
-  var deltaMetersPerSecond = 0;
-  var alturasobretierra = "";
-  var heightsave = "";
-  var diflat = 0;
-  var diflon = 0;
-  var deltapos = 0;
-  var posdatam = [];
 
   if (getParamSafe("flights") !== "") {
     ssave = 0;
   }
-
+  var posdatam = [];
   for (let s = comienzo + 1; s <= final; s++) {
-    let posdatam = pathm[s].split(",");
+    posdatam = pathm[s].split(",");
     let value = trim(posdatam[0]);
     value = value.replace(/\n/g, ""); // chr(10)
     value = value.replace(/\r/g, ""); // chr(13)
@@ -969,6 +1017,8 @@ async function initApp() {
     } // END (posdatam[1]!= posdatam1s || posdatam[2] != posdatam2s)
     posdatam1s = posdatam[1];
     posdatam2s = posdatam[2];
+    posdatam3s = posdatam[3];
+    posdatam4s = posdatam[4];
     posdatam0s = posdatam[0];
   } // EBD for loop
 
@@ -1033,12 +1083,17 @@ async function initApp() {
     const result = processNearStations(pag, ucase(callsign));
     console.log(result);
     // TODO ?  ADD VORLOC TO locations matrix
+    iconomapa = result.iconomapa;
   } // END  if (pag.length > 600)
+
   Glatlaunchdeg = posdatam1s;
   Glonlaunchdeg = posdatam2s;
   feetlaunch = ""; //getaltura(Glatlaunchdeg,Glonlaunchdeg)*3.28084
   // if feetlaunch*1 < 0 then feetlaunch = 0
   feetdelta = feetlaunch;
+
+  GLatdegf = Glatdegf;
+  GLondegf = Glondegf;
 
   GLatdeg = Glatdegf;
   GLondeg = Glondegf;
@@ -1049,7 +1104,7 @@ async function initApp() {
   altactj = heightsave;
   altactj = altactj - feetlaunch;
   deltaactj = -deltafeetpersecond;
-  var deltacj = altactj / deltaactj;
+  deltacj = altactj / deltaactj;
   const milisegundosASumar = (deltacj + timezone * 3600) * 1000;
   const horadescenso = new Date(actualdate.getTime() + milisegundosASumar);
   horadesc =
@@ -1097,7 +1152,7 @@ async function initApp() {
     laspos1 +
     "to " +
     formatNumber(wdir, 0) +
-    "\BA @ " +
+    "º @ " +
     formatNumber(wspeed / 0.539956803, 1) +
     " Km/h in " +
     latdeg +
@@ -1166,10 +1221,576 @@ async function initApp() {
     }
     optionHtml += ">" + trim(vormatrix[v][0]) + "</option>" + "\n";
   }
-
   document.getElementById("VOR2").innerHTML = optionHtml;
-  getflights();
+  // getflights();
+
+  let tableHtml = `<table border=0 cellspacing=2 cellpadding=0 width="90%" style="width:90%;">
+     <tr>
+       <td align=center>
+         <a href="http://www.amsat.org.ar" target=_blank>
+           <img src="${imageSrcUrl["amsatblue"]}" width=100px border=0 title="Ir a Amsat-LU" ALT="Ir a Amsat-LU">
+         </a>
+       </td>
+       <td align=center>
+         <table border=0 cellpadding=4 cellspacing=4 bgcolor="#eeeeee" style="border:none;font-size:16px;font-family:Tahoma;line-height:17px;">
+         <tr>
+         <td align=center>`;
+
+  if (Tiempo.length !== 2) {
+    const fhl = new Date(Fechahoralocal);
+    const text = `${mes[fhl.getMonth() + 1]}-${fhl.getDate()} ${fhl.getHours()}:${right(100 + fhl.getMinutes(), 2)} (z) - Updated ${trim(Tiempo)}`;
+    tableHtml = `${tableHtml}  <div id="actualizado" name="actualizado">Al ${text} ago<br>`;
+    if (latlon.length > 15) {
+      tableHtml = `${tableHtml} ${trim(latlonTra(trim(latlon)))}<br></div>`;
+    }
+    var getURL3 = `http://www.findu.com/cgi-bin/vor.cgi?call=${callsign}&vor1=${VOR1}&vor2=${VOR2}&refresh=60`;
+    body = new URLSearchParams({ url: getURL3 }).toString();
+    pag = await getURLXform(
+      "https://balloons.dev.browxy.com/api/v1/webFetcher",
+      body,
+    );
+    window.Posicion = 1;
+    LYERadial = buscarTag(
+      "<tr><td>" + VOR1 + "</td><td>" + VOR1Loc + " </td><td>",
+      "</td>",
+      pag,
+    );
+    if (LYERadial === "") {
+      window.Posicion = 1;
+      LYERadial = buscarTag(
+        "<tr><td>" + VOR1 + "</td><td>" + VOR1LocCountry + "</td><td>",
+        "</td>",
+        pag,
+      );
+    }
+    if (LYERadial === "") {
+      LYERadial = "Map";
+    }
+    LYE = "VOR " + Vor1Loc + ": radial=" + LYERadial;
+    window.Posicion = window.Posicion - 2;
+    LYEDist = buscarTag("<td>", "</td>", pag);
+    if (LYEDist !== "") {
+      LYE = LYE + " " + " dist=" + LYEDist + " m.náuticas";
+    } else {
+      LYE = LYE + " dist=Map";
+    }
+
+    OSARadial = buscarTag(
+      "<tr><td>" + VOR2 + "</td><td>" + VOR2Loc + " </td><td>",
+      "</td>",
+      pag,
+    );
+    if (OSARadial === "") {
+      window.Posicion = 1;
+      OSARadial = buscarTag(
+        "<tr><td>" + VOR2 + "</td><td>" + VOR2LocCountry + "</td><td>",
+        "</td>",
+        pag,
+      );
+    }
+    if (OSARadial === "") {
+      OSARadial = "Map";
+    }
+    OSA = "VOR " + Vor2Loc + ": radial=" + OSARadial;
+    window.Posicion = window.Posicion - 2;
+    OSADist = buscarTag("<td>", "</td>", pag);
+    if (OSADist !== "") {
+      OSA = OSA + " " + " dist=" + OSADist + " m.náuticas";
+    } else {
+      OSA = OSA + " dist=Map";
+    }
+
+    if (left(ucase(callsign), 2) !== "CX") {
+      tableHtml = `${tableHtml} </td></tr></table></td>
+         <td align=center><a href='http://www.anac.gob.ar/' target=_blank><img src="${imageSrcUrl["vor"]}" border=0 width=100px ALT="Ir a la ANAC" title="Ir a la ANAC"></a>
+         </td></tr></table>`;
+    } else {
+      tableHtml = `${tableHtml} </td></tr></table></td>
+         <td align=center>
+         <a href='https://dinacia.gub.uy//' target=_blank><img src="${imageSrcUrl["rcu"]}" border=0 width=100px ALT="Ir a DINACIA" title="Ir a DINACIA"></a>
+         </td></tr></table>`;
+    }
+    /*
+      SMSmsg = LYERadial + " " + VOR1 + " " + LYEDist + " / " + OSARadial + " " + VOR2 + " " + OSADist + " / "
+    if (`${Altura}`.length > 2) {
+      Alt = trim(replace(Altura, "feet", "", 1, 100, 1));
+      Alt = "FL" + parseInt(Alt / 100) + " / "
+      SMSmsg = SMSmsg + Alt
+    } else {
+      SMSmsg = SMSmsg + "FL0 / "
+    }
+    if (Course.length > 0) {
+      CD = parseInt(Cursom(1))
+      if (CD > 359) {
+        CD = parseInt(CD / 10);
+      }
+      SMSmsg = SMSmsg + " CD" + CD + " / "
+    }
+    if (`${Speed}`.length > 0) {
+      SMSmsg = SMSmsg + " GS" + Speed + " / "
+    }
+    SMSmsg = SMSmsg + day(Fechahoralocal)&"-"&mes(month(Fechahoralocal))&" " & right(100+hour(Fechahoralocal),2) & ":" & right(100+minute(FechaHoraLocal),2) & " hace " & Tiempo & " "
+    if (OSADist.length > 0 && OSADist.length < 3 && LYEDist.length > 0 && LYEDist.length < 3) {
+      //Response.Write "<img src=""images/celulari.gif"" ALT=""Celular"" border=0>" & "SMS = " & SMSmsg & "<br>"
+    }
+    */
+  } else {
+    tableHtml = `${tableHtml} No hay datos actualizados disponibles para ${callsign}<br>Los datos para cálculos de VORs se toman de findu.com<br><br>Posiblemente el vuelo ocurrió hace mas de 10 dias<br>o el 'CALL' no corresponde a la licencia buscada<br><br>Puede haber gráficos disponibles dar click
+       click <a href='${HOST_URL}/balloonchart?callsign=${callsign}'><u>Aquí</u></a>
+     </td></tr></table></td><td align=center><a href='http://www.anac.gob.ar/spanish/' target=_blank><img src="${imageSrcUrl["vor"]}" border=0 width=90px alt='Ir a la ANAC' title='Ir a la ANAC'></a></td></tr></table>`;
+  }
+
+  document.getElementById("tables_content").innerHTML = tableHtml;
+
+  let otherHtml = "";
+
+  if (`${Tiempo}`.length < 2) {
+    Tiempo = "0d 0h 0' 0''";
+  }
+
+  if (Tiempo.length > 2) {
+    console.log("datataken", datataken);
+    if (datataken.length > 10) {
+      urlaprsfi = "http://www.aprs.fi?call=" + callsign;
+      otherHtml = `${otherHtml} <a href='${datataken}' target=_blank><font size=-2 style=""vertical-align:text-top;""><u>DATA</u></font></a>
+      <a href='${urlaprsfi}' target=_blank><font size=-2 style=""vertical-align:text-top;""><u>APRSFI</u></font></a>
+      <a href='http://www.flightradar24.com/${formatNumber(GLatdeg, 2)},${formatNumber(GLondeg, 2)}/7' target=_blank><font size=-2 style=""vertical-align:text-top;""><u>RADAR</u></font></a>`;
+    }
+
+    otherHtml = `${otherHtml} <input type='button' name='seechart' value="Chart" style="cursor:hand;width:41px;height:20px;line-height:12px;" onclick="${window.parent.window.parent.window.location.href}='${HOST_URL}/balloonchart?callsign=${callsign}&flights=${flightsParam}&Vuelo=${Vuelo}'">`;
+    if (left(callsign, 1) === "L") {
+      if (LYEDist !== "" && OSADist !== "" && LYEDist < 800 && OSADist < 800) {
+        otherHtml = `${otherHtml} <input type='submit' name='Validar' value="Validar Celulares" style="cursor:hand;width:108px;height:20px;line-height:12px;">
+         <input type='submit' name='Enviar' value="Enviar SMSs" style="cursor:hand;width:82px;height:20px;line-height:12px;">`;
+      }
+    }
+
+    otherHtml = `${otherHtml} <input type='button' name='vermapa' value="Findu Map" style="cursor:hand;width:78px;height:20px;line-height:12px;" onclick="${window.parent.window.parent.window.location.href}='http://www.findu.com/cgi-bin/find.cgi?call=${callsign}'">
+     <input type='button' name='verfindu' value="Findu Page" style="cursor:hand;width:76px;height:20px;line-height:12px;" onclick="${window.parent.window.parent.window.location.href}='http://www.findu.com/cgi-bin/vor.cgi?call=${callsign}&vor1=${VOR1}&vor2=${VOR2}&refresh=60'">`;
+  }
+  otherHtml = `${otherHtml} <input type='submit' oncliock="${saveMapState()}" name='Refresh value="Refresh" style="cursor:pointer;width:66px;height:20px;line-height:12px;">
+    <font style="font-weight:normal;font-size:14px;vertical-align:inherit;">Auto-Refr:</font><input type='checkbox' name="AutoRef" value="" style="vertical-align:inherit;" ${autoRefParam == 1 ? "checked" : ""} onclick="javascript:saveMapState;document.Resend.submit();">
+   <font style="font-family:Tahoma;font-weight:normal;font-size:14px;vertical-align:inherit;">All:</font><input type=checkbox name="flights" value="0" onclick="javascript:document.Resend.submit();" style="vertical-align:inherit;"${flightsParam == 1 || flightsParam != "" ? "checked" : ""}>`;
+
+  if (ssavempointer > 1) {
+    otherHtml = `${otherHtml} <font style='font-size:14px;line-height:14px;font-weight:normal;vertical-align:inherit;'>+Flights:</font>`;
+    for (let m = 1; m <= ssavempointer; m++) {
+      const fecha = cDate(ssavem[m][1]);
+      //nombrefecha = month(cDate(ssavem[m][1])) + "/" + day(cDate(ssavem[m][1]));
+      nombrefecha = fecha.getMonth() + 1 + "/" + fecha.getDate();
+      //fvlo = cDate(ssavem[m][1]);
+
+      fvloc =
+        "Vuelo-" +
+        m +
+        "  " +
+        fecha.getDate() +
+        "-" +
+        (fecha.getMonth() + 1) +
+        "-" +
+        fecha.getFullYear() +
+        " " +
+        right("00" + fecha.getHours(), 2) +
+        ":" +
+        right("00" + fecha.getMinutes(), 2) +
+        "z";
+      otherHtml = `${otherHtml} <input type='button' name='vuelos' value='${nombrefecha}' Title='${fvloc}' style='cursor:hand; width:34px;height:20px;font-size:10px;line-height:11px;vertical-align:inherit;' onclick='ira("${m}")'>`;
+    }
+  }
+
+  if (Tiempo.length > 2) {
+    crsdist(VOR1Lat, VOR1Lon, GLatdeg, GLondeg);
+    d1 = LyeDist;
+    r1 = LyeRadial;
+    if (!d1) {
+      d1 = out.distance;
+    }
+    if (!r1) {
+      r1 = out.bearing;
+    }
+    crsdist(VOR2Lat, VOR2Lon, GLatdeg, GLondeg);
+
+    d2 = OsaDist;
+    r2 = OsaRadial;
+    if (!d2) {
+      d2 = out.distance;
+    }
+    if (!r2) {
+      r2 = out.bearing;
+    }
+
+    Gx = GLatdeg * 1;
+    Gy = GLondeg * 1;
+    x1 = Gx - (Math.sin((r1 * Math.PI) / 180) * d1 * 360) / 20000;
+    y1 = Gy + (Math.cos((r1 * Math.PI) / 180) * d1 * 360) / 10000;
+    x2 = Gx - (Math.sin((r2 * Math.PI) / 180) * d2 * 360) / 20000;
+    y2 = Gy + (Math.cos((r2 * Math.PI) / 180) * d2 * 360) / 10000;
+    var minx = Math.min(x1, x2, Gx);
+    var miny = Math.min(y1, y2, Gy);
+    var maxx = Math.max(x1, x2, Gx);
+    var maxy = Math.max(y1, y2, Gy);
+    var deltax = maxx - minx;
+    var deltay = maxy - miny;
+    var factorx = 65 / deltax;
+    var factory = 100 / deltay;
+    x1 = (x1 - minx) * factorx + 30;
+    x2 = (x2 - minx) * factorx + 30;
+    Gx = (Gx - minx) * factorx + 30;
+    y1 = (y1 - miny) * factory + 10;
+    y2 = (y2 - miny) * factory + 10;
+    Gy = (Gy - miny) * factory + 10;
+    if (LYEDist !== "" && OSADist !== "" && LYEDist < 800 && OSADist < 800) {
+      plot(`${VOR1}`, x1, y1, `${VOR2}`, x2, y2, `${callsign}`, Gx, Gy);
+    }
+  }
+
+  // º
+  // Má
+  /*
+   REPLACE LOCATIONS ARRAY
+   if LYERadial <> "" then vorloc=replace(vorloc,"xQpZ1",LYERadial&"&ordm; M&aacute;gn.",1,7000,1)
+   if OSARadial <> "" then vorloc=replace(vorloc,"xQpZ2",OSARadial&"&ordm; M&aacute;gn.",1,7000,1)
+   if LYEDist <> "" then vorloc=replace(vorloc,"ZpQx1",LYEDist,1,7000,1)
+   if OSADist <> "" then vorloc=replace(vorloc,"ZpQx2",OSADist,1,7000,1)
+   */
+
+  actualseconds =
+    actualdate.getHours() * 3600 +
+    actualdate.getMinutes() * 60 +
+    actualdate.getSeconds();
+  console.log("actualseconds", actualseconds);
+
+  lon1 = Glondegf;
+  lat1 = Glatdegf;
+  brng = wdir;
+
+  d = (Number(wspeed) / 0.439956803 / 3600) * deltacj;
+  R = 8971.3;
+
+  abrev = `Buenos Aires/BA,Córdoba/CBA,San Luis/S.Luis,Argentina/Arg,United States of America/US,
+   Avenue/Ave,Drive/Drv,Road/Rd,Street/St,Colorado/CO,Alabama/AL,
+   Indiana/IN,Minnesota/MN,Montana/MT,Virginia/VA,Arkansas/AR,
+   New Mexico/NM,Michigan/MI,California/CA,Kansas/KS,Illinois/IL,
+   Arizona/AZ,New York/NY,New Jersey/NJ,Florida/FL,Texas/TX,
+   Wisconsin/WI,Connecticut/CT,Iowa/IA,Ohio/OH,Nebraska/NE,Pennsylvania/PA,Departamento/Dep.,South America/SA`;
+  abrevi = split(abrev, ",", 400, 1);
+  for (let x = 0; x < abrevi.length; x++) {
+    let entrm = split(abrevi[x], "/", 2, 1);
+    abrevim[x][0] = entrm[0];
+    abrevim[x][1] = entrm[1];
+  }
+  console.log(abrevim);
+
+  altact1 = heightsave;
+  altact1 = altact1 - feetlaunchfinal;
+  deltaact1 = -deltafeetpersecond;
+  deltac1 = altact1 / deltaact1;
+
+  if (deltac1 < 0) {
+    deltac1 = deltac1 * -1;
+  }
+  console.log("deltafeetpersecond", deltafeetpersecond);
+  outAsp = getLatLonAsp(lati2, loni2, wdir, (wspeed / 3600) * deltac1);
+  console.log(out);
+  if (deltafeetpersecond < 0) {
+    latsearch = outAsp[0];
+    lonsearch = outAsp[1];
+  } else {
+    latsearch = Glatdegf;
+    lonsearch = Glondegf;
+  }
+  console.log("latsearch", latsearch, "lonsearch", lonsearch);
+
+  console.log("latsearch", typeof latsearch, "lonsearch", typeof lonsearch);
+  ajustes = 0.3;
+  latslo = latsearch - ajustes;
+  latshi = latsearch + ajustes;
+  lonslo = lonsearch - ajustes;
+  lonshi = lonsearch + ajustes;
+  if (lonshi > 180) {
+    lonshi = lonshi - 360;
+  }
+  pag = "";
+  let getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
+  console.log("city url", getURLcity);
+  body = new URLSearchParams({ url: getURLcity }).toString();
+  pag = await getURLXform(
+    "https://balloons.dev.browxy.com/api/v1/webFetcher",
+    body,
+  );
+  if (pag.length < 300) {
+    ajustes = 0.8;
+    latslo = latsearch - ajustes;
+    latshi = latsearch + ajustes;
+    lonslo = lonsearch - ajustes;
+    lonshi = lonsearch + ajustes;
+    if (lonshi > 180) {
+      lonshi = lonshi - 360;
+    }
+    getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
+    body = new URLSearchParams({ url: getURLcity }).toString();
+    pag = await getURLXform(
+      "https://balloons.dev.browxy.com/api/v1/webFetcher",
+      body,
+    );
+  }
+  if (pag.length < 300) {
+    ajustes = 1.8;
+    latslo = latsearch - ajustes;
+    latshi = latsearch + ajustes;
+    lonslo = lonsearch - ajustes;
+    lonshi = lonsearch + ajustes;
+    if (lonshi > 180) {
+      lonshi = lonshi - 360;
+    }
+    getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
+
+    body = new URLSearchParams({ url: getURLcity }).toString();
+    pag = await getURLXform(
+      "https://balloons.dev.browxy.com/api/v1/webFetcher",
+      body,
+    );
+  }
+  if (pag.length < 500) {
+    ajustes = 4;
+    latslo = latsearch - ajustes;
+    latshi = latsearch + ajustes;
+    lonslo = lonsearch - ajustes;
+    lonshi = lonsearch + ajustes;
+    if (lonshi > 180) {
+      lonshi = lonshi - 360;
+    }
+    getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
+    body = new URLSearchParams({ url: getURLcity }).toString();
+    pag = await getURLXform(
+      "https://balloons.dev.browxy.com/api/v1/webFetcher",
+      body,
+    );
+  }
+  if (pag.length < 500) {
+    ajustes = 8;
+    latslo = latsearch - ajustes;
+    latshi = latsearch + ajustes;
+    lonslo = lonsearch - ajustes;
+    lonshi = lonsearch + ajustes;
+    if (lonshi > 180) {
+      lonshi = lonshi - 360;
+    }
+    getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
+    body = new URLSearchParams({ url: getURLcity }).toString();
+    pag = await getURLXform(
+      "https://balloons.dev.browxy.com/api/v1/webFetcher",
+      body,
+    );
+  }
+
+  window.Posicion = 1;
+  distanciaminima = 10000;
+  savepos = 1;
+  instates = "";
+
+  let elements = [];
+  try {
+    elements = JSON.parse(pag).elements;
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
+  }
+
+  console.log("Page content:", elements);
+  var latciudad = "";
+  var lonciudad = "";
+  var names = "";
+  var instate = "";
+  var cityname = "";
+  for (const element of elements) {
+    const {
+      lat,
+      lon,
+      tags: { name },
+    } = element;
+    cityname = name;
+    if (lat && lat != "" && lon && lon != "") {
+      distanciaactual = distancia(lat, lon, latsearch, lonsearch);
+      console.log("Distance:", distanciaactual, distanciaminima);
+      if (distanciaactual < distanciaminima) {
+        latciudad = lat;
+        lonciudad = lon;
+        names = name;
+        instate = instates;
+        cityname = name;
+        //if (distanciaactual < distanciaminima) {
+        distanciaminima = distanciaactual;
+        //}
+      }
+    }
+  }
+  console.log("City:", cityname);
+  console.log("In State:", instate);
+  console.log("Latitude:", latciudad);
+  console.log("Longitude:", lonciudad);
+  console.log("Distance:", distanciaminima);
+
+  if (latciudad == 0 || lonciudad == 0 || latciudad == "" || lonciudad == "") {
+    latciudad = "-35.692191";
+    lonciudad = "-63.762359";
+    names = "G.Pico";
+    cityname = "G.Pico";
+  }
+
+  names = fixCityName(names);
+  cityname = fixCityName(cityname);
+  city = cityname;
+  bearn = bearing1(latciudad, latsearch, lonciudad, lonsearch);
+  distanciaciudad =
+    " @ " +
+    formatNumber(
+      distancia(latciudad, lonciudad, latsearch, lonsearch) * 1.852,
+      1,
+    ) +
+    " Km =>" +
+    parseInt(bearn + 0.5) +
+    "º de ";
+  distanciaciudad1 =
+    formatNumber(
+      distancia(latciudad, lonciudad, latsearch, lonsearch) * 1.852,
+      1,
+    ) +
+    " Km at " +
+    aziLetras(parseInt(bearn + 0.5)) +
+    " of " +
+    cityname;
+  city = cityname + ", " + instate;
+  console.log("City:", city, distanciaciudad, distanciaciudad1, bearn, abrevim);
+  for (let x = 0; x < abrevim.length; x++) {
+    city = replace(city, abrevim[x][0], abrevim[x][1], 1, 100, 1);
+  }
+  console.log("City:", city);
+
+  let now = new Date();
+  const diffMs = now - actualdate;
+  const diffDays = diffMs / (1000 * 60 * 60 * 24);
+  var deltatiempo = diffDays + 3 / 24;
+  var tiempoa = "",
+    hourd = "",
+    minutod = "",
+    segundod = "";
+
+  if (parseInt(deltatiempo) > 0) {
+    tiempoa = `${parseInt(deltatiempo)}d `;
+  }
+  console.log("Time tiempoa:", tiempoa);
+  hourd = new Date(deltatiempo).getHours();
+  console.log("Hours:", hourd);
+  if (hourd > 0) {
+    tiempoa = tiempoa + hourd + "h ";
+  }
+  minutod = new Date(deltatiempo).getMinutes();
+  console.log("Minutes:", minutod);
+  if (minutod > 0) {
+    tiempoa = tiempoa + minutod + "'";
+  }
+  segundod = new Date(deltatiempo).getSeconds();
+  console.log("Seconds:", segundod);
+  if (segundod > 0) {
+    tiempoa = tiempoa + segundod + "''";
+  }
+  lineauno =
+    "At " +
+    mes[actualdate.getMonth() + 1] +
+    "-" +
+    actualdate.getDate() +
+    " " +
+    (right("0" + horalocal, 2) % 24) +
+    ":" +
+    right("0" + actualdate.getHours(), 2) +
+    "(z) Updated " +
+    tiempoa +
+    " ago<br>";
+  console.log("lat-lon-G", GLatdeg, GLondeg, posdatam4s, wdir);
+  lineados =
+    "Latitude: " +
+    replace(
+      replace(degToDMS(GLatdeg), "º", "º ", 1, 10, 1),
+      "'",
+      "' ",
+      1,
+      10,
+      1,
+    ) +
+    " " +
+    "&nbsp;&nbsp;Longitude: " +
+    replace(
+      replace(degToDMS(GLondeg), "º", "º ", 1, 10, 1),
+      "'",
+      "' ",
+      1,
+      10,
+      1,
+    ) +
+    "<br>";
+  lineatres =
+    "Alt: " +
+    heightsave +
+    " feet<span id=flecha>&nbsp;</span>Course: " +
+    formatNumberV2(wdir, 0) +
+    "º&nbsp;&nbsp;Speed: " +
+    posdatam4s +
+    " Knots<br>";
+  lineacuatro = "Landing at " + distanciaciudad1 + "<br>";
+
+  crsdist(VOR1Lat, VOR1Lon, GLatdegf, GLondegf);
+  var vor1dist = out.distance;
+  var vor1bear = out.bearing + Vor1mag;
+  crsdist(VOR2Lat, VOR2Lon, GLatdegf, GLondegf);
+  var vor2dist = out.distance;
+  var vor2bear = out.bearing + Vor2mag * 1;
+  if (vor1dist < 800 && vor2dist < 800) {
+    var lineacinco =
+      "VOR " +
+      Vor1loc +
+      ": radial=" +
+      Math.round(vor1bear) +
+      " dist=" +
+      Math.round(vor1dist) +
+      " m.náuticas<br>";
+    var lineaseis =
+      "VOR " +
+      Vor2loc +
+      ": radial=" +
+      Math.round(vor2bear) +
+      " dist=" +
+      Math.round(vor2dist) +
+      " m.náuticas<br>";
+  } else {
+    var lineacinco = "";
+    var lineaseis = "";
+  }
+  // document
+  //   .getElementById("actualizado")
+  //   .insertAdjacentHTML(
+  //     "beforeend",
+  //     lineauno + lineados + lineatres + lineacuatro + lineacinco + lineaseis,
+  //   );
+  document.getElementById("actualizado").innerHTML =
+    lineauno + lineados + lineatres + lineacuatro + lineacinco + lineaseis;
+
+  altact1 = heightsave;
+  altact1 = altact1 - feetlaunchfinal;
+  deltaact1 = -saveddeltafeetpersecond;
+  deltac1 = altact1 / deltaact1;
+  if (deltac1 < 0) {
+    deltac1 = deltac1 * -1;
+  }
+  outAsp = getLatLonAsp(
+    GLatdeg,
+    GLondeg,
+    wdir,
+    (Number(wdir) / 3600) * deltac1,
+  );
+  document.getElementById("other_content").innerHTML = otherHtml;
+  // showvormap();
 }
+
 async function onloadApp() {
   try {
     await initApp();
@@ -1182,3 +1803,28 @@ async function onloadApp() {
 }
 
 window.addEventListener("load", onloadApp);
+
+/*
+callsign
+heightsave
+feetlaunchfinal
+saveddeltafeetpersecond
+
+horalocal * 1 + timezoneoffset
+
+deltafeetpersecond
+
+wdir
+wspeed
+ VOR1La
+ VOR1Lo
+VOR2La
+ VOR2Lo
+posis
+time
+timel
+timez
+tiempodown
+locations
+fechadescmesdia
+*/
