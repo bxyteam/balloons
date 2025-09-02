@@ -40,11 +40,11 @@ function crsdist(lat1, lon1, lat2, lon2) {
     if (a < 0) adjust = 2 * PI;
     else adjust = 0;
   }
-  bearing = (Math.atan(a / b) + adjust) * RAD2DEG;
+  bearing = b !== 0 ? (Math.atan(a / b) + adjust) * RAD2DEG : 0;
   out = new MakeArray(0);
   out.distance = distance;
   out.bearing = bearing;
-  console.log("Distance:", distance, "Bearing:", bearing);
+
   return out;
 }
 function MakeArray(n) {
@@ -87,6 +87,7 @@ function getlatlon(lat1, lon1, bearing, distance) {
   out.lon2 = lona2 * RAD2DEG;
   return out;
 }
+
 function deg_to_dms(deg) {
   if (deg < 0) {
     deg = -deg;
@@ -109,9 +110,7 @@ function deg_to_dms(deg) {
     d++;
     m = 0;
   }
-  return (
-    signo + d + "\BA" + ("100" + m).slice(-2) + "'" + ("100" + s).slice(-2)
-  );
+  return signo + d + "º" + ("100" + m).slice(-2) + "'" + ("100" + s).slice(-2);
 }
 function deg_to_dm(deg) {
   if (deg < 0) {
@@ -123,16 +122,11 @@ function deg_to_dm(deg) {
   var d = Math.floor(deg);
   var minfloat = (deg - d) * 60;
   var m = minfloat.toFixed(3);
-  //   var secfloat = (minfloat-m)*60;
-  //   var s = Math.round(secfloat);
-  // After rounding, the seconds might become 60. These two
-  // if-tests are not necessary if no rounding is done.
-  //   if (s==60) {m++;s=0;}
   if (m == 60) {
     d++;
     m = 0;
   }
-  return signo + d + "\BA " + m + "'";
+  return signo + d + "º " + m + "'";
 }
 
 function ucase(str) {
@@ -313,17 +307,17 @@ async function readShareAsset({ assetOutputType, assetUrl }) {
 
 async function getShareResource(file) {
   try {
-    //const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
-    const assetUrl = `https://balloons.dev.browxy.com/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
+    const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
+    //const assetUrl = `https://balloons.dev.browxy.com/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
     let serverResponse;
-    // const response = await readShareAsset({
-    //   assetOutputType: "txt",
-    //   assetUrl,
-    // });
-    // serverResponse = response.data;
+    const response = await readShareAsset({
+      assetOutputType: "txt",
+      assetUrl,
+    });
+    serverResponse = response.data;
 
-    const response = await fetch(assetUrl);
-    serverResponse = await response.text();
+    //const response = await fetch(assetUrl);
+    //  serverResponse = await response.text();
 
     return serverResponse;
   } catch (error) {
@@ -334,13 +328,14 @@ async function getShareResource(file) {
 
 async function getAltura(lat, lon) {
   const url = `https://api.opentopodata.org/v1/srtm30m?locations=${lat},${lon}`;
-  console.log(url);
+
   const body = new URLSearchParams({ url }).toString();
   const res = await getURLXform(
-    "https://balloons.dev.browxy.com/api/v1/webFetcher",
+    "/api/v1/webFetcher",
+    // "https://balloons.dev.browxy.com/api/v1/webFetcher",
     body,
   );
-  console.log(res);
+
   try {
     const data = JSON.parse(res);
     const { results, status } = data;
@@ -447,7 +442,6 @@ async function getTimezone(lat, lon, timezoneDate) {
       let jsonResponse;
       try {
         jsonResponse = JSON.parse(pag2);
-        console.log("@@@@@@@@@@@@@@@@", jsonResponse);
       } catch (error) {
         // Si no es JSON válido, usar las funciones buscarTag originales
         window.Posicion = 1;
@@ -496,8 +490,6 @@ async function getTimezoneOffsetFromGeoTimeZone(lat, lon) {
     const url = `https://api.geotimezone.com/public/timezone?latitude=${lat}&longitude=${lon}`;
     const response = await fetch(url);
     const data = await response.json();
-
-    console.log("Timezone data:", data);
 
     // Get offset in hours
     const offsetSeconds = data.offset.total_seconds || 0;
@@ -1024,21 +1016,6 @@ async function vorread() {
     }
 
     lastm = m - 1;
-
-    // TODO - REMOVE  todos los datos procesados
-    const obj = {
-      locations: locations,
-      vormatrix: vormatrix,
-      help: help,
-      lastm: lastm,
-      vorloc1m: vorloc1m,
-      vorloc2m: vorloc2m,
-      VOR1La: VOR1La,
-      VOR1Lo: VOR1Lo,
-      VOR2La: VOR2La,
-      VOR2Lo: VOR2Lo,
-    };
-    console.log(obj);
   } catch (error) {
     console.error("Error en vorread():", error);
     throw error;
@@ -1272,7 +1249,7 @@ function processNearStations(htmlContent, callsign) {
     // En el código original se buscaba en la página, aquí puedes implementar lógica
     // para asignar iconos según el tipo de estación
     //let proximage = "icon/none.png";
-    let proximage = "icon/pin.png";
+    let proximage = imageSrcUrl["pin"];
 
     // Extraer latitud, longitud, distancia de las celdas correspondientes
     const proxlat = cells[3].textContent.trim();
@@ -1341,7 +1318,7 @@ function processNearStations(htmlContent, callsign) {
           infoWindow,
           parseFloat(proxlat),
           parseFloat(proxlon),
-          imageName,
+          imageSrcUrl[imageName],
           m,
         ]);
         m++;
@@ -1412,7 +1389,7 @@ function plot(V1n, V1x, V1y, V2n, V2x, V2y, Gn, Bx, By) {
   //Draw the color filled text string at specified point and angle
   var text = new jxText(
     new jxPoint(5, 130),
-    "Radiales VORs a <%=callsign%>",
+    `Radiales VORs a ${callsign}`,
     font,
     penBlack,
     brushWhite,
@@ -1451,6 +1428,74 @@ function show() {
   alert(help);
 }
 
-function saveMapState() {
-  console.log("Map state saved");
+function saveMapState() {}
+
+function ira(donde) {
+  var vor1a = getParamSafe("VOR1");
+  var vor2a = getParamSafe("VOR2");
+  var nowgo = `${HOST_URL}/vor?callsign=${callsign}&Vuelo=${donde}&VOR1=${vor1a}&VOR2=${vor2a}`;
+  window.parent.window.location.href = nowgo;
 }
+
+function loadGMap() {
+  const iframe = document.getElementById("map_canvas");
+  const jsonData = {
+    callsign,
+    heightsave,
+    feetlaunchfinal,
+    saveddeltafeetpersecond,
+    horalocal,
+    deltafeetpersecond,
+    timezoneoffset,
+    wdir,
+    wspeed,
+    VOR1La,
+    VOR1Lo,
+    VOR2La,
+    VOR2Lo,
+    GLatdeg,
+    GLondeg,
+    GLatdegf,
+    GLondegf,
+    posis,
+    locations,
+    fechadescmesdia,
+    refreshParam,
+    autoRefParam,
+    deltapos,
+    iconomapa,
+    latciudad,
+    lonciudad,
+    actualdate,
+    AlturaNumber,
+    posdatam,
+    Delta,
+    um,
+  };
+
+  iframe.contentWindow.postMessage(
+    JSON.stringify(jsonData),
+    "https://lu7aa.org",
+  );
+}
+
+function handleMapMessage(event) {
+  const { callbackName, props } = event.data;
+  window[callbackName](props);
+}
+
+function submitForm(event) {
+  event.preventDefault();
+  const form = event.target;
+  const formData = new FormData(form);
+  const params = new URLSearchParams(formData).toString();
+  window.parent.window.location.href = `${HOST_URL}/vor?${params}`;
+}
+
+function fireSubmitFormEvent() {
+  const form = document.getElementById("RESEND");
+  const event = new Event("submit", { bubbles: true, cancelable: true });
+  form.dispatchEvent(event);
+}
+
+window.addEventListener("message", handleMapMessage);

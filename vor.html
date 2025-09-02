@@ -106,6 +106,12 @@
                 scrollbar-arrow-color: #000000;
                 margin: 0;
                 padding: 0;
+                background-image: url(https://i.postimg.cc/s2d8JhJC/fondo.gif);
+            }
+
+            .btn-link {
+                all: unset;
+                cursor: pointer;
             }
 
             .loader {
@@ -135,34 +141,40 @@
                 }
             }
         </style>
+
         <script src="js/jsDraw2DX.js"></script>
         <script src="js/assetsSrc.js"></script>
         <script src="js/vor.js"></script>
         <script src="js/vorFn.js"></script>
     </head>
     <!--<body background="fondo.gif" style="margin-left: 0;margin-right: 0;margin-top: 0;margin-bottom: 0;margin: 0;" class=tite onload="showvormap();">  -->
-    <body class="tite">
+    <body class="tite" style="height: 96dvh; width: 100dvw">
         <div class="loader" id="loader">
             <div class="spinner"></div>
         </div>
         <div id="load_error" style="margin: 40px auto; width: 305px"></div>
-        <form name="Resend" c style="margin-bottom: 0; margin-top: 0">
+        <form
+            id="Resend"
+            name="Resend"
+            onsubmit="submitForm(event);"
+            style="margin-bottom: 0; margin-top: 0"
+        >
             <center>
                 <font style="font-size: 12px; font-weight: normal">
-                    <a href="pronostico.asp" target="_self"><u>VIENTOS</u></a
-                    >&nbsp;&nbsp; VOR-1:
+                    VOR-1:
                     <select
                         name="VOR1"
                         id="VOR1"
-                        onchange="this.form.submit();"
+                        onchange="fireSubmitFormEvent();"
                         style="font-size: 10px"
                         title="Seleccione 1er VOR"
                     ></select>
-                    &nbsp;<a
-                        href="#"
-                        onclick="javascript:show();"
+                    &nbsp;<button
+                        class="btn-link"
+                        onclick="event.preventDefault(); show();"
                         title="Ver Lista de VORs"
-                        ><b
+                    >
+                        <b
                             style="
                                 background: #ffb577;
                                 font-size: 12px;
@@ -170,7 +182,7 @@
                             "
                         >
                             ?
-                        </b></a
+                        </b></button
                     >&nbsp;&nbsp;
                 </font>
                 <font
@@ -189,15 +201,16 @@
                     <select
                         name="VOR2"
                         id="VOR2"
-                        onchange="this.form.submit();"
+                        onchange="fireSubmitFormEvent();"
                         style="font-size: 10px"
                         title="Seleccione 2do VOR"
                     ></select
-                    >&nbsp;<a
-                        href="#"
-                        onclick="javascript:show();"
+                    >&nbsp;<button
+                        class="btn-link"
+                        onclick="event.preventDefault(); show();"
                         title="Ver Lista de VORs"
-                        ><b
+                    >
+                        <b
                             style="
                                 background: #ffb577;
                                 font-size: 12px;
@@ -205,12 +218,12 @@
                             "
                         >
                             ?
-                        </b></a
+                        </b></button
                     >&nbsp;&nbsp; CALL:<input
                         type="text"
                         name="callsign"
                         id="callsign"
-                        onrowenter="this.form.submit();"
+                        onrowenter="fireSubmitFormEvent();"
                         value=""
                         size="8"
                         style="font-size: 10px; font-weight: normal"
@@ -225,23 +238,7 @@
                 <br />
                 <div id="tables_content" style="width: 100dvw"></div>
                 <div id="other_content" style="width: 100dvw"></div>
-                <!--<center>
-                    <div id="gMapLoader" class="loader"></div>
-                    <iframe
-                        id="map_canvas"
-                        src="vorGmap.html"
-                        style="
-                            border: none;
-                            height: 80%;
-                            width: 80%;
-                            margin-right: auto;
-                            margin-left: auto;
-                            /*background-color: #213468;*/
-                            display: block;
-                            visibility: hidden;
-                        "
-                    ></iframe>
-                </center>-->
+
                 <!--
 
                 <table border=0 cellspacing=2 cellpadding=0 width="90%" style="width:90%;"><tr><td align=center><a href="http://www.amsat.org.ar" target=_blank><img src="images/amsatblue.gif" width=100px border=0 title="Ir a Amsat-LU" ALT="Ir a Amsat-LU"></a></td><td align=center>
@@ -377,5 +374,20 @@ end if%>
 -->
             </center>
         </form>
+        <div id="map_canvas_container" style="margin: 0 auto">
+            <iframe
+                id="map_canvas"
+                src="https://lu7aa.org/vorGmap.html"
+                style="
+                    border: none;
+                    height: 100%;
+                    width: 100%;
+                    margin-right: auto;
+                    margin-left: auto;
+                    /*background-color: #213468;*/
+                    display: block;
+                "
+            ></iframe>
+        </div>
     </body>
 </html>

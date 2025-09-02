@@ -1,7 +1,6 @@
 window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
 var TZDiff = new Date().getTimezoneOffset();
-//var GOOGLE_API_KEY = "AIzaSyAACTum6vjLOeCDgGj6EFFnzJMe7r8xOII";
-var GOOGLE_API_KEY = "AIzaSyCOya7aI1WJfTmx9e5d7YY7RgueBwVhwrk";
+
 var PI = Math.PI; // 3.141592653589793
 var DEG2RAD = PI / 180; // 0.017453292519943295
 var RAD2DEG = 180 / PI; // 57.29577951308232
@@ -9,6 +8,12 @@ var EARTH_RADIUS = 3440.07;
 var llheightCache = ""; // TODO check ASP Application value
 var lltimezoneCache = ""; // TODO check ASP Application value
 window.Posicion = 1;
+
+var time = "";
+var timel = "";
+var timez = "";
+var tiempodown = "";
+
 var pag,
   help,
   help1,
@@ -24,13 +29,16 @@ var pag,
   VOR2LocCountry,
   Vor1Loc,
   Vor2Loc,
-  Vor1mag,
-  Vor2mag,
+  Vor1Mag,
+  Vor2Mag,
+  Vor1Lon,
+  Vor2Lon,
+  Vor1Lat,
+  Vor2Lat,
   OSADist,
   OSARadial,
   Ubicacion,
   Ubicacionm,
-  Tiempo,
   Course,
   Curso,
   Cursoa,
@@ -55,6 +63,8 @@ var pag,
   Glondegf,
   GLatdegf,
   GLondegf,
+  GLatdeg1,
+  GLondeg1,
   Gy,
   Gx,
   LYE,
@@ -62,6 +72,8 @@ var pag,
   R,
   lon1,
   lat1,
+  latdeg,
+  londeg,
   brng,
   posits,
   um,
@@ -76,6 +88,7 @@ var pag,
   autoRefParam,
   flightsParam,
   refreshParam;
+var Tiempo = "";
 var Elapsed = 0;
 var LYEDist = "";
 var LYERadial = "";
@@ -171,38 +184,54 @@ var diflon = 0;
 var deltapos = 0;
 var posdatam = [];
 var iconomapa = "";
-var altactj, deltaactj, altact1, deltaact1, deltacj, d1, d2, r1, r2;
+var altactj, deltaactj, altact1, deltaact1, deltacj, deltac1, d1, d2, r1, r2;
 var feetlaunchfinal = "";
 var distanciaminima = 10000;
 var savepos = 1;
 var instates = false;
+var latsearch = "";
+var lonsearch = "";
+var actualseconds = "";
+var deltal = 0;
+var latciudad = "";
+var lonciudad = "";
+var cityname = "";
+var names = "";
+var asl = 0;
+var asz = 0;
+var laspos1 = "";
+var fechadescmesdia = "";
+
+var latslo,
+  lonslo,
+  latshi,
+  lonshi = "";
+
 async function initApp() {
   setParamValues();
-
   setDocDomValues();
-
   await vorread();
+
   let url1 = "http://www.findu.com/cgi-bin/find.cgi?call=" + callsign;
   let body = new URLSearchParams({ url: url1 }).toString();
   let pag = await getURLXform(
-    "https://balloons.dev.browxy.com/api/v1/webFetcher",
+    "/api/v1/webFetcher",
+    //"https://balloons.dev.browxy.com/api/v1/webFetcher",
     body,
   );
-  console.log(url1);
+
   let chequeo = buscarTag("Sorry, no position known", "<", pag);
-  let latlon;
+  let latlon = "";
   if (chequeo === "") {
-    console.log("Position found");
     window.Posicion = 1;
     Ubicacion = buscarTag("Position of ", " --- Report", pag);
-    console.log(">>>> ", Ubicacion);
+
     const regex = /(\d+(?:\.\d+)?)\s+miles/;
     const match = Ubicacion.match(regex);
     let millas = "0";
 
     if (match) {
       millas = match[1];
-      console.log(millas);
     }
 
     Ubicacion = replace(Ubicacion, ", ARGENTINA", "", 1, 100, 1);
@@ -225,14 +254,15 @@ async function initApp() {
     Ubicacion = DistMillas + " " + mayusculaPrimeras(Ubicacion);
     latlon = buscarTag("C=", "&A", pag);
     latlon = replace(latlon, "%2c", "/", 1, 100, 1);
-    console.log("latlon", latlon);
+
     window.Posicion = 1;
     Tiempo = buscarTag("received", "ago", pag);
-    console.log("Tiempo", Tiempo);
+
     let url2 = `http://www.findu.com/cgi-bin/vor.cgi?call=${callsign}&vor1=${VOR1}&vor2=${VOR2}&refresh=60`;
     body = new URLSearchParams({ url: url2 }).toString();
     pag = await getURLXform(
-      "https://balloons.dev.browxy.com/api/v1/webFetcher",
+      "/api/v1/webFetcher",
+      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
       body,
     );
 
@@ -274,13 +304,10 @@ async function initApp() {
     Fechahoralocal = cDate(trim(left(Fechahora, 19)));
     Fechahoralocal = Fechahoralocal - 3 / 24;
 
-    console.log("Fechahoralocal:", Fechahoralocal);
-
     Tiempo = replace(Tiempo, " days", "d ", 1, 1, 1);
     Tiempo = replace(Tiempo, " hours", "h ", 1, 1, 1);
     Tiempo = replace(Tiempo, " minutes", "' ", 1, 1, 1);
     Tiempo = replace(Tiempo, " seconds", '"', 1, 1, 1);
-    console.log("Tiempo-replace:", Tiempo);
   }
 
   let pag1 = "";
@@ -294,25 +321,33 @@ async function initApp() {
   let urlpath = `http://www.findu.com/cgi-bin/posit.cgi?call=${callsign}&comma=1&start=${spanhours}&time=1`;
   body = new URLSearchParams({ url: urlpath }).toString();
   pag = await getURLXform(
-    "https://balloons.dev.browxy.com/api/v1/webFetcher",
+    "/api/v1/webFetcher",
+    //"https://balloons.dev.browxy.com/api/v1/webFetcher",
     body,
   );
 
   if (pag.length > 600) {
-    datataken = urlpath + "<br>";
+    datataken = urlpath;
   }
+
   datospath = "20" + buscarTag("20", "</BODY>", pag);
   datospath = pag1 + datospath;
+
   pathm = split(datospath, "<br>", 25000, 2).map((item) =>
     item.replaceAll("\n", ""),
   );
+
+  if (pathm.length < 20) {
+    throw new Error("Sorry, no positions found for " + callsign);
+  }
+
   if (pathm[pathm.length - 1] === "") {
     pathm.pop();
   }
   daysave = cuantosDias(pathm[0].split(",")[0]);
-  console.log("daysave", daysave);
+
   let fecha1 = cuantosDias(pathm[pathm.length - 1].split(",")[0]);
-  console.log("fecha1", fecha1);
+
   let tx = 0;
   let ssavelast = pathm.length - 10;
   ssavem[ssavempointer][0] = pathm.length - 1;
@@ -355,8 +390,6 @@ async function initApp() {
   ssavem[ssavempointer][0] = 0;
   ssavem[ssavempointer][1] = cuantosDias(pathm[1].split(",")[0]);
 
-  // console.log(pathm);
-  // console.log(ssavem);
   let comienzo = 0;
   let final = 0;
   if (Vuelo === "") {
@@ -383,7 +416,8 @@ async function initApp() {
     let heighturl = `http://www.findu.com/cgi-bin/rawposit.cgi?time=1&call=${callsign}&start=120&length=124`;
     body = new URLSearchParams({ url: heighturl }).toString();
     let heightdata = await getURLXform(
-      "https://balloons.dev.browxy.com/api/v1/webFetcher",
+      "/api/v1/webFetcher",
+      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
       body,
     );
     let heightm = heightdata.split("<br>", 4000, 1);
@@ -399,7 +433,7 @@ async function initApp() {
       }
     }
   }
-  //console.log(hmx);
+
   let heightpointermax = heightpointer - 1;
 
   if (getParamSafe("flights") !== "") {
@@ -696,7 +730,7 @@ async function initApp() {
                 }
                 saveddeltafeetpersecond = deltafeetpersecond;
                 deltaMetersPerSecond = deltafeetpersecond * 0.3048;
-                //  Delta = "Up/Down at: " & replace(formatnumber(deltafeetpersecond * .3048, 1,,, 0), ",", "", 1, 30, 1) & " m/s / " & replace(formatnumber(deltafeetpersecond * 60, 0), ",", "", 1, 20, 1) & " feet/min"
+
                 let formattedMeters = replace(
                   formatNumberV2(deltaMetersPerSecond, 1, true, false, false),
                   ",",
@@ -842,8 +876,7 @@ async function initApp() {
               posdatam[2],
               icono,
             ];
-            //"On " & mes(mid(posdatam(0), 6, 2)) & "-" & mid(posdatam(0), 8, 2) & " " & mid(posdatam(0), 2, 4) & "<br> At " & horam & ":" & mid(posdatam(0), 12, 2) & ":" & mid(posdatam(0), 14, 2) & " Local / " & mid(posdatam(0), 10, 2) & ":" & mid(posdatam(0), 12, 2) & ":" & mid(posdatam(0), 14, 2) & " z<br>Altitude: " & replace(FormatNumber(trim(posdatam(5)) * .3048, 0,,, 0), ",", "", 1, 50, 1) & " m. / " & trim(posdatam(5)) & " feet " & alturasobretierra & "<br>RF reach: " & formatnumber(1.00 * 3.8 * sqr(abs((posdatam(5) - feetlaunch)) * .3048), 0) & " Km. Dir: " & wdir & " &ordm;<br>Speed: " & replace(FormatNumber(wspeed, 1,,, 0), ",", "", 1, 50, 1) & " Km/h / " & replace(FormatNumber(wspeed * 0.539956803, 1,,, 0), ",", "", 1, 50, 1) & " knots<br>" & Delta & "',"
-            //normalvorloc = normalvorloc & posdatam(1) & "," & posdatam(2) & ",'" & icono & "']," & vbCrLf
+
             horam = horalocal * 1 + timezoneoffset * 1;
             if (horam > 23) {
               horam = horam - 24;
@@ -889,7 +922,7 @@ async function initApp() {
                 ) +
                 " Km. <br>Dir: " +
                 wdir +
-                " &ordm;<br>Speed: ") &
+                " º<br>Speed: ") &
                 (replace(formatNumberV2(wspeed, 1), ",", "", 1, 50, 1) +
                   " Km/h / " +
                   replace(
@@ -900,7 +933,7 @@ async function initApp() {
                     50,
                     1,
                   ) +
-                  " knots<br>Se suelta la carga &uacute;til"),
+                  " knots<br>Se suelta la carga útil"),
               posdatam[1],
               posdatam[2],
               iconblast,
@@ -915,7 +948,6 @@ async function initApp() {
               switcher = true;
             } else {
               if (normalvorloc.length > 0) {
-                //vorloc = vorloc & normalvorloc
                 locations = [...locations, normalvorloc];
                 normalvorloc = [];
               } else {
@@ -987,7 +1019,7 @@ async function initApp() {
                   ) +
                   " Km. Dir: " +
                   wdir +
-                  " &ordm;<br>Speed: " +
+                  " º<br>Speed: " +
                   replace(formatNumberV2(wspeed, 1), ",", "", 1, 30, 1) +
                   " Km/h / " +
                   replace(
@@ -1003,8 +1035,6 @@ async function initApp() {
                 posdatam[2],
                 iconblast,
               ];
-
-              //previousvorlocblast = previousvorlocblast & posdatam(1) & "," & posdatam(2) & ",'" & iconblast & "']," & vbCrLf
             }
           } // END if (trim(posdatam[5]) != "&nbsp;")
           posdatam0s = posdatam[0];
@@ -1028,11 +1058,9 @@ async function initApp() {
   posis[um][0] = trim(posdatam[1]);
   posis[um][1] = trim(posdatam[2]);
   posis[um][2] = trim(posdatam[0]);
-  //if (final === pathm.length - 1) {
+
   posdataf = pathm[final].split(",");
-  // } else {
-  // posdataf = pathm[final].split(",");
-  //}
+
   if (saveddeltafeetpersecond > -6) {
     saveddeltafeetpersecond = avgdof / avgdocount; //average down in meters/se
     deltafeetpersecond = saveddeltafeetpersecond;
@@ -1051,16 +1079,16 @@ async function initApp() {
   heightsave = trim(posdatam[5]) * 1;
   feetlaunchfinal = ""; //getaltura(Glatdegf,Glondegf)
   let estaciones = `http://www.findu.com/cgi-bin/map-near.cgi?lat=${Glatdegf}&lon=${Glondegf}&cnt=150`;
-  console.log("estaciones", estaciones);
+
   body = new URLSearchParams({ url: estaciones }).toString();
   pag = await getURLXform(
-    "https://balloons.dev.browxy.com/api/v1/webFetcher",
+    "/api/v1/webFetcher",
+    //"https://balloons.dev.browxy.com/api/v1/webFetcher",
     body,
   );
   let stationlast = 0;
   if (pag.length > 600) {
     stations = parseStations(pag);
-    console.log("stations", stations);
     stationlast = 99;
     for (let z = 99; z >= 0; z--) {
       if (stations[z][0] === "") {
@@ -1076,14 +1104,14 @@ async function initApp() {
     }
     let proximas = `http://www.findu.com/cgi-bin/map-near.cgi?lat=${posdatam1s}&lon=${posdatam2s}&last=500&n=500&distance=550`;
     body = new URLSearchParams({ url: proximas }).toString();
-    pag = await getURLXform(
-      "https://balloons.dev.browxy.com/api/v1/webFetcher",
-      body,
-    );
-    const result = processNearStations(pag, ucase(callsign));
-    console.log(result);
+    // pag = await getURLXform(
+    //   "https://balloons.dev.browxy.com/api/v1/webFetcher",
+    //   body,
+    // );
+    // const result = processNearStations(pag, ucase(callsign));
+    // iconomapa = result.iconomapa;
     // TODO ?  ADD VORLOC TO locations matrix
-    iconomapa = result.iconomapa;
+    //locations = [...locations, ...result.vorloc];
   } // END  if (pag.length > 600)
 
   Glatlaunchdeg = posdatam1s;
@@ -1097,10 +1125,10 @@ async function initApp() {
 
   GLatdeg = Glatdegf;
   GLondeg = Glondegf;
-  Glatdeg1 = Glatdeg;
-  Glondeg1 = Glondeg;
-  latdeg = degToDMS(Glatdeg1);
-  londeg = degToDMS(Glondeg1);
+  GLatdeg1 = GLatdeg;
+  GLondeg1 = GLondeg;
+  latdeg = degToDMS(GLatdeg1);
+  londeg = degToDMS(GLondeg1);
   altactj = heightsave;
   altactj = altactj - feetlaunch;
   deltaactj = -deltafeetpersecond;
@@ -1127,7 +1155,7 @@ async function initApp() {
     right("0" + actualdate.getSeconds(), 2) +
     " " +
     replace(
-      formatNumberV2(AlturaNumber * 0.3048 - feetlaunch * 0.3048, 0),
+      formatNumber(AlturaNumber * 0.3048 - feetlaunch * 0.3048, 0),
       ",",
       "",
       1,
@@ -1137,9 +1165,9 @@ async function initApp() {
     "m ";
   if (deltafeetpersecond !== 0) {
     laspos1 =
-      laspos1 &
+      laspos1 +
       (replace(
-        formatNumberV2(deltafeetpersecond * 0.3048, 1),
+        formatNumber(deltafeetpersecond * 0.3048, 1),
         ",",
         "",
         1,
@@ -1148,16 +1176,18 @@ async function initApp() {
       ) +
         " m/s ");
   }
+
   laspos1 =
     laspos1 +
     "to " +
-    formatNumber(wdir, 0) +
+    formatNumber(Number(wdir), 0) +
     "º @ " +
-    formatNumber(wspeed / 0.539956803, 1) +
+    formatNumber(Number(wspeed) / 0.539956803, 1) +
     " Km/h in " +
     latdeg +
     " " +
     londeg;
+
   if (deltacj > 10) {
     laspos1 = laspos1 + " Land " + horadesc;
   }
@@ -1173,24 +1203,24 @@ async function initApp() {
 
     if (getParamSafe("VOR1") === "" && vormatrix[v][0] === usevor) {
       optionHtml += " selected";
-      VOR1Loc = trim(vormatrix[v][4]);
-      VOR1Lat = vormatrix[v][1];
-      VOR1Lon = vormatrix[v][2];
+      Vor1Loc = trim(vormatrix[v][4]);
+      Vor1Lat = vormatrix[v][1];
+      Vor1Lon = vormatrix[v][2];
       Vor1Mag = vormatrix[v][3];
-      VOR1LocCountry = VOR1Loc + " " + trim(vormatrix[v][5]);
+      VOR1LocCountry = Vor1Loc + " " + trim(vormatrix[v][5]);
     } else {
       if (vormatrix[v][0] === getParamSafe("VOR1")) {
         optionHtml += " selected";
-        VOR1Loc = trim(vormatrix[v][4]);
-        VOR1Lat = vormatrix[v][1];
-        VOR1Lon = vormatrix[v][2];
+        Vor1Loc = trim(vormatrix[v][4]);
+        Vor1Lat = vormatrix[v][1];
+        Vor1Lon = vormatrix[v][2];
         Vor1Mag = vormatrix[v][3];
-        VOR1LocCountry = VOR1Loc + " " + trim(vormatrix[v][5]);
+        Vor1LocCountry = Vor1Loc + " " + trim(vormatrix[v][5]);
       }
     }
     optionHtml += ">" + trim(vormatrix[v][0]) + "</option>" + "\n";
   }
-  //console.log(optionHtml);
+
   document.getElementById("VOR1").innerHTML = optionHtml;
 
   optionHtml = "";
@@ -1204,19 +1234,22 @@ async function initApp() {
 
     if (getParamSafe("VOR2") === "" && vormatrix[v][0] === usevor) {
       optionHtml += " selected";
-      VOR2Loc = trim(vormatrix[v][4]);
-      VOR2Lat = vormatrix[v][1];
-      VOR2Lon = vormatrix[v][2];
+      Vor2Loc = trim(vormatrix[v][4]);
+      Vor2Lat = vormatrix[v][1];
+      Vor2Lon = vormatrix[v][2];
       Vor2Mag = vormatrix[v][3];
-      VOR2LocCountry = VOR2Loc + " " + trim(vormatrix[v][5]);
+      VOR2LocCountry = Vor2Loc + " " + trim(vormatrix[v][5]);
     } else {
-      if (vormatrix[v][0] === getParamSafe("VOR2")) {
+      if (
+        getParamSafe("VOR2") !== "" &&
+        vormatrix[v][0] === getParamSafe("VOR2")
+      ) {
         optionHtml += " selected";
-        VOR2Loc = trim(vormatrix[v][4]);
-        VOR2Lat = vormatrix[v][1];
-        VOR2Lon = vormatrix[v][2];
+        Vor2Loc = trim(vormatrix[v][4]);
+        Vor2Lat = vormatrix[v][1];
+        Vor2Lon = vormatrix[v][2];
         Vor2Mag = vormatrix[v][3];
-        VOR2LocCountry = VOR2Loc + " " + trim(vormatrix[v][5]);
+        VOR2LocCountry = Vor2Loc + " " + trim(vormatrix[v][5]);
       }
     }
     optionHtml += ">" + trim(vormatrix[v][0]) + "</option>" + "\n";
@@ -1246,12 +1279,13 @@ async function initApp() {
     var getURL3 = `http://www.findu.com/cgi-bin/vor.cgi?call=${callsign}&vor1=${VOR1}&vor2=${VOR2}&refresh=60`;
     body = new URLSearchParams({ url: getURL3 }).toString();
     pag = await getURLXform(
-      "https://balloons.dev.browxy.com/api/v1/webFetcher",
+      "/api/v1/webFetcher",
+      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
       body,
     );
     window.Posicion = 1;
     LYERadial = buscarTag(
-      "<tr><td>" + VOR1 + "</td><td>" + VOR1Loc + " </td><td>",
+      "<tr><td>" + VOR1 + "</td><td>" + Vor1Loc + " </td><td>",
       "</td>",
       pag,
     );
@@ -1276,7 +1310,7 @@ async function initApp() {
     }
 
     OSARadial = buscarTag(
-      "<tr><td>" + VOR2 + "</td><td>" + VOR2Loc + " </td><td>",
+      "<tr><td>" + VOR2 + "</td><td>" + Vor2Loc + " </td><td>",
       "</td>",
       pag,
     );
@@ -1336,7 +1370,7 @@ async function initApp() {
     */
   } else {
     tableHtml = `${tableHtml} No hay datos actualizados disponibles para ${callsign}<br>Los datos para cálculos de VORs se toman de findu.com<br><br>Posiblemente el vuelo ocurrió hace mas de 10 dias<br>o el 'CALL' no corresponde a la licencia buscada<br><br>Puede haber gráficos disponibles dar click
-       click <a href='${HOST_URL}/balloonchart?callsign=${callsign}'><u>Aquí</u></a>
+       click <button class='btn-link' onclick='event.preventDefault();window.parent.window.location.href="${HOST_URL}/balloonchart?callsign=${callsign}"'><u>Aquí</u></button>
      </td></tr></table></td><td align=center><a href='http://www.anac.gob.ar/spanish/' target=_blank><img src="${imageSrcUrl["vor"]}" border=0 width=90px alt='Ir a la ANAC' title='Ir a la ANAC'></a></td></tr></table>`;
   }
 
@@ -1349,7 +1383,6 @@ async function initApp() {
   }
 
   if (Tiempo.length > 2) {
-    console.log("datataken", datataken);
     if (datataken.length > 10) {
       urlaprsfi = "http://www.aprs.fi?call=" + callsign;
       otherHtml = `${otherHtml} <a href='${datataken}' target=_blank><font size=-2 style=""vertical-align:text-top;""><u>DATA</u></font></a>
@@ -1357,29 +1390,29 @@ async function initApp() {
       <a href='http://www.flightradar24.com/${formatNumber(GLatdeg, 2)},${formatNumber(GLondeg, 2)}/7' target=_blank><font size=-2 style=""vertical-align:text-top;""><u>RADAR</u></font></a>`;
     }
 
-    otherHtml = `${otherHtml} <input type='button' name='seechart' value="Chart" style="cursor:hand;width:41px;height:20px;line-height:12px;" onclick="${window.parent.window.parent.window.location.href}='${HOST_URL}/balloonchart?callsign=${callsign}&flights=${flightsParam}&Vuelo=${Vuelo}'">`;
+    otherHtml = `${otherHtml} <input type='button' name='seechart' value="Chart" style="cursor:hand;width:41px;height:20px;line-height:12px;" onclick="event.preventDefault();window.parent.window.location.href='${HOST_URL}/balloonchart?callsign=${callsign}&flights=${flightsParam}&Vuelo=${Vuelo}'">`;
+    /*
     if (left(callsign, 1) === "L") {
       if (LYEDist !== "" && OSADist !== "" && LYEDist < 800 && OSADist < 800) {
         otherHtml = `${otherHtml} <input type='submit' name='Validar' value="Validar Celulares" style="cursor:hand;width:108px;height:20px;line-height:12px;">
          <input type='submit' name='Enviar' value="Enviar SMSs" style="cursor:hand;width:82px;height:20px;line-height:12px;">`;
       }
     }
-
-    otherHtml = `${otherHtml} <input type='button' name='vermapa' value="Findu Map" style="cursor:hand;width:78px;height:20px;line-height:12px;" onclick="${window.parent.window.parent.window.location.href}='http://www.findu.com/cgi-bin/find.cgi?call=${callsign}'">
-     <input type='button' name='verfindu' value="Findu Page" style="cursor:hand;width:76px;height:20px;line-height:12px;" onclick="${window.parent.window.parent.window.location.href}='http://www.findu.com/cgi-bin/vor.cgi?call=${callsign}&vor1=${VOR1}&vor2=${VOR2}&refresh=60'">`;
+    */
+    otherHtml = `${otherHtml} <input type='button' name='vermapa' value="Findu Map" style="cursor:hand;width:78px;height:20px;line-height:12px;" onclick="event.preventDefault();window.parent.window.location.href='http://www.findu.com/cgi-bin/find.cgi?call=${callsign}'">
+     <input type='button' name='verfindu' value="Findu Page" style="cursor:hand;width:76px;height:20px;line-height:12px;" onclick="event.preventDefault();window.parent.window.location.href='http://www.findu.com/cgi-bin/vor.cgi?call=${callsign}&vor1=${VOR1}&vor2=${VOR2}&refresh=60'">`;
   }
-  otherHtml = `${otherHtml} <input type='submit' oncliock="${saveMapState()}" name='Refresh value="Refresh" style="cursor:pointer;width:66px;height:20px;line-height:12px;">
-    <font style="font-weight:normal;font-size:14px;vertical-align:inherit;">Auto-Refr:</font><input type='checkbox' name="AutoRef" value="" style="vertical-align:inherit;" ${autoRefParam == 1 ? "checked" : ""} onclick="javascript:saveMapState;document.Resend.submit();">
-   <font style="font-family:Tahoma;font-weight:normal;font-size:14px;vertical-align:inherit;">All:</font><input type=checkbox name="flights" value="0" onclick="javascript:document.Resend.submit();" style="vertical-align:inherit;"${flightsParam == 1 || flightsParam != "" ? "checked" : ""}>`;
+  otherHtml = `${otherHtml} <input type='submit' onclick="event.preventDefault();saveMapState();" name='Refresh value="Refresh" style="cursor:pointer;width:66px;height:20px;line-height:12px;">
+    <font style="font-weight:normal;font-size:14px;vertical-align:inherit;">Auto-Refr:</font>
+    <input type='checkbox' name="AutoRef" value="" style="vertical-align:inherit;" ${autoRefParam == 1 ? "checked" : ""} onclick="event.preventDefault();saveMapState();fireSubmitFormEvent();">
+   <font style="font-family:Tahoma;font-weight:normal;font-size:14px;vertical-align:inherit;">All:</font>
+   <input type=checkbox name="flights" value="0" onclick="fireSubmitFormEvent();" style="vertical-align:inherit;"${flightsParam == 1 || flightsParam != "" ? "checked" : ""}>`;
 
   if (ssavempointer > 1) {
     otherHtml = `${otherHtml} <font style='font-size:14px;line-height:14px;font-weight:normal;vertical-align:inherit;'>+Flights:</font>`;
     for (let m = 1; m <= ssavempointer; m++) {
       const fecha = cDate(ssavem[m][1]);
-      //nombrefecha = month(cDate(ssavem[m][1])) + "/" + day(cDate(ssavem[m][1]));
       nombrefecha = fecha.getMonth() + 1 + "/" + fecha.getDate();
-      //fvlo = cDate(ssavem[m][1]);
-
       fvloc =
         "Vuelo-" +
         m +
@@ -1394,12 +1427,12 @@ async function initApp() {
         ":" +
         right("00" + fecha.getMinutes(), 2) +
         "z";
-      otherHtml = `${otherHtml} <input type='button' name='vuelos' value='${nombrefecha}' Title='${fvloc}' style='cursor:hand; width:34px;height:20px;font-size:10px;line-height:11px;vertical-align:inherit;' onclick='ira("${m}")'>`;
+      otherHtml = `${otherHtml} <input type='button' name='vuelos' value='${nombrefecha}' Title='${fvloc}' style='cursor:hand; width:34px;height:20px;font-size:10px;line-height:11px;vertical-align:inherit;' onclick='event.preventDefault();ira("${m}")'>`;
     }
   }
 
   if (Tiempo.length > 2) {
-    crsdist(VOR1Lat, VOR1Lon, GLatdeg, GLondeg);
+    crsdist(Vor1Lat, Vor1Lon, GLatdeg, GLondeg);
     d1 = LyeDist;
     r1 = LyeRadial;
     if (!d1) {
@@ -1408,7 +1441,8 @@ async function initApp() {
     if (!r1) {
       r1 = out.bearing;
     }
-    crsdist(VOR2Lat, VOR2Lon, GLatdeg, GLondeg);
+
+    crsdist(Vor2Lat, Vor2Lon, GLatdeg, GLondeg);
 
     d2 = OsaDist;
     r2 = OsaRadial;
@@ -1444,21 +1478,34 @@ async function initApp() {
     }
   }
 
-  // º
-  // Má
-  /*
-   REPLACE LOCATIONS ARRAY
-   if LYERadial <> "" then vorloc=replace(vorloc,"xQpZ1",LYERadial&"&ordm; M&aacute;gn.",1,7000,1)
-   if OSARadial <> "" then vorloc=replace(vorloc,"xQpZ2",OSARadial&"&ordm; M&aacute;gn.",1,7000,1)
-   if LYEDist <> "" then vorloc=replace(vorloc,"ZpQx1",LYEDist,1,7000,1)
-   if OSADist <> "" then vorloc=replace(vorloc,"ZpQx2",OSADist,1,7000,1)
-   */
+  locations = locations.map((obj) => {
+    let vloc = obj.infoWindow;
+    if (!vloc) {
+      return obj;
+    }
+    if (LYERadial !== "") {
+      vloc = vloc.replace("xQpZ1", `${LYERadial}º Mágn.`);
+    }
+    if (OSARadial !== "") {
+      vloc = vloc.replace("xQpZ2", `${OSARadial}º Mágn.`);
+    }
+    if (LYEDist !== "") {
+      vloc = vloc.replace("ZpQx1", LYEDist);
+    }
+    if (OSADist !== "") {
+      vloc = vloc.replace("ZpQx2", OSADist);
+    }
+
+    return {
+      ...obj,
+      infoWindow: vloc,
+    };
+  });
 
   actualseconds =
     actualdate.getHours() * 3600 +
     actualdate.getMinutes() * 60 +
     actualdate.getSeconds();
-  console.log("actualseconds", actualseconds);
 
   lon1 = Glondegf;
   lat1 = Glatdegf;
@@ -1479,7 +1526,6 @@ async function initApp() {
     abrevim[x][0] = entrm[0];
     abrevim[x][1] = entrm[1];
   }
-  console.log(abrevim);
 
   altact1 = heightsave;
   altact1 = altact1 - feetlaunchfinal;
@@ -1489,9 +1535,9 @@ async function initApp() {
   if (deltac1 < 0) {
     deltac1 = deltac1 * -1;
   }
-  console.log("deltafeetpersecond", deltafeetpersecond);
+
   outAsp = getLatLonAsp(lati2, loni2, wdir, (wspeed / 3600) * deltac1);
-  console.log(out);
+
   if (deltafeetpersecond < 0) {
     latsearch = outAsp[0];
     lonsearch = outAsp[1];
@@ -1499,9 +1545,7 @@ async function initApp() {
     latsearch = Glatdegf;
     lonsearch = Glondegf;
   }
-  console.log("latsearch", latsearch, "lonsearch", lonsearch);
 
-  console.log("latsearch", typeof latsearch, "lonsearch", typeof lonsearch);
   ajustes = 0.3;
   latslo = latsearch - ajustes;
   latshi = latsearch + ajustes;
@@ -1512,10 +1556,11 @@ async function initApp() {
   }
   pag = "";
   let getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
-  console.log("city url", getURLcity);
+
   body = new URLSearchParams({ url: getURLcity }).toString();
   pag = await getURLXform(
-    "https://balloons.dev.browxy.com/api/v1/webFetcher",
+    "/api/v1/webFetcher",
+    //"https://balloons.dev.browxy.com/api/v1/webFetcher",
     body,
   );
   if (pag.length < 300) {
@@ -1528,9 +1573,11 @@ async function initApp() {
       lonshi = lonshi - 360;
     }
     getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
+
     body = new URLSearchParams({ url: getURLcity }).toString();
     pag = await getURLXform(
-      "https://balloons.dev.browxy.com/api/v1/webFetcher",
+      "/api/v1/webFetcher",
+      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
       body,
     );
   }
@@ -1547,7 +1594,8 @@ async function initApp() {
 
     body = new URLSearchParams({ url: getURLcity }).toString();
     pag = await getURLXform(
-      "https://balloons.dev.browxy.com/api/v1/webFetcher",
+      "/api/v1/webFetcher",
+      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
       body,
     );
   }
@@ -1561,9 +1609,11 @@ async function initApp() {
       lonshi = lonshi - 360;
     }
     getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
+
     body = new URLSearchParams({ url: getURLcity }).toString();
     pag = await getURLXform(
-      "https://balloons.dev.browxy.com/api/v1/webFetcher",
+      "/api/v1/webFetcher",
+      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
       body,
     );
   }
@@ -1577,9 +1627,11 @@ async function initApp() {
       lonshi = lonshi - 360;
     }
     getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
+
     body = new URLSearchParams({ url: getURLcity }).toString();
     pag = await getURLXform(
-      "https://balloons.dev.browxy.com/api/v1/webFetcher",
+      "/api/v1/webFetcher",
+      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
       body,
     );
   }
@@ -1596,12 +1648,8 @@ async function initApp() {
     console.error("Error parsing JSON:", error);
   }
 
-  console.log("Page content:", elements);
-  var latciudad = "";
-  var lonciudad = "";
-  var names = "";
   var instate = "";
-  var cityname = "";
+
   for (const element of elements) {
     const {
       lat,
@@ -1611,24 +1659,16 @@ async function initApp() {
     cityname = name;
     if (lat && lat != "" && lon && lon != "") {
       distanciaactual = distancia(lat, lon, latsearch, lonsearch);
-      console.log("Distance:", distanciaactual, distanciaminima);
       if (distanciaactual < distanciaminima) {
         latciudad = lat;
         lonciudad = lon;
         names = name;
         instate = instates;
         cityname = name;
-        //if (distanciaactual < distanciaminima) {
         distanciaminima = distanciaactual;
-        //}
       }
     }
   }
-  console.log("City:", cityname);
-  console.log("In State:", instate);
-  console.log("Latitude:", latciudad);
-  console.log("Longitude:", lonciudad);
-  console.log("Distance:", distanciaminima);
 
   if (latciudad == 0 || lonciudad == 0 || latciudad == "" || lonciudad == "") {
     latciudad = "-35.692191";
@@ -1660,11 +1700,10 @@ async function initApp() {
     " of " +
     cityname;
   city = cityname + ", " + instate;
-  console.log("City:", city, distanciaciudad, distanciaciudad1, bearn, abrevim);
+
   for (let x = 0; x < abrevim.length; x++) {
     city = replace(city, abrevim[x][0], abrevim[x][1], 1, 100, 1);
   }
-  console.log("City:", city);
 
   let now = new Date();
   const diffMs = now - actualdate;
@@ -1678,19 +1717,19 @@ async function initApp() {
   if (parseInt(deltatiempo) > 0) {
     tiempoa = `${parseInt(deltatiempo)}d `;
   }
-  console.log("Time tiempoa:", tiempoa);
+
   hourd = new Date(deltatiempo).getHours();
-  console.log("Hours:", hourd);
+
   if (hourd > 0) {
     tiempoa = tiempoa + hourd + "h ";
   }
   minutod = new Date(deltatiempo).getMinutes();
-  console.log("Minutes:", minutod);
+
   if (minutod > 0) {
     tiempoa = tiempoa + minutod + "'";
   }
   segundod = new Date(deltatiempo).getSeconds();
-  console.log("Seconds:", segundod);
+
   if (segundod > 0) {
     tiempoa = tiempoa + segundod + "''";
   }
@@ -1706,7 +1745,7 @@ async function initApp() {
     "(z) Updated " +
     tiempoa +
     " ago<br>";
-  console.log("lat-lon-G", GLatdeg, GLondeg, posdatam4s, wdir);
+
   lineados =
     "Latitude: " +
     replace(
@@ -1738,16 +1777,18 @@ async function initApp() {
     " Knots<br>";
   lineacuatro = "Landing at " + distanciaciudad1 + "<br>";
 
-  crsdist(VOR1Lat, VOR1Lon, GLatdegf, GLondegf);
+  crsdist(Vor1Lat, Vor1Lon, GLatdegf, GLondegf);
   var vor1dist = out.distance;
-  var vor1bear = out.bearing + Vor1mag;
-  crsdist(VOR2Lat, VOR2Lon, GLatdegf, GLondegf);
+  var vor1bear = out.bearing + Number(Vor1Mag);
+
+  crsdist(Vor2Lat, Vor2Lon, GLatdegf, GLondegf);
   var vor2dist = out.distance;
-  var vor2bear = out.bearing + Vor2mag * 1;
+  var vor2bear = out.bearing + Number(Vor2Mag) * 1;
+
   if (vor1dist < 800 && vor2dist < 800) {
     var lineacinco =
       "VOR " +
-      Vor1loc +
+      Vor1Loc +
       ": radial=" +
       Math.round(vor1bear) +
       " dist=" +
@@ -1755,7 +1796,7 @@ async function initApp() {
       " m.náuticas<br>";
     var lineaseis =
       "VOR " +
-      Vor2loc +
+      Vor2Loc +
       ": radial=" +
       Math.round(vor2bear) +
       " dist=" +
@@ -1765,12 +1806,7 @@ async function initApp() {
     var lineacinco = "";
     var lineaseis = "";
   }
-  // document
-  //   .getElementById("actualizado")
-  //   .insertAdjacentHTML(
-  //     "beforeend",
-  //     lineauno + lineados + lineatres + lineacuatro + lineacinco + lineaseis,
-  //   );
+
   document.getElementById("actualizado").innerHTML =
     lineauno + lineados + lineatres + lineacuatro + lineacinco + lineaseis;
 
@@ -1787,8 +1823,89 @@ async function initApp() {
     wdir,
     (Number(wdir) / 3600) * deltac1,
   );
+
+  if (deltac1 < 0) {
+    deltac1 = deltac1 * -1;
+  }
+  asl = parseInt(actualseconds * 1 + deltac1 * 1 + deltal * 1);
+  asz = parseInt(actualseconds * 1 + deltac1);
+  if (asl < 0) {
+    asl = asl + 3600 * 24;
+  }
+  if (asz < 0) {
+    asz = asz + 3600 * 24;
+  }
+  var asldays = 0;
+  var aszdays = 0;
+  var asldays = Math.floor(asl / 86400);
+  var aszdays = Math.floor(asz / 86400);
+  asl = asl - asldays * 86400;
+  asz = asz - aszdays * 86400;
+  var hours = Math.floor(asl / 3600);
+  var hoursz = Math.floor(asz / 3600);
+  var minutes = Math.floor((asl - hours * 3600) / 60);
+  var seconds = asl - hours * 3600 - minutes * 60;
+  if (hours < 10) {
+    hours = "0" + hours;
+  }
+  if (hoursz < 10) {
+    hoursz = "0" + hoursz;
+  }
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+  if (seconds < 10) {
+    seconds = "0" + seconds;
+  }
+  var timel = hours + ":" + minutes + ":" + seconds;
+  var timez = hoursz + ":" + minutes + ":" + seconds;
+  if (deltac1 < 0) {
+    deltac1 = deltac1 * -1;
+  }
+  var myDate = actualdate;
+  myDate.setDate(myDate.getDate() + asldays);
+  fechadescmesdia = myDate.getDate() + "-" + mes[myDate.getMonth() + 1];
+  getlatlon(GLatdegf, GLondegf, wdir, (Number(wspeed) / 3600) * deltac1);
+
+  locations[0][0] = `${callsign} landing<br>estimated on ${fechadescmesdia}<br>At ${timel} local / ${timez} z<br>Lat: ${out.lat2.toFixed(6)}, Lon: ${out.lon2.toFixed(6)}<br>Lat: ${deg_to_dms(out.lat2)}", Lon: ${deg_to_dms(out.lon2)}"<br>Lat: ${deg_to_dm(out.lat2)}, Lon: ${deg_to_dm(out.lon2)}`;
+  locations[0][1] = out.lat2;
+  locations[0][2] = out.lon2;
+  locations[0][3] = imageSrcUrl["yellow-dot"];
+  const bodyClientRect = document.body.getBoundingClientRect();
+
+  document.getElementById("map_canvas_container").style.width =
+    `${bodyClientRect.width}px`;
+  document.getElementById("map_canvas_container").style.height =
+    `${bodyClientRect.height - 180}px`;
+  document.getElementById("map_canvas").style.width =
+    `${bodyClientRect.width}px`;
+  document.getElementById("map_canvas").style.height =
+    `${bodyClientRect.height - 175}px`;
+  var sms1p =
+    "<font style='font-size:12px;font-family:Arial Narrow;line-height:12px;white-space:nowrap;'>SMS1 = " +
+    laspos1;
+  var sms1sms = laspos1;
+
+  if (deg_to_dms(out.lat2) > 0) {
+    sms1p = sms1p + " " + deg_to_dms(out.lat2) + " " + deg_to_dms(out.lon2);
+  }
+
+  sms1p = sms1p + distanciaciudad + fixCityName(city) + "</font>";
+  sms1sms = sms1sms + distanciaciudad + fixCityName(city);
+
+  document.getElementById("sms1").innerHTML = sms1p;
+  if (deltaact1 != "") {
+    if (deltaact1 < 0) {
+      document.getElementById("flecha").innerHTML =
+        `<img src='${imageSrcUrl["up"]}' border=0 title='${(deltaact1 * -60).toFixed(1)} feet/min\n ${(deltaact1 * 0.3048 * -1).toFixed(1)} m/seg'>`;
+    } else {
+      document.getElementById("flecha").innerHTML =
+        `<img src='${imageSrcUrl["down"]}' border=0 title='${(deltaact1 * -60).toFixed(1)} feet/min\n ${(deltaact1 * 0.3048 * -1).toFixed(1)} m/seg'>`;
+    }
+  }
+
   document.getElementById("other_content").innerHTML = otherHtml;
-  // showvormap();
+  loadGMap();
 }
 
 async function onloadApp() {
@@ -1796,6 +1913,7 @@ async function onloadApp() {
     await initApp();
   } catch (error) {
     console.error("Error initializing app:", error);
+    document.getElementById("map_canvas_container").remove();
     showError(error.message || "An error occurred");
   } finally {
     document.getElementById("loader").style.display = "none";
@@ -1803,28 +1921,3 @@ async function onloadApp() {
 }
 
 window.addEventListener("load", onloadApp);
-
-/*
-callsign
-heightsave
-feetlaunchfinal
-saveddeltafeetpersecond
-
-horalocal * 1 + timezoneoffset
-
-deltafeetpersecond
-
-wdir
-wspeed
- VOR1La
- VOR1Lo
-VOR2La
- VOR2Lo
-posis
-time
-timel
-timez
-tiempodown
-locations
-fechadescmesdia
-*/

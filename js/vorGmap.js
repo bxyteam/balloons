@@ -22,6 +22,8 @@ var VOR1La = "";
 var VOR1Lo = "";
 var VOR2La = "";
 var VOR2Lo = "";
+var AlturaNumber = "";
+var Delta = "";
 var posis = [];
 var time = "";
 var timel = "";
@@ -29,6 +31,30 @@ var timez = "";
 var tiempodown = "";
 var locations = [];
 var fechadescmesdia = "";
+var deltapos = 0;
+var iconomapa = "";
+var latciudad = "";
+var lonciudad = "";
+var actualdate = "";
+var posdatam = "";
+var feetlaunch = "";
+var um = 0;
+
+var mes = [
+  "",
+  "Janauary",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 function crsdist(lat1, lon1, lat2, lon2) {
   var EARTH_RADIUS = 3440.07;
@@ -132,9 +158,7 @@ function deg_to_dms(deg) {
     d++;
     m = 0;
   }
-  return (
-    signo + d + "\BA" + ("100" + m).slice(-2) + "'" + ("100" + s).slice(-2)
-  );
+  return signo + d + "º" + ("100" + m).slice(-2) + "'" + ("100" + s).slice(-2);
 }
 function deg_to_dm(deg) {
   if (deg < 0) {
@@ -146,16 +170,12 @@ function deg_to_dm(deg) {
   var d = Math.floor(deg);
   var minfloat = (deg - d) * 60;
   var m = minfloat.toFixed(3);
-  //   var secfloat = (minfloat-m)*60;
-  //   var s = Math.round(secfloat);
-  // After rounding, the seconds might become 60. These two
-  // if-tests are not necessary if no rounding is done.
-  //   if (s==60) {m++;s=0;}
+
   if (m == 60) {
     d++;
     m = 0;
   }
-  return signo + d + "\BA " + m + "'";
+  return signo + d + "º " + m + "'";
 }
 
 function formatNumber(number, decimals) {
@@ -187,6 +207,26 @@ function formatNumberV2(
 
 function ucase(str) {
   return str ? str.toString().toUpperCase() : "";
+}
+
+function lcase(str) {
+  return str ? str.toString().toLowerCase() : "";
+}
+
+function trim(str) {
+  return str ? str.toString().trim() : "";
+}
+
+function mid(str, start, length) {
+  return str.toString().substr(start - 1, length);
+}
+
+function left(str, length) {
+  return str.toString().substring(0, length);
+}
+
+function right(str, length) {
+  return str.toString().slice(-length);
 }
 
 function replace(
@@ -253,7 +293,7 @@ function showvormap() {
       mapTypeId: google.maps.MapTypeId.HYBRID,
     });
     var infowindow = new google.maps.InfoWindow({ maxWidth: 220 });
-    var image = imageSrcUrl["globo"];
+    var image = imageSrcUrl["balloon"];
     if (iconomapa) {
       var image = {
         url: iconomapa,
@@ -363,14 +403,14 @@ function showvormap() {
     horam = right("00" + horam, 2);
     var iw = new google.maps.InfoWindow({
       maxWidth: 249,
-      content: `<div style='line-height:1.2;overflow:hidden;white-space:nowrap;'>${callsign} ${horam} : ${right("0" + actualdate.getMinutes(), 2)} : $right("0" + actualdate.getSeconds(), 2)} / ${right("0" + actualdate.getHours(), 2)} : ${right("0" + actualdate.getMinutes(), 2)} : ${right("0" + actualdate.getSeconds(), 2)} z<br>On ${mes[actualdate.getMonth() + 1]} - $actualdate.targetDate()} of  ${actualdate.getFullYear()} <br>Lat: ${formatNumber(GLatdeg, 6)} Lon: ${formatNumber(GLondeg, 6)} <br>Altitude: ${formatNumberV2(AlturaNumber * 0.3048, 0)} m. / ${AlturaNumber} feet<br>RF reach radio: ${formatNumberV2(1.0 * 3.87 * Math.sqrt(Math.abs(posdatam[5] - feetlaunch) * 0.3048), 0)} Km. (Coverage)<br>Toward ${wdir} ordm; @ ${formatNumber(wspeed / 0.539956803, 1)} Km/h /  ${wspeed} knots<br> ${Delta} ${touchdown}</div>`,
-      //content: "<div style='line-height:1.2;overflow:hidden;white-space:nowrap;'>" + callsign + " " + horam + ":" + right("0" + actualdate.getMinutes(), 2) + ":" + right("0" + actualdate.getSeconds(), 2) + "/" + right("0" + actualdate.getHours(), 2) + ":" + right("0" + actualdate.getMinutes(), 2) + ":" + right("0" + actualdate.getSeconds(), 2) + " z<br>On " + mes[actualdate.getMonth() + 1] + "-" + actualdate.targetDate() + " of " + actualdate.getFullYear() + "<br>Lat: " + formatNumber(GLatdeg, 6) + "Lon: " + formatNumber(GLondeg, 6) + "<br>Altitude:" + formatNumberV2(AlturaNumber * .3048, 0 + " m. / " + AlturaNumber + " feet<br>RF reach radio: " + formatnumberV2(1.00 * 3.87 * Math.sqrt(Math.abs((posdatam[5] - feetlaunch)) * .3048), 0) + " Km. (Coverage)<br>Toward " + wdir + "ordm; @ " + formatNumber(wspeed / 0.539956803, 1) + " Km/h / " + wspeed + " knots<br>" + Delta + " " + touchdown + "</div>"
+      content: `<div style='line-height:1.2;overflow:hidden;white-space:nowrap;'>${callsign} ${horam} : ${right("0" + actualdate.getMinutes(), 2)} : ${right("0" + actualdate.getSeconds(), 2)} / ${right("0" + actualdate.getHours(), 2)} : ${right("0" + actualdate.getMinutes(), 2)} : ${right("0" + actualdate.getSeconds(), 2)} z<br>On ${mes[actualdate.getMonth() + 1]} - ${actualdate.getDate()} of  ${actualdate.getFullYear()} <br>Lat: ${formatNumber(GLatdeg, 6)} Lon: ${formatNumber(GLondeg, 6)} <br>Altitude: ${formatNumberV2(AlturaNumber * 0.3048, 0)} m. / ${AlturaNumber} feet<br>RF reach radio: ${formatNumberV2(1.0 * 3.87 * Math.sqrt(Math.abs(posdatam[5] - feetlaunch) * 0.3048), 0)} Km. (Coverage)<br>Toward ${wdir} ordm; @ ${formatNumber(wspeed / 0.539956803, 1)} Km/h /  ${wspeed} knots<br> ${Delta} ${touchdown}</div>`,
     });
     google.maps.event.addListener(marker1, "click", function (e) {
       iw.open(map, this);
     });
     google.maps.event.addListener(marker7, "click", function () {
       //create a new InfoWindow instance
+
       crsdist(latciudad, lonciudad, latsearch, lonsearch);
       var infowindow = new google.maps.InfoWindow({
         maxWidth: 220,
@@ -385,7 +425,7 @@ function showvormap() {
           (out.distance * 1.852).toFixed(1) +
           " Km > " +
           out.bearing.toFixed(0) +
-          "\BA</div>",
+          "º</div>",
       });
       infowindow.open(map, marker7);
     });
@@ -397,9 +437,11 @@ function showvormap() {
     google.maps.event.addListener(map, "rightclick", function (event) {
       var lat = event.latLng.lat();
       var lng = event.latLng.lng();
+
       crsdist(lat, lng, latsearch, lonsearch);
       var distaldesc = out.distance;
       var azimaldesc = out.bearing;
+
       crsdist(lat, lng, GLatdegf, GLondegf);
       distalglobo = out.distance;
       azimalglobo = out.bearing;
@@ -415,11 +457,11 @@ function showvormap() {
           (distaldesc * 1.852).toFixed(2) +
           " Km\nAzimDesc " +
           azimaldesc.toFixed(0) +
-          "\BA\n   --------------------\nDistGlobo  " +
+          "º\n   --------------------\nDistGlobo  " +
           (distalglobo * 1.852).toFixed(2) +
           " Km\nAzimGlobo " +
           azimalglobo.toFixed(0) +
-          "\BA",
+          "º",
         icon: imageSrcUrl["green_arrow"],
       });
     });
@@ -432,14 +474,6 @@ function showvormap() {
     }
     getlatlon(GLatdeg, GLondegf, wdir, (wspeed / 3600) * deltac1);
 
-    // REMOVE
-    //var timel = "19:00:00";
-    // var timez = "19:00:00";
-    // var fechadescmesdia = new Date();
-    // latciudad = "-35.692191";
-    // lonciudad = "-63.762359";
-    ////
-    console.log("Delta Feet per Second:", deltafeetpersecond, GLatdeg, GLondeg);
     var cityballoon = [
       deltafeetpersecond < 0
         ? new google.maps.LatLng(out.lat2, out.lon2)
@@ -454,8 +488,10 @@ function showvormap() {
       strokeWeight: 2,
     });
     cityPath.setMap(map);
+
     crsdist(VOR1La, VOR1Lo, GLatdegf, GLondegf);
     var d1 = out.distance;
+
     crsdist(VOR2La, VOR2Lo, GLatdegf, GLondegf);
     var d2 = out.distance;
     if (d1 < 800 && d2 < 800) {
@@ -564,7 +600,7 @@ function showvormap() {
           tiempodown +
           " de &uacute;ltima posici&oacute;n<br> Toward direcci&oacute;n " +
           out.bearing.toFixed(1) +
-          " \BA</div>",
+          " º</div>",
       });
     }
     var marker, i;
@@ -624,17 +660,17 @@ function showvormap() {
               circulo = new google.maps.Circle(CoverageOptions);
             }
 
-            if (i == "<%=vorloc1m%>") {
+            if (i == vorloc1m) {
               locations[i][0] = locations[i][0].replace(
                 "xQpZ1",
-                parseInt(r1) + " \BA",
+                parseInt(r1) + " º",
               );
               locations[i][0] = locations[i][0].replace("ZpQx1", parseInt(d1));
             }
-            if (i == "<%=vorloc2m%>") {
+            if (i == vorloc2m) {
               locations[i][0] = locations[i][0].replace(
                 "xQpZ2",
-                parseInt(r2) + " \BA",
+                parseInt(r2) + " º",
               );
               locations[i][0] = locations[i][0].replace("ZpQx2", parseInt(d2));
             }
@@ -703,13 +739,62 @@ function showvormap() {
       google.maps.event.addListenerOnce(map, "idle", function () {
         google.maps.event.trigger(marker1, "click");
       });
-    } else {
-      document.getElementById("map").innerHTML =
-        "Invalid Balloon Location Detected, can't show VOR's map";
     }
+  } else {
+    document.getElementById("map").innerHTML =
+      "Invalid Balloon Location Detected, can't show VOR's map";
   }
 }
 
 function processJsonData(jsonData) {
-  console.log("JSON recibido:", jsonData);
+  callsign = jsonData.callsign;
+  heightsave = jsonData.heightsave;
+  feetlaunchfinal = jsonData.feetlaunchfinal;
+  saveddeltafeetpersecond = jsonData.saveddeltafeetpersecond;
+  horalocal = jsonData.horalocal;
+  deltafeetpersecond = jsonData.deltafeetpersecond;
+  timezoneoffset = jsonData.timezoneoffset;
+  wdir = jsonData.wdir;
+  wspeed = jsonData.wspeed;
+  VOR1La = jsonData.VOR1La;
+  VOR1Lo = jsonData.VOR1Lo;
+  VOR2La = jsonData.VOR2La;
+  VOR2Lo = jsonData.VOR2Lo;
+  GLatdeg = jsonData.GLatdeg;
+  GLondeg = jsonData.GLondeg;
+  GLatdegf = jsonData.GLatdegf;
+  GLondegf = jsonData.GLondegf;
+  posis = jsonData.posis;
+  locations = jsonData.locations;
+  fechadescmesdia = jsonData.fechadescmesdia;
+  refreshParam = jsonData.refreshParam;
+  autoRefParam = jsonData.autoRefParam;
+  deltapos = jsonData.deltapos;
+  iconomapa = jsonData.iconomapa;
+  latciudad = jsonData.latciudad;
+  lonciudad = jsonData.lonciudad;
+  actualdate = new Date(jsonData.actualdate);
+  AlturaNumber = jsonData.AlturaNumber;
+  posdatam = jsonData.posdatam;
+  feetlaunch = jsonData.feetlaunch;
+  Delta = jsonData.Delta;
+  um = jsonData.um;
+  showvormap();
+}
+
+function showMap() {
+  document.getElementById("gMapLoader").style.display = "none";
+  document.getElementById("map").style.visibility = "visible";
+}
+
+function displayError(msg) {
+  document.getElementById("map").innerHTML = `<div style="border: 3px solid red;
+      padding: 10px;
+      border-radius: 5px;
+      width: 300px;
+      margin: 0 auto;
+      box-shadow: 4px 10px 22px -17px;">
+  <h3 style="font-size: 18px;">Error initializing map:</h3>
+  <p style="font-size: 16px;">${msg}</p>
+  </div>`;
 }
