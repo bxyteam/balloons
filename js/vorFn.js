@@ -233,29 +233,6 @@ function setParamValues() {
   refreshParam = window.getParamSafe("Refresh");
 }
 
-async function getURLXform(url, body = null, headers = {}) {
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        ...headers,
-      },
-      body: body,
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const text = await response.text();
-    return text;
-  } catch (error) {
-    console.error("Error fetching URL:", error);
-    return "";
-  }
-}
-
 async function getURL(url, responseType = "text") {
   try {
     const response = await fetch(url);
@@ -307,8 +284,8 @@ async function readShareAsset({ assetOutputType, assetUrl }) {
 
 async function getShareResource(file) {
   try {
-    const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
     //const assetUrl = `https://balloons.dev.browxy.com/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
+    const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
     let serverResponse;
     const response = await readShareAsset({
       assetOutputType: "txt",
@@ -316,7 +293,7 @@ async function getShareResource(file) {
     });
     serverResponse = response.data;
 
-    //const response = await fetch(assetUrl);
+    //   const response = await fetch(assetUrl);
     //  serverResponse = await response.text();
 
     return serverResponse;
@@ -330,11 +307,7 @@ async function getAltura(lat, lon) {
   const url = `https://api.opentopodata.org/v1/srtm30m?locations=${lat},${lon}`;
 
   const body = new URLSearchParams({ url }).toString();
-  const res = await getURLXform(
-    "/api/v1/webFetcher",
-    // "https://balloons.dev.browxy.com/api/v1/webFetcher",
-    body,
-  );
+  const res = await getURLXform(WEB_FETCHER_URL, body);
 
   try {
     const data = JSON.parse(res);
@@ -1424,7 +1397,7 @@ function plot(V1n, V1x, V1y, V2n, V2x, V2y, Gn, Bx, By) {
   V2R.draw(gr);
 }
 
-function show() {
+function show(display) {
   alert(help);
 }
 
@@ -1486,14 +1459,14 @@ function handleMapMessage(event) {
 
 function submitForm(event) {
   event.preventDefault();
-  const form = event.target;
+  const form = document.getElementById("Resend");
   const formData = new FormData(form);
   const params = new URLSearchParams(formData).toString();
   window.parent.window.location.href = `${HOST_URL}/vor?${params}`;
 }
 
 function fireSubmitFormEvent() {
-  const form = document.getElementById("RESEND");
+  const form = document.getElementById("Resend");
   const event = new Event("submit", { bubbles: true, cancelable: true });
   form.dispatchEvent(event);
 }

@@ -1,6 +1,6 @@
 window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
 var TZDiff = new Date().getTimezoneOffset();
-
+var WEB_FETCHER_URL = "/api/v1/webFetcher"; // "https://balloons.dev.browxy.com/api/v1/webFetcher"; //"/api/v1/webFetcher";
 var PI = Math.PI; // 3.141592653589793
 var DEG2RAD = PI / 180; // 0.017453292519943295
 var RAD2DEG = 180 / PI; // 57.29577951308232
@@ -214,11 +214,7 @@ async function initApp() {
 
   let url1 = "http://www.findu.com/cgi-bin/find.cgi?call=" + callsign;
   let body = new URLSearchParams({ url: url1 }).toString();
-  let pag = await getURLXform(
-    "/api/v1/webFetcher",
-    //"https://balloons.dev.browxy.com/api/v1/webFetcher",
-    body,
-  );
+  let pag = await getURLXform(WEB_FETCHER_URL, body);
 
   let chequeo = buscarTag("Sorry, no position known", "<", pag);
   let latlon = "";
@@ -260,11 +256,7 @@ async function initApp() {
 
     let url2 = `http://www.findu.com/cgi-bin/vor.cgi?call=${callsign}&vor1=${VOR1}&vor2=${VOR2}&refresh=60`;
     body = new URLSearchParams({ url: url2 }).toString();
-    pag = await getURLXform(
-      "/api/v1/webFetcher",
-      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
-      body,
-    );
+    pag = await getURLXform(WEB_FETCHER_URL, body);
 
     window.Posicion = 1;
 
@@ -320,11 +312,7 @@ async function initApp() {
 
   let urlpath = `http://www.findu.com/cgi-bin/posit.cgi?call=${callsign}&comma=1&start=${spanhours}&time=1`;
   body = new URLSearchParams({ url: urlpath }).toString();
-  pag = await getURLXform(
-    "/api/v1/webFetcher",
-    //"https://balloons.dev.browxy.com/api/v1/webFetcher",
-    body,
-  );
+  pag = await getURLXform(WEB_FETCHER_URL, body);
 
   if (pag.length > 600) {
     datataken = urlpath;
@@ -415,11 +403,7 @@ async function initApp() {
   if (!heightvalid) {
     let heighturl = `http://www.findu.com/cgi-bin/rawposit.cgi?time=1&call=${callsign}&start=120&length=124`;
     body = new URLSearchParams({ url: heighturl }).toString();
-    let heightdata = await getURLXform(
-      "/api/v1/webFetcher",
-      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
-      body,
-    );
+    let heightdata = await getURLXform(WEB_FETCHER_URL, body);
     let heightm = heightdata.split("<br>", 4000, 1);
     for (h = 0; h <= heightm.length - 1; h++) {
       if (
@@ -1081,11 +1065,7 @@ async function initApp() {
   let estaciones = `http://www.findu.com/cgi-bin/map-near.cgi?lat=${Glatdegf}&lon=${Glondegf}&cnt=150`;
 
   body = new URLSearchParams({ url: estaciones }).toString();
-  pag = await getURLXform(
-    "/api/v1/webFetcher",
-    //"https://balloons.dev.browxy.com/api/v1/webFetcher",
-    body,
-  );
+  pag = await getURLXform(WEB_FETCHER_URL, body);
   let stationlast = 0;
   if (pag.length > 600) {
     stations = parseStations(pag);
@@ -1105,7 +1085,7 @@ async function initApp() {
     let proximas = `http://www.findu.com/cgi-bin/map-near.cgi?lat=${posdatam1s}&lon=${posdatam2s}&last=500&n=500&distance=550`;
     body = new URLSearchParams({ url: proximas }).toString();
     // pag = await getURLXform(
-    //   "https://balloons.dev.browxy.com/api/v1/webFetcher",
+    //   WEB_FETCHER_URL,
     //   body,
     // );
     // const result = processNearStations(pag, ucase(callsign));
@@ -1199,7 +1179,7 @@ async function initApp() {
     } else {
       usevor = "SRC";
     }
-    optionHtml += "<option value='" + trim(vormatrix[(v, 0)]) + "'";
+    optionHtml += "<option value='" + trim(vormatrix[v][0]) + "'";
 
     if (getParamSafe("VOR1") === "" && vormatrix[v][0] === usevor) {
       optionHtml += " selected";
@@ -1230,7 +1210,7 @@ async function initApp() {
     } else {
       usevor = "MJZ";
     }
-    optionHtml += "<option value='" + trim(vormatrix[(v, 0)]) + "'";
+    optionHtml += "<option value='" + trim(vormatrix[v][0]) + "'";
 
     if (getParamSafe("VOR2") === "" && vormatrix[v][0] === usevor) {
       optionHtml += " selected";
@@ -1278,11 +1258,7 @@ async function initApp() {
     }
     var getURL3 = `http://www.findu.com/cgi-bin/vor.cgi?call=${callsign}&vor1=${VOR1}&vor2=${VOR2}&refresh=60`;
     body = new URLSearchParams({ url: getURL3 }).toString();
-    pag = await getURLXform(
-      "/api/v1/webFetcher",
-      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
-      body,
-    );
+    pag = await getURLXform(WEB_FETCHER_URL, body);
     window.Posicion = 1;
     LYERadial = buscarTag(
       "<tr><td>" + VOR1 + "</td><td>" + Vor1Loc + " </td><td>",
@@ -1558,11 +1534,7 @@ async function initApp() {
   let getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
 
   body = new URLSearchParams({ url: getURLcity }).toString();
-  pag = await getURLXform(
-    "/api/v1/webFetcher",
-    //"https://balloons.dev.browxy.com/api/v1/webFetcher",
-    body,
-  );
+  pag = await getURLXform(WEB_FETCHER_URL, body);
   if (pag.length < 300) {
     ajustes = 0.8;
     latslo = latsearch - ajustes;
@@ -1575,11 +1547,7 @@ async function initApp() {
     getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
 
     body = new URLSearchParams({ url: getURLcity }).toString();
-    pag = await getURLXform(
-      "/api/v1/webFetcher",
-      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
-      body,
-    );
+    pag = await getURLXform(WEB_FETCHER_URL, body);
   }
   if (pag.length < 300) {
     ajustes = 1.8;
@@ -1593,11 +1561,7 @@ async function initApp() {
     getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
 
     body = new URLSearchParams({ url: getURLcity }).toString();
-    pag = await getURLXform(
-      "/api/v1/webFetcher",
-      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
-      body,
-    );
+    pag = await getURLXform(WEB_FETCHER_URL, body);
   }
   if (pag.length < 500) {
     ajustes = 4;
@@ -1611,11 +1575,7 @@ async function initApp() {
     getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
 
     body = new URLSearchParams({ url: getURLcity }).toString();
-    pag = await getURLXform(
-      "/api/v1/webFetcher",
-      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
-      body,
-    );
+    pag = await getURLXform(WEB_FETCHER_URL, body);
   }
   if (pag.length < 500) {
     ajustes = 8;
@@ -1629,11 +1589,7 @@ async function initApp() {
     getURLcity = `http://overpass-api.de/api/interpreter?data=[out:json];node["place"](${latslo},${lonslo},${latshi},${lonshi});out;`;
 
     body = new URLSearchParams({ url: getURLcity }).toString();
-    pag = await getURLXform(
-      "/api/v1/webFetcher",
-      //"https://balloons.dev.browxy.com/api/v1/webFetcher",
-      body,
-    );
+    pag = await getURLXform(WEB_FETCHER_URL, body);
   }
 
   window.Posicion = 1;
