@@ -293,8 +293,8 @@ async function getShareResource(file) {
     });
     serverResponse = response.data;
 
-    //   const response = await fetch(assetUrl);
-    //  serverResponse = await response.text();
+    // const response = await fetch(assetUrl);
+    // serverResponse = await response.text();
 
     return serverResponse;
   } catch (error) {
@@ -1401,8 +1401,6 @@ function show(display) {
   alert(help);
 }
 
-function saveMapState() {}
-
 function ira(donde) {
   var vor1a = getParamSafe("VOR1");
   var vor2a = getParamSafe("VOR2");
@@ -1447,14 +1445,39 @@ function loadGMap() {
   };
 
   iframe.contentWindow.postMessage(
-    JSON.stringify(jsonData),
+    { action: "SHOW_MAP", props: { jsonData } },
     "https://lu7aa.org",
   );
 }
 
 function handleMapMessage(event) {
+  console.log("[ handle-message ]", event);
   const { callbackName, props } = event.data;
   window[callbackName](props);
+}
+
+function saveMapState({ mapState }) {
+  window.parent.window.localStorage.setItem(
+    "myMapState",
+    JSON.stringify(mapState),
+  );
+}
+
+function loadMapState() {
+  const mapStateStr = window.parent.window.localStorage.getItem("myMapState");
+  let mapState = null;
+  try {
+    if (mapStateStr) {
+      mapState = JSON.parse(mapStateStr);
+    }
+  } catch (e) {
+    console.error("Error parsing saved map state:", e);
+  } finally {
+    iframe.contentWindow.postMessage(
+      { action: "LOAD_MAP_STATE", props: { mapState } },
+      "https://lu7aa.org",
+    );
+  }
 }
 
 function submitForm(event) {

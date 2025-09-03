@@ -283,8 +283,8 @@ async function readShareAsset({ assetOutputType, assetUrl }) {
 
 async function getShareResource(file) {
   try {
-    //const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
-    const assetUrl = `https://balloons.dev.browxy.com/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
+    const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
+    // const assetUrl = `https://balloons.dev.browxy.com/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
     let serverResponse;
     const response = await readShareAsset({
       assetOutputType: "txt",
@@ -387,12 +387,8 @@ function mayusculaPrimeras(cadena) {
 
 async function getAltura(lat, lon) {
   const url = `https://api.opentopodata.org/v1/srtm30m?locations=${lat},${lon}`;
-  console.log(url);
   const body = new URLSearchParams({ url }).toString();
-  const res = await getURLXform(
-    "https://balloons.dev.browxy.com/api/v1/webFetcher",
-    body,
-  );
+  const res = await getURLXform(WEB_FETCHER_URL, body);
   console.log(res);
   try {
     const data = JSON.parse(res);
@@ -1709,4 +1705,10 @@ function showError(msg) {
     <h3>Error initializing app:</h3>
     <p>${msg}</p>
     </div>`;
+}
+
+function ira(donde) {
+  const grafico = window.getParamSafe("Grafico");
+  const nowgo = `${window.HOST_URL}/balloonchartl?callsign=${callsign}&Vuelo=${donde}&Grafico=${grafico}`;
+  window.parent.window.location.href = nowgo;
 }

@@ -1,8 +1,9 @@
+window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
 var being_dragged = false;
 var Vuelo = window.getParamSafe("Vuelo");
 var callsign = window.getParamSafe("callsign");
-//var GOOGLE_API_KEY = "AIzaSyAACTum6vjLOeCDgGj6EFFnzJMe7r8xOII";
-var GOOGLE_API_KEY = "AIzaSyCOya7aI1WJfTmx9e5d7YY7RgueBwVhwrk";
+var GOOGLE_API_KEY = "AIzaSyAACTum6vjLOeCDgGj6EFFnzJMe7r8xOII";
+var WEB_FETCHER_URL = "/api/v1/webFetcher"; //"https://balloons.dev.browxy.com/api/v1/webFetcher"; // "/api/v1/webFetcher";
 var llheightCache = ""; // TODO check ASP Application value
 var lltimezoneCache = ""; // TODO check ASP Application value
 // var PI = 3.141592653;
@@ -102,10 +103,7 @@ async function startApp() {
 
   // estaciones proximas escuchadas la ultima hora hasta 550 millas = "http://www.findu.com/cgi-bin/near.cgi?call=lu7aa-11&last=1&n=300&distance=550"
   let body = new URLSearchParams({ url: estaciones }).toString();
-  pag = await getURLXform(
-    "https://balloons.dev.browxy.com/api/v1/webFetcher",
-    body,
-  );
+  pag = await getURLXform(WEB_FETCHER_URL, body);
 
   let stations = parseStations(pag);
   let stationlast = 10;
@@ -130,20 +128,14 @@ async function startApp() {
     callsign.toLowerCase() === "lu7aa-11" ||
     callsign.toLowerCase() === "lu7aa-12"
   ) {
-    pag1 = await getURL(
-      `https://balloons.dev.browxy.com/api/v1/getAsset?file=share/assets/140308posit.txt`,
-    ); //getShareResource("140308posit.txt");
-    pag = await getURL(
-      `https://balloons.dev.browxy.com/api/v1/getAsset?file=share/assets/130308raw.txt`,
-    ); //getShareResource("130308raw.txt"); // ADD <br> for each line
+    pag1 = await getShareResource("140308posit.txt");
+    pag = await getShareResource("130308raw.txt"); // ADD <br> for each line
 
     pag = pag.replace(/\r\n|\n\r|\n|\r/g, function (match) {
       return "<br>";
     });
     const urlaprsfi = "151003raworig.txt";
-    const rawdata = await getURL(
-      `https://balloons.dev.browxy.com/api/v1/getAsset?file=share/assets/${urlaprsfi}`,
-    ); //getShareResource(urlaprsfi);
+    const rawdata = await getShareResource(urlaprsfi);
 
     window.Posicion = 1;
     temperaturas = processAprsData(rawdata, pag);
@@ -156,35 +148,36 @@ async function startApp() {
   let urlpath = `http://www.findu.com/cgi-bin/posit.cgi?call=${callsign}&comma=1&start=${spanhours}&time=1`;
 
   body = new URLSearchParams({ url: urlpath }).toString();
-  pag = await getURLXform(
-    "https://balloons.dev.browxy.com/api/v1/webFetcher",
-    body,
-  );
-  pag = await getURLXform(urlpath);
+  pag = await getURLXform(WEB_FETCHER_URL, body);
 
   if (pag.length < 500) {
     urlpath = `http://www1.findu.com/cgi-bin/posit.cgi?call=${callsign}&comma=1&start=${spanhours}&time=1`;
     body = new URLSearchParams({ url: urlpath }).toString();
-    pag = await getURLXform(
-      "https://balloons.dev.browxy.com/api/v1/webFetcher",
-      body,
-    );
+    pag = await getURLXform(WEB_FETCHER_URL, body);
   }
   const pagHmResult = procesarPagHm(pag, pag1);
   let pathm = pagHmResult.pathm;
+
+  if (pathm.length > 0) {
+    pathm.pop();
+  }
+
+  if (!pagHmResult.limite || pathm.length < 2) {
+    throw new Error("Sorry, no positions found for: " + callsign);
+  }
 
   let daysave = cuantosDias(pathm[0].split(",")[0]);
   let fecha1 = cuantosDias(pathm[pagHmResult.limite].split(",")[0]);
 
   let tx = 0;
-  let ssavem = Array(pagHmResult.limite) //Array(pathm.length - 2)
+  let ssavem = Array(pagHmResult.limite)
     .fill()
     .map(() => Array(2).fill(""));
   var ssavempointer = 0;
-  ssavem[ssavempointer][0] = pagHmResult.limite; //pathm.length - 2;
+  ssavem[ssavempointer][0] = pagHmResult.limite;
   ssavem[ssavempointer][1] = cuantosDias(
     pathm[pagHmResult.limite].split(",")[0],
-  ); //cuantosDias(pathm[pathm.length - 2].split(",")[0]);
+  );
   ssavempointer = ssavempointer + 1;
   let heightvalid = false;
   let heightp = 0;
@@ -194,7 +187,7 @@ async function startApp() {
   let heighpointer = 0;
   let heighp = 0;
   let fecha2 = "";
-  for (let s = pagHmResult.limite - 1; s > 0; s--) {
+  for (let s = pagHmResult.limite; s > 0; s--) {
     // Verificar si la subcadena desde la posición 1 con longitud 13 no está vacía
     // mid(pathm(s), 2, 13) en VB equivale a substring(1, 14) en JS
     if (pathm[s].substring(1, 14) !== "") {
@@ -253,10 +246,7 @@ async function startApp() {
   if (!heightvalid) {
     let heighturl = `http://www.findu.com/cgi-bin/rawposit.cgi?time=1&call=${callsign}&start=120&length=124`;
     body = new URLSearchParams({ url: heighturl }).toString();
-    let heightdata = await getURLXform(
-      "https://balloons.dev.browxy.com/api/v1/webFetcher",
-      body,
-    );
+    let heightdata = await getURLXform(WEB_FETCHER_URL, body);
     let heightm = heightdata.split("<br>", 4000, 1);
     for (h = 0; h <= heightm.length - 1; h++) {
       if (
@@ -275,7 +265,7 @@ async function startApp() {
 
   if (getParamSafe("flights") !== "") {
     comienzo = 0;
-    final = pathm.length - 2;
+    final = pathm.length - 1;
   }
   let ssave = 0;
   if (left(callsign, 5).toLowerCase() === "k6rpt") {

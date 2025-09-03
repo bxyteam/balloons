@@ -1,3 +1,4 @@
+var map;
 var ARRcookies = "";
 var refreshParam = "";
 var autoRefParam = "";
@@ -269,9 +270,9 @@ function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function showvormap() {
+async function showvormap() {
   if (GLatdeg != 0) {
-    var map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.getElementById("map"), {
       mapId: "DEMO_MAP_ID",
       zoom: deltapos > 1 ? 8 : 10,
       mapTypeControlOptions: {
@@ -684,57 +685,42 @@ function showvormap() {
       );
     }
     if (refreshParam === "Refresh") {
-      loadMapState();
+      getMapState();
     }
 
     google.maps.event.addListener(map, "tilesloaded", tilesLoaded);
     function tilesLoaded() {
+      console.log("Tiles loaded");
       google.maps.event.clearListeners(map, "tilesloaded");
       google.maps.event.addListener(map, "zoom_changed", saveMapState);
       google.maps.event.addListener(map, "dragend", saveMapState);
     }
     function saveMapState() {
-      var mapZoom = map.getZoom();
-      var mapCentre = map.getCenter();
-      var mapLat = mapCentre.lat();
-      var mapLng = mapCentre.lng();
-      var cookiestring = mapLat + "_" + mapLng + "_" + mapZoom;
-      setCookie("myMapCookie", cookiestring, 30);
+      var mapCenter = map.getCenter();
+      const mapState = {
+        zoom: map.getZoom(),
+        lat: mapCenter.lat(),
+        lng: mapCenter.lng(),
+      };
+      console.log("Map state saved:", mapState);
+      window.parent.postMessage(
+        {
+          callbackName: "saveMapState",
+          props: { mapState },
+        },
+        "https://balloons.dev.browxy.com",
+      );
     }
-    function loadMapState() {
-      var gotCookieString = getCookie("myMapCookie");
-      var splitStr = gotCookieString.split("_");
-      var savedMapLat = parseFloat(splitStr[0]);
-      var savedMapLng = parseFloat(splitStr[1]);
-      var savedMapZoom = parseFloat(splitStr[2]);
-      if (!isNaN(savedMapLat) && !isNaN(savedMapLng) && !isNaN(savedMapZoom)) {
-        map.setCenter(new google.maps.LatLng(savedMapLat, savedMapLng));
-        map.setZoom(savedMapZoom);
-      }
+    function getMapState() {
+      window.parent.postMessage(
+        {
+          callbackName: "loadMapState",
+          props: {},
+        },
+        "https://balloons.dev.browxy.com",
+      );
     }
-    function setCookie(c_name, value, exdays) {
-      var exdate = new Date();
-      exdate.setDate(exdate.getDate() + exdays);
-      var c_value =
-        escape(value) +
-        (exdays == null ? "" : "; expires=" + exdate.toUTCString());
-      document.cookie = c_name + "=" + c_value;
-    }
-    function getCookie(c_name) {
-      var i,
-        x,
-        y,
-        ARRcookies = document.cookie.split(";");
-      for (i = 0; i < ARRcookies.length; i++) {
-        x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
-        y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
-        x = x.replace(/^\s+|\s+$/g, "");
-        if (x == c_name) {
-          return unescape(y);
-        }
-      }
-      return "";
-    }
+
     if (autoRefParam == 1) {
       google.maps.event.addListenerOnce(map, "idle", function () {
         google.maps.event.trigger(marker1, "click");
@@ -743,6 +729,13 @@ function showvormap() {
   } else {
     document.getElementById("map").innerHTML =
       "Invalid Balloon Location Detected, can't show VOR's map";
+  }
+}
+
+function loadMapState(mapState) {
+  if (map && mapState) {
+    map.setCenter(new google.maps.LatLng(mapState.lat, mapState.lng));
+    map.setZoom(mapState.zoom);
   }
 }
 

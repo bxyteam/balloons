@@ -29,6 +29,8 @@ async function processTelemetry2({
   let banda = 14;
   let bandasearch = "14";
 
+  console.log("last ", last);
+
   const balloonid = getParamSafe("balloonid");
 
   for (let g = 0; g <= ubound(window.tbanda); g++) {
@@ -631,7 +633,8 @@ async function processTelemetry2({
   let distancia = 0;
   let lasttiempo = "";
   let tiempo = 0;
-
+  console.log("punto", punto);
+  console.log("llaverage", llaverage);
   for (let k = 0; k <= puntopointer + 2; k++) {
     if (punto[k][3] !== "" && punto[k][3] >= 0) {
       if (punto[k][0].length < 10) {
@@ -645,12 +648,19 @@ async function processTelemetry2({
       //     }
       // }
 
-      let llCheck = llaverage < 1;
-      let llSuffixCheck = !(punto[k][1].slice(-2) === "LL");
+      // let llCheck = llaverage < 1;
+      // let llSuffixCheck = !(punto[k][1].slice(-2) === "LL");
 
-      let xorResult = llCheck !== llSuffixCheck;
+      // let xorResult = llCheck !== llSuffixCheck;
 
-      let usell = !xorResult;
+      //let usell = !xorResult;
+      // let usell;
+      // if (llaverage < 1 || punto[k][1].slice(-2) !== "LL") {
+      //   usell = false;
+      // } else {
+      //   usell = true;
+      // }
+      let usell = !(llaverage < 1 !== !(punto[k][1].slice(-2) === "LL"));
 
       if (
         punto[k][1].length > 3 &&
@@ -674,6 +684,7 @@ async function processTelemetry2({
 
           if (tiempo > 0) {
             veloci = (distancia * 3600) / tiempo;
+            console.log("veloci ", veloci);
           }
         }
         if (lastpunto !== punto[k][1]) {
@@ -695,7 +706,7 @@ async function processTelemetry2({
       }
     }
   }
-
+  console.log("llelele ", window.beacon1.length);
   if (window.beacon1.length < 10) {
     window.beacon1 = [];
   }

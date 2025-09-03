@@ -75,7 +75,7 @@ function processTelemetry({ pag, cuenta }) {
       }
 
       let datosmod = tablam[i];
-      let datos1 = split(datosmod, chr(9), 13, 1);
+      let datos1 = datosmod.split("\t"); //split(datosmod, chr(9), 13, 1);
       tele1[i][0] = "1";
 
       for (let j = 1; j <= ubound(datos1); j++) {
@@ -83,7 +83,7 @@ function processTelemetry({ pag, cuenta }) {
       }
     } catch (error) {
       // Error handling (equivalent to "on error resume next")
-      console.warn("Error processing row:", error);
+      console.error("Error processing row:", error);
       alert("Error processing telemetry rows");
       return {
         error: true,
@@ -186,8 +186,8 @@ function processTelemetry({ pag, cuenta }) {
         //   continue;
         // }
 
-        let xxx = replace(tablam[i], " ", chr(9), 1, 100, 1);
-        let pwrm1 = split(xxx, chr(9), 100, 1);
+        let xxx = replace(tablam[i], " ", "\t", 1, 100, 1); //replace(tablam[i], " ", chr(9), 1, 100, 1);
+        let pwrm1 = xxx.split("\t");
 
         // Calculate power and dBm
         try {
@@ -204,7 +204,7 @@ function processTelemetry({ pag, cuenta }) {
         // Process data
         let datosmod = tablam[i + 1];
         //let datosmod = tablam[i]; // Check repeated data in the first index
-        let datos1 = split(datosmod, chr(9), 12, 1);
+        let datos1 = datosmod ? datosmod.split("\t") : []; //split(datosmod, chr(9), 12, 1);
 
         // Ensure tele1 array is properly sized
         if (!tele1[i + 1].length || tele1[i + 1].length < 14) {
@@ -309,7 +309,7 @@ function processTelemetry({ pag, cuenta }) {
             }
           } catch (error) {
             // Error handling
-            console.warn("Altitude calculation error:", error);
+            console.error("Altitude calculation error:", error);
             return {
               error: true,
               message: "Altitude calculation error",
@@ -335,7 +335,7 @@ function processTelemetry({ pag, cuenta }) {
                 altura = savealtu;
               }
             } catch (error) {
-              console.warn("VE3PRO/OSHPARK processing error:", error);
+              console.error("VE3PRO/OSHPARK processing error:", error);
               return {
                 error: true,
                 message: "VE3PRO/OSHPARK processing error",
@@ -385,7 +385,7 @@ function processTelemetry({ pag, cuenta }) {
               }
 
               // Fill in missing altitude data
-              if (tele1[i][taltura] < 10) {
+              if (i > 2 && tele1[i][taltura] < 10) {
                 tele1[i][taltura] = tele1[i - 1][taltura];
                 if (tele1[i - 2]) {
                   tele1[i][taltura] = tele1[i - 2][taltura];
@@ -395,7 +395,7 @@ function processTelemetry({ pag, cuenta }) {
                 }
               }
             } catch (error) {
-              console.warn("Special tracker processing error:", error);
+              console.error("Special tracker processing error:", error);
               return {
                 error: true,
                 message: "Special tracker processing error",
@@ -409,7 +409,7 @@ function processTelemetry({ pag, cuenta }) {
               tele1[i][taltura] = xsnrFun(Number(tele1[i][tpwr]));
             }
           } catch (error) {
-            console.warn("WB8ELK processing error:", error);
+            console.error("WB8ELK processing error:", error);
           }
 
           // Handle various tracker types
@@ -426,13 +426,13 @@ function processTelemetry({ pag, cuenta }) {
           if (
             lcase(tracker) === "zachtek1" &&
             trim(timeslot) === "" &&
-            Number(tele1[i][twpr]) * 20 + Number(tele1[i + 1][tpwr]) * 300 <
+            Number(tele1[i][tpwr]) * 20 + Number(tele1[i + 1][tpwr]) * 300 <
               15000 &&
-            Number(tele1[i][twpr]) * 20 + Number(tele1[i + 1][tpwr]) * 300 >
+            Number(tele1[i][tpwr]) * 20 + Number(tele1[i + 1][tpwr]) * 300 >
               3000
           ) {
             let calculatedAltitude =
-              Number(tele1[i][twpr]) * 20 + Number(tele1[i + 1][tpwr]) * 300;
+              Number(tele1[i][tpwr]) * 20 + Number(tele1[i + 1][tpwr]) * 300;
             // Commented out in original code
             // tele1[i][taltura] = calculatedAltitude;
             // lastaltura = tele1[i][taltura];
@@ -468,7 +468,7 @@ function processTelemetry({ pag, cuenta }) {
             try {
               licentab[last] = licencia;
             } catch (error) {
-              console.warn("License processing error:", error);
+              console.error("License processing error:", error);
             }
 
             // Process locator

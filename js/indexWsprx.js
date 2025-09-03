@@ -4299,8 +4299,11 @@ function carga() {
     swok = false;
     savetemp = 0;
     dista1 = transpose(dista);
+    console.log("dista ", dista);
+    console.log("dista1 ", dista1);
     for (g = 84; g > 0; g--) {
-      if (dista[1][g] > 0) {
+      //if (dista[1][g] > 0) {
+      if (dista[g] > 0) {
         break;
       }
     }
@@ -5899,7 +5902,7 @@ function ponermapa(locator, licencia) {
   };
   // Enviar JSON al iframe
   iframe.contentWindow.postMessage(
-    JSON.stringify(jsonData),
+    { action: "SHOW_MAP", props: { jsonData } },
     "https://lu7aa.org",
   );
 }

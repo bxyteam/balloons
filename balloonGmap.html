@@ -368,9 +368,10 @@
                 (event) => {
                     if (
                         event.origin === "https://balloons.browxy.com" ||
-                        event.origin === "https://balloons.dev.browxy.com"
+                        event.origin === "https://balloons.dev.browxy.com" ||
+                        event.origin === "http://localhost:5000"
                     ) {
-                        const jsonData = JSON.parse(event.data);
+                        const jsonData = event.data.props.jsonData;
                         console.log("JSON recibido:", jsonData);
 
                         window.locations = jsonData.locations;
