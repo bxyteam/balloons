@@ -120,16 +120,33 @@ function dateAdd(interval, number, date) {
   }
   return result;
 }
-function dateDiff(unit, date1, date2) {
-  const diffTime = Math.abs(date2 - date1);
-  const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
 
-  if (unit === "h") {
-    return diffHours;
+function dateDiff(unidad, fecha1, fecha2) {
+  const f1 = new Date(fecha1);
+  const f2 = new Date(fecha2);
+  const msDiff = f2 - f1; // Diferencia en milisegundos
+
+  switch (unidad) {
+    case "s":
+      return msDiff / 1000; // segundos
+    case "n":
+      return msDiff / (1000 * 60); // minutos
+    case "h":
+      return msDiff / (1000 * 60 * 60); // horas
+    case "d":
+      return msDiff / (1000 * 60 * 60 * 24); // días
+    case "m": // meses aproximados
+      return (
+        (f2.getFullYear() - f1.getFullYear()) * 12 +
+        (f2.getMonth() - f1.getMonth())
+      );
+    case "y": // años
+      return f2.getFullYear() - f1.getFullYear();
+    default:
+      throw new Error("Unidad de diferencia no válida");
   }
-  // Add other units as needed
-  return 0;
 }
+
 function formatDate(date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -221,7 +238,7 @@ async function getPageResponse(url) {
       message: response.statusText,
     };
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return {
       statusCode: 500,
       message: error,
@@ -409,8 +426,6 @@ async function processWSPRQuery() {
       callsignm +
       "' ) ) group by time order by time desc LIMIT 3000";
   }
-
-  console.log("[REPORTER-URL ", getURLreporters);
 
   let pag = "";
 

@@ -1018,7 +1018,6 @@ function redate(valor) {
 //
 function loadMapState() {
   var gotCookieString = getCookie("myMapCookie");
-  console.log("gotCookieString:", gotCookieString);
   var splitStr = gotCookieString.split("_");
   var savedMapLat = parseFloat(splitStr[0]);
   var savedMapLng = parseFloat(splitStr[1]);
@@ -4299,8 +4298,7 @@ function carga() {
     swok = false;
     savetemp = 0;
     dista1 = transpose(dista);
-    console.log("dista ", dista);
-    console.log("dista1 ", dista1);
+
     for (g = 84; g > 0; g--) {
       //if (dista[1][g] > 0) {
       if (dista[g] > 0) {

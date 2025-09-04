@@ -1,3 +1,12 @@
+http://localhost:5000/wsprx.html?other=lu1esy&banda=20m&balloonid=&timeslot=&detail=&launch=20250809110000&SSID=53&tracker=zachtek1&qrpid=&repito=on&qp=&telen=&comments=
+
+http://localhost:5000/wsprx.html?other=ab9lm&banda=20m&balloonid=17&timeslot=2&detail=&launch=20240206000000&SSID=11&tracker=qrplabs&qrpid=346&repito=on&qp=&telen=&comments=
+
+
+lu9mab
+
+https://lu7aa.org/wsprx.asp?other=lu1esy&banda=20m&balloonid=&timeslot=&detail=&launch=20250809110000&SSID=53&tracker=zachtek1&qrpid=&repito=on&qp=&telen=&comments=
+
 2025-07-21 05:20:00	AB9LM	14097063	-13	0	RG34	10	VK4DL/SDR1	QG62lr	2886	283	1
 2025-07-21 05:10:00	AB9LM	14097062	-14	0	RG24	10	VK4DL/SDR1	QG62lr	1765	285	1
 2025-07-21 03:30:00	AB9LM	14097065	-13	0	RG05	10	VK5KJP/1	QG49ho	2470	287	1

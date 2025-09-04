@@ -1,7 +1,6 @@
-//window.HOST_URL = "http://localhost:5000";
-window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
+//window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
 window.addEventListener("load", async () => {
-  //window.dataTracker = await loadDataTrackerjson();
+  window.dataTracker = await loadDataTrackerjson();
   window.bj = JSON.parse(dataTracker.jsonArray);
 
   const balloonLinkMenu = new BalloonLinkMenu();
@@ -150,13 +149,10 @@ window.addEventListener("load", async () => {
   window.proxElementValue = Prox;
 
   (async () => {
-    console.log("[ CALL - WSPR-QUERY-PROCESSING ]");
     const wsprProcessQueryResult = await processWSPRQuery();
 
-    console.log("wsprProcessQueryResult:", wsprProcessQueryResult);
-
     if (wsprProcessQueryResult.error) {
-      console.log(
+      console.error(
         "Error:",
         wsprProcessQueryResult.message || wsprProcessQueryResult.output,
       );
@@ -173,17 +169,13 @@ window.addEventListener("load", async () => {
 
     const telemetry1 = processTelemetry({ pag, cuenta });
 
-    console.log("telemetry1:", telemetry1);
-
     const telemetry2 = await processTelemetry2({
       getURLreporters1,
       ...telemetry1,
     });
 
-    console.log("telemetry2:", telemetry2);
-
     if (telemetry2.error) {
-      console.log("Error:", telemetry2.message || telemetry2.output);
+      console.error("Error:", telemetry2.message || telemetry2.output);
       document
         .getElementById("telemetryTableContainer")
         .insertAdjacentHTML(

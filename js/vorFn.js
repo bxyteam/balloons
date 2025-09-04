@@ -1451,7 +1451,6 @@ function loadGMap() {
 }
 
 function handleMapMessage(event) {
-  console.log("[ handle-message ]", event);
   const { callbackName, props } = event.data;
   window[callbackName](props);
 }

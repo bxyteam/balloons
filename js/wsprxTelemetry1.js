@@ -134,7 +134,7 @@ function processTelemetry({ pag, cuenta }) {
     alto = window.fcentral + 105;
   }
 
-  let use6loc = ucase(tracker) === "zachtek1";
+  let use6loc = lcase(tracker) === "zachtek1";
   let arranque = 0;
   let puntpointer = 0;
   let summhz = 0;
