@@ -193,16 +193,7 @@ function map(wheretogo) {
   if (document.showgraph.flights.checked) {
     var flights = "&flights=1";
   }
-
-  if (ucase(left(callsign, 1)) !== "L")
-    if (ssavempointer > 1) {
-      var nowgo = "vor?callsign=" + wheretogo + flights + "&Vuelo=" + Vuelo;
-    } else {
-      var nowgo = "vor?callsign=" + wheretogo + flights + "&Vuelo=" + Vuelo;
-    }
-  else {
-    var nowgo = "vor?callsign=" + wheretogo + flights + "&Vuelo=" + Vuelo;
-  }
+  var nowgo = "vor?callsign=" + wheretogo + flights + "&Vuelo=" + Vuelo;
   window.parent.window.location.href = `${HOST_URL}/${nowgo}`;
 }
 function loadPageVar(sVar) {
