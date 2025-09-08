@@ -2,9 +2,8 @@ var saveglobo;
 var saveestaciones;
 var velest;
 var hide = false;
-//var TZD = "<%=TZDiff%>" / 60 / 24;
 var Kmrecorridos = 0;
-var TZD = 0.125 / 60 / 24;
+var TZD = new Date().getTimezoneOffset() / 60 / 24;
 var txt = "";
 var hide = false;
 var saveglobo;
@@ -12,6 +11,8 @@ var saveestaciones;
 var velest;
 var meterfeet = 0;
 var prevaltutext;
+window.comentfull = "";
+window.comentariosballoon = "";
 
 window.getParamSafe = (key, defaultValue = "", encode = false) => {
   const params = new URLSearchParams(window.searchParams);
@@ -408,7 +409,7 @@ function showtelen() {
     gqs("other").toUpperCase() +
     mas +
     " comment and TELENs Coding<\/span><br><br><\/center>";
-  codata = codata + decodeURIComponent("<%=comentfull%>");
+  codata = codata + decodeURIComponent(window.comentfull);
   codata = codata + "</br>";
   codata = codata + "<\/body><\/html>";
   var anchopantalla = 588;
@@ -1316,7 +1317,7 @@ function ponermapa(locator, licencia) {
               loc2latlon(locations[i][0]).loclat.toFixed(2) +
               "  Lon:" +
               loc2latlon(locations[i][0]).loclon.toFixed(2) +
-              "<%=comentariosballoon%>",
+              window.comentariosballoon,
             map: map,
           });
           google.maps.event.addListener(

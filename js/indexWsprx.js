@@ -5,9 +5,8 @@
 var saveglobo;
 var saveestaciones;
 var velest;
-//var TZD = "<%=TZDiff%>" / 60 / 24;
 var Kmrecorridos = 0;
-var TZD = 0.125 / 60 / 24;
+var TZD = new Date().getTimezoneOffset() / 60 / 24;
 var txt = "";
 var hide = false;
 var saveglobo;
@@ -15,6 +14,8 @@ var saveestaciones;
 var velest;
 var meterfeet = 0;
 var prevaltutext;
+window.comentfull = "";
+window.comentariosballoon = "";
 
 var diaslaunch = Math.floor(
   (new Date() - new Date(window.getLaunchDate())) / (1000 * 60 * 60 * 24),
@@ -393,7 +394,7 @@ function showtelen() {
     gqs("other").toUpperCase() +
     mas +
     " comment and TELENs Coding<\/span><br><br><\/center>";
-  codata = codata + decodeURIComponent("<%=comentfull%>");
+  codata = codata + decodeURIComponent(window.comentfull);
   codata = codata + "</br>";
   codata = codata + "<\/body><\/html>";
   var anchopantalla = 588;
@@ -5867,6 +5868,8 @@ function ponermapa(locator, licencia) {
     proxElementValue: window.proxElementValue,
     otherInputValue: document.getElementById("other").value,
     rutinaElementValue: window.rutinaElementValue,
+    comentariosballoon: window.comentariosballoon,
+    comentfull: window.comentfull,
     otherValues: {
       saveglobo,
       saveestaciones,

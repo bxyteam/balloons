@@ -350,6 +350,8 @@ class BalloonLinkMenu {
     const { other = "", SSID = "" } = this.searchParams;
     const enriched = dataTracker.balloons.map(this.processBalloonData);
     const result = this.buildBalloonLinks(enriched, other, SSID);
+    window.comentfull = result.comentfull;
+    window.comentariosballoon = result.comentariosballoon;
 
     const output = this.processOutput(
       result.callsurl,
