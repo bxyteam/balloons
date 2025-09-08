@@ -255,9 +255,9 @@ function getDay(date) {
 }
 function goto10() {
   titilar();
-  window.parent.window.location.href = window.parent.window.location.href
-    .replace(/dx.asp/, "dx10k.asp")
-    .replace(/#/g, "");
+  window.parent.window.location.href = `${window.parent.window.location.href
+    //.replace(/dx/, "dx")
+    .replace(/#/g, "")}&slower=true`;
 }
 
 // ultimoreport = et[et.length - 1][0] + "z to ";
@@ -1396,10 +1396,7 @@ function drawdxkm() {
   document.getElementById("container").style.left = "127px";
   document.getElementById("vl").value = "";
   // Define the chart to be drawn.
-  leyend =
-    "   (Using last <%if totals=2998 or totals=9998 then Response.Write totals+2 else Response.Write totals end if%> reports. From " +
-    fromto +
-    ")";
+  leyend = `   (Using last <%if ${window.totals === 2998 || window.totals === 9998 ? window.totals + 2 : window.totals} reports. From ${fromto})`;
   var data = new google.visualization.DataTable();
   data.addColumn("number", "Distance in Km.");
   const columnasLimpias = left(columns, columns.length - 2);
@@ -1430,10 +1427,7 @@ function drawdxkm() {
     hAxis: {
       titleTextStyle: { fontSize: 22 },
       textStyle: { fontSize: 15, fontName: "Times New Roman", bold: true },
-      title:
-        "Distance in Km. Using Last <%if totals=2998 or totals=9998 then Response.Write totals+2 else Response.Write totals end if%> Reports, from " +
-        (window.n + 1) +
-        " Stations.",
+      title: `Distance in Km. Using Last ${window.totals === 2998 || window.totals === 9998 ? window.totals + 2 : window.totals} Reports, from ${window.n + 1} Stations.`,
       format: "#####",
       gridlines: { count: 19 },
       viewWindowMode: "explicit",
@@ -1503,10 +1497,7 @@ function drawdxkm() {
 function drawChart() {
   dkm = "";
   // Define the chart to be drawn.
-  leyend =
-    "\t \t (Using last <%if totals=2998 or totals=9998 then Response.Write totals+2 else Response.Write totals end if%> reports. From: " +
-    fromto +
-    ")";
+  leyend = `\t \t (Using last ${window.totals === 2998 || window.totals === 9998 ? window.totals + 2 : window.totals} reports. From: ${fromto})`;
   var data = new google.visualization.DataTable();
   data.addColumn("date", "Hour");
 
@@ -1615,7 +1606,7 @@ function drawChart() {
 }
 var boton = "Log";
 
-function lineam(/*'<%=home%>'*/) {
+function lineam() {
   var area = new jxGraphics(document.getElementById("rayas"));
   var col = new jxColor("yellow");
   var pen = new jxPen(col, "2px");

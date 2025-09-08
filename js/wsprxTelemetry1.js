@@ -162,7 +162,6 @@ function processTelemetry({ pag, cuenta }) {
   let extra2 = "";
   let saveorionalt = "";
   let saveorionloc = "";
-  let mapainicio = [];
   let previousdate;
   let AltFinal = 0;
 
@@ -617,6 +616,7 @@ function processTelemetry({ pag, cuenta }) {
             // Posi=1
             let hora = tele1[i][thora];
             horaoriginal = hora;
+
             let diahora = hora.substring(3, 11);
 
             // Format hora
@@ -647,7 +647,7 @@ function processTelemetry({ pag, cuenta }) {
               locatortomado = "";
             }
 
-            if (!duplicated && left(horaoriginal, 13) > desdeFecha) {
+            if (!duplicated && new Date(horaoriginal) > new Date(desdeFecha)) {
               // Add new location entry to window.locations array
               window.locations.push([
                 trim(locatoro),
@@ -1010,13 +1010,13 @@ function processTelemetry({ pag, cuenta }) {
   } else {
     // TODO CHECK THIS
     let queryString = "?";
-    let params = new URLSearchParams(window.location.search);
+    let params = new URLSearchParams(window.parent.window.location.search);
     for (let [key, value] of params.entries()) {
       queryString += `${encodeURIComponent(key)}=${encodeURIComponent(value)}&`;
     }
 
     // Check domain name
-    let dedonde = window.location.hostname.toLowerCase();
+    let dedonde = window.parent.window.location.hostname.toLowerCase();
     let irdonde = "org";
     for (let r = 0; r < dedonde.length - 2; r++) {
       if (dedonde.slice(r, r + 3) === "org") {
@@ -1062,7 +1062,6 @@ function processTelemetry({ pag, cuenta }) {
 
   return {
     error: false,
-    mapainicio,
     last,
     punt,
     desdeFecha,

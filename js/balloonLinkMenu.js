@@ -264,7 +264,7 @@ class BalloonLinkMenu {
 
     balloonsurl += `
         <a style='background-color:lightblue;font-size:14px;color:red;' href='${HOST_URL}/wsprx${qstring}' target='_self' title='New using wspr.live'><b><u>TRACK</u></b></a>&nbsp;
-        <a style='background-color:lightblue;font-size:14px;color:red;' href='${HOST_URL}/wsprfull${qstring}' target='_self' title='More points but slower'><b><u>[+]</u></b></a>&nbsp;
+        <a style='background-color:lightblue;font-size:14px;color:red;' href='${HOST_URL}/wsprx${qstring}&slower=true' target='_self' title='More points but slower'><b><u>[+]</u></b></a>&nbsp;
         <a style='background-color:lightblue;font-style: italic;' href='${HOST_URL}/wsprset' target='_blank' title='See these entries&#13 Or Enter New...'><b><u>Presets</u></b></a>
         &nbsp;&nbsp;<a href='https://www.qrp-labs.com/tracking.html' target='_blank' style='background-color:lightblue;font-style: italic;cursor:pointer;' title='U4B Settings'><b><u>U4B</u></b></a>
     `;

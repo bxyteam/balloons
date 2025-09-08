@@ -1,6 +1,5 @@
 async function processTelemetry2({
   getURLreporters1,
-  mapainicio,
   last,
   punt,
   desdeFecha,
@@ -526,10 +525,10 @@ async function processTelemetry2({
     } catch (error) {
       console.error(error);
       alert("Error process telemetry 2 data");
-      return {
-        error: true,
-        message: error.message,
-      };
+      // return {
+      //   error: true,
+      //   message: error.message,
+      // };
     }
   } // END if (getParamSafe("balloonid") !== "")
 
@@ -645,19 +644,19 @@ async function processTelemetry2({
       //     }
       // }
 
-      // let llCheck = llaverage < 1;
-      // let llSuffixCheck = !(punto[k][1].slice(-2) === "LL");
+      let llCheck = llaverage < 1;
+      let llSuffixCheck = !(punto[k][1].slice(-2) === "LL");
 
-      // let xorResult = llCheck !== llSuffixCheck;
+      let xorResult = llCheck !== llSuffixCheck;
 
-      //let usell = !xorResult;
+      let usell = !xorResult;
       // let usell;
       // if (llaverage < 1 || punto[k][1].slice(-2) !== "LL") {
       //   usell = false;
       // } else {
       //   usell = true;
       // }
-      let usell = !(llaverage < 1 !== !(punto[k][1].slice(-2) === "LL"));
+      //let usell = !(llaverage < 1 !== !(punto[k][1].slice(-2) === "LL"));
 
       if (
         punto[k][1].length > 3 &&
@@ -714,7 +713,6 @@ async function processTelemetry2({
   }
 
   let altutext = "";
-
   if (puntopointer > -1 && isDate(left(punto[0][0], 16))) {
     const TZDiff = -180 * 60 * 1000;
     let hlocal = cDate(left(punto[0][0], 16)) - TZDiff;
@@ -796,13 +794,14 @@ async function processTelemetry2({
     if (getParamSafe("SSID") !== "") {
       addss =
         "APRS: " +
-        "<a href=http:\/\/aprs.fi?call=" +
+        "<a href='http://aprs.fi?call=" +
         ucase(getParamSafe("other")) +
         "-" +
         getParamSafe("SSID") +
         "&timerange=604800&tail=604800&mt=hybrid" +
-        " title=\'See in APRS&#13If uploaded\' target=_blank><u style=\'line-height:13px;color:green;\'>" +
-        ucase(trim(getParamSafe("other"))) +
+        "' title='See in APRS&#13If; uploaded' target=_blank><u style='line-height:13px;color:green;'>";
+
+      ucase(trim(getParamSafe("other"))) +
         "-" +
         getParamSafe("SSID") +
         "</u></a><br>";
@@ -861,7 +860,7 @@ async function processTelemetry2({
           300,
           1,
         ) +
-        "<span id=globo></span>" +
+        "<span id='globo'></span>" +
         punto[0][6] +
         "<br><a href=# onclick='gowinds1()' style='color: #3333ff;line-height:13px;overflow:hidden;font-weight:bold;white-space:nowrap;cursor:pointer;'><u>Click for Winds</u></a>",
     ];
@@ -950,6 +949,5 @@ async function processTelemetry2({
   return {
     error: false,
     output,
-    mapainicio,
   };
 }

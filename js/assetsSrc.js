@@ -1,6 +1,8 @@
 var imageSrcUrl = {
   ab5ss: "https://i.postimg.cc/wTwmvndB/ab5ss.jpg",
   ag6ns: "https://i.postimg.cc/jj7wM5nW/ag6ns.jpg",
+  auto: "https://i.postimg.cc/nc40qhQV/auto.png",
+  autod: "https://i.postimg.cc/bNcmGtrF/autod.png",
   amsatlogo: "https://i.postimg.cc/MGTVxcbP/amsatlogo.gif",
   amsatlogon: "https://i.postimg.cc/jdxfRtm9/amsatlogon.gif",
   aprs: "https://i.postimg.cc/CxdffJFs/aprs.png",

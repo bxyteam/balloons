@@ -196,6 +196,6 @@ window.addEventListener("load", async () => {
     document.getElementById("telemetryTableLoader").classList.add("hidden");
 
     carga();
-    ponermapa(telemetry2.mapainicio[0], telemetry2.mapainicio[1]);
+    ponermapa(mapainicio[0], mapainicio[1]);
   })();
 });

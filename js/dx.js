@@ -21,6 +21,7 @@ async function initApp() {
   window.iib = 0;
   window.mesdereporte = "";
   window.locati = "";
+  window.totals = 0;
 
   const mes = [
     "",
@@ -622,7 +623,7 @@ async function initApp() {
   if (window.iis === 0 && window.iib === 0) {
     rf = " ";
   } else {
-    let totals = window.iib + window.iis;
+    window.totals = window.iib + window.iis;
     rf = "";
     if (window.iib > 0) {
       rf = Math.round((window.iib / totals) * 100, 0) + "% as Beacon";
