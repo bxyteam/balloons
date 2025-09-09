@@ -2813,7 +2813,6 @@ function sleep(milliseconds) {
 //
 function aprsend() {
   // funcion para alimentar a aprs.fi haciendo telnet desde amsat.org.ar
-  sleep(200);
   ubicacion = locations[0][0].substring(0, 6);
   var Alturareportadametros = locations[0][1].match(
     /(?<=Alt.: \s*).*?(?=\s*&nbsp;)/gs,
@@ -2840,11 +2839,8 @@ function aprsend() {
   lona = (lona * 1).toFixed(2).toString();
   lata = ("000" + lata).slice(-7);
   lona = ("000" + lona).slice(-8);
-  horaspot =
-    beacon1[0][0].substring(8, 10) +
-    beacon1[0][0].substring(11, 13) +
-    beacon1[0][0].substring(14, 16) +
-    "z";
+  let toDate = new Date(beacon1[0][0].slice(0, beacon1[0][0].length - 1));
+  horaspot = `${right("00" + toDate.getHours(), 2)}${right("00" + toDate.getMinutes(), 2)}${right("00" + toDate.getSeconds(), 2)}z`;
   var zd = new Date();
   var horautc =
     ("00" + zd.getUTCHours()).slice(-2) +
@@ -2990,26 +2986,26 @@ function aprsend() {
     aprs4 +
     "\ WSPR " +
     tok3 +
-    " http://lu7aa.org/wsprx.asp?other=" +
+    " https://balloons.browxy.com/wsprx?other=" +
     gqs("other");
   if (gqs("launch")) {
-    aprs4 = aprs4 + "%26launch=" + gqs("launch");
+    aprs4 = aprs4 + "&launch=" + gqs("launch");
   }
   if (gqs("detail")) {
-    aprs4 = aprs4 + "%26detail=" + gqs("detail");
+    aprs4 = aprs4 + "&detail=" + gqs("detail");
   }
   if (gqs("SSID")) {
-    aprs4 = aprs4 + "%26SSID=" + gqs("SSID");
+    aprs4 = aprs4 + "&SSID=" + gqs("SSID");
   }
   if (gqs("banda")) {
-    aprs4 = aprs4 + "%26banda=" + gqs("banda");
+    aprs4 = aprs4 + "&banda=" + gqs("banda");
   }
   if (gqs("balloonid")) {
-    aprs4 = aprs4 + "%26balloonid=" + gqs("balloonid");
+    aprs4 = aprs4 + "&balloonid=" + gqs("balloonid");
   }
-  aprs4 = aprs4 + "%26timeslot=" + gqs("timeslot");
+  aprs4 = aprs4 + "&timeslot=" + gqs("timeslot");
   if (gqs("tracker")) {
-    aprs4 = aprs4 + "%26tracker=" + gqs("tracker");
+    aprs4 = aprs4 + "&tracker=" + gqs("tracker");
   }
   aprs4 = aprs4.replace(/#/g, "");
   //    alert(aprs4)
@@ -3068,7 +3064,7 @@ function aprsend() {
             (gqs("SSID") == "22" || gqs("SSID")) == "23"
           ) {
             addl =
-              "&nbsp;&nbsp;<a href='http:\/\/lu7aa.org\/dx.asp?por=H&tz=0&be=&multiplecalls=Select&scale=Lin&bs=B&call=x1*&band=14&timelimit=1209600&sel=0&t=m' target='_blank' style='color:navy;line-height:15px;font-size:13px;text-decoration:none;background-color:gold;font-weight:normal;' title='The prefix for telem will be X1 followed by the letters BAA to JJJ.&#13The letters A-J correspond to the digits 0-9, To compute the count,&#13subtract 100 from the digits corresponding to the three letter code.'>&nbsp;Click for <span style='font-size:14px;'>&beta;\/&gamma;<\/span> Radiation Particle Count&nbsp;<\/a>";
+              "&nbsp;&nbsp;<a href='https://balloons.browxy.com/dx?por=H&tz=0&be=&multiplecalls=Select&scale=Lin&bs=B&call=x1*&band=14&timelimit=1209600&sel=0&t=m' target='_blank' style='color:navy;line-height:15px;font-size:13px;text-decoration:none;background-color:gold;font-weight:normal;' title='The prefix for telem will be X1 followed by the letters BAA to JJJ.&#13The letters A-J correspond to the digits 0-9, To compute the count,&#13subtract 100 from the digits corresponding to the three letter code.'>&nbsp;Click for <span style='font-size:14px;'>&beta;\/&gamma;<\/span> Radiation Particle Count&nbsp;<\/a>";
           } else {
             addl = "";
           }
@@ -4242,4 +4238,8 @@ function showprop() {
     { callbackName: "showprop" },
     "https://balloons.dev.browxy.com",
   );
+}
+
+function right(str, length) {
+  return str.toString().slice(-length);
 }

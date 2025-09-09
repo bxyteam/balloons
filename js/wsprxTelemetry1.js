@@ -14,6 +14,7 @@ function processTelemetry({ pag, cuenta }) {
     .map(() => Array(8).fill(""));
 
   let output = "";
+  let horaoriginal = "";
 
   if (ubound(tablax) > 0) {
     tablam[0] = tablax[1];
@@ -81,6 +82,7 @@ function processTelemetry({ pag, cuenta }) {
       for (let j = 1; j <= ubound(datos1); j++) {
         tele1[i][j] = datos1[j - 1];
       }
+      horaoriginal = tele1[0][1];
     } catch (error) {
       // Error handling (equivalent to "on error resume next")
       console.error("Error processing row:", error);
@@ -152,7 +154,6 @@ function processTelemetry({ pag, cuenta }) {
   let power = "";
   let hora0 = "";
   //let hora = "";
-  let horaoriginal = "";
   let licencia = "";
   let licenciao = "";
   let vorlocsave = "";
@@ -181,10 +182,6 @@ function processTelemetry({ pag, cuenta }) {
 
     if (checki) {
       try {
-        // if (!tele1[i + 1]) {
-        //   continue;
-        // }
-
         let xxx = replace(tablam[i], " ", "\t", 1, 100, 1); //replace(tablam[i], " ", chr(9), 1, 100, 1);
         let pwrm1 = xxx.split("\t");
 
@@ -201,7 +198,7 @@ function processTelemetry({ pag, cuenta }) {
         }
 
         // Process data
-        let datosmod = tablam[i + 1];
+        let datosmod = tablam[i];
         //let datosmod = tablam[i]; // Check repeated data in the first index
         let datos1 = datosmod ? datosmod.split("\t") : []; //split(datosmod, chr(9), 12, 1);
 
@@ -263,7 +260,6 @@ function processTelemetry({ pag, cuenta }) {
             summhz = summhz + Number(tele1[i][tmhz]);
             countmhz = countmhz + 1;
           }
-          // }
 
           // Process SNR data
           let snrr = tele1[i][tsnr];
@@ -461,7 +457,7 @@ function processTelemetry({ pag, cuenta }) {
           // Add new license if not found and within date range
           if (
             !found &&
-            left(fechahora, 13) >= left(desdeFecha, 13) &&
+            //left(fechahora, 13) >= left(desdeFecha, 13) &&
             new Date(fechahora) >= new Date(launchdate)
           ) {
             try {
@@ -1028,10 +1024,9 @@ function processTelemetry({ pag, cuenta }) {
     let other = params.get("other") || "";
     let leyinicial;
     if (other === "") {
-      //FIX REDIRECTIONS LINKS
       leyinicial = `<img src='${imageSrcUrl["habhub"] || ""}'>&nbsp;This free application tracks WSPR Balloons&nbsp;<img src='${imageSrcUrl["aprs"]}'><br>Enter Balloon Callsign and click OK`;
     } else {
-      leyinicial = `Not enough data found on WSPRNET for ${other.toUpperCase()}<br>Change Callsign or band and/or retry clicking 'OK'<br>Alternate site: <a href="http://lu7aa.${irdonde}.ar/wsprx.asp${queryString}" style='color:#FFCF00;'>http://lu7aa.${irdonde}.ar/wsprx.asp</a>`;
+      leyinicial = `Not enough data found on WSPRNET for ${other.toUpperCase()}<br>Change Callsign or band and/or retry clicking 'OK'<br>Alternate site: <a href="https://${HOST_URL}/wsprx${queryString}" style='color:#FFCF00;'>https:/${HOST_URL}/wsprx</a>`;
     }
 
     output = `${output} <center><b>

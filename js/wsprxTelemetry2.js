@@ -678,7 +678,7 @@ async function processTelemetry2({
             tiempo = dateDiff("s", currentTime, lastTime);
           }
 
-          if (tiempo > 0) {
+          if (tiempo !== 0) {
             veloci = (distancia * 3600) / tiempo;
           }
         }
@@ -721,7 +721,8 @@ async function processTelemetry2({
       String(new Date(hlocal).getHours()).padStart(2, "0") +
       ":" +
       String(new Date(hlocal).getMinutes()).padStart(2, "0");
-    hora = `${mes[mid(punto[0][0], 6, 2)]}-${mid(punto[0][0], 9, 2)} ${mid(punto[0][0], 12, 5)}`;
+    let puntoDate = new Date(punto[0][0]);
+    hora = `${mes[puntoDate.getMonth() + 1]}-${puntoDate.getDate()} ${puntoDate.getHours()}:${puntoDate.getMinutes()}`;
     if (punto[0][3] == "130") {
       punto[0][3] = "11120";
     }
@@ -792,19 +793,8 @@ async function processTelemetry2({
       trackertext = "<br>Tracker: " + trim(lcase(getParamSafe("tracker")));
     }
     if (getParamSafe("SSID") !== "") {
-      addss =
-        "APRS: " +
-        "<a href='http://aprs.fi?call=" +
-        ucase(getParamSafe("other")) +
-        "-" +
-        getParamSafe("SSID") +
-        "&timerange=604800&tail=604800&mt=hybrid" +
-        "' title='See in APRS&#13If; uploaded' target=_blank><u style='line-height:13px;color:green;'>";
-
-      ucase(trim(getParamSafe("other"))) +
-        "-" +
-        getParamSafe("SSID") +
-        "</u></a><br>";
+      addss = `APRS: <a href='http://aprs.fi?call=${ucase(getParamSafe("other"))}-${getParamSafe("SSID")}&timerange=604800&tail=604800&mt=hybrid' title='See in APRS&#13If; uploaded' target=_blank>
+        <u style='line-height:13px;color:green;'>${ucase(trim(getParamSafe("other")))}-${getParamSafe("SSID")}</u></a><br>`;
     } else {
       addss = "";
     }
@@ -946,6 +936,18 @@ async function processTelemetry2({
   window.addplusElementValue = addplus;
   window.avgfreqElementValue = avgfreq;
 
+  if (punto[0][0] !== beacon1[0][0]) {
+    beacon1.unshift([
+      punto[0][0],
+      left(punto[0][1], 6),
+      punto[0][2],
+      punto[0][3],
+      punto[0][4],
+      punto[0][5],
+      punto[0][6],
+      punto[0][7],
+    ]);
+  }
   return {
     error: false,
     output,

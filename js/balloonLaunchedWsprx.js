@@ -1,6 +1,6 @@
-//window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
+window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
 window.addEventListener("load", async () => {
-  window.dataTracker = await loadDataTrackerjson();
+  //window.dataTracker = await loadDataTrackerjson();
   window.bj = JSON.parse(dataTracker.jsonArray);
 
   const balloonLinkMenu = new BalloonLinkMenu();

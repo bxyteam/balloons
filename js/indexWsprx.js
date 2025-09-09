@@ -1331,7 +1331,7 @@ function sleep(milliseconds) {
 //
 function aprsend() {
   // funcion para alimentar a aprs.fi haciendo telnet desde amsat.org.ar
-  sleep(200);
+
   ubicacion = locations[0][0].substring(0, 6);
   var Alturareportadametros = locations[0][1].match(
     /(?<=Alt.: \s*).*?(?=\s*&nbsp;)/gs,
@@ -1358,17 +1358,15 @@ function aprsend() {
   lona = (lona * 1).toFixed(2).toString();
   lata = ("000" + lata).slice(-7);
   lona = ("000" + lona).slice(-8);
-  horaspot =
-    beacon1[0][0].substring(8, 10) +
-    beacon1[0][0].substring(11, 13) +
-    beacon1[0][0].substring(14, 16) +
-    "z";
+  let toDate = new Date(beacon1[0][0].slice(0, beacon1[0][0].length - 1));
+  horaspot = `${right("00" + toDate.getHours(), 2)}${right("00" + toDate.getMinutes(), 2)}${right("00" + toDate.getSeconds(), 2)}z`;
   var zd = new Date();
   var horautc =
     ("00" + zd.getUTCHours()).slice(-2) +
     ("00" + zd.getUTCMinutes()).slice(-2) +
     ("00" + zd.getUTCSeconds()).slice(-2) +
     "h";
+  console.log(horautc);
   if (gqs("other")) {
     licenciaaprs = gqs("other").toUpperCase();
   } else {
@@ -1504,30 +1502,25 @@ function aprsend() {
       aprs4 = aprs4 + " Sun:" + Sunelevadosave.toString() + "";
     }
   }
-  aprs4 =
-    aprs4 +
-    "\ WSPR " +
-    tok3 +
-    " http://lu7aa.org/wsprx.asp?other=" +
-    gqs("other");
+  aprs4 = `${aprs4} \ WSPR ${tok3} ${HOST_URL}/wsprx?other=${gqs("other")}`;
   if (gqs("launch")) {
-    aprs4 = aprs4 + "%26launch=" + gqs("launch");
+    aprs4 = aprs4 + "&launch=" + gqs("launch");
   }
   if (gqs("detail")) {
-    aprs4 = aprs4 + "%26detail=" + gqs("detail");
+    aprs4 = aprs4 + "&detail=" + gqs("detail");
   }
   if (gqs("SSID")) {
-    aprs4 = aprs4 + "%26SSID=" + gqs("SSID");
+    aprs4 = aprs4 + "&SSID=" + gqs("SSID");
   }
   if (gqs("banda")) {
-    aprs4 = aprs4 + "%26banda=" + gqs("banda");
+    aprs4 = aprs4 + "&banda=" + gqs("banda");
   }
   if (gqs("balloonid")) {
-    aprs4 = aprs4 + "%26balloonid=" + gqs("balloonid");
+    aprs4 = aprs4 + "&balloonid=" + gqs("balloonid");
   }
-  aprs4 = aprs4 + "%26timeslot=" + gqs("timeslot");
+  aprs4 = aprs4 + "&timeslot=" + gqs("timeslot");
   if (gqs("tracker")) {
-    aprs4 = aprs4 + "%26tracker=" + gqs("tracker");
+    aprs4 = aprs4 + "&tracker=" + gqs("tracker");
   }
   aprs4 = aprs4.replace(/#/g, "");
   //    alert(aprs4)
@@ -1565,7 +1558,7 @@ function aprsend() {
 
   window.fcentral = frecu + fd;
 
-  if (typeof SSID === "undefined") {
+  if (typeof SSID == "undefined") {
   } else {
     if (beacon1.length > 0) beacolocator = beacon1[0][1];
     var equal = true;
@@ -1585,8 +1578,7 @@ function aprsend() {
             gqs("other") == "nu7b" &&
             (gqs("SSID") == "22" || gqs("SSID")) == "23"
           ) {
-            addl =
-              "&nbsp;&nbsp;<a href='http:\/\/lu7aa.org\/dx.asp?por=H&tz=0&be=&multiplecalls=Select&scale=Lin&bs=B&call=x1*&band=14&timelimit=1209600&sel=0&t=m' target='_blank' style='color:navy;line-height:15px;font-size:13px;text-decoration:none;background-color:gold;font-weight:normal;' title='The prefix for telem will be X1 followed by the letters BAA to JJJ.&#13The letters A-J correspond to the digits 0-9, To compute the count,&#13subtract 100 from the digits corresponding to the three letter code.'>&nbsp;Click for <span style='font-size:14px;'>&beta;\/&gamma;<\/span> Radiation Particle Count&nbsp;<\/a>";
+            addl = `&nbsp;&nbsp;<a href='${HOST_URL}/dx?por=H&tz=0&be=&multiplecalls=Select&scale=Lin&bs=B&call=x1*&band=14&timelimit=1209600&sel=0&t=m' target='_blank' style='color:navy;line-height:15px;font-size:13px;text-decoration:none;background-color:gold;font-weight:normal;' title='The prefix for telem will be X1 followed by the letters BAA to JJJ.&#13The letters A-J correspond to the digits 0-9, To compute the count,&#13;subtract 100 from the digits corresponding to the three letter code.'>&nbsp;Click for <span style='font-size:14px;'>&beta;/&gamma;</span> Radiation Particle Count&nbsp;</a>`;
           } else {
             addl = "";
           }
@@ -1607,7 +1599,7 @@ function aprsend() {
                 licenciaaprs.toUpperCase().replace(/#/g, "") +
                 "-" +
                 SSID +
-                " ACTUAL POSITION TO APRS.FI & SONDEHUB&nbsp;&nbsp;<\/a><span style='text-shadow:0 0;color:#000000;font-size:11px;line-height:9px;font-family:Tahoma,Arial;'>&nbsp;&nbsp;&nbsp;REPEAT APRS.FI & SONDEHUB UPLOADS <input onclick=\"document.getElementById('enviar').click();\" type=checkbox name='repito' id='repito' style='margin:0 0 0 0;'> ON 10' AUTO-UPDATE<\/span>" +
+                " ACTUAL POSITION TO APRS.FI & SONDEHUB&nbsp;&nbsp;</a><span style='text-shadow:0 0;color:#000000;font-size:11px;line-height:9px;font-family:Tahoma,Arial;'>&nbsp;&nbsp;&nbsp;REPEAT APRS.FI & SONDEHUB UPLOADS <input onclick='document.getElementById('enviar').click();' type=checkbox name='repito' id='repito' style='margin:0 0 0 0;'> ON 10' AUTO-UPDATE</span>" +
                 addl +
                 "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
             }
@@ -1624,13 +1616,13 @@ function aprsend() {
           } else {
             if (SSID && SSID.length > 0 && estacion != "W5KUB") {
               document.getElementById("aprsfi").innerHTML =
-                "<span style='color:#000000;font-weight:normal;'>Wide:<input type='checkbox' id='wide' name='wide' title='Check for wider reception&#13 for your second TLM&#13 use if your emission&#13 is way off frequency' onclick=\"document.getElementById('enviar').click();\">&nbsp;Central QRG: " +
+                "<span style='color:#000000;font-weight:normal;'>Wide:<input type='checkbox' id='wide' name='wide' title='Check for wider reception&#13 for your second TLM&#13; use if your emission&#13 is way off frequency' onclick=\"document.getElementById('enviar').click();\">&nbsp;Central QRG: " +
                 window.fcentral +
-                " Hz          <\/span>     <a id='repetir' name='repetir' href='#' ondblclick=\"noupload()\">&nbsp;&nbsp;DOUBLE CLICK HERE TO UPLOAD " +
+                " Hz          </span>     <a id='repetir' name='repetir' href='#' ondblclick='noupload()'>&nbsp;&nbsp;DOUBLE CLICK HERE TO UPLOAD " +
                 licenciaaprs.toUpperCase().replace(/#/g, "") +
                 "-" +
                 SSID +
-                " ACTUAL POSITION TO APRS.FI & SONDEHUB&nbsp;&nbsp;<\/a><span style='text-shadow:0 0;color:#000000;font-size:11px;line-height:9px;font-family:Tahoma,Arial;'>&nbsp;&nbsp;&nbsp;REPEAT APRS.FI & SONDEHUB UPLOADS <input onclick=\"document.getElementById('enviar').click();\" type=checkbox name='repito' id='repito' style='margin:0 0 0 0;'> ON 10' AUTO-UPDATE<\/span>" +
+                " ACTUAL POSITION TO APRS.FI & SONDEHUB&nbsp;&nbsp;</a><span style='text-shadow:0 0;color:#000000;font-size:11px;line-height:9px;font-family:Tahoma,Arial;'>&nbsp;&nbsp;&nbsp;REPEAT APRS.FI & SONDEHUB UPLOADS <input onclick=\"document.getElementById('enviar').click();\" type=checkbox name='repito' id='repito' style='margin:0 0 0 0;'> ON 10' AUTO-UPDATE</span>" +
                 addl +
                 "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
             }
@@ -1660,25 +1652,25 @@ function noupload() {
     popupwin.close();
   }
   codata =
-    '<\/head><body bgcolor="#172447" color="#ffffff" style="font-size:20px;line-height:18px;font-family:Tahoma,Arial;font-weight:bold;color:cyan;"  onclick="self.close();")>';
+    '</head><body bgcolor="#172447" color="#ffffff" style="font-size:20px;line-height:18px;font-family:Tahoma,Arial;font-weight:bold;color:cyan;"  onclick="self.close();")>';
   codata =
     codata +
     "<center><br>Not Uploaded to aprs.fi<br><br>Speed seen is too fast or<br><br>the position is same as last<br><br>on " +
     trayecto[0][0] +
     "<br><br>Keep UPLOADS <img src='" +
     immageSrcUrl["mark"] +
-    "' border=0> Marked<\/center>";
+    "' border=0> Marked</center>";
   if (gqs("SSID") != "") {
     ademas = gqs("other").toUpperCase() + "-" + gqs("SSID");
   }
   codata =
     codata +
-    "<center><br style='line-height:12px;'><a href='http:\/\/amsat.org.ar\/elnet.php?datos=" +
+    "<center><br style='line-height:12px;'><a href='http://amsat.org.ar/elnet.php?datos=" +
     aprs4 +
     "' target='_blank' title='Upload' style='font-size:12px;line-height:14px;color:cyan;'>Upload " +
     ademas +
-    " anyway to aprs.fi<\/a><\/center>";
-  codata = codata + "<\/body><\/html>";
+    " anyway to aprs.fi</a></center>";
+  codata = codata + "</body></html>";
   var anchopantalla = 374;
   var altopantalla = 340;
   preferences =
