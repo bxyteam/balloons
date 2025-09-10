@@ -10,6 +10,30 @@ window.getParamSafe = (key, defaultValue = "", encode = false) => {
   return encode ? encodeURIComponent(value) : value.trim();
 };
 
+function ucase(str) {
+  return str ? str.toString().toUpperCase() : "";
+}
+
+function lcase(str) {
+  return str ? str.toString().toLowerCase() : "";
+}
+
+function left(str, length) {
+  return str.toString().substring(0, length);
+}
+
+function right(str, length) {
+  return str.toString().slice(-length);
+}
+
+function mid(str, start, length) {
+  return str.toString().substr(start - 1, length);
+}
+
+function trim(str) {
+  return str ? str.toString().trim() : "";
+}
+
 // Función para convertir ubicación a coordenadas XY
 function loc2xy(loc) {
   loc = loc.toUpperCase();

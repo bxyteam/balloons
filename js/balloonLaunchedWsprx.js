@@ -1,7 +1,8 @@
-window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
+//window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
 window.addEventListener("load", async () => {
-  //window.dataTracker = await loadDataTrackerjson();
-  window.bj = JSON.parse(dataTracker.jsonArray);
+  window.dataTracker = await loadDataTrackerjson();
+  const jsonArray = JSON.parse(dataTracker.jsonArray);
+  window.bj = jsonArray.filter((item) => item[item.length - 1] !== "true");
 
   const balloonLinkMenu = new BalloonLinkMenu();
   balloonLinkMenu.buildBalloonsUrlTemplate();
@@ -57,7 +58,7 @@ window.addEventListener("load", async () => {
     </a>${fill}
     <a href='http://wsprnet.org' target=_blank><u>WSPRNET</u></a>${fill}
     Band:
-    <select name='banda' id='banda' onchange="document.formu.reporters.value='';document.formu.callsign.value='${callsign}';this.form.submit();" style='font-weight:bold;font-size:12px;line.height:12px;height:20px;vertical-align:0%;'>
+    <select name='banda' id='banda' onchange=";document.formu.callsign.value='${callsign}';" style='font-weight:bold;font-size:12px;line.height:12px;height:20px;vertical-align:0%;'>
       <option value='2m'>2m</option>
       <option value='6'>6m</option>
       <option value='10m'>10m</option>
@@ -71,13 +72,13 @@ window.addEventListener("load", async () => {
       <option value='160'>160m</option>
       <option value='All' SELECTED>ALL</option>
     </select>&nbsp;
-    <span onclick='setlaunch()' id="launched" name=launched title=' Click here to Change or&#13Enter Launch Date/Time' style='font-size:14px;line-height:14px;font-family:Arial Narrow;cursor:pointer;border:thin solid #555555;border-radius: 10px;'>&nbsp;&nbspLaunch Date/Time (z)&nbsp;&nbsp;</span>&nbsp;
+    <span onclick='setlaunch()' id="launched" name=launched title=' Click here to Change or&#13;Enter Launch Date/Time' style='font-size:14px;line-height:14px;font-family:Arial Narrow;cursor:pointer;border:thin solid #555555;border-radius: 10px;'>&nbsp;&nbspLaunch Date/Time (z)&nbsp;&nbsp;</span>&nbsp;
     <span onclick='settracker()' id="settracker" name="settracker" title=' Click here to Set or Change Tracker ${tracker}' style='font-size:14px;line-height:14px;font-family:Arial Narrow;cursor:pointer;border:thin solid #555555;border-radius: 10px;'>&nbsp;T&nbsp;</span>&nbsp;
     <span style='font-family:Arial Narrow;font-size:17px;line-height:17px;'>Balloon Call:</span>
     <input type=text name=other value='${other.toUpperCase().trim()}' onclick='borrarother()' id=other size=8 maxlength=9 style='text-transform:uppercase;font-weight:bold;font-family: monospace;font-size:14px;line-height:14px;text-align:center;height:20px;vertical-align:18%;'>
     <span style='vertical-align:18%;'>-</span>
-    <input type=text name=SSID value='${SSID.trim()}' title=' Enter or Change SSID&#13For aprs.fi from 00-99' onclick='setssid()' id=SSID size=3 maxlength=3 style='font-weight:bold;font-family: monospace;font-size:14px;line-height:14px;text-align:center;height:20px;vertical-align:18%;cursor:pointer;'>
-    <b><span id=qrpchn name=qrpchn onclick=""getqrp()"" title=' U4B & &#13Traquito&#13Channel&#13---------&#13 Click to&#13 Change' style='position:relative;top:0px;font-size:14px;font-family:Arial Narrow;text-decoration:underline;background-color:#ffffff;' class=button>${qrpid} ?</span>&nbsp;Id:</b>
+    <input type=text name=SSID value='${SSID.trim()}' title=' Enter or Change SSID&#13;For aprs.fi from 00-99' onclick='setssid()' id=SSID size=3 maxlength=3 style='font-weight:bold;font-family: monospace;font-size:14px;line-height:14px;text-align:center;height:20px;vertical-align:18%;cursor:pointer;'>
+    <b><span id=qrpchn name=qrpchn onclick=""getqrp()"" title=' U4B & &#13;Traquito&#13Channel&#13;---------&#13; Click to&#13 Change' style='position:relative;top:0px;font-size:14px;font-family:Arial Narrow;text-decoration:underline;background-color:#ffffff;' class=button>${qrpid} ?</span>&nbsp;Id:</b>
     <input type=text maxlength=2 value='${balloonid}' size=1 name='balloonid' id='balloonid' title='First (0,1,Q) and third (0-9)&#13character of 2nd TLM packet' style='text-align:center;font-weight:bold;width:24px;text-transform:uppercase;height:20px;vertical-align:18%;'>
     <b>Time-Slot:</b>
     <input type=text maxlength=1 size=1 name='timeslot' id='timeslot' value='${timeslot.replace(",", "", 1, 10)}' title='TLM minute Slot&#13 For  2nd  Packet&#13 Enter: 0 2 4 6 or 8&#13 or Blank for ALL' style='text-align:center;font-weight:bold;height:19px;width:19px;height:20px;vertical-align:18%;'>&nbsp;+Detail
@@ -188,14 +189,20 @@ window.addEventListener("load", async () => {
       document.getElementById("gMapLoader").style.display = "none";
       return;
     }
+    try {
+      document
+        .getElementById("telemetryTable")
+        .insertAdjacentHTML("beforeend", telemetry2.output);
 
-    document
-      .getElementById("telemetryTable")
-      .insertAdjacentHTML("beforeend", telemetry2.output);
+      document.getElementById("telemetryTableLoader").classList.add("hidden");
 
-    document.getElementById("telemetryTableLoader").classList.add("hidden");
-
-    carga();
-    ponermapa(mapainicio[0], mapainicio[1]);
+      carga();
+      ponermapa(mapainicio[0], mapainicio[1]);
+    } catch (error) {
+      console.error("Error:", error.message);
+      document.getElementById("telemetryTableLoader").classList.add("hidden");
+      document.getElementById("gMapLoader").style.display = "none";
+      document.getElementById("mapDisplayError").style.display = "block";
+    }
   })();
 });

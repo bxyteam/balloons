@@ -38,7 +38,7 @@ imm = [
 ];
 function gqs(nombre) {
   //Retrieve Document location and tear off the QueryString values for processing.
-  var url = document.location + "";
+  var url = window.parent.window.location.href + "";
   q = url.split("?");
   if (q[1]) {
     //Get all Name/Value pairs from the QueryString
@@ -69,17 +69,17 @@ function clasif(que) {
   if (gqs("call") && document.getElementById("buscar").value != "") {
     agre3 = "&call=" + document.getElementById("buscar").value;
   }
-  url = "wsprset.asp" + agre1 + agre2 + agre3;
-  url = url.replace("wsprset.asp&", "wsprset.asp?");
-  document.location.href = url;
+  url = "wsprset" + agre1 + agre2 + agre3;
+  url = url.replace("wsprset&", "wsprset?");
+  window.parent.window.location.href = url;
 }
 function mas() {
   if (!gqs("more")) {
-    document.location.href =
-      "wsprset.asp?more=1&call=" + document.getElementById("buscar").value;
+    window.parent.window.location.href =
+      "wsprset?more=1&call=" + document.getElementById("buscar").value;
   } else {
-    document.location.href =
-      "wsprset.asp?call=" + document.getElementById("buscar").value;
+    window.parent.window.location.href =
+      "wsprset?call=" + document.getElementById("buscar").value;
   }
 }
 function cargarfotos() {

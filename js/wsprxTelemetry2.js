@@ -702,14 +702,30 @@ async function processTelemetry2({
     }
   }
 
-  if (window.beacon1.length < 10) {
-    window.beacon1 = [];
-  }
-  if (trayecto.length < 10) {
-    trayecto = [];
-  }
-  if (window.flechas.length < 5) {
-    window.flechas = [];
+  if (!window.beacon1.length) {
+    if (punto[0][0] !== beacon1[0][0]) {
+      beacon1.unshift([
+        punto[0][0],
+        left(punto[0][1], 6),
+        punto[0][2],
+        punto[0][3],
+        punto[0][4],
+        punto[0][5],
+        punto[0][6],
+        punto[0][7],
+      ]);
+    }
+  } else {
+    beacon1.unshift([
+      punto[0][0],
+      left(punto[0][1], 6),
+      punto[0][2],
+      punto[0][3],
+      punto[0][4],
+      punto[0][5],
+      punto[0][6],
+      punto[0][7],
+    ]);
   }
 
   let altutext = "";
@@ -936,18 +952,6 @@ async function processTelemetry2({
   window.addplusElementValue = addplus;
   window.avgfreqElementValue = avgfreq;
 
-  if (punto[0][0] !== beacon1[0][0]) {
-    beacon1.unshift([
-      punto[0][0],
-      left(punto[0][1], 6),
-      punto[0][2],
-      punto[0][3],
-      punto[0][4],
-      punto[0][5],
-      punto[0][6],
-      punto[0][7],
-    ]);
-  }
   return {
     error: false,
     output,

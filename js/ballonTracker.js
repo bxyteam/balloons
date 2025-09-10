@@ -1,5 +1,12 @@
 window.bj = [];
 
+window.getParamSafe = (key, defaultValue = "", encode = false) => {
+  const params = new URLSearchParams(window.parent.window.location.search);
+  const value = params.get(key);
+  if (value === null || value.trim() === "") return defaultValue;
+  return encode ? encodeURIComponent(value) : value.trim();
+};
+
 class BalloonDataTable {
   constructor(balloons) {
     this.FREQUENCY_MAP = Object.freeze({
@@ -356,8 +363,15 @@ class BalloonDataTable {
 
 const loadBalloonApp = async () => {
   window.dataTracker = await loadDataTrackerjson();
-  window.bj = JSON.parse(dataTracker.jsonArray);
-  const bdt = new BalloonDataTable(dataTracker.balloons);
+  const more = getParamSafe("more") === "1";
+  const jsonArray = JSON.parse(dataTracker.jsonArray);
+  window.bj = !more
+    ? jsonArray.filter((item) => item[item.length - 1] !== "true")
+    : jsonArray;
+  const filteredBalloons = !more
+    ? dataTracker.balloons.filter((b) => b.old !== "true")
+    : dataTracker.balloons;
+  const bdt = new BalloonDataTable(filteredBalloons);
   bdt.buildTableTemplate();
   cargarfotos();
   setInterval(verimagen, 15000);

@@ -1366,7 +1366,7 @@ function aprsend() {
     ("00" + zd.getUTCMinutes()).slice(-2) +
     ("00" + zd.getUTCSeconds()).slice(-2) +
     "h";
-  console.log(horautc);
+
   if (gqs("other")) {
     licenciaaprs = gqs("other").toUpperCase();
   } else {
@@ -4239,7 +4239,7 @@ function borrarother() {
   document.formu.other.value = "";
 }
 function setid() {
-  querystring = "http://" + window.location.hostname + window.location.pathname;
+  querystring = `${HOST_URL}${window.parent.window.location.pathname}`;
   querystring =
     querystring +
     "?banda=" +
@@ -4250,6 +4250,7 @@ function setid() {
     formu.balloonid.value +
     "&timeslot=" +
     formu.timeslot.value;
+
   if (querystring.indexOf("tracker") == -1) {
     if (formu.tracker.value != "") {
       querystring + "&tracker=" + formu.tracker.value;
@@ -4278,7 +4279,6 @@ function setid() {
   } else {
     if (gqs("qrpid")) {
       querystring = querystring + "&qrpid=" + gqs("qrpid");
-    } else {
     }
   }
   if (ssidchange) {
@@ -4289,7 +4289,6 @@ function setid() {
   } else {
     if (gqs("SSID")) {
       querystring = querystring + "&SSID=" + gqs("SSID");
-    } else {
     }
   }
   if (gqs("launch")) {
@@ -4301,7 +4300,6 @@ function setid() {
   } else {
     if (gqs("tracker")) {
       querystring = querystring + "&tracker=" + gqs("tracker");
-    } else {
     }
   }
   if (gqs("telen") && gqs("telen") == "on") {
@@ -4313,13 +4311,9 @@ function setid() {
   }
   if (formu.limit.value != "") {
     querystring = querystring + "&limit=" + formu.limit.value;
-  } else {
   }
-  //if (formu.qp && formu.qp.checked == true) { querystring = querystring + "&qp=on" } else { querystring = querystring + "" };
 
-  // FIXME: No funciona el reload
-  //document.location.url = querystring; sleep(100); document.location.href = querystring; sleep(100);// document.location.href = querystring;
-  //    document.location.reload();
+  window.parent.window.location.href = querystring;
 }
 function solarflux() {
   posleft = screen.availWidth / 2 + 6;

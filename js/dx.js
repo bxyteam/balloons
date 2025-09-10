@@ -469,7 +469,10 @@ async function initApp() {
         ok = true;
       } else {
         // Verificar si coincide con ocall o tcall
-        if (datos1[ocall] === callParam || datos1[tcall] === callParam) {
+        if (
+          lcase(datos1[ocall]) === lcase(callParam) ||
+          lcase(datos1[tcall]) === lcase(callParam)
+        ) {
           ok = true;
         }
       }
@@ -479,6 +482,7 @@ async function initApp() {
         const serverName = window.parent.window.location.hostname;
         const scriptName = window.parent.window.location.pathname;
         const queryString = window.parent.window.location.search.substring(1);
+
         const reloadUrl = `https://${serverName}${scriptName}?${queryString}`;
 
         const message = `Reload... or Press F5...    <a href="${reloadUrl}">${reloadUrl}</a>`;
