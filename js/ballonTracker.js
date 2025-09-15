@@ -1,12 +1,5 @@
 window.bj = [];
 
-window.getParamSafe = (key, defaultValue = "", encode = false) => {
-  const params = new URLSearchParams(window.parent.window.location.search);
-  const value = params.get(key);
-  if (value === null || value.trim() === "") return defaultValue;
-  return encode ? encodeURIComponent(value) : value.trim();
-};
-
 class BalloonDataTable {
   constructor(balloons) {
     this.FREQUENCY_MAP = Object.freeze({
@@ -306,10 +299,11 @@ class BalloonDataTable {
         const foundCall = this.foundCallSignInSearchParams(balloon);
         const adicionalInfo = this.getAdicionalInfo(balloon);
         const freqParams = this.getFrequencyParams(balloon, index);
+        const isOld = balloon.old === "true";
         //'on 20m','346','AB9LM','11','qp=','2024020600:00:00','qrplabs',' &lt;span title='Upload to aprs.fi'&gt;◬&lt;/u&gt;','17','2','0','qp='
         //showfreq('on 20m','346','AB9LM','11','qp=','launch=20240206000000','tracker=qrplabs','detail=','balloonid=17','timeslot=2','0','qp=')
         return `<tr onmouseout="if(popupwin1){popupwin1.close()}" style="cursor:pointer;" title="Show Emit Frequency Click for Hide/Restore Or Click to Update">
-         <td align="center" style="white-space:nowrap;border-color:#ffffff;border-width:1px;">${index + 1}</td>
+         <td align="center" style="white-space:nowrap;border-color:#ffffff;border-width:1px;${isOld ? "font-style:italic;color:#444;" : ""}">${isOld ? "old" : index + 1}</td>
          <td align="center" width="100px;" style="white-space:nowrap;border-color:#eeeeee;border-width:1px;border-left-width:0px;width:100px;${foundCall ? "background-color:orange;" : ""}">
            <a href="${balloon.url}" target="_blank'" title="Go Track ${balloon.other} !">${balloon.other.toUpperCase()}</a>
          </td>
@@ -401,12 +395,10 @@ const messageActionHandler = (apiPayload) => {
   }
 };
 const handleMessage = (event) => {
-  console.log("event", event);
   const { response } = event.data;
   document.getElementById("spinner-overlay").style.display = "none";
   if (response && response.apiPayload) {
     const apiPayload = response.apiPayload;
-    console.log("api-payload:", apiPayload);
     if (apiPayload.statusCode === 200) {
       messageActionHandler(apiPayload);
     } else if (apiPayload.statusCode === 400) {

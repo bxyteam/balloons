@@ -1,38 +1,39 @@
-//window.homeloc = window.parent.window.location.href;
-
+var slowerParam = getParamSafe("slower") === "true";
 var mapsize = 2160;
 var fromDate = new Date("2021-01-01 00:00:00");
 
-window.getParamSafe = (key, defaultValue = "", encode = false) => {
-  const params = new URLSearchParams(window.parent.window.location.search);
-  const value = params.get(key);
-  if (value === null || value.trim() === "") return defaultValue;
-  return encode ? encodeURIComponent(value) : value.trim();
-};
+var DATA_SIZE = slowerParam ? 10001 : 3001;
 
-function ucase(str) {
-  return str ? str.toString().toUpperCase() : "";
-}
+// window.getParamSafe = (key, defaultValue = "", encode = false) => {
+//   const params = new URLSearchParams(window.parent.window.location.search);
+//   const value = params.get(key);
+//   if (value === null || value.trim() === "") return defaultValue;
+//   return encode ? encodeURIComponent(value) : value.trim();
+// };
 
-function lcase(str) {
-  return str ? str.toString().toLowerCase() : "";
-}
+// function ucase(str) {
+//   return str ? str.toString().toUpperCase() : "";
+// }
 
-function left(str, length) {
-  return str.toString().substring(0, length);
-}
+// function lcase(str) {
+//   return str ? str.toString().toLowerCase() : "";
+// }
 
-function right(str, length) {
-  return str.toString().slice(-length);
-}
+// function left(str, length) {
+//   return str.toString().substring(0, length);
+// }
 
-function mid(str, start, length) {
-  return str.toString().substr(start - 1, length);
-}
+// function right(str, length) {
+//   return str.toString().slice(-length);
+// }
 
-function trim(str) {
-  return str ? str.toString().trim() : "";
-}
+// function mid(str, start, length) {
+//   return str.toString().substr(start - 1, length);
+// }
+
+// function trim(str) {
+//   return str ? str.toString().trim() : "";
+// }
 
 // Función para convertir ubicación a coordenadas XY
 function loc2xy(loc) {
@@ -70,23 +71,6 @@ function loc2tz1(loc) {
 
   return valortz;
 }
-
-// function loc2tz1(loc) {
-//     if (!loc) loc = "LL55";
-//     loc = loc.toUpperCase();
-//     if (loc.length === 4) loc += "LL";
-
-//     let charCode = loc.charCodeAt(0) - 65; // ASCII A=65
-//     let numberPart = parseInt(loc.charAt(2), 10); // 3rd char, index 2
-
-//     let valortz = (charCode * 24) + numberPart;
-//     valortz = Math.floor(valortz / 18 + 1.3) - 12;
-
-//     if (valortz < -12) valortz = -12;
-//     if (valortz > 12) valortz = 12;
-
-//     return valortz;
-// }
 
 // Función para obtener zona horaria con formato
 function loc2tz(loc) {
@@ -167,41 +151,41 @@ function horasactivo(toDate, fromDate) {
   return "";
 }
 
-function buscarTag(tagInicio, tagFin, texto, posicion = 0) {
-  let tagFinalEncontrado = false;
-  let k = posicion;
-  let resultado = "";
+// function buscarTag(tagInicio, tagFin, texto, posicion = 0) {
+//   let tagFinalEncontrado = false;
+//   let k = posicion;
+//   let resultado = "";
 
-  while (!tagFinalEncontrado && k < texto.length) {
-    if (texto.substring(k, k + tagInicio.length) === tagInicio) {
-      let j = k + tagInicio.length;
-      let tagFinalLocalEncontrado = false;
+//   while (!tagFinalEncontrado && k < texto.length) {
+//     if (texto.substring(k, k + tagInicio.length) === tagInicio) {
+//       let j = k + tagInicio.length;
+//       let tagFinalLocalEncontrado = false;
 
-      while (!tagFinalLocalEncontrado && j < texto.length) {
-        if (texto.substring(j, j + tagFin.length) === tagFin) {
-          resultado = texto.substring(k + tagInicio.length, j);
-          tagFinalLocalEncontrado = true;
-          tagFinalEncontrado = true;
-          posicion = j + tagFin.length;
-        } else {
-          j++;
-        }
-      }
+//       while (!tagFinalLocalEncontrado && j < texto.length) {
+//         if (texto.substring(j, j + tagFin.length) === tagFin) {
+//           resultado = texto.substring(k + tagInicio.length, j);
+//           tagFinalLocalEncontrado = true;
+//           tagFinalEncontrado = true;
+//           posicion = j + tagFin.length;
+//         } else {
+//           j++;
+//         }
+//       }
 
-      if (!tagFinalLocalEncontrado) {
-        k++;
-      }
-    } else {
-      k++;
-    }
-  }
+//       if (!tagFinalLocalEncontrado) {
+//         k++;
+//       }
+//     } else {
+//       k++;
+//     }
+//   }
 
-  if (k >= texto.length) {
-    posicion = texto.length;
-  }
+//   if (k >= texto.length) {
+//     posicion = texto.length;
+//   }
 
-  return resultado;
-}
+//   return resultado;
+// }
 
 function fechayDia(fecha) {
   const meses = [
@@ -290,23 +274,23 @@ function validateCallsign(call) {
   return { valid: true };
 }
 
-const isNumeric = (n) => !isNaN(parseFloat(n)) && isFinite(n);
+//const isNumeric = (n) => !isNaN(parseFloat(n)) && isFinite(n);
 
 function padLeft(str, length, padChar = "0") {
   return String(str).padStart(length, padChar);
 }
 
-function right(str, length) {
-  return String(str).slice(-length);
-}
+// function right(str, length) {
+//   return String(str).slice(-length);
+// }
 
-function left(str, length) {
-  return str.substring(0, length);
-}
+// function left(str, length) {
+//   return str.substring(0, length);
+// }
 
-function mid(str, start, length) {
-  return str.toString().substr(start - 1, length);
-}
+// function mid(str, start, length) {
+//   return str.toString().substr(start - 1, length);
+// }
 
 function replaceAll(cadena, buscar, reemplazar) {
   if (!cadena) return "";
@@ -462,25 +446,6 @@ function agregarBanda(banda, k, nombre) {
   if (nombre === "LF") nombre = "LF 0.137 MHz";
   if (nombre === "MF") nombre = "MF 0.475 MHz";
   window.colsChart += `["${nombre}", ${k}],`;
-
-  // const result = {
-  //   columns: columns + `\tdata.addColumn('number', '${nombre}');\n`,
-  //   cols: cols,
-  //   bandas: [...bandas],
-  //   bp: bp,
-  // };
-
-  // result.columns += `\tdata.addColumn({type: 'string', role: 'tooltip'});\n`;
-  // result.bandas[bp] = banda;
-  // result.bp = bp + 1;
-
-  // if (nombre === "LF") nombre = "LF 0.137 MHz";
-  // if (nombre === "MF") nombre = "MF 0.475 MHz";
-
-  // //result.cols += `\t\t\t["${nombre}", "${k}"],\n`;
-  // result.cols += `\t\t\t["${nombre}", "${k}"],\n`;
-
-  // return result;
 }
 
 function generarMinutos({ datos, last, delta, fracciondia, bandArrays }) {
@@ -571,7 +536,7 @@ function buildReporterParameters({ band, callsign, callsign1, limit, omit }) {
     //getURLreporters = `http://wsprnetwork.browxy.com/?band=${band}&count=3000&call=${callsign}&reporter=${callsign1}&timeLimit=${limit}&sortBy=date&sortRev=1&unique=0&mode=All&excludespecial=${omit}`;
     return {
       band,
-      count: "3000",
+      count: `${DATA_SIZE - 1}`,
       call: callsign,
       reporter: callsign1,
       timeLimit: `${limit}`,
@@ -585,7 +550,7 @@ function buildReporterParameters({ band, callsign, callsign1, limit, omit }) {
     //getURLreporters = `http://wsprnetwork.browxy.com/?band=${band}&count=3000&call=${callsign}&reporter=&timeLimit=${limit}&sortBy=date&sortRev=1&unique=0&mode=All&excludespecial=${omit}`;
     return {
       band,
-      count: "3000",
+      count: `${DATA_SIZE - 1}`,
       call: callsign,
       reporter: "",
       timeLimit: `${limit}`,
@@ -599,7 +564,7 @@ function buildReporterParameters({ band, callsign, callsign1, limit, omit }) {
     // getURLreporters = `http://wsprnetwork.browxy.com/?band=${band}&count=3000&reporter=${callsign}&call=&timeLimit=${limit}&sortBy=date&sortRev=1&unique=0&mode=All&excludespecial=${omit}`;
     return {
       band,
-      count: "3000",
+      count: `${DATA_SIZE - 1}`,
       call: "",
       reporter: callsign,
       timeLimit: `${limit}`,
@@ -613,8 +578,8 @@ function buildReporterParameters({ band, callsign, callsign1, limit, omit }) {
 }
 
 async function fetchReporters(params) {
-  //const baseUrl = "/api/v1/wsprNetwork";
-  const baseUrl = "https://balloons.dev.browxy.com/api/v1/wsprNetwork";
+  //const baseUrl = "https://balloons.dev.browxy.com/api/v1/wsprNetwork";
+  const baseUrl = "/api/v1/wsprNetwork";
 
   try {
     const response = await fetch(baseUrl, {
@@ -633,19 +598,19 @@ async function fetchReporters(params) {
   }
 }
 
-async function getURL(url) {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const text = await response.text();
-    return text;
-  } catch (error) {
-    console.error("Error fetching URL:", error);
-    return "";
-  }
-}
+// async function getURL(url) {
+//   try {
+//     const response = await fetch(url);
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+//     const text = await response.text();
+//     return text;
+//   } catch (error) {
+//     console.error("Error fetching URL:", error);
+//     return "";
+//   }
+// }
 
 async function processReporters(
   { band, callsign, callsign1, limit, omit },
@@ -683,7 +648,7 @@ async function processReporters(
     return {
       error: true,
       message: "Sorry.... On Maintenance.... Will return soon...",
-      redirect: `${HOST_URL}/dx`,
+      redirect: `${HOST_URL}/dx?slower=${slowerParam}`,
       pag: "",
       paramsReporters: paramsReporters,
     };
@@ -694,7 +659,7 @@ async function processReporters(
     // En lugar de Response.redirect, retornamos información de redirección
     return {
       error: true,
-      redirect: `${HOST_URL}/dx?nocall=${callsign.trim().toUpperCase()}`,
+      redirect: `${HOST_URL}/dx?nocall=${callsign.trim().toUpperCase()}&slower=${slowerParam}`,
       pag: "",
       paramsReporters: paramsReporters,
     };
@@ -723,33 +688,33 @@ async function obtenerBeaconCsvDatos() {
   return lineas;
 }
 
-async function readShareAsset({ assetOutputType, assetUrl }) {
-  try {
-    return await window.parent.window.readAssetFile({
-      assetOutputType,
-      assetUrl,
-    });
-  } catch (error) {
-    return { statusCode: 400, data: null, error: "Something went wrong." };
-  }
-}
+// async function readShareAsset({ assetOutputType, assetUrl }) {
+//   try {
+//     return await window.parent.window.readAssetFile({
+//       assetOutputType,
+//       assetUrl,
+//     });
+//   } catch (error) {
+//     return { statusCode: 400, data: null, error: "Something went wrong." };
+//   }
+// }
 
-async function getShareResource(file) {
-  try {
-    const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
-    let serverResponse;
-    const response = await readShareAsset({
-      assetOutputType: "txt",
-      assetUrl,
-    });
-    serverResponse = response.data;
+// async function getShareResource(file) {
+//   try {
+//     const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
+//     let serverResponse;
+//     const response = await readShareAsset({
+//       assetOutputType: "txt",
+//       assetUrl,
+//     });
+//     serverResponse = response.data;
 
-    return serverResponse;
-  } catch (error) {
-    console.error(error);
-    return "";
-  }
-}
+//     return serverResponse;
+//   } catch (error) {
+//     console.error(error);
+//     return "";
+//   }
+// }
 
 function generarComboHTML({ esta, estaselect, datos, ocall, tcall, rf, last }) {
   // Inicializar combo con div principal
@@ -903,8 +868,9 @@ function generarComboHTML({ esta, estaselect, datos, ocall, tcall, rf, last }) {
     combo += estaselect;
   }
 
+  // <a href="${HOST_URL}/dx" title='Refresh User List' target=_blank style='font-size:16px;cursor:pointer;line-height:13px;vertical-align: super;text-decoration:none;font-weight:normal;'>&#x29C7;</a>
   combo = `${combo} <br style='line-height:2px;'>&nbsp;&nbsp;<a href='#' target='_blank'><img title='Comment' alt='Comment' src='${imageSrcUrl["contact"]}' width='35px' height='19px' style='width:35px;height:19px;'></a>&nbsp;&nbsp;
-      <a href="dxx.asp" title='Refresh User List' target=_blank style='font-size:16px;cursor:pointer;line-height:13px;vertical-align: super;text-decoration:none;font-weight:normal;'>&#x29C7;</a>
+
     <br><br style='line-height:1px;'><span style='font-size:16px;font-weight:bold;line-height:17px;'>
     <a href='http://wspr.rocks/topbeacons/' target='_phil'><i>Top Beacons</i></a>
     <br><a href='http://wspr.rocks/topspotters/' target='_phil'><i>Top Spotters</i></a></span>
@@ -957,7 +923,7 @@ function agregarTablaAlDOM(tabla, tablam) {
     let agregadot;
     if (tabla.length > 1387500) {
       let maxlen;
-      if (tablam.length === 3000) {
+      if (tablam.length === 3001 || tablam.length === 3000) {
         maxlen = "over 3000";
       } else {
         maxlen = tablam.length;

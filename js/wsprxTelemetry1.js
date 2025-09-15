@@ -1,15 +1,15 @@
 function processTelemetry({ pag, cuenta }) {
-  let tablam = new Array(3000);
-  let tablax = split(pag, chr(10), 3000, 1);
-  let tablahoras = Array(3002)
+  let tablam = new Array(DATA_SIZE_TELE_1);
+  let tablax = split(pag, chr(10), DATA_SIZE_TELE_1, 1);
+  let tablahoras = Array(DATA_SIZE_TELE_1 + 1)
     .fill("")
     .map(() => Array(4).fill(""));
-  let tele1 = Array(3002)
+  let tele1 = Array(DATA_SIZE_TELE_1 + 1)
     .fill("")
     .map(() => Array(14).fill(""));
   let licentab = new Array(450);
   let distakm = new Array(85).fill(0);
-  let punt = Array(3002)
+  let punt = Array(DATA_SIZE_TELE_1 + 1)
     .fill("")
     .map(() => Array(8).fill(""));
 
@@ -1026,7 +1026,7 @@ function processTelemetry({ pag, cuenta }) {
     if (other === "") {
       leyinicial = `<img src='${imageSrcUrl["habhub"] || ""}'>&nbsp;This free application tracks WSPR Balloons&nbsp;<img src='${imageSrcUrl["aprs"]}'><br>Enter Balloon Callsign and click OK`;
     } else {
-      leyinicial = `Not enough data found on WSPRNET for ${other.toUpperCase()}<br>Change Callsign or band and/or retry clicking 'OK'<br>Alternate site: <a href="https://${HOST_URL}/wsprx${queryString}" style='color:#FFCF00;'>https:/${HOST_URL}/wsprx</a>`;
+      leyinicial = `Not enough data found on WSPRNET for ${other.toUpperCase()}<br>Change Callsign or band and/or retry clicking 'OK'<br>Alternate site: <a href="${HOST_URL}/wsprx${queryString}" style='color:#FFCF00;'>${HOST_URL}/wsprx</a>`;
     }
 
     output = `${output} <center><b>

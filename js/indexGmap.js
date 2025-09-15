@@ -13,6 +13,7 @@ var meterfeet = 0;
 var prevaltutext;
 window.comentfull = "";
 window.comentariosballoon = "";
+window.PARENT_URL = "https://balloons.dev.browxy.com";
 
 window.getParamSafe = (key, defaultValue = "", encode = false) => {
   const params = new URLSearchParams(window.searchParams);
@@ -1225,7 +1226,7 @@ function ponermapa(locator, licencia) {
               callbackName: "changesEstacionesHtml",
               props: { html: "" },
             },
-            "https://balloons.dev.browxy.com",
+            window.PARENT_URL,
           );
         } else {
           icono1 = imageSrcUrl["yellow-dot"];
@@ -1234,7 +1235,7 @@ function ponermapa(locator, licencia) {
               callbackName: "changesEstacionesHtml",
               props: { html: saveestaciones },
             },
-            "https://balloons.dev.browxy.com",
+            window.PARENT_URL,
           );
         }
         ulti = " Last";
@@ -1246,7 +1247,7 @@ function ponermapa(locator, licencia) {
               callbackName: "changesEstacionesHtml",
               props: { html: "" },
             },
-            "https://balloons.dev.browxy.com",
+            window.PARENT_URL,
           );
         } else {
           icono1 = imageSrcUrl["red-dot"];
@@ -1255,7 +1256,7 @@ function ponermapa(locator, licencia) {
               callbackName: "changesEstacionesHtml",
               props: { html: saveestaciones },
             },
-            "https://balloons.dev.browxy.com",
+            window.PARENT_URL,
           );
         }
         ulti = "";
@@ -2986,7 +2987,9 @@ function aprsend() {
     aprs4 +
     "\ WSPR " +
     tok3 +
-    " https://balloons.browxy.com/wsprx?other=" +
+    " " +
+    window.PARENT_URL +
+    "/wsprx?other=" +
     gqs("other");
   if (gqs("launch")) {
     aprs4 = aprs4 + "&launch=" + gqs("launch");
@@ -3064,7 +3067,9 @@ function aprsend() {
             (gqs("SSID") == "22" || gqs("SSID")) == "23"
           ) {
             addl =
-              "&nbsp;&nbsp;<a href='https://balloons.browxy.com/dx?por=H&tz=0&be=&multiplecalls=Select&scale=Lin&bs=B&call=x1*&band=14&timelimit=1209600&sel=0&t=m' target='_blank' style='color:navy;line-height:15px;font-size:13px;text-decoration:none;background-color:gold;font-weight:normal;' title='The prefix for telem will be X1 followed by the letters BAA to JJJ.&#13The letters A-J correspond to the digits 0-9, To compute the count,&#13subtract 100 from the digits corresponding to the three letter code.'>&nbsp;Click for <span style='font-size:14px;'>&beta;\/&gamma;<\/span> Radiation Particle Count&nbsp;<\/a>";
+              "&nbsp;&nbsp;<a href='" +
+              window.PARENT_URL +
+              "/dx?por=H&tz=0&be=&multiplecalls=Select&scale=Lin&bs=B&call=x1*&band=14&timelimit=1209600&sel=0&t=m' target='_blank' style='color:navy;line-height:15px;font-size:13px;text-decoration:none;background-color:gold;font-weight:normal;' title='The prefix for telem will be X1 followed by the letters BAA to JJJ.&#13The letters A-J correspond to the digits 0-9, To compute the count,&#13subtract 100 from the digits corresponding to the three letter code.'>&nbsp;Click for <span style='font-size:14px;'>&beta;\/&gamma;<\/span> Radiation Particle Count&nbsp;<\/a>";
           } else {
             addl = "";
           }
@@ -4169,75 +4174,42 @@ qrpchange = false;
 // }
 
 function setid() {
-  console.log("SET-ID");
-  window.parent.postMessage(
-    { callbackName: "setid" },
-    "https://balloons.dev.browxy.com",
-  );
+  window.parent.postMessage({ callbackName: "setid" }, window.PARENT_URL);
 }
 
 function gohidet() {
-  console.log("GOHIDET");
-  window.parent.postMessage(
-    { callbackName: "gohidet" },
-    "https://balloons.dev.browxy.com",
-  );
+  window.parent.postMessage({ callbackName: "gohidet" }, window.PARENT_URL);
 }
 
 function gohide() {
-  console.log("GO-HIDE");
-  window.parent.postMessage(
-    { callbackName: "gohide" },
-    "https://balloons.dev.browxy.com",
-  );
+  window.parent.postMessage({ callbackName: "gohide" }, window.PARENT_URL);
 }
 
 function gowinds() {
-  console.log("GO-WINDS");
-  window.parent.postMessage(
-    { callbackName: "gowinds" },
-    "https://balloons.dev.browxy.com",
-  );
+  window.parent.postMessage({ callbackName: "gowinds" }, window.PARENT_URL);
 }
 
 function gowinds1() {
-  console.log("GO-WINDS1");
-  window.parent.postMessage(
-    { callbackName: "gowinds1" },
-    "https://balloons.dev.browxy.com",
-  );
+  window.parent.postMessage({ callbackName: "gowinds1" }, window.PARENT_URL);
 }
 
 function gowinds2(oldlon, oldlat) {
-  console.log("GO-WINDS2");
   window.parent.postMessage(
     { callbackName: "gowinds2", props: { oldlon, oldlat } },
-    "https://balloons.dev.browxy.com",
+    window.PARENT_URL,
   );
 }
 
 function goplanes() {
-  console.log("GO-PLANES");
-  window.parent.postMessage(
-    { callbackName: "goplanes" },
-    "https://balloons.dev.browxy.com",
-  );
+  window.parent.postMessage({ callbackName: "goplanes" }, window.PARENT_URL);
 }
 
 function goships() {
-  console.log("GO-SHIPS");
-  window.parent.postMessage(
-    { callbackName: "goships" },
-    "https://balloons.dev.browxy.com",
-  );
+  window.parent.postMessage({ callbackName: "goships" }, window.PARENT_URL);
 }
 
 function showprop() {
-  console.log("SHOWPROP");
-  window.parent.postMessage(
-    { callbackName: "showprop" },
-    "https://balloons.dev.browxy.com",
-  );
+  window.parent.postMessage({ callbackName: "showprop" }, window.PARENT_URL);
 }
 
 function right(str, length) {

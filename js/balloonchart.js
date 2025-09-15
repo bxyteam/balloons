@@ -1,14 +1,10 @@
-window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
 var being_dragged = false;
 var Vuelo = window.getParamSafe("Vuelo");
 var callsign = window.getParamSafe("callsign");
 var GOOGLE_API_KEY = "AIzaSyAACTum6vjLOeCDgGj6EFFnzJMe7r8xOII";
-var WEB_FETCHER_URL = "/api/v1/webFetcher"; //"https://balloons.dev.browxy.com/api/v1/webFetcher"; // "/api/v1/webFetcher";
-var llheightCache = ""; // TODO check ASP Application value
-var lltimezoneCache = ""; // TODO check ASP Application value
-// var PI = 3.141592653;
-// var DEG2RAD = 0.01745329252;
-// var RAD2DEG = 57.29577951308;
+var WEB_FETCHER_URL = "/api/v1/webFetcher";
+var llheightCache = "";
+var lltimezoneCache = "";
 var PI = Math.PI; // 3.141592653589793
 var DEG2RAD = Math.PI / 180; // 0.017453292519943295
 var RAD2DEG = 180 / Math.PI; // 57.29577951308232
@@ -36,8 +32,7 @@ var options = {
   legend: "top",
 };
 
-// change Height title by search params selected
-window.parent.window.document.title = `${callsign} Balloon Height M Chart from EOSS & Findu`;
+window.parent.window.document.title = `${callsign} Balloon ${mayusculaPrimeras(getParamSafe("grafico"))} Chart from EOSS & Findu`;
 window.columnsChart = [
   { type: "datetime", value: "Hour-Local" },
   { type: "datetime", value: "Hour-UTC" },

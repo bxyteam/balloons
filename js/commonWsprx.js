@@ -1,9 +1,21 @@
-window.getParamSafe = (key, defaultValue = "", encode = false) => {
-  const params = new URLSearchParams(window.parent.window.location.search);
-  const value = params.get(key);
-  if (value === null || value.trim() === "") return defaultValue;
-  return encode ? encodeURIComponent(value) : value.trim();
-};
+// window.getParamSafe = (key, defaultValue = "", encode = false) => {
+//   const params = new URLSearchParams(window.parent.window.location.search);
+//   const value = params.get(key);
+//   if (value === null || value.trim() === "") return defaultValue;
+//   return encode ? encodeURIComponent(value) : value.trim();
+// };
+
+var slowerParam = getParamSafe("slower") === "true";
+var DATA_SIZE_TELE_1 = slowerParam ? 20001 : 3001;
+var DATA_SIZE_TELE_2 = slowerParam ? 10001 : 5001;
+var CUENTA_SIZE_TELE_1 = slowerParam ? 20000 : 700;
+var CUENTA_SIZE_TELE_2 = slowerParam ? 12500 : 8700;
+var COUNT_SIZE_TELE_1 = slowerParam ? 20300 : 5000;
+var COUNT_SIZE_TELE_2 = slowerParam ? 20000 : 5000;
+var COUNT_SIZE_1_TELE_1 = slowerParam ? 20300 : 800;
+var COUNT_SIZE_2_TELE_2 = slowerParam ? 20000 : 698;
+var LIMIT_URL_1 = slowerParam ? 20000 : 3000;
+var LIMIT_URL_2 = slowerParam ? 22000 : 5000;
 
 window.getLaunchDate = () => {
   if (getParamSafe("launch").length > 0) {

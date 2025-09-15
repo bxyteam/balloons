@@ -1,5 +1,3 @@
-// TODO  PAGES dx.asp, wsprfull.asp, balloonchart.asp, wspruser.asp
-
 class BalloonLinkMenu {
   constructor() {
     this.did = {
@@ -102,12 +100,12 @@ class BalloonLinkMenu {
       }
 
       if (launchd1.length > 10) {
-        launchdate1 = `Launched ${this.mes[parseInt(month, 10)]}-${day} ${year} ${hour}:${minute}&#13 ${was} launched ${dias1} days ago`;
+        launchdate1 = `Launched ${this.mes[parseInt(month, 10)]}-${day} ${year} ${hour}:${minute}&#13;${was} launched ${dias1} days ago`;
 
         if (dias1 < 0) {
-          launchdate1 = `To be Launched &#13 ${this.mes[parseInt(month, 10)]}-${day} ${year} ${hour}:${minute}&#13 It will be in ${-dias1} days`;
+          launchdate1 = `To be Launched &#13; ${this.mes[parseInt(month, 10)]}-${day} ${year} ${hour}:${minute}&#13; It will be in ${-dias1} days`;
         } else if (dias1 === 0) {
-          launchdate1 = `To be Launched &#13 ${this.mes[parseInt(month, 10)]}-${day} ${year} ${hour}:${minute}&#13 ${was} Launch today`;
+          launchdate1 = `To be Launched &#13; ${this.mes[parseInt(month, 10)]}-${day} ${year} ${hour}:${minute}&#13; ${was} Launch today`;
         }
       }
     } else {
@@ -149,7 +147,7 @@ class BalloonLinkMenu {
 
         // Tooltip with comments
         let tooltip = `${launchdate1} ${decodeURIComponent(comentarios).replace(/"/g, "''")}`;
-        tooltip = tooltip.replace(/&#13/g, " ");
+        tooltip = tooltip.replace(/&#13;/g, " ").replace(/&#13/g, " ");
 
         const link = `<a title="${tooltip}" style="cursor:pointer;" onclick="event.preventDefault(); this.style.color='#ff0000'; formu.callsign.value='${ballooncall}'; logactivity('${linea}'); gourl('${linea}')">${tok1}${ballooncall}</u></a>`;
         balloonsurl += link + "<br>";
@@ -159,6 +157,7 @@ class BalloonLinkMenu {
           comentariosballoon =
             "\n" +
             comentarios
+              .replace(/&#13;/g, " ")
               .replace(/&#13/g, " ")
               .replace(/"/g, "''")
               .replace(/\r\n|\r|\n/g, " ");
@@ -281,7 +280,7 @@ class BalloonLinkMenu {
         &nbsp;&nbsp;<a href='${HOST_URL}/wspruser' target='_blank' style='background-color:lightblue;font-style: italic;cursor:pointer;' title='Last Uses'><b><u>Users</u></b></a>
         </span></span></center>
     `;
-
+    //  <a href='${HOST_URL}/wspruser' target='_blank' style='cursor:pointer;' title='Last Uses'><u><i>Usage</i></u></a>
     const calink = `
        <center>
         <table border=0 cellpadding=0 cellspacing=0 width=64px>
@@ -296,7 +295,8 @@ class BalloonLinkMenu {
                    <a href="${HOST_URL}/balloonchart?callsign=${selectedOther}-${selectedSSID}&flights=0&grafico=height%20m"  target='_blank' title='Plot Graphs if data available on aprs.fi' style='cursor:pointer;'><u><i>Charts</i></u></a><br>
                    <a href='${HOST_URL}/dx?call=${selectedOther}&band=${didBand}&bs=B' target='_blank' style='cursor:pointer;' title='WSPR DX Reports'><u><i>DX-Prop</i></u></a><br>
                    <a href='https://satellites.browxy.com/pass' target='_blank' style='cursor:pointer;' title='Track Satellites'><u><i>Satellite</i></u></a><br>
-                   <a href='${HOST_URL}/wspruser' target='_blank' style='cursor:pointer;' title='Last Uses'><u><i>Usage</i></u></a><hr width='60px' style='color:#ffffff;margin-top:0px;margin-bottom:0px;'>
+
+                   <hr width='60px' style='color:#ffffff;margin-top:0px;margin-bottom:0px;'>
                     ${callsll}
                     <hr width='60px' style='color:#ffffff;margin-top:1px;margin-bottom:0px;'>
                     <i>${callsurl.length} Entries</i>

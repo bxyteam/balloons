@@ -1,3 +1,4 @@
+var PARENT_URL = "https://balloons.dev.browxy.com";
 var map;
 var ARRcookies = "";
 var refreshParam = "";
@@ -702,13 +703,12 @@ async function showvormap() {
         lat: mapCenter.lat(),
         lng: mapCenter.lng(),
       };
-      console.log("Map state saved:", mapState);
       window.parent.postMessage(
         {
           callbackName: "saveMapState",
           props: { mapState },
         },
-        "https://balloons.dev.browxy.com",
+        PARENT_URL,
       );
     }
     function getMapState() {
@@ -717,7 +717,7 @@ async function showvormap() {
           callbackName: "loadMapState",
           props: {},
         },
-        "https://balloons.dev.browxy.com",
+        PARENT_URL,
       );
     }
 

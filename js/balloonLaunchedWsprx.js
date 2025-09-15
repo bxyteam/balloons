@@ -1,4 +1,3 @@
-//window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
 window.addEventListener("load", async () => {
   window.dataTracker = await loadDataTrackerjson();
   const jsonArray = JSON.parse(dataTracker.jsonArray);
@@ -119,7 +118,7 @@ window.addEventListener("load", async () => {
   // Special case: nu7b with SSID 23
   if (other === "nu7b" && SSID === "23") {
     tablaheader += `
-    &nbsp;<a href="http://lu7aa.org/dx.asp?por=H&tz=0&be=&multiplecalls=Select&scale=Lin&bs=B&call=x1*&band=14&timelimit=1209600&sel=0&t=m"
+    &nbsp;<a href=${HOST_URL}/dx?por=H&tz=0&be=&multiplecalls=Select&scale=Lin&bs=B&call=x1*&band=14&timelimit=1209600&sel=0&t=m"
     target="_blank"
     style="border-color:cyan;height:27px;border-style:outset;color:navy;line-height:19px;font-size:13px;text-decoration:none;background-color:gold;font-weight:bold;"
     title="The prefix for telem will be X1 followed by the letters BAA to JJJ.&#13The letters A-J correspond to the digits 0-9. To compute the count,&#13subtract 100 from the digits corresponding to the three letter code.">

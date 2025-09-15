@@ -1,9 +1,9 @@
-window.getParamSafe = (key, defaultValue = "", encode = false) => {
-  const params = new URLSearchParams(window.parent.window.location.search);
-  const value = params.get(key);
-  if (value === null || value.trim() === "") return defaultValue;
-  return encode ? encodeURIComponent(value) : value.trim();
-};
+// window.getParamSafe = (key, defaultValue = "", encode = false) => {
+//   const params = new URLSearchParams(window.parent.window.location.search);
+//   const value = params.get(key);
+//   if (value === null || value.trim() === "") return defaultValue;
+//   return encode ? encodeURIComponent(value) : value.trim();
+// };
 
 function crsdist(lat1, lon1, lat2, lon2) {
   var EARTH_RADIUS = 3440.07;
@@ -129,29 +129,29 @@ function deg_to_dm(deg) {
   return signo + d + "º " + m + "'";
 }
 
-function ucase(str) {
-  return str ? str.toString().toUpperCase() : "";
-}
+// function ucase(str) {
+//   return str ? str.toString().toUpperCase() : "";
+// }
 
-function lcase(str) {
-  return str ? str.toString().toLowerCase() : "";
-}
+// function lcase(str) {
+//   return str ? str.toString().toLowerCase() : "";
+// }
 
-function trim(str) {
-  return str ? str.toString().trim() : "";
-}
+// function trim(str) {
+//   return str ? str.toString().trim() : "";
+// }
 
-function mid(str, start, length) {
-  return str.toString().substr(start - 1, length);
-}
+// function mid(str, start, length) {
+//   return str.toString().substr(start - 1, length);
+// }
 
-function left(str, length) {
-  return str.toString().substring(0, length);
-}
+// function left(str, length) {
+//   return str.toString().substring(0, length);
+// }
 
-function right(str, length) {
-  return str.toString().slice(-length);
-}
+// function right(str, length) {
+//   return str.toString().slice(-length);
+// }
 
 function split(str, delimiter, limit = -1, compareType = 0) {
   if (!str) return [];
@@ -167,9 +167,9 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-function isNumeric(value) {
-  return !isNaN(value) && !isNaN(parseFloat(value));
-}
+// function isNumeric(value) {
+//   return !isNaN(value) && !isNaN(parseFloat(value));
+// }
 
 function formatNumber(number, decimals) {
   return parseFloat(number).toFixed(decimals);
@@ -233,75 +233,75 @@ function setParamValues() {
   refreshParam = window.getParamSafe("Refresh");
 }
 
-async function getURL(url, responseType = "text") {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const result =
-      responseType === "text" ? await response.text() : await response.json();
-    return result;
-  } catch (error) {
-    console.error("Error fetching URL:", error);
-    return "";
-  }
-}
+// async function getURL(url, responseType = "text") {
+//   try {
+//     const response = await fetch(url);
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+//     const result =
+//       responseType === "text" ? await response.text() : await response.json();
+//     return result;
+//   } catch (error) {
+//     console.error("Error fetching URL:", error);
+//     return "";
+//   }
+// }
 
-async function getURLXform(url, body = null, headers = {}) {
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        ...headers,
-      },
-      body: body,
-    });
+// async function getURLXform(url, body = null, headers = {}) {
+//   try {
+//     const response = await fetch(url, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/x-www-form-urlencoded",
+//         ...headers,
+//       },
+//       body: body,
+//     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
 
-    const text = await response.text();
-    return text;
-  } catch (error) {
-    console.error("Error fetching URL:", error);
-    return "";
-  }
-}
+//     const text = await response.text();
+//     return text;
+//   } catch (error) {
+//     console.error("Error fetching URL:", error);
+//     return "";
+//   }
+// }
 
-async function readShareAsset({ assetOutputType, assetUrl }) {
-  try {
-    return await window.parent.window.readAssetFile({
-      assetOutputType,
-      assetUrl,
-    });
-  } catch (error) {
-    return { statusCode: 400, data: null, error: "Something went wrong." };
-  }
-}
+// async function readShareAsset({ assetOutputType, assetUrl }) {
+//   try {
+//     return await window.parent.window.readAssetFile({
+//       assetOutputType,
+//       assetUrl,
+//     });
+//   } catch (error) {
+//     return { statusCode: 400, data: null, error: "Something went wrong." };
+//   }
+// }
 
-async function getShareResource(file) {
-  try {
-    //const assetUrl = `https://balloons.dev.browxy.com/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
-    const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
-    let serverResponse;
-    const response = await readShareAsset({
-      assetOutputType: "txt",
-      assetUrl,
-    });
-    serverResponse = response.data;
+// async function getShareResource(file) {
+//   try {
+//     //const assetUrl = `https://balloons.dev.browxy.com/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
+//     const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
+//     let serverResponse;
+//     const response = await readShareAsset({
+//       assetOutputType: "txt",
+//       assetUrl,
+//     });
+//     serverResponse = response.data;
 
-    // const response = await fetch(assetUrl);
-    // serverResponse = await response.text();
+//     // const response = await fetch(assetUrl);
+//     // serverResponse = await response.text();
 
-    return serverResponse;
-  } catch (error) {
-    console.error(error);
-    return "";
-  }
-}
+//     return serverResponse;
+//   } catch (error) {
+//     console.error(error);
+//     return "";
+//   }
+// }
 
 async function getAltura(lat, lon) {
   const url = `https://api.opentopodata.org/v1/srtm30m?locations=${lat},${lon}`;
@@ -873,9 +873,9 @@ function fixCityName(cnme) {
   return result;
 }
 
-function isDate(date) {
-  return date instanceof Date && !isNaN(date.getTime());
-}
+// function isDate(date) {
+//   return date instanceof Date && !isNaN(date.getTime());
+// }
 
 async function vorread() {
   try {
@@ -995,41 +995,41 @@ async function vorread() {
   }
 }
 
-function buscarTag(tagInicio, tagFin, texto) {
-  let tagFinalEncontrado = false;
-  let k = window.Posicion;
-  let resultado = "";
+// function buscarTag(tagInicio, tagFin, texto) {
+//   let tagFinalEncontrado = false;
+//   let k = window.Posicion;
+//   let resultado = "";
 
-  while (!tagFinalEncontrado && k < texto.length) {
-    if (texto.substring(k, k + tagInicio.length) === tagInicio) {
-      let j = k + tagInicio.length;
-      let tagFinalLocalEncontrado = false;
+//   while (!tagFinalEncontrado && k < texto.length) {
+//     if (texto.substring(k, k + tagInicio.length) === tagInicio) {
+//       let j = k + tagInicio.length;
+//       let tagFinalLocalEncontrado = false;
 
-      while (!tagFinalLocalEncontrado && j < texto.length) {
-        if (texto.substring(j, j + tagFin.length) === tagFin) {
-          resultado = texto.substring(k + tagInicio.length, j);
-          tagFinalLocalEncontrado = true;
-          tagFinalEncontrado = true;
-          window.Posicion = j + tagFin.length;
-        } else {
-          j++;
-        }
-      }
+//       while (!tagFinalLocalEncontrado && j < texto.length) {
+//         if (texto.substring(j, j + tagFin.length) === tagFin) {
+//           resultado = texto.substring(k + tagInicio.length, j);
+//           tagFinalLocalEncontrado = true;
+//           tagFinalEncontrado = true;
+//           window.Posicion = j + tagFin.length;
+//         } else {
+//           j++;
+//         }
+//       }
 
-      if (!tagFinalLocalEncontrado) {
-        k++;
-      }
-    } else {
-      k++;
-    }
-  }
+//       if (!tagFinalLocalEncontrado) {
+//         k++;
+//       }
+//     } else {
+//       k++;
+//     }
+//   }
 
-  if (k >= texto.length) {
-    window.Posicion = texto.length;
-  }
+//   if (k >= texto.length) {
+//     window.Posicion = texto.length;
+//   }
 
-  return resultado;
-}
+//   return resultado;
+// }
 
 function mayusculaPrimeras(cadena) {
   // Verificar si la cadena tiene más de 1 carácter
@@ -1066,53 +1066,53 @@ function mayusculaPrimeras(cadena) {
   }
 }
 
-function replace(
-  text,
-  searchValue,
-  replaceValue,
-  start = 0,
-  count = -1,
-  compareMode = 0,
-) {
-  if (text === undefined || text === null || text === "") return "";
-  if (count === -1) {
-    // Reemplazar todas las ocurrencias
-    return text.replace(
-      new RegExp(escapeRegExp(searchValue), "g"),
-      replaceValue,
-    );
-  } else {
-    // Reemplazar un número específico de ocurrencias
-    let result = text;
-    let replacements = 0;
-    let index = start;
+// function replace(
+//   text,
+//   searchValue,
+//   replaceValue,
+//   start = 0,
+//   count = -1,
+//   compareMode = 0,
+// ) {
+//   if (text === undefined || text === null || text === "") return "";
+//   if (count === -1) {
+//     // Reemplazar todas las ocurrencias
+//     return text.replace(
+//       new RegExp(escapeRegExp(searchValue), "g"),
+//       replaceValue,
+//     );
+//   } else {
+//     // Reemplazar un número específico de ocurrencias
+//     let result = text;
+//     let replacements = 0;
+//     let index = start;
 
-    while (replacements < count && index !== -1) {
-      index = result.indexOf(searchValue, index);
-      if (index !== -1) {
-        result =
-          result.substring(0, index) +
-          replaceValue +
-          result.substring(index + searchValue.length);
-        index += replaceValue.length;
-        replacements++;
-      }
-    }
-    return result;
-  }
-}
+//     while (replacements < count && index !== -1) {
+//       index = result.indexOf(searchValue, index);
+//       if (index !== -1) {
+//         result =
+//           result.substring(0, index) +
+//           replaceValue +
+//           result.substring(index + searchValue.length);
+//         index += replaceValue.length;
+//         replacements++;
+//       }
+//     }
+//     return result;
+//   }
+// }
 
 function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function cDate(dateString) {
-  try {
-    return new Date(dateString);
-  } catch (error) {
-    return new Date(); // Return current date on error
-  }
-}
+// function cDate(dateString) {
+//   try {
+//     return new Date(dateString);
+//   } catch (error) {
+//     return new Date(); // Return current date on error
+//   }
+// }
 
 function cuantosDias(fecha) {
   // Extraer componentes de la fecha en formato YYYYMMDDHHMMSS

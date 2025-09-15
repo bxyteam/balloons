@@ -13,10 +13,10 @@ async function processTelemetry2({
   avgfreq,
 }) {
   let output = "";
-  let puntos = Array(5002)
+  let puntos = Array(DATA_SIZE_2)
     .fill("")
     .map(() => Array(8).fill("")); // Contiene fecha, locator y telemetria del 2do paquete
-  let punto = Array(5002)
+  let punto = Array(DATA_SIZE_2)
     .fill("")
     .map(() => Array(8).fill("")); // Contiene fecha y locator 1er paquete
 
@@ -38,11 +38,11 @@ async function processTelemetry2({
 
   let balid = left(balloonid, 1) + "_" + right(balloonid, 1) + "*";
   let timeLimit = "1209600"; // 1209600 604800
-  let count = "5000";
-  let cuenta = 8700;
+  let count = COUNT_SIZE_TELE_2;
+  let cuenta = CUENTA_SIZE_TELE_2;
 
   if (getParamSafe("detail") !== "") {
-    cuenta = 698;
+    cuenta = COUNT_SIZE_2_TELE_2;
   }
 
   let cuentamax = cuenta * 1;
@@ -74,9 +74,9 @@ async function processTelemetry2({
     try {
       const pag1 = await getReportersTelemetry2(getURLreporters1, balloonid);
 
-      tablax = split(pag1, chr(10), 5000, 1);
-      tablan = split(pag1, chr(10), 5000, 1);
-      tele2 = Array(5002)
+      tablax = split(pag1, chr(10), DATA_SIZE_TELE_2, 1);
+      tablan = split(pag1, chr(10), DATA_SIZE_TELE_2, 1);
+      tele2 = Array(DATA_SIZE_TELE_2 + datos2)
         .fill("")
         .map(() => Array(14).fill(""));
 
@@ -730,7 +730,7 @@ async function processTelemetry2({
 
   let altutext = "";
   if (puntopointer > -1 && isDate(left(punto[0][0], 16))) {
-    const TZDiff = -180 * 60 * 1000;
+    const TZDiff = new Date().getTimezoneOffset();
     let hlocal = cDate(left(punto[0][0], 16)) - TZDiff;
     let horalocal =
       "<br>Local: " +

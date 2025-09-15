@@ -71,15 +71,13 @@ function clasif(que) {
   }
   url = "wsprset" + agre1 + agre2 + agre3;
   url = url.replace("wsprset&", "wsprset?");
-  window.parent.window.location.href = url;
+  window.parent.window.location.href = `${HOST_URL}/${url}`;
 }
 function mas() {
   if (!gqs("more")) {
-    window.parent.window.location.href =
-      "wsprset?more=1&call=" + document.getElementById("buscar").value;
+    window.parent.window.location.href = `${HOST_URL}/wsprset?more=1&call=${document.getElementById("buscar").value}`;
   } else {
-    window.parent.window.location.href =
-      "wsprset?call=" + document.getElementById("buscar").value;
+    window.parent.window.location.href = `${HOST_URL}/wsprset?call=${document.getElementById("buscar").value}`;
   }
 }
 function cargarfotos() {

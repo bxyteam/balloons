@@ -121,14 +121,8 @@ async function initApp() {
 
   // Inicialización de arrays
   let datos = [];
-  // Array(3001)
-  // .fill()
-  // .map(() => Array(4).fill(""));
   let estaciones = [];
-  // Array(3001)
-  // .fill()
-  // .map(() => Array(8).fill(""));
-  let estacion = Array(3001).fill("");
+  let estacion = Array(DATA_SIZE).fill("");
   let estac = Array(21)
     .fill()
     .map(() => Array(21).fill(0));
@@ -234,9 +228,10 @@ async function initApp() {
     return;
   }
 
-  let posicion = 1;
-  let tabla = buscarTag("<table>", "</table>", processReports2.pag, posicion);
-  let tablam = splitASP(tabla, "<tr>", 3000, 1);
+  window.Posicion = 1;
+  let tabla = buscarTag("<table>", "</table>", processReports2.pag);
+  //let tablam = splitASP(tabla, "<tr>", 3000, 1);
+  let tablam = splitASP(tabla, "<tr>", DATA_SIZE, 1);
 
   agregarTablaAlDOM(tabla, tablam);
 

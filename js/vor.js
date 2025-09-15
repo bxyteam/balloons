@@ -1,4 +1,3 @@
-window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
 var TZDiff = new Date().getTimezoneOffset();
 var WEB_FETCHER_URL = "/api/v1/webFetcher"; // "https://balloons.dev.browxy.com/api/v1/webFetcher"; //"/api/v1/webFetcher";
 var PI = Math.PI; // 3.141592653589793
