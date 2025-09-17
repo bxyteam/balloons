@@ -273,11 +273,11 @@ class BalloonLinkMenu {
             &nbsp;&nbsp;<a href='${HOST_URL}/balloonchart?callsign=${selectedOther}-${selectedSSID}&flights=0&grafico=height%20m' target='_blank' title='Plot Graphs if data available on aprs.fi' style='background-color:lightblue;font-style: italic;cursor:pointer;'><b><u>Charts</u></b></a>
         `;
     }
-
+    //        &nbsp;&nbsp;<a href='${HOST_URL}/wspruser' target='_blank' style='background-color:lightblue;font-style: italic;cursor:pointer;' title='Last Uses'><b><u>Users</u></b></a>
     balloonsurl += `
         &nbsp;&nbsp;<a href='${HOST_URL}/dx?call=${selectedOther}&band=${didBand}&bs=B' target='_blank' style='background-color:lightblue;font-style: italic;cursor:pointer;' title='WSPR DX Reports'><b><u>DX</u></b></a>
         &nbsp;&nbsp;<a href='https://satellites.browxy.com/pass' target='_blank' style='background-color:lightblue;font-style: italic;cursor:pointer;' title='Track Satellites'><b><u>Sat</u></b></a>
-        &nbsp;&nbsp;<a href='${HOST_URL}/wspruser' target='_blank' style='background-color:lightblue;font-style: italic;cursor:pointer;' title='Last Uses'><b><u>Users</u></b></a>
+
         </span></span></center>
     `;
     //  <a href='${HOST_URL}/wspruser' target='_blank' style='cursor:pointer;' title='Last Uses'><u><i>Usage</i></u></a>
@@ -348,7 +348,9 @@ class BalloonLinkMenu {
 
   buildBalloonsUrlTemplate() {
     const { other = "", SSID = "" } = this.searchParams;
-    const enriched = dataTracker.balloons.map(this.processBalloonData);
+    const enriched = dataTracker.balloons
+      .filter((b) => b.old !== "true")
+      .map(this.processBalloonData);
     const result = this.buildBalloonLinks(enriched, other, SSID);
     window.comentfull = result.comentfull;
     window.comentariosballoon = result.comentariosballoon;

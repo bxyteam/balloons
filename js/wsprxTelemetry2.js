@@ -13,10 +13,10 @@ async function processTelemetry2({
   avgfreq,
 }) {
   let output = "";
-  let puntos = Array(DATA_SIZE_2)
+  let puntos = Array(DATA_SIZE_TELE_2)
     .fill("")
     .map(() => Array(8).fill("")); // Contiene fecha, locator y telemetria del 2do paquete
-  let punto = Array(DATA_SIZE_2)
+  let punto = Array(DATA_SIZE_TELE_2)
     .fill("")
     .map(() => Array(8).fill("")); // Contiene fecha y locator 1er paquete
 
