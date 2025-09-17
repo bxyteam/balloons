@@ -29,7 +29,7 @@
         <meta http-equiv="Content-Language" content="en_US" />
         <meta http-equiv="Expires" content="Fri, Jun 12 1981 08:20:00 GMT" />
 
-        <script type="text/javascript" src="js/loader.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/bxyteam/balloons@main/js/loader.min.js"></script>
         <script type="text/javascript">
             window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
             google.charts.load("current", { packages: ["corechart", "line"] });
@@ -141,11 +141,12 @@
             }
         </style>
 
-        <script src="js/assetsSrc.js"></script>
-        <script src="js/commonAll.js"></script>
-        <script src="js/dxFn.js"></script>
-        <script src="js/dx.js"></script>
-        <script src="js/indexDx.js" defer></script>
+		<script src="https://cdn.jsdelivr.net/gh/bxyteam/balloons@main/js/assetsSrc.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/bxyteam/balloons@main/js/commonAll.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/bxyteam/balloons@main/js/dxFn.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/bxyteam/balloons@main/js/dx.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/bxyteam/balloons@main/js/indexDx.min.js" defer></script>
+
     </head>
     <body
         style="
@@ -173,12 +174,7 @@
                 onclick="alert('Solar-Terrestial Data terms explanation:\nSFI index: Solar Flux >100 good prop\nSN: Sunspot Numbers > 50 good prop.\nA Index: geomagnetic activity last 24h\nK-Index: geomagnetic activity relative\nX-Ray: Intensity of X-Ray on ionosphere\n304A: Strength of Solar Radiation~SN\nPtn Flx: Density of charged protons\nElc Flx: Density of charged electrons\nMUF: Maximum Usable Frequency')"
             />
             <center>
-                <span style="line-height: 14px; font-size: 15px"
-                    ><br style="line-height: 2px" /><i><b>Alternate Site:</b></i
-                    ><br />
-                    <a href="https://lu7aa.org/dx.asp" target="_blank"
-                        ><i>https://lu7aa.org/dx.asp</i></a
-                    ><br /><br style="line-height: 6px" />
+                <span style="line-height: 14px; font-size: 15px">
                     <a
                         href="https://balloons.dev.browxy.com/wsprx"
                         target="_blank"
@@ -677,8 +673,3 @@
         <div id="tablaContainer"></div>
     </body>
 </html>
-<!-- http://localhost:5000/dx.html?call=ab9lm&band=14&bs=B -->
-
-<!-- ?band=14&count=1&call=VE3OCL&reporter=&timeLimit=604800&sortBy=date&sortRev=1&unique=0&excludespecial=0&mode=All  -->
-<!-- /?band=All&count=3000&call=SP7THR&reporter=SP7THR&timeLimit=3600&sortBy=date&sortRev=1&unique=0&mode=All&excludespecial=0 -->
-<!--http://wsprnetwork.browxy.com/?band=14&count=3000&call=AB9LM&reporter=&timeLimit=604800&sortBy=date&sortRev=1&unique=0&mode=All&excludespecial=0-->
