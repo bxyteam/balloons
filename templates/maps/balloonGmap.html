@@ -371,7 +371,6 @@
                         event.origin === "http://localhost:5000"
                     ) {
                         const jsonData = event.data.props.jsonData;
-                        console.log("JSON recibido:", jsonData);
 
                         window.locations = jsonData.locations;
                         window.flechas = jsonData.flechas;
