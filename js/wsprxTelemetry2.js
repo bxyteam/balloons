@@ -76,7 +76,7 @@ async function processTelemetry2({
 
       tablax = split(pag1, chr(10), DATA_SIZE_TELE_2, 1);
       tablan = split(pag1, chr(10), DATA_SIZE_TELE_2, 1);
-      tele2 = Array(DATA_SIZE_TELE_2 + datos2)
+      tele2 = Array(DATA_SIZE_TELE_2 + 1)
         .fill("")
         .map(() => Array(14).fill(""));
 
