@@ -1,0 +1,22 @@
+remote_theme: just-the-docs/just-the-docs
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-relative-links
+
+title: WSPR Balloons
+description: Amateur Balloons and Balloon Tracking
+url: https://balloons.browxy.com
+
+relative_links:
+  enabled: true
+  collections: true
+
+color_scheme: "dark"
+search_enabled: true
+nav_enabled: true
+
+back_to_top: true
+back_to_top_text: "Back to top"
+
+footer_content: 'Copyright &copy; 1985-2025 Pedro Converso. Distributed by an <a href="https://github.com/bxyteam/balloons/blob/main/LICENSE">MIT license.</a>'
