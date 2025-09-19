@@ -534,7 +534,7 @@ async function processTelemetry2({
 
   let llcount = 0;
   let totalcount = 0;
-  for (let k = 1; k <= puntpointer + 1; k++) {
+  for (let k = 1; k <= puntpointer; k++) {
     punto[k - 1][0] = punt[k - 1][0];
     punto[k - 1][1] = replace(punt[k - 1][1], "&nbsp;", "", 1, 20, 1);
     punto[k - 1][2] = punt[k - 1][2];
@@ -564,7 +564,7 @@ async function processTelemetry2({
   puntopointer = puntpointer;
   let lastpunto = "";
 
-  for (let k = 0; k <= puntospointer - 1; k++) {
+  for (let k = 0; k <= puntospointer; k++) {
     if (punto[k][3] !== "" && punto[k][3] >= 0) {
       if (puntos[k][0].length < 10) {
         puntos[k][0] = hora0;

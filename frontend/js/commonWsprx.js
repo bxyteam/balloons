@@ -7,7 +7,7 @@
 
 var slowerParam = getParamSafe("slower") === "true";
 var DATA_SIZE_TELE_1 = slowerParam ? 20001 : 3001;
-var DATA_SIZE_TELE_2 = slowerParam ? 10001 : 5001;
+var DATA_SIZE_TELE_2 = slowerParam ? 20001 : 5001;
 var CUENTA_SIZE_TELE_1 = slowerParam ? 20000 : 700;
 var CUENTA_SIZE_TELE_2 = slowerParam ? 12500 : 8700;
 var COUNT_SIZE_TELE_1 = slowerParam ? 20300 : 5000;
