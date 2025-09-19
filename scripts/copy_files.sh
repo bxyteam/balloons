@@ -28,8 +28,6 @@ validate_boolean() {
 # Validate the boolean parameter
 COPY_BALLOONS_PROCESSOR=$(validate_boolean "$COPY_BALLOONS_PROCESSOR")
 
-#echo "Script started with COPY_BALLOONS_PROCESSOR=$COPY_BALLOONS_PROCESSOR"
-
 # Copy templates if source directory exists and has files
 if [ -d "${GITHUB_DIR}/frontend/templates" ] && [ "$(find "${GITHUB_DIR}/frontend/templates" -type f | head -n 1)" ]; then
     echo "Copying templates..."
