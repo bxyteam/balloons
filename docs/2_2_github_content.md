@@ -8,25 +8,21 @@ parent: Github
 
 #### <img style="vertical-align: middle;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/folder-tree.png" /> Project structure
 
-
 ```bash
 .
-├── frontend
-│   ├── audio
-│   ├── dist
-│   ├── images
-│   ├── sats
-│   ├── html
-│   └── templates
-├── it
-│   ├── AboutTime
-│   │   └── AboutTime
-│   └── illum
-├── keps
-├── keps_updater
+├── balloons_processor
+│   ├── pom.xml
 │   └── src
-│       └── amsat
+├── docs
+├── frontend
+│   ├── builder
+│   ├── css
+│   ├── images
+│   ├── js
+│   ├── share
+│   └── templates
 └── scripts
+
 ```
 ***Warning! Deleting or renaming files and folders may cause undesired effects on the application or cause it to stop working***
 
@@ -40,16 +36,32 @@ Directory with audio files.
 Directory with stylesheet, javascripts files used in pass.html template.
 
 ```bash
-dist/
-├── all.js
-├── all.json
-├── keps.txt
-├── assetsSrcGithub.js
+frontend/js
 ├── assetsSrc.js
-├── freq.js
-├── orb.css
-├── orbz.js
-└── predictlib1.js
+├── ballonTracker.js
+├── balloonchartFn.js
+├── balloonchart.js
+├── balloonLaunchedWsprx.js
+├── balloonLinkMenu.js
+├── commonAll.js
+├── commonWsprx.js
+├── datos.js
+├── dxFn.js
+├── dx.js
+├── indexDx.js
+├── indexGmap.js
+├── indexWsprset.js
+├── indexWsprx.js
+├── jsDraw2DX.js
+├── loader.js
+├── suncalc.js
+├── timeZone.js
+├── vorFn.js
+├── vorGmap.js
+├── vor.js
+├── wsprxTelemetry1.js
+├── wsprxTelemetry2.js
+└── wsprxTelemetryUtils.js
 ```
 #### <img style="vertical-align: middle;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/file-code.png">  Dist File Description
 
@@ -85,8 +97,15 @@ Directory to put new html files
 Directory with builder html template files
 
 ```bash
-templates/
-└── pass.html
+frontend/templates/
+├── maps
+│   ├── balloonGmap.html
+│   └── vorGmap.html
+├── balloonchart.html
+├── dx.html
+├── vor.html
+├── wsprset.html
+└── wsprx.html
 ```
 #### <img style="vertical-align: middle;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/folder-open.png">  Templates File Description
 
@@ -99,60 +118,45 @@ templates/
 Directory that contains among others the files to generate new steps using dosbox. The new steps are copied into HTML files. Also contains ilium and About Time directories used by batch files.
 
 ```bash
-it/
-├── .....
-├── subepaso.bat
-├── subePasoPart1.bat
-├── subePasoPart2.bat
-├── subePasoPart3.bat
-├── subePasoPart4.bat
-├── subePasoPart5.bat
-├── subePasoPart6.bat
-├── subePasoPart7.bat
-├── subePasoPart8.bat
-├── subePasoPart9.bat
-├── subePasoPart10.bat
-└── .....
-
+frontend/builder/
+├── builderPages
+│   ├── balloonchart.json
+│   ├── dx.json
+│   ├── vor.json
+│   ├── wsprset.json
+│   └── wsprx.json
+├── controller
+│   └── config.json
+└── metadata
+    └── project.json
 ```
 
-### <img style="vertical-align: middle;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/folder-open.png">  keps directory
-
-#### keps
-Directory with txt files used by keps updater application.
-
-```bash
-keps
-├── addsat.txt
-├── localkeps.txt
-├── moonkeps.txt
-├── omitlist.txt
-├── spacetrack1.txt
-├── spacetrack2.txt
-└── spacetrack.txt
-
-```
 ### <img style="vertical-align: middle;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/folder-open.png">  keps_updater directory
 
 #### keps_updater
 Directory with java files to update keps and tle matrix. To use this application you need sapcetrack credentials.
 
 ```bash
-keps_updater/
+balloons_processor/
+├── pom.xml
 └── src
-    └── amsat
-        ├── AddSatProcessor.java
-        ├── DateFormatter.java
-        ├── KepsUpdateRunner.java
-        ├── LocalKepsProcessor.java
-        ├── MoonKepsProcessor.java
-        ├── OmitListProcessor.java
-        ├── SatelliteFileWriter.java
-        ├── SatelliteTLEProcessor.java
-        ├── SatelliteUpdateProcessor.java
-        ├── SpacetrackProcessor.java
-        ├── SpaceTrackReader.java
-        └── TleCleaner.java
+    └── main
+        └── java
+            └── domain
+                ├── BalloonData.java
+                ├── BalloonDataProcessor.java
+                ├── BalloonHideRestoreProcessor.java
+                ├── Balloon.java
+                ├── BalloonSortData.java
+                ├── BalloonTrackerProcessor.java
+                ├── BalloonUrlParameter.java
+                ├── FileUtil.java
+                ├── LicenseData.java
+                ├── PayloadForm.java
+                ├── ProcessingResult.java
+                ├── RequestCheckWspr.java
+                ├── RequestCheckWsprProcessResult.java
+                └── SavePicoss.java
 ```
 ### <img style="vertical-align: middle;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/folder-open.png">  scripts directory
 
@@ -161,70 +165,10 @@ Directory containing bash files executed by the application in a cron job.
 
 ```bash
 scripts/
-├── copy_files.sh
-├── run_dosbox.sh
-├── run_keps_updater.sh
-└── run_pasos_updater.sh
+└── copy_files.sh
 ```
 
 #### <img style="vertical-align: middle;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/file-terminal.png">  Script Files Description
 
 - ###### copy_files.sh
-  - This script copy html / sats / templates files to web directory.
-- ###### run_dosbox.sh
-  - This script execute the current subpaso*.bat batch file in a dosbox application.
-- ###### run_keps_updater.sh
-  - This script copy the last steps generated and copy to web share directory and run keps updater java application to update keps and tle matrix the application build the nasa json file with tle matrix and copy to share folder.
-- ###### run_pasos_updater.sh
-  - this script execute a loop with a list of steps and call the run_dosbox.sh bash script for each step.
-
-#### dosbox
-
-The dosbox.conf file is created in memory for each batch file.
-
-###### dosbox.conf
-```bash
-SCRIPT_NAME="$1"
-BAT_FILE="${SCRIPT_NAME}.bat"
-CONFIG_FILE="/var/satellite/data/github/it/dosbox.conf"
-IT_DIR="/var/satellite/data/github/it"
-cat <<EOF > "$CONFIG_FILE"
-[sdl]
-fullscreen=false
-autolock=false
-output=surface
-
-[mixer]
-nosound=true
-
-[speaker]
-pcspeaker=false
-tandy=off
-disney=false
-
-[sblaster]
-sbtype=none
-
-[gus]
-gus=false
-
-[dosbox]
-captures=${IT_DIR}/captures
-
-[render]
-frameskip=1
-
-[cpu]
-core=auto
-cputype=auto
-cycles=150000
-cycleup=10
-cycledown=20
-
-[autoexec]
-mount c ${IT_DIR}
-c:
-call ${BAT_FILE}
-exit
-EOF
-```
+  - This script copy balloons_processor / builder / templates files to web directory.
