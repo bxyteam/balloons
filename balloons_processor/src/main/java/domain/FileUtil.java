@@ -22,7 +22,7 @@ public class FileUtil {
   private static class LockRef {
     final ReentrantLock lock = new ReentrantLock();
     final AtomicInteger usageCount = new AtomicInteger(0);
-    volatile boolean marked = false; // para marcar como candidato a eliminación
+    volatile boolean marked = false;
   }
 
   /**
