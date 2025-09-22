@@ -5,52 +5,26 @@ parent: Instalation
 ---
 # <img style="vertical-align:middle; width: 40px; height:40px;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/terminal.png"> Browxy Instalation
 
-### <img style="vertical-align:middle; width:30px; height:30px;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/network.png"> Apache2
+### <img style="vertical-align:middle; width:30px; height:30px;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/network.png"> Compiler Web
 
-#### Add configuration file to apache2
-
-```bash
- sudo bash -c "cat > /etc/apache2/sites-available/browxy_balloons.conf << --EOL
-  <VirtualHost *:80>
-     RewriteEngine on
-     ProxyPreserveHost On
-     ServerName balloons.browxy.com
-     Redirect permanent / https://balloons.browxy.com/
-  </VirtualHost>
-
-  <IfModule mod_ssl.c>
-    <VirtualHost *:443>
-       RewriteEngine on
-       ProxyPreserveHost On
-       ServerName balloons.browxy.com
-       ProxyPass / http://127.0.0.1:8090/
-       ProxyPassReverse / http://127.0.0.1:8090/
-       SSLCertificateFile /srv/letsencrypt/live/browxy.com/fullchain.pem
-       SSLCertificateKeyFile /srv/letsencrypt/live/browxy.com/privkey.pem
-    </VirtualHost>
-  </IfModule>
---EOL"
-```
-* Check server name,  port and SSL certificate paths
-
-#### Link conf file
+#### Download project from github
 
 ```bash
-  sudo ln -sfn /etc/apache2/sites-available/browxy_balloons.conf /etc/apache2/sites-enabled/browxy_balloons.conf
+mkdir -p /home/compiler/balloons
+cd /home/compiler/balloons
+
+wget https://github.com/bxyteam/balloons-app/archive/refs/heads/main.zip
+
+unzip main.zip
+rm main.zip
+
+cd balloons-app-main
 ```
-
-#### Add hostname to hosts file
-
-```bash
-  sudo bash -c "printf \"127.0.0.1\tballoons.browxy.com\n\" >> /etc/hosts"
-```
-
-### <img style="vertical-align:middle; width:30px; height:30px;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/cuboid.png"> Build Docker Image
 
 #### Dockerfile
 
 ```Dockerfile
-FROM %%DOCKER_REGISTRY%%/browxy_compiler_base:latest
+FROM docker-registry.beta.browxy.com/browxy_compiler_base:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -68,7 +42,6 @@ RUN echo "Defaults env_keep+=DOCKER_DAEMON_ARGS" >> /etc/sudoers
 # create hosts file and backup
 RUN cp /etc/hosts /etc/hosts.default
 RUN chmod ugo+rw /etc/hosts.default
-#RUN chmod ugo+rw /etc/hosts
 
 RUN mkdir -p /home/balloon/application
 RUN mkdir -p /home/balloon/.m2
@@ -85,26 +58,53 @@ ENV LC_ALL=en_US.UTF-8
 
 # Set the default command
 CMD ["bash", "-c", "/home/balloon/application/dockerStart.sh"]
-
 ```
-##### Build Image
+#### Docker Login
+* Login with docker credentials
+
 ```bash
-docker build -t browxy_balloon .
+ docker login -u $dockerRegistryUser -p $dockerRegistryPassword $dockerRegistryUrl
 ```
 
-##### Tag Image
+#### Build and push images to registry
+* Execute install_prod.sh script
+
 ```bash
-docker build -t docker-registry.beta.browxy.com/browxy_balloon:latest .
+echo "Set executions permissions"
+chmod +x install_prod.sh
+chmod +x install_browxy.sh
+
+echo "Execute production script"
+./install_prod.sh
 ```
-- ##### Files and folders copied to the image container:
-  - dockerStart.sh (start docker application)
-  - start.sh (compile and run java application)
-  - stop.sh (stop docker application)
-  - .env.*
-  - /web (web builder folder that contains the files needed to render the HTML page.)
+* Or execute the following commands
 
-### <img style="vertical-align:middle; width:30px; height:30px;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/container.png">  Create And Run Docker Container
+```bash
+echo "Building Docker image"
+docker build -f "$DOCKERFILE" -t browxy_balloon .
 
+echo "Tag docker image"
+docker build -f "$DOCKERFILE" -t "${DOCKER_REGISTRY}"/browxy_balloon:1.0 .
+
+echo "Push Docker image"
+sudo docker push "${DOCKER_REGISTRY}"/browxy_balloon:1.0
+```
+
+### <img style="vertical-align:middle; width:30px; height:30px;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/network.png"> Compiler
+
+### Create directory and files
+
+```bash
+mkdir -p /home/compiler/satellites
+cd /home/compiler/satellites
+
+touch docker-compose.yml
+touch env.prod
+```
+
+### <img style="vertical-align:middle; width:30px; height:30px;" src="https://raw.githubusercontent.com/bxyteam/balloons/refs/heads/main/docs/images/container.png"> Create And Run Docker Container
+
+### Fill docker-compose file (docker-compose.yml)
 #### docker-compose.yml
 
 ```yaml
@@ -112,14 +112,14 @@ version: '2'
 
 services:
 
-  balloon:
+  satellite:
     image: docker-registry.beta.browxy.com/browxy_balloon:1.0
     env_file:
       - env.prod
     container_name: balloon
     hostname: balloon
     networks:
-      - browxy
+      - compiler_browxy
     restart: unless-stopped
     ports:
       - "8095:8095"
@@ -130,12 +130,11 @@ services:
       nofile: 524288
 
 networks:
-  browxy:
+  compiler_browxy:
     external: true
-
 ```
 
-### Create And Fill Env File (env.prod)
+### Fill Env File (env.prod)
 
 #### env.prod
 
@@ -157,7 +156,7 @@ MAVEN_REPO_PATH=/home/balloon/.m2
 # Github repository configuration
 
 # github repository name
-GITHUB_REPO=balloons
+GITHUB_REPO=
 
 # github repository owner (github username)
 GITHUB_OWNER=
@@ -199,11 +198,19 @@ DOCKER_REGISTRY=docker-registry.beta.browxy.com
 
 # configuration ID dev | qa | production
 balloonConfigId=production
-
 ```
 
 ##### Up Docker Container
 
 ```bash
 docker-compose up -d
+```
+#### Add ssl certificates
+
+```bash
+cp /srv/letsencrypt/live/beta.browxy.com/fullchain.pem /srv/nginx/certs/balloons.browxy.com.crt
+
+cp /srv/letsencrypt/live/beta.browxy.com/privkey.pem /srv/nginx/certs/balloons.browxy.com.key
+
+docker restart nginx
 ```
