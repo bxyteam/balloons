@@ -638,18 +638,22 @@ function decowspr(
       S7,
       T7,
       wgps = "",
-      wsats,
+      //wsats,
       walt1;
     let agregado = "",
       retorno = "";
     let decoqr = options.decoqr || "";
     let decoqr1 = options.decoqr1 || "";
     let decoqrf = options.decoqrf || "";
-    let buscohora,
-      actualdate,
-      fechahora,
-      newloc = "";
-    let wchan, wbat, wspeed, wtemp, walt;
+    let buscohora, actualdate, fechahora;
+    let wchan;
+    //wbat, wspeed, wtemp, walt;
+
+    window.wtemp = 0;
+    window.wbat = "";
+    window.wspeed = 0;
+    window.wsats = "";
+    window.walt = "";
 
     // --- Assign input values ---
     E5 = lcall.charAt(0);
@@ -670,7 +674,7 @@ function decowspr(
     if (E5 === "Q") multi = 20;
 
     try {
-      wchan = multi + (parseInt(G5, 10) || 0);
+      window.wchan = multi + (parseInt(G5, 10) || 0);
     } catch (e) {
       wchan = multi;
     }
@@ -695,15 +699,15 @@ function decowspr(
         const A_code = "A".charCodeAt(0);
 
         if (!isAB5SS) {
-          wbat = ((H5_code - A_code + 32) / 10).toFixed(1) + "V";
-          wspeed = Math.round(((H5_code - A_code) / 1) * 5 * 1.852);
+          window.wbat = ((H5_code - A_code + 32) / 10).toFixed(1) + "V";
+          window.wspeed = Math.round(((H5_code - A_code) / 1) * 5 * 1.852);
         }
         if (isAB5SS) {
-          wspeed = Math.round(((H5_code - A_code) / 1) * 5 * 1.852);
-          wbat = ((H5_code - A_code + 32) / 10).toFixed(1) + "V";
+          window.wspeed = Math.round(((H5_code - A_code) / 1) * 5 * 1.852);
+          window.wbat = ((H5_code - A_code + 32) / 10).toFixed(1) + "V";
         }
         if (isAB5SS || isWB8ELK) {
-          wbat = (H5_code - A_code + 32) / 10;
+          window.wbat = (H5_code - A_code + 32) / 10;
         }
 
         // --- Satellite Status ---
@@ -715,19 +719,20 @@ function decowspr(
           V28 = String.fromCharCode((F5_code % 3) + zero_code);
         }
 
-        if (V28 === "0") wsats = "NoF";
-        if (V28 === "1") wsats = "4-8";
-        if (V28 === "2") wsats = "> 8";
+        if (V28 === "0") window.wsats = "NoF";
+        if (V28 === "1") window.wsats = "4-8";
+        if (V28 === "2") window.wsats = "> 8";
 
         // --- Temperature ---
         if (F5_code - zero_code > 9) {
-          wtemp = Math.floor((F5_code - V28.charCodeAt(0) - 7) / 3) * 5 - 30;
+          window.wtemp =
+            Math.floor((F5_code - V28.charCodeAt(0) - 7) / 3) * 5 - 30;
         } else {
-          wtemp = String.fromCharCode((F5_code % 3) + zero_code);
+          window.wtemp = String.fromCharCode((F5_code % 3) + zero_code);
         }
 
-        wtemp = parseInt(wtemp, 10);
-        if (isNaN(wtemp)) wtemp = 0;
+        window.wtemp = parseInt(window.wtemp, 10);
+        if (isNaN(window.wtemp)) window.wtemp = 0;
 
         // --- Delta Altitude ---
         deltaaltura = Math.floor(Math.round((D5 * 18.1132) / 10)) * 10;
@@ -743,29 +748,32 @@ function decowspr(
         }
 
         actualdate = diahora.substring(0, 15);
-        newloc = "";
+        window.newloc = "";
 
         // Lookup en tele1 para obtener newloc (simulado)
         if (options.tele1) {
           for (let k = 3; k < options.tele1.length; k++) {
             if (actualdate === options.tele1[k][thora].substring(0, 15)) {
-              newloc = options.tele1[k + 1][tgrid];
+              window.newloc = options.tele1[k + 1][tgrid];
               try {
                 deltaaltura = deltaaltura + options.tele1[k][taltura];
               } catch (e) {
                 // ignore error
               }
             }
-            if (newloc !== "") break;
+            if (window.newloc !== "") break;
           }
         }
 
-        walt = deltaaltura;
+        window.walt = deltaaltura;
         K6 = I5;
         N6 = J5;
 
         // --- Prepare agregado ---
-        if (lloc.length > 3 && (wsats === "4-8" || wsats === "> 8")) {
+        if (
+          lloc.length > 3 &&
+          (window.wsats === "4-8" || window.wsats === "> 8")
+        ) {
           agregado = `${putsun(`${diahora}`, `${lloc}${I5}${J5}`)}`;
         } else {
           agregado = "&nbsp;";
@@ -775,11 +783,11 @@ function decowspr(
         window.N6_SAVE = N6;
 
         // --- Format output values ---
-        const wtempStr = wtemp
+        const wtempStr = window.wtemp
           .toString()
           .padStart(4, " ")
           .replaceAll(" ", "&nbsp;");
-        const wspeedStr = wspeed
+        const wspeedStr = window.wspeed
           .toString()
           .padStart(5, " ")
           .replaceAll(" ", "&nbsp;")
@@ -814,7 +822,7 @@ function decowspr(
         if (J9 > 3) J9 = J9 - 0.85;
         J10 = 100 * (J9 - 2) - 73;
         if (J10 < -45) J10 = -28 - J10;
-        wtemp = Math.round(J10 + 2); // formatnumber(int(J10+2),0)
+        window.wtemp = Math.round(J10 + 2); // formatnumber(int(J10+2),0)
 
         // --- Channel/Location Calculation ---
         const F5_val = parseInt(F5, 10);
@@ -848,12 +856,12 @@ function decowspr(
 
         // --- Battery Voltage ---
         wb = 3.0 + Math.floor((M7 + 20) % 40) * 0.05;
-        wbat = wb.toFixed(2);
+        window.wbat = wb.toFixed(2);
 
         M6 = Math.floor(L6 / 1068); // Recalculated as in ASP
         O6 = L6 - M6 * 1068;
         P6 = O6 * 20;
-        walt = P6;
+        window.walt = P6;
 
         // --- Speed Calculation (Fixed to match ASP code) ---
         O7 = L7 - M7 * 42 * 2 * 2;
@@ -861,11 +869,11 @@ function decowspr(
         Q7 = P7 * 2;
         R7 = O7 - P7 * 2 * 2;
 
-        wspeed = Q7;
+        window.wspeed = Q7;
         // Apply the original ASP conversion formula
-        wspeed = Math.floor((wspeed * 60 * 60) / 1000 / 1.852);
+        window.wspeed = Math.floor((window.wspeed * 60 * 60) / 1000 / 1.852);
         // Apply the offset if speed is below threshold
-        if (wspeed < 84) wspeed = wspeed + 84;
+        if (window.wspeed < 84) window.wspeed = window.wspeed + 84;
 
         // --- GPS Status ---
         S7 = Math.floor(R7 / 2);
@@ -876,13 +884,13 @@ function decowspr(
 
         if (S7 === 1 && T7 === 0) {
           wgps = 0;
-          wsats = "NOF";
+          window.wsats = "NOF";
           walt1 = " ";
         } else {
           wgps = 1;
           wsats = "4-8";
           // FIXED: Use walt instead of walt1 for altitude display
-          walt1 = walt;
+          walt1 = window.walt;
         }
 
         if (wchan < 10) wchan = "0" + wchan;
@@ -890,7 +898,8 @@ function decowspr(
         // --- Determine Reporting Time (buscohora logic) ---
         fechahora = diahora;
         if ((getParamSafe("timeslot") || "").trim() !== "") {
-          buscohora = fechahora.substring(0, 15);
+          buscohora = fechahora;
+          //.substring(0, 15);
         } else {
           // Simplified date math (approximates DateAdd("n",-1,...))
           const dateObj = new Date(fechahora);
@@ -903,26 +912,27 @@ function decowspr(
             const minutes = String(dateObj.getMinutes()).padStart(2, "0");
             buscohora = `${year}-${month}-${day} ${hours}:${minutes}`;
           } else {
-            buscohora = fechahora.substring(0, 15);
+            buscohora = fechahora;
+            //.substring(0, 15);
           }
         }
 
-        actualdate = buscohora;
-        newloc = "";
+        actualdate = buscohora.substring(0, 15);
+        window.newloc = "";
 
         // Lookup en tele1 para obtener newloc
         if (options.tele1) {
           for (let k = 3; k < options.tele1.length; k++) {
             if (actualdate === options.tele1[k][thora].substring(0, 15)) {
-              newloc = options.tele1[k][tgrid];
+              window.newloc = options.tele1[k][tgrid];
             }
-            if (newloc !== "") break;
+            if (window.newloc !== "") break;
           }
         }
 
         // --- Prepare agregado ---
-        if (newloc.length > 3) {
-          agregado = `${putsun(`${diahora}`, `${newloc}${K6}${N6}`)}`;
+        if (window.newloc.length > 3) {
+          agregado = `${putsun(`${diahora}`, `${window.newloc}${K6}${N6}`)}`;
         } else {
           agregado = "&nbsp;";
         }
@@ -950,26 +960,31 @@ function decowspr(
         }
 
         // --- Format output values ---
-        const wtempStr_qrp = wtemp
+        const wtempStr_qrp = window.wtemp
           .toString()
           .padStart(4, " ")
           .replaceAll(" ", "&nbsp;");
+        window.wtemp = wtempStr_qrp;
 
         // Fix speed formatting - don't truncate with substring
-        const wspeedStr_qrp = wspeed
+        const wspeedStr_qrp = window.wspeed
           .toString()
           .padStart(3, " ")
           .replaceAll(" ", "&nbsp;");
+        window.speed = wspeedStr_qrp;
 
         // FIXED: Properly format altitude - use walt1 as number, not string
         const waltStr_qrp =
           walt1 && walt1 !== " " && walt1 !== 0
             ? walt1.toString().padStart(5, " ").replaceAll(" ", "&nbsp;")
             : "&nbsp;";
+        window.walt = waltStr_qrp;
 
         // --- KEY FIX: Use newloc.substring(0,4) + K6 + N6 for the locator column ---
         const finalLocator =
-          newloc.length > 3 ? newloc.substring(0, 4) + K6 + N6 : lloc + K6 + N6;
+          window.newloc.length > 3
+            ? window.newloc.substring(0, 4) + K6 + N6
+            : lloc + K6 + N6;
 
         window.K6_SAVE = K6;
         window.N6_SAVE = N6;

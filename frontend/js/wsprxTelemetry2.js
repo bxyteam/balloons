@@ -481,7 +481,7 @@ async function processTelemetry2({
                   replace(locator, "&nbsp;", "", 1, 12, 1),
                   6,
                 );
-                punto[puntopointer][2] = wtemp;
+                punto[puntopointer][2] = window.wtemp;
                 punto[puntopointer][3] =
                   Math.round((altura * 18.1132) / 10) * 10;
                 for (let u = 0; u < 300; u++) {
@@ -491,23 +491,20 @@ async function processTelemetry2({
                     break;
                   }
                 }
-                punto[puntopointer][4] = wbat;
-                punto[puntopointer][5] = wspeed;
+                punto[puntopointer][4] = window.wbat;
+                punto[puntopointer][5] = window.wspeed;
                 punto[puntopointer][6] = licorigen;
                 puntopointer = puntopointer + 1;
               }
             }
           } // END IF tablan[i].length > 10
           for (let z = 0; z <= ubound(punt); z++) {
-            if (left(punt[z][0], 15) == buscohora && newloc.length > 2) {
-              const K6 = telem2.charAt(4);
-              const N6 = telem2.charAt(5);
-
-              punt[z][1] = newloc + K6 + N6;
-              punt[z][3] = walt;
-              punt[z][2] = wtemp;
-              punt[z][4] = wbat;
-              punt[z][5] = wspeed;
+            if (left(punt[z][0], 15) == buscohora && window.newloc.length > 2) {
+              punt[z][1] = window.newloc + window.K6_SAVE + window.N6_SAVE;
+              punt[z][3] = window.walt;
+              punt[z][2] = window.wtemp;
+              punt[z][4] = window.wbat;
+              punt[z][5] = window.wspeed;
               break;
             }
           }
@@ -562,7 +559,7 @@ async function processTelemetry2({
   let llaverage = llcount / totalcount;
   puntospointer = puntpointer;
   puntopointer = puntpointer;
-  let lastpunto = "";
+  //let lastpunto = "";
 
   for (let k = 0; k <= puntospointer; k++) {
     if (punto[k][3] !== "" && punto[k][3] >= 0) {
@@ -631,7 +628,7 @@ async function processTelemetry2({
   let lasttiempo = "";
   let tiempo = 0;
 
-  for (let k = 0; k <= puntopointer + 2; k++) {
+  for (let k = 0; k <= puntopointer + 1; k++) {
     if (punto[k][3] !== "" && punto[k][3] >= 0) {
       if (punto[k][0].length < 10) {
         punto[k][0] = hora0;
@@ -665,13 +662,14 @@ async function processTelemetry2({
         usell
       ) {
         if (punto[k][1].length > 3 && lastpunto !== "") {
-          distancia =
-            crsdist(
-              loctolatlon(punto[k][1]).lat,
-              loctolatlon(punto[k][1]).lon,
-              loctolatlon(lastpunto).lat,
-              loctolatlon(lastpunto).lon,
-            ).distance * 1.852;
+          const calcDist = crsdist(
+            loctolatlon(punto[k][1]).lat,
+            loctolatlon(punto[k][1]).lon,
+            loctolatlon(lastpunto).lat,
+            loctolatlon(lastpunto).lon,
+          );
+          distancia = isNaN(calcDist.distance) ? 0 : calcDist.distance * 1.852;
+
           if (lasttiempo !== "") {
             const currentTime = new Date(punto[k][0].replace(/z/gi, ""));
             const lastTime = new Date(lasttiempo.replace(/z/gi, ""));
