@@ -1,10 +1,3 @@
-// window.getParamSafe = (key, defaultValue = "", encode = false) => {
-//   const params = new URLSearchParams(window.parent.window.location.search);
-//   const value = params.get(key);
-//   if (value === null || value.trim() === "") return defaultValue;
-//   return encode ? encodeURIComponent(value) : value.trim();
-// };
-
 function crsdist(lat1, lon1, lat2, lon2) {
   var EARTH_RADIUS = 3440.07;
   var PI = 3.1415926535897932384626433832795;
@@ -64,11 +57,6 @@ function defSphereCoo(rad, nw, nl) {
   return osph;
 }
 function getlatlon(lat1, lon1, bearing, distance) {
-  //alert("lat1:"+lat1+" lon1:"+lon1+" bearing:"+bearing+" distance:"+distance);
-  //var EARTH_RADIUS = 3440.07; //distance in nMiles
-  // var PI = 3.1415926535897932384626433832795;
-  // var DEG2RAD = 0.01745329252;
-  // var RAD2DEG = 57.29577951308;
   lata1 = lat1 * DEG2RAD;
   lona1 = lon1 * DEG2RAD;
   bearing2 = bearing * DEG2RAD;
@@ -129,30 +117,6 @@ function deg_to_dm(deg) {
   return signo + d + "º " + m + "'";
 }
 
-// function ucase(str) {
-//   return str ? str.toString().toUpperCase() : "";
-// }
-
-// function lcase(str) {
-//   return str ? str.toString().toLowerCase() : "";
-// }
-
-// function trim(str) {
-//   return str ? str.toString().trim() : "";
-// }
-
-// function mid(str, start, length) {
-//   return str.toString().substr(start - 1, length);
-// }
-
-// function left(str, length) {
-//   return str.toString().substring(0, length);
-// }
-
-// function right(str, length) {
-//   return str.toString().slice(-length);
-// }
-
 function split(str, delimiter, limit = -1, compareType = 0) {
   if (!str) return [];
   let parts = str.split(delimiter);
@@ -166,10 +130,6 @@ function capitalize(str) {
   if (!str) return "";
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
-
-// function isNumeric(value) {
-//   return !isNaN(value) && !isNaN(parseFloat(value));
-// }
 
 function formatNumber(number, decimals) {
   return parseFloat(number).toFixed(decimals);
@@ -232,76 +192,6 @@ function setParamValues() {
   flightsParam = window.getParamSafe("flights");
   refreshParam = window.getParamSafe("Refresh");
 }
-
-// async function getURL(url, responseType = "text") {
-//   try {
-//     const response = await fetch(url);
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-//     const result =
-//       responseType === "text" ? await response.text() : await response.json();
-//     return result;
-//   } catch (error) {
-//     console.error("Error fetching URL:", error);
-//     return "";
-//   }
-// }
-
-// async function getURLXform(url, body = null, headers = {}) {
-//   try {
-//     const response = await fetch(url, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/x-www-form-urlencoded",
-//         ...headers,
-//       },
-//       body: body,
-//     });
-
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-
-//     const text = await response.text();
-//     return text;
-//   } catch (error) {
-//     console.error("Error fetching URL:", error);
-//     return "";
-//   }
-// }
-
-// async function readShareAsset({ assetOutputType, assetUrl }) {
-//   try {
-//     return await window.parent.window.readAssetFile({
-//       assetOutputType,
-//       assetUrl,
-//     });
-//   } catch (error) {
-//     return { statusCode: 400, data: null, error: "Something went wrong." };
-//   }
-// }
-
-// async function getShareResource(file) {
-//   try {
-//     //const assetUrl = `https://balloons.dev.browxy.com/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
-//     const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
-//     let serverResponse;
-//     const response = await readShareAsset({
-//       assetOutputType: "txt",
-//       assetUrl,
-//     });
-//     serverResponse = response.data;
-
-//     // const response = await fetch(assetUrl);
-//     // serverResponse = await response.text();
-
-//     return serverResponse;
-//   } catch (error) {
-//     console.error(error);
-//     return "";
-//   }
-// }
 
 async function getAltura(lat, lon) {
   const url = `https://api.opentopodata.org/v1/srtm30m?locations=${lat},${lon}`;
@@ -478,66 +368,6 @@ async function getTimezoneOffsetFromGeoTimeZone(lat, lon) {
     return 0;
   }
 }
-/*
-function latlonTra(latlon) {
-  // Dividir la cadena por "/"
-  const latlons = latlon.split("/");
-
-  // Verificar que tengamos exactamente 2 elementos (índices 0 y 1)
-  if (latlons.length === 2) {
-    const lat = latlons[0];
-    const lon = latlons[1];
-
-    // Verificar si termina con direcciones cardinales
-    const latLastChar = lat.slice(-1);
-    const lonLastChar = lon.slice(-1);
-
-    if (
-      (latLastChar === "S" || latLastChar === "N") &&
-      (lonLastChar === "W" || lonLastChar === "E")
-    ) {
-      let latdata = "";
-      let londata = "";
-
-      // Determinar el signo según la dirección
-      if (latLastChar === "S") latdata = "-";
-      if (lonLastChar === "W") londata = "-";
-
-      // Procesar latitud: formato DDMMSS
-      // Grados: primeros 2 caracteres
-      // Minutos: caracteres 3-4 (posición 2-3)
-      // Segundos: caracteres 6-7 (posición 5-6) multiplicados por 0.6
-      const latGrados = lat.substring(0, 2);
-      const latMinutos = lat.substring(2, 4);
-      const latSegundosRaw = lat.substring(5, 7);
-      const latSegundos = Math.floor(parseInt(latSegundosRaw) * 0.6);
-      const latSegundosFormatted = latSegundos.toString().padStart(2, "0");
-
-      latdata += `${latGrados}&ordm; ${latMinutos}' ${latSegundosFormatted}"`;
-
-      // Procesar longitud: formato DDDMMSS
-      // Grados: primeros 3 caracteres
-      // Minutos: caracteres 4-5 (posición 3-4)
-      // Segundos: caracteres 7-8 (posición 6-7) multiplicados por 0.6
-      const lonGrados = parseInt(lon.substring(0, 3)); // Convertir a número para quitar ceros
-      const lonMinutos = lon.substring(3, 5);
-      const lonSegundosRaw = lon.substring(6, 8);
-      const lonSegundos = Math.floor(parseInt(lonSegundosRaw) * 0.6);
-      const lonSegundosFormatted = lonSegundos.toString().padStart(2, "0");
-
-      londata += `${lonGrados}&ordm; ${lonMinutos}' ${lonSegundosFormatted}"`;
-
-      // Verificar que ambas cadenas tengan más de 8 caracteres
-      if (latdata.length > 8 && londata.length > 8) {
-        return `Latitud: ${latdata}&nbsp;&nbsp;&nbsp;Longitud: ${londata}`;
-      }
-    }
-  }
-
-  // Si no cumple las condiciones, retornar undefined o cadena vacía
-  return "";
-}
-*/
 
 function latlonTra(latlon) {
   // Dividir la cadena por "/" y limitar a 2 elementos
@@ -873,10 +703,6 @@ function fixCityName(cnme) {
   return result;
 }
 
-// function isDate(date) {
-//   return date instanceof Date && !isNaN(date.getTime());
-// }
-
 async function vorread() {
   try {
     const fileContent = await getShareResource("argvor.txt");
@@ -995,42 +821,6 @@ async function vorread() {
   }
 }
 
-// function buscarTag(tagInicio, tagFin, texto) {
-//   let tagFinalEncontrado = false;
-//   let k = window.Posicion;
-//   let resultado = "";
-
-//   while (!tagFinalEncontrado && k < texto.length) {
-//     if (texto.substring(k, k + tagInicio.length) === tagInicio) {
-//       let j = k + tagInicio.length;
-//       let tagFinalLocalEncontrado = false;
-
-//       while (!tagFinalLocalEncontrado && j < texto.length) {
-//         if (texto.substring(j, j + tagFin.length) === tagFin) {
-//           resultado = texto.substring(k + tagInicio.length, j);
-//           tagFinalLocalEncontrado = true;
-//           tagFinalEncontrado = true;
-//           window.Posicion = j + tagFin.length;
-//         } else {
-//           j++;
-//         }
-//       }
-
-//       if (!tagFinalLocalEncontrado) {
-//         k++;
-//       }
-//     } else {
-//       k++;
-//     }
-//   }
-
-//   if (k >= texto.length) {
-//     window.Posicion = texto.length;
-//   }
-
-//   return resultado;
-// }
-
 function mayusculaPrimeras(cadena) {
   // Verificar si la cadena tiene más de 1 carácter
   if (cadena.length > 1) {
@@ -1066,53 +856,9 @@ function mayusculaPrimeras(cadena) {
   }
 }
 
-// function replace(
-//   text,
-//   searchValue,
-//   replaceValue,
-//   start = 0,
-//   count = -1,
-//   compareMode = 0,
-// ) {
-//   if (text === undefined || text === null || text === "") return "";
-//   if (count === -1) {
-//     // Reemplazar todas las ocurrencias
-//     return text.replace(
-//       new RegExp(escapeRegExp(searchValue), "g"),
-//       replaceValue,
-//     );
-//   } else {
-//     // Reemplazar un número específico de ocurrencias
-//     let result = text;
-//     let replacements = 0;
-//     let index = start;
-
-//     while (replacements < count && index !== -1) {
-//       index = result.indexOf(searchValue, index);
-//       if (index !== -1) {
-//         result =
-//           result.substring(0, index) +
-//           replaceValue +
-//           result.substring(index + searchValue.length);
-//         index += replaceValue.length;
-//         replacements++;
-//       }
-//     }
-//     return result;
-//   }
-// }
-
 function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
-
-// function cDate(dateString) {
-//   try {
-//     return new Date(dateString);
-//   } catch (error) {
-//     return new Date(); // Return current date on error
-//   }
-// }
 
 function cuantosDias(fecha) {
   // Extraer componentes de la fecha en formato YYYYMMDDHHMMSS

@@ -4,37 +4,6 @@ var fromDate = new Date("2021-01-01 00:00:00");
 
 var DATA_SIZE = slowerParam ? 10001 : 3001;
 
-// window.getParamSafe = (key, defaultValue = "", encode = false) => {
-//   const params = new URLSearchParams(window.parent.window.location.search);
-//   const value = params.get(key);
-//   if (value === null || value.trim() === "") return defaultValue;
-//   return encode ? encodeURIComponent(value) : value.trim();
-// };
-
-// function ucase(str) {
-//   return str ? str.toString().toUpperCase() : "";
-// }
-
-// function lcase(str) {
-//   return str ? str.toString().toLowerCase() : "";
-// }
-
-// function left(str, length) {
-//   return str.toString().substring(0, length);
-// }
-
-// function right(str, length) {
-//   return str.toString().slice(-length);
-// }
-
-// function mid(str, start, length) {
-//   return str.toString().substr(start - 1, length);
-// }
-
-// function trim(str) {
-//   return str ? str.toString().trim() : "";
-// }
-
 // Función para convertir ubicación a coordenadas XY
 function loc2xy(loc) {
   loc = loc.toUpperCase();
@@ -151,42 +120,6 @@ function horasactivo(toDate, fromDate) {
   return "";
 }
 
-// function buscarTag(tagInicio, tagFin, texto, posicion = 0) {
-//   let tagFinalEncontrado = false;
-//   let k = posicion;
-//   let resultado = "";
-
-//   while (!tagFinalEncontrado && k < texto.length) {
-//     if (texto.substring(k, k + tagInicio.length) === tagInicio) {
-//       let j = k + tagInicio.length;
-//       let tagFinalLocalEncontrado = false;
-
-//       while (!tagFinalLocalEncontrado && j < texto.length) {
-//         if (texto.substring(j, j + tagFin.length) === tagFin) {
-//           resultado = texto.substring(k + tagInicio.length, j);
-//           tagFinalLocalEncontrado = true;
-//           tagFinalEncontrado = true;
-//           posicion = j + tagFin.length;
-//         } else {
-//           j++;
-//         }
-//       }
-
-//       if (!tagFinalLocalEncontrado) {
-//         k++;
-//       }
-//     } else {
-//       k++;
-//     }
-//   }
-
-//   if (k >= texto.length) {
-//     posicion = texto.length;
-//   }
-
-//   return resultado;
-// }
-
 function fechayDia(fecha) {
   const meses = [
     "",
@@ -279,18 +212,6 @@ function validateCallsign(call) {
 function padLeft(str, length, padChar = "0") {
   return String(str).padStart(length, padChar);
 }
-
-// function right(str, length) {
-//   return String(str).slice(-length);
-// }
-
-// function left(str, length) {
-//   return str.substring(0, length);
-// }
-
-// function mid(str, start, length) {
-//   return str.toString().substr(start - 1, length);
-// }
 
 function replaceAll(cadena, buscar, reemplazar) {
   if (!cadena) return "";
@@ -598,20 +519,6 @@ async function fetchReporters(params) {
   }
 }
 
-// async function getURL(url) {
-//   try {
-//     const response = await fetch(url);
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-//     const text = await response.text();
-//     return text;
-//   } catch (error) {
-//     console.error("Error fetching URL:", error);
-//     return "";
-//   }
-// }
-
 async function processReporters(
   { band, callsign, callsign1, limit, omit },
   tryAgain = false,
@@ -687,34 +594,6 @@ async function obtenerBeaconCsvDatos() {
 
   return lineas;
 }
-
-// async function readShareAsset({ assetOutputType, assetUrl }) {
-//   try {
-//     return await window.parent.window.readAssetFile({
-//       assetOutputType,
-//       assetUrl,
-//     });
-//   } catch (error) {
-//     return { statusCode: 400, data: null, error: "Something went wrong." };
-//   }
-// }
-
-// async function getShareResource(file) {
-//   try {
-//     const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
-//     let serverResponse;
-//     const response = await readShareAsset({
-//       assetOutputType: "txt",
-//       assetUrl,
-//     });
-//     serverResponse = response.data;
-
-//     return serverResponse;
-//   } catch (error) {
-//     console.error(error);
-//     return "";
-//   }
-// }
 
 function generarComboHTML({ esta, estaselect, datos, ocall, tcall, rf, last }) {
   // Inicializar combo con div principal

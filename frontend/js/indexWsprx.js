@@ -1,7 +1,3 @@
-// ?other=ab9lm&banda=20m&balloonid=17&timeslot=2&detail=&launch=20240206000000&SSID=11&tracker=qrplabs&qrpid=346&repito=on&qp=&telen=&comments=
-
-//window.queryParameters = Object.fromEntries([...new URLSearchParams(window.location.search)].map(([k, v]) => [k, encodeURIComponent(v)]));
-
 var saveglobo;
 var saveestaciones;
 var velest;
@@ -856,27 +852,7 @@ var monthNames = [
   "Nov",
   "Dec",
 ];
-/*
-if (window.addEventListener) {
-  if (document.getElementById("legend")) {
-    window.addEventListener("beforeunload", function (event) {
-      document.getElementById("legend").innerHTML =
-        "<span style='color:yellow;font-size:16px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...UPDATING...  PLEASE WAIT...</span>";
-      document.getElementById("wdown").style.visibility = "visible";
-      saveMapState();
-    });
-  }
-} else {
-  if (document.getElementById("legend")) {
-    window.onbeforeunload = function () {
-      document.getElementById("legend").innerHTML =
-        "<span style='color:yellow;font-size:16px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...UPDATING...  PLEASE WAIT...</span>";
-      document.getElementById("wdown").style.visibility = "visible";
-      saveMapState();
-    };
-  }
-}
-*/
+
 var popupwin;
 function mostrar(licencia, loc) {
   licencia = licencia.replace(/-/, "").replace(/:/, "");
@@ -1289,22 +1265,7 @@ function deg_to_dm(deg) {
   }
   return signo + d + "º " + m + "'";
 }
-/*
-function gradosminutos(deg)
-{
-    if (deg < 0) { deg = -deg; var signo = "-" } else { var signo = ""; }
-    var d = Math.floor(deg);
-    var minfloat = (deg - d) * 60;
-    var m = minfloat;
-    //   var secfloat = (minfloat-m)*60;
-    //   var s = Math.round(secfloat);
-    // After rounding, the seconds might become 60. These two
-    // if-tests are not necessary if no rounding is done.
-    //   if (s==60) {m++;s=0;}
-    if (m == 60) { d++; m = 0; }
-    return (d*100+m)
-}
-*/
+
 function gradosminutos(deg) {
   if (deg < 0) {
     deg = -deg;
@@ -1314,12 +1275,12 @@ function gradosminutos(deg) {
   var resto1 = deg - d - Math.floor(resto / 60);
   return d * 100 + Math.floor(resto) + resto1;
 }
-//alert(gradosminutos(1.503244))
+
 var aprs4;
 latsave = " ";
 lonsave = " ";
 Alturasave = " ";
-//
+
 function sleep(milliseconds) {
   var start = new Date().getTime();
   for (var i = 0; i < 1e7; i++) {
@@ -1524,8 +1485,8 @@ function aprsend() {
   }
   aprs4 = aprs4.replace(/#/g, "");
   //    alert(aprs4)
-  var xhr = new XMLHttpRequest();
-  var urlpost = "http://amsat.org.ar/elnet.php?datos=" + aprs4;
+  //    var xhr = new XMLHttpRequest();
+  //    var urlpost = "http://amsat.org.ar/elnet.php?datos=" + aprs4;
   //    xhr.open("POST", urlpost, true);
   //    xhr.send(params);
   estacion = gqs("other").toUpperCase();
@@ -1541,9 +1502,7 @@ function aprsend() {
     if (modulo === 2) fd = +40;
     if (modulo === 3) fd = +80;
   }
-  // for g = 0 to ubound(tbanda)
-  //     if ucase(Request("banda")) = ucase(tbanda(g, 1)) then frecu = tbanda(g, 2)
-  // next
+
   let frecu = 0;
 
   if (getParamSafe("banda").length > 0) {
@@ -4445,7 +4404,6 @@ function ponermapa(locator, licencia) {
 }
 
 function handleMapMessage(event) {
-  //console.log("[ RECIBE POST-MESSAGE ]", event);
   const { callbackName, props } = event.data;
   window[callbackName](props);
 }

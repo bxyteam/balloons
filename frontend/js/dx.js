@@ -377,22 +377,6 @@ async function initApp() {
   if (callRaw.length >= 2 && callRaw.charAt(1) === "_") {
     callsign1 = "";
   }
-  // posicion = 1;
-  // const processReports2 = await processReporters(
-  //   {
-  //     band,
-  //     callsign,
-  //     callsign1,
-  //     limit,
-  //     omit,
-  //   },
-  //   true,
-  // );
-
-  // if (processReports2.error) {
-  //   window.parent.window.location.href = processReports2.redirect;
-  //   return;
-  // }
 
   let j = 1;
   window.n = 0;
@@ -437,8 +421,6 @@ async function initApp() {
   window.home = "";
   window.lichome = "";
   window.pwr = "";
-  //window.iib = 0;
-  //window.iis = 0;
   window.pwro = "";
   datosmod = "";
   for (let i = 2; i < tablam.length; i++) {

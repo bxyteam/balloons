@@ -1,10 +1,3 @@
-// window.getParamSafe = (key, defaultValue = "", encode = false) => {
-//   const params = new URLSearchParams(window.parent.window.location.search);
-//   const value = params.get(key);
-//   if (value === null || value.trim() === "") return defaultValue;
-//   return encode ? encodeURIComponent(value) : value.trim();
-// };
-
 var slowerParam = getParamSafe("slower") === "true";
 var DATA_SIZE_TELE_1 = slowerParam ? 20001 : 3001;
 var DATA_SIZE_TELE_2 = slowerParam ? 20001 : 5001;

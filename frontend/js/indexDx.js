@@ -1,4 +1,3 @@
-//"http://lu7aa.org/hc2.asp?licencia=" + licencia + "&loc=" + "<%=locati%>",//Preload Images
 Image0 = new Image(310, 28);
 Image0.src = imageSrcUrl["loading"];
 Image1 = new Image(60, 60);
@@ -260,19 +259,6 @@ function goto10() {
     .replace(/#/g, "")}&slower=true`;
 }
 
-// ultimoreport = et[et.length - 1][0] + "z to ";
-// if (et[et.length - 1][0].substring(0, 6) == et[0][0].substring(0, 6)) {
-//   ultimoreport = ultimoreport + et[0][0].slice(-5) + "z";
-// } else {
-//   ultimoreport = ultimoreport + et[0][0] + "z";
-// }
-// max = 0;
-// for (i = 0; i < et.length; i++) {
-//   if (et[i][7] * 1 > max) {
-//     max = et[i][7] * 1;
-//   }
-// }
-// avg = max * 0.666;
 function help() {
   alert(
     "This function takes data from wsprnet.org\nand shows for a specified callsign graphics\nwith amount of reports that received this\ncallsign for the specified period and band.\nAllowing see condx for every hour & band\n from the place where emiting Callsign is.\n\nTry select any of the Intl. WSPR Beacons\n from your area to see local conditions.",
@@ -612,25 +598,7 @@ function gqs(e) {
   }
   return c;
 }
-// function gqs(nombre) {
-//   //Retrieve Document location and tear off the QueryString values for processing.
-//   //var url = document.location + "";
-//   const location = window.parent.window.location;
-//   q = location.split("?");
-//   if (q[1]) {
-//     //Get all Name/Value pairs from the QueryString
-//     var pairs = q[1].split("&");
-//     for (i = 0; i < pairs.length; i++) {
-//       //Get the Name from given Name/Value pair
-//       var keyval = pairs[i].split("=");
-//       if (keyval[0] == nombre) {
-//         //Get the Value from given Name/Value pair and set to the return ID
-//         var valor = keyval[1];
-//       }
-//     }
-//   }
-//   return valor;
-// }
+
 var s;
 function setSelectedIndex(s, v) {
   for (var i = 0; i < s.options.length; i++) {

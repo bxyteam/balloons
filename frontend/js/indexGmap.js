@@ -13,7 +13,6 @@ var meterfeet = 0;
 var prevaltutext;
 window.comentfull = "";
 window.comentariosballoon = "";
-window.PARENT_URL = "https://balloons.dev.browxy.com";
 
 window.getParamSafe = (key, defaultValue = "", encode = false) => {
   const params = new URLSearchParams(window.searchParams);

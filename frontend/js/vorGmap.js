@@ -1,4 +1,3 @@
-var PARENT_URL = "https://balloons.dev.browxy.com";
 var map;
 var ARRcookies = "";
 var refreshParam = "";

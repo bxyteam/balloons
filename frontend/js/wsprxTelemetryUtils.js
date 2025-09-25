@@ -1,23 +1,3 @@
-// function ucase(str) {
-//   return str ? str.toString().toUpperCase() : "";
-// }
-
-// function left(str, length) {
-//   return str.toString().substring(0, length);
-// }
-
-// function right(str, length) {
-//   return str.toString().slice(-length);
-// }
-
-// function mid(str, start, length) {
-//   return str.toString().substr(start - 1, length);
-// }
-
-// function trim(str) {
-//   return str ? str.toString().trim() : "";
-// }
-
 function split(str, delimiter, limit = -1, compareType = 0) {
   if (!str) return [];
   let parts = str.split(delimiter);
@@ -27,20 +7,6 @@ function split(str, delimiter, limit = -1, compareType = 0) {
   return parts;
 }
 
-// function ubound(arr) {
-//   return arr ? arr.length - 1 : -1;
-// }
-
-// function isNumeric(value) {
-//   return !isNaN(parseFloat(value)) && isFinite(value);
-// }
-
-// Helper function to get character code (ASP chr equivalent)
-// function chr(code) {
-//   return String.fromCharCode(code);
-// }
-
-// Mock functions for xsnr and or1 - you'll need to implement these based on your logic
 function xsnrFun(dbm) {
   try {
     return window.xsnr[dbm] || 0;
@@ -58,39 +24,6 @@ function or1Fun(dbm) {
     return 0;
   }
 }
-
-// function lcase(str) {
-//   return str ? str.toString().toLowerCase() : "";
-// }
-
-// function replace(
-//   str,
-//   find,
-//   replaceWith,
-//   start = 1,
-//   count = -1,
-//   compareType = 0,
-// ) {
-//   if (!str) return "";
-//   let result = str.toString();
-//   if (count === -1) {
-//     // Replace all occurrences
-//     result = result.split(find).join(replaceWith);
-//   } else {
-//     // Replace limited occurrences
-//     let replaceCount = 0;
-//     let index = result.indexOf(find);
-//     while (index !== -1 && replaceCount < count) {
-//       result =
-//         result.substring(0, index) +
-//         replaceWith +
-//         result.substring(index + find.length);
-//       replaceCount++;
-//       index = result.indexOf(find, index + replaceWith.length);
-//     }
-//   }
-//   return result;
-// }
 
 // Date manipulation functions
 function dateAdd(interval, number, date) {
@@ -189,22 +122,6 @@ function dateDiffMinutes(date1, date2) {
   const d2 = new Date(date2);
   return Math.floor((d2 - d1) / (1000 * 60)); // Convert milliseconds to minutes
 }
-
-// Helper function to convert date string to Date object (equivalent to cDate)
-// function cDate(dateString) {
-//   try {
-//     return new Date(dateString);
-//   } catch (error) {
-//     return new Date(); // Return current date on error
-//   }
-// }
-
-// function isDate(str) {
-//   if (typeof str !== "string") return false;
-//   const shortStr = str.slice(0, 16);
-//   const date = new Date(shortStr);
-//   return !isNaN(date.getTime());
-// }
 
 function putsun(fecha, locator) {
   const radian = 57.29577951308;
@@ -524,14 +441,6 @@ async function processWSPRQuery() {
     pag: pag.trim(),
     getURLreporters1: balloonid !== "" ? getURLreporters1 : "",
     cuenta,
-    //getURLreporters: getURLreporters,
-    //filive: filive,
-    //filive2: filive2,
-    //filast: filast,
-    //callsignm: callsignm,
-    //frecsearch: frecsearch,
-    //bandasearch: bandasearch,
-    //output: output,
   };
 }
 

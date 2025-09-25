@@ -1,70 +1,3 @@
-//window.Posicion = 1;
-// window.getParamSafe = (key, defaultValue = "", encode = false) => {
-//   const params = new URLSearchParams(window.parent.window.location.search);
-//   const value = params.get(key);
-//   if (value === null || value.trim() === "") return defaultValue;
-//   return encode ? encodeURIComponent(value) : value.trim();
-// };
-
-// function ucase(str) {
-//   return str ? str.toString().toUpperCase() : "";
-// }
-
-// function trim(str) {
-//   return str ? str.toString().trim() : "";
-// }
-
-// function mid(str, start, length) {
-//   return str.toString().substr(start - 1, length);
-// }
-
-// function left(str, length) {
-//   return str.toString().substring(0, length);
-// }
-
-// function right(str, length) {
-//   return str.toString().slice(-length);
-// }
-
-// function capitalizeWords(str) {
-//   return str.replace(/\b\w/g, (char) => char.toUpperCase());
-// }
-// function capitalizeFirstLetter(str) {
-//   if (!str) return str;
-//   return str.charAt(0).toUpperCase() + str.slice(1);
-// }
-
-// function replace(
-//   str,
-//   find,
-//   replaceWith,
-//   start = 1,
-//   count = -1,
-//   compareType = 0,
-// ) {
-//   if (!str) return "";
-//   let result = str.toString();
-//   if (count === -1) {
-//     // Replace all occurrences
-//     result = result.split(find).join(replaceWith);
-//   } else {
-//     // Replace limited occurrences
-//     let replaceCount = 0;
-//     let index = result.indexOf(find);
-//     while (index !== -1 && replaceCount < count) {
-//       result =
-//         result.substring(0, index) +
-//         replaceWith +
-//         result.substring(index + find.length);
-//       replaceCount++;
-//       index = result.indexOf(find, index + replaceWith.length);
-//     }
-//   }
-//   return result;
-// }
-
-//const isNumeric = (n) => !isNaN(parseFloat(n)) && isFinite(n);
-
 const dateToNewDateString = (date) =>
   `new Date(${date.getFullYear()},${date.getMonth()},${date.getDate()},${date.getHours()},${date.getMinutes()},${date.getSeconds()})`;
 
@@ -79,18 +12,6 @@ function vorlocArrayToString(array) {
     )
     .join(",")}]`;
 }
-
-// function cDate(dateString) {
-//   try {
-//     return new Date(dateString);
-//   } catch (error) {
-//     return new Date(); // Return current date on error
-//   }
-// }
-
-// function isDate(date) {
-//   return date instanceof Date && !isNaN(date.getTime());
-// }
 
 function dateFormatter(fechaHoraStr, full = false) {
   // Validar que la cadena tenga 14 dígitos
@@ -223,109 +144,6 @@ function markbutton() {
   }
 }
 
-// async function getURL(url, responseType = "text") {
-//   try {
-//     const response = await fetch(url);
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-//     const result =
-//       responseType === "text" ? await response.text() : await response.json();
-//     return result;
-//   } catch (error) {
-//     console.error("Error fetching URL:", error);
-//     return "";
-//   }
-// }
-
-// async function getURLXform(url, body = null, headers = {}) {
-//   try {
-//     const response = await fetch(url, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/x-www-form-urlencoded",
-//         ...headers,
-//       },
-//       body: body,
-//     });
-
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-
-//     const text = await response.text();
-//     return text;
-//   } catch (error) {
-//     console.error("Error fetching URL:", error);
-//     return "";
-//   }
-// }
-
-// async function readShareAsset({ assetOutputType, assetUrl }) {
-//   try {
-//     return await window.parent.window.readAssetFile({
-//       assetOutputType,
-//       assetUrl,
-//     });
-//   } catch (error) {
-//     return { statusCode: 400, data: null, error: "Something went wrong." };
-//   }
-// }
-
-// async function getShareResource(file) {
-//   try {
-//     const assetUrl = `/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
-//     // const assetUrl = `https://balloons.dev.browxy.com/api/v1/getAsset?file=${encodeURIComponent(`share/assets/${file}`)}`;
-//     let serverResponse;
-//     const response = await readShareAsset({
-//       assetOutputType: "txt",
-//       assetUrl,
-//     });
-//     serverResponse = response.data;
-
-//     return serverResponse;
-//   } catch (error) {
-//     console.error(error);
-//     return "";
-//   }
-// }
-
-// function buscarTag(tagInicio, tagFin, texto) {
-//   let tagFinalEncontrado = false;
-//   let k = window.Posicion;
-//   let resultado = "";
-
-//   while (!tagFinalEncontrado && k < texto.length) {
-//     if (texto.substring(k, k + tagInicio.length) === tagInicio) {
-//       let j = k + tagInicio.length;
-//       let tagFinalLocalEncontrado = false;
-
-//       while (!tagFinalLocalEncontrado && j < texto.length) {
-//         if (texto.substring(j, j + tagFin.length) === tagFin) {
-//           resultado = texto.substring(k + tagInicio.length, j);
-//           tagFinalLocalEncontrado = true;
-//           tagFinalEncontrado = true;
-//           window.Posicion = j + tagFin.length;
-//         } else {
-//           j++;
-//         }
-//       }
-
-//       if (!tagFinalLocalEncontrado) {
-//         k++;
-//       }
-//     } else {
-//       k++;
-//     }
-//   }
-
-//   if (k >= texto.length) {
-//     window.Posicion = texto.length;
-//   }
-
-//   return resultado;
-// }
-
 function mayusculaPrimeras(cadena) {
   // Verificar si la cadena tiene más de 1 carácter
   if (cadena.length > 1) {
@@ -360,21 +178,6 @@ function mayusculaPrimeras(cadena) {
     return cadena;
   }
 }
-
-// async function getAltura(lat, lon) {
-//   const url = `http://veloroutes.org/elevation/?location=${lat},${lon}&units=f`;
-//   console.log(url);
-//   body = new URLSearchParams({ url }).toString();
-//   const pag = await getURLXform(
-//     "https://balloons.dev.browxy.com/api/v1/webFetcher",
-//     body,
-//   );
-//   window.Posicion = 1;
-//   console.log("Pagina", pag);
-//   return pag === ""
-//     ? 0
-//     : buscarTag('is <span style="font-size:20px">', "</span>", pag);
-// }
 
 async function getAltura(lat, lon) {
   const url = `https://api.opentopodata.org/v1/srtm30m?locations=${lat},${lon}`;
@@ -649,35 +452,6 @@ function degrees(valor) {
 function radians(valor) {
   return (valor * Math.PI) / 180;
 }
-/*
-// Función para calcular distancia entre dos puntos geográficos (Haversine)
-function distancia(lat1, lon1, lat2, lon2) {
-  //console.log("Calculando distancia entre", lat1, lon1, "y", lat2, lon2);
-  // Convertir grados a radianes si es necesario
-  const lat1Rad =
-    typeof lat1 === "number" ? radians(lat1) : radians(Number(lat1));
-  const lon1Rad =
-    typeof lon1 === "number" ? radians(lon1) : radians(Number(lon1));
-  const lat2Rad =
-    typeof lat2 === "number" ? radians(lat2) : radians(Number(lat2));
-  const lon2Rad =
-    typeof lon2 === "number" ? radians(lon2) : radians(Number(lon2));
-
-  // Fórmula de distancia geodésica
-  let dist =
-    Math.acos(
-      Math.sin(lat1Rad) * Math.sin(lat2Rad) +
-        Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.cos(lon2Rad - lon1Rad),
-    ) * 6371; // Radio de la Tierra en km
-
-  // Asegurar que la distancia sea positiva
-  if (dist < 0) {
-    dist = dist * -1;
-  }
-
-  return dist;
-}
-*/
 
 function distancia(lat1, lon1, lat2, lon2) {
   // Convertir grados a radianes

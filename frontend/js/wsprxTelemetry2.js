@@ -730,7 +730,8 @@ async function processTelemetry2({
   }
 
   let altutext = "";
-  if (puntopointer > -1 && isDate(left(punto[0][0], 16))) {
+  let puntoDate = new Date(left(punto[0][0], 16));
+  if (puntopointer > -1 && isDate(puntoDate)) {
     const TZDiff = new Date().getTimezoneOffset();
     let hlocal = cDate(left(punto[0][0], 16)) - TZDiff;
     let horalocal =
@@ -738,7 +739,7 @@ async function processTelemetry2({
       String(new Date(hlocal).getHours()).padStart(2, "0") +
       ":" +
       String(new Date(hlocal).getMinutes()).padStart(2, "0");
-    let puntoDate = new Date(punto[0][0]);
+
     hora = `${mes[puntoDate.getMonth() + 1]}-${puntoDate.getDate()} ${puntoDate.getHours()}:${puntoDate.getMinutes()}`;
     if (punto[0][3] == "130") {
       punto[0][3] = "11120";
