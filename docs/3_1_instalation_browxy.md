@@ -95,8 +95,8 @@ sudo docker push "${DOCKER_REGISTRY}"/browxy_balloon:1.0
 ### Create directory and files
 
 ```bash
-mkdir -p /home/compiler/satellites
-cd /home/compiler/satellites
+mkdir -p /home/compiler/balloons
+cd /home/compiler/balloons
 
 touch docker-compose.yml
 touch env.prod
