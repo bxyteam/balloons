@@ -1865,6 +1865,7 @@ async function initApp() {
 
 async function onloadApp() {
   try {
+    resizeAndScale();
     await initApp();
   } catch (error) {
     console.error("Error initializing app:", error);
@@ -1876,3 +1877,5 @@ async function onloadApp() {
 }
 
 window.addEventListener("load", onloadApp);
+
+window.addEventListener("resize", resizeAndScale);

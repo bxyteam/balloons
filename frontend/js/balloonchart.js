@@ -1231,6 +1231,7 @@ async function startApp() {
 
 async function onloadApp() {
   try {
+    resizeAndScale();
     await startApp();
   } catch (error) {
     console.error(error);
@@ -1239,4 +1240,7 @@ async function onloadApp() {
     document.getElementById("loader").style.display = "none";
   }
 }
+
 window.addEventListener("load", onloadApp);
+
+window.addEventListener("resize", resizeAndScale);

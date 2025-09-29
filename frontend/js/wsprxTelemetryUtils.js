@@ -228,7 +228,7 @@ async function processWSPRQuery() {
   timeLimit = "604800";
 
   if (getParamSafe("detail") !== "") {
-    cuenta = CUENTA_SIZE_2_TELE_1;
+    cuenta = CUENTA_SIZE_TELE_1;
   }
 
   if (bandasearch !== "All") {

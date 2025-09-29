@@ -1,4 +1,5 @@
 async function initApp() {
+  resizeAndScale();
   window.et = [];
   window.n = 0;
   window.smax = 0;
@@ -930,3 +931,4 @@ function fireSubmitFormEvent() {
 }
 
 window.addEventListener("load", initApp);
+window.addEventListener("resize", resizeAndScale);

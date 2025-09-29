@@ -1,5 +1,9 @@
 window.HOST_URL = `${new URL(window.parent.window.location.href).origin}`;
 window.Posicion = 1;
+window.TARGET_WIDTH = 750;
+window.isMobileOrTablet =
+  /Mobi|Android|Tablet|iPad|iPhone/i.test(navigator.userAgent) ||
+  screen.availWidth < TARGET_WIDTH;
 
 window.getParamSafe = (key, defaultValue = "", encode = false) => {
   const params = new URLSearchParams(window.parent.window.location.search);
@@ -7,6 +11,34 @@ window.getParamSafe = (key, defaultValue = "", encode = false) => {
   if (value === null || value.trim() === "") return defaultValue;
   return encode ? encodeURIComponent(value) : value.trim();
 };
+
+function getScaleFactor() {
+  const currentWidth = window.innerWidth;
+  return currentWidth / TARGET_WIDTH;
+}
+
+function applyScale(scale) {
+  if (navigator.userAgent.includes("Firefox")) {
+    document.body.style.MozTransform = `scale(${scale})`;
+    document.body.style.MozTransformOrigin = "0 0";
+  } else {
+    document.body.style.zoom = scale;
+  }
+}
+
+function resizeAndScale() {
+  if (isMobileOrTablet) {
+    const scale = getScaleFactor();
+    applyScale(scale);
+  } else {
+    if (navigator.userAgent.includes("Firefox")) {
+      document.body.style.MozTransform = "";
+      document.body.style.MozTransformOrigin = "";
+    } else {
+      document.body.style.zoom = "";
+    }
+  }
+}
 
 function ucase(str) {
   return str ? str.toString().toUpperCase() : "";

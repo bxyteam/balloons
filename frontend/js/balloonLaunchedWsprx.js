@@ -1,4 +1,5 @@
 window.addEventListener("load", async () => {
+  resizeAndScale();
   window.dataTracker = await loadDataTrackerjson();
   const jsonArray = JSON.parse(dataTracker.jsonArray);
   window.bj = jsonArray.filter((item) => item[item.length - 1] !== "true");
@@ -205,3 +206,5 @@ window.addEventListener("load", async () => {
     }
   })();
 });
+
+window.addEventListener("resize", resizeAndScale);

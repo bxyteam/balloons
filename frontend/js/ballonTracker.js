@@ -356,6 +356,7 @@ class BalloonDataTable {
 }
 
 const loadBalloonApp = async () => {
+  resizeAndScale();
   window.dataTracker = await loadDataTrackerjson();
   const more = getParamSafe("more") === "1";
   const jsonArray = JSON.parse(dataTracker.jsonArray);
@@ -411,5 +412,7 @@ const handleMessage = (event) => {
 };
 
 window.addEventListener("load", loadBalloonApp);
+
+window.addEventListener("resize", resizeAndScale);
 
 window.addEventListener("message", handleMessage);
