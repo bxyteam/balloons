@@ -150,6 +150,15 @@ window.addEventListener("load", async () => {
   window.proxElementValue = Prox;
 
   (async () => {
+    const url = new URL(window.parent.window.location.href);
+    if (![...url.searchParams].length) {
+      document
+        .getElementById("telemetryTableContainer")
+        .insertAdjacentHTML("beforeend", "</table>");
+      document.getElementById("telemetryTableLoader").classList.add("hidden");
+      document.getElementById("gMapLoader").style.display = "none";
+      return;
+    }
     const wsprProcessQueryResult = await processWSPRQuery();
 
     if (wsprProcessQueryResult.error) {

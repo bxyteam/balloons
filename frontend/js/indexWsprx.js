@@ -1831,8 +1831,9 @@ function drawKm() {
   if (lastseenhours > 24) {
     lastseen = ", " + Math.floor(lastseenhours / 24) + " days ago. ";
   }
+  console.log("ofset-l", document.getElementById("map_canvas").offsetLeft);
   document.getElementById("chart_div").style.left =
-    document.getElementById("map_canvas").offsetLeft + 74;
+    document.getElementById("map_canvas").offsetLeft;
   //document.getElementById("chart_div").style.top =
   // `${document.getElementById("map_canvas").getBoundingClientRect().top}px`;
   var options = {
@@ -1941,11 +1942,13 @@ function drawChart(meterfeet) {
     pattern: "MMM-dd HH:mm",
   });
   formatter.format(data4, 0);
-  let mapCanvas = document.getElementById("map_canvas").getBoundingClientRect();
-  document.getElementById("chart_div").style.left = `${mapCanvas.left}px`;
-  //document.getElementById("chart_div").style.top = `${mapCanvas.top}px`;
-  document.getElementById("chart_div").style.height = `${mapCanvas.height}px`;
-  document.getElementById("chart_div").style.width = `${mapCanvas.width}px`;
+
+  document.getElementById("chart_div").style.height = `${
+    document.getElementById("gmap_chart_container").clientHeight
+  }px`;
+  document.getElementById("chart_div").style.width = `${
+    document.getElementById("gmap_chart_container").clientWidth
+  }px`;
 
   if (meterfeet == 0) {
     var options = {
